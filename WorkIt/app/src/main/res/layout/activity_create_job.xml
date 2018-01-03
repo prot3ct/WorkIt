@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="prot3ct.workit.views.register.RegisterActivity">
+    tools:context="prot3ct.workit.views.create_job.CreateJobActivity">
 
     <FrameLayout
         android:id="@+id/fragment_container"

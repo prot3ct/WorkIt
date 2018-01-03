@@ -25,6 +25,10 @@
         <activity
             android:name=".views.register.RegisterActivity"
             android:label="@string/title_activity_register"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".views.create_job.CreateJobActivity"
+            android:label="@string/title_activity_create_job"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

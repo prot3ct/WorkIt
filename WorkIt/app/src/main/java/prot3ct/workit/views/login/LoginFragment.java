@@ -10,8 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import java.sql.BatchUpdateException;
-
 import prot3ct.workit.R;
 import prot3ct.workit.views.list_jobs.ListJobsActivity;
 import prot3ct.workit.views.login.base.LoginContract;

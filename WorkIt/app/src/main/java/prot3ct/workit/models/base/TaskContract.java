@@ -1,4 +1,5 @@
 package prot3ct.workit.models.base;
 
-public interface JobContract {
+public interface TaskContract {
+
 }
