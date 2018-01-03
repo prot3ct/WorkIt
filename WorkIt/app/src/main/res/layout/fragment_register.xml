@@ -1,8 +1,8 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="prot3ct.workit.views.login.LoginFragment">
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,15 +24,19 @@
             android:id="@+id/id_password_edit_text"
             android:layout_width="350px"
             android:layout_height="wrap_content" />
-        <Button
-            android:id="@+id/id_login_button"
-            android:layout_height="wrap_content"
+        <TextView
             android:layout_width="wrap_content"
-            android:text="Login" />
+            android:layout_height="wrap_content"
+            android:text="Email" />
+        <EditText
+            android:id="@+id/id_email_edit_text"
+            android:layout_width="350px"
+            android:layout_height="wrap_content" />
         <Button
             android:id="@+id/id_register_button"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:text="Register" />
     </LinearLayout>
-</FrameLayout>
+
+</android.support.constraint.ConstraintLayout>
