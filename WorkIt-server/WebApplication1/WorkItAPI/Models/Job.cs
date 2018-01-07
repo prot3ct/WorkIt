@@ -9,9 +9,18 @@ namespace WorkItAPI.Models
     public class Job
     {
         [Key]
-        public int JobID { get; set; }
+        public int JobId { get; set; }
         public string Title { get; set; }
+        public DateTime StarDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public string Description { get; set; }
+        public string Reward { get; set; }
+        public int minRaiting { get; set; }
+        public int minJobsCompleted { get; set; }
+        public bool isComplted { get; set; }
+        
 
+        public int CreatorId { get; set; }
         public User Creator { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 package prot3ct.workit.data.local.base;
 
 public interface UserSessionContract {
-    String getUsername();
+    String getEmail();
 
-    void setUsername(String username);
+    void setEmail(String username);
 }

@@ -1,7 +1,9 @@
 package prot3ct.workit.config.base;
 
 public interface ApiConstantsContract {
-    String signInUrl();
+    String loginUrl();
 
-    String signUpUrl();
+    String registerUrl();
+
+    int responseErrorCode();
 }

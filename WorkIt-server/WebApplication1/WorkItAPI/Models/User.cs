@@ -8,10 +8,14 @@ namespace WorkItAPI.Models
 {
     public class User
     {
-        public User() { }
-
         [Key]
-        public int UserID { get; set; }
-        public string Name { get; set; }
+        public int UserId { get; set; }
+        public string Email { get; set; }
+        public string PassHash { get; set; }
+        public string Firstname { get; set; }
+        public string Lastname { get; set; }
+        public double RaitingAsEmployee { get; set; }
+        public double RaitingAsCreator { get; set; }
+        public int JobsCompleted { get; set; }
     }
 }

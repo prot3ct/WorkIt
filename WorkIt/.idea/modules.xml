@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/WorkIt.iml" filepath="$PROJECT_DIR$/WorkIt.iml" />
-      <module fileurl="file://C:\Users\prot3\OneDrive\Desktop\diplomna\WorkIt\WorkIt\WorkIt.iml" filepath="C:\Users\prot3\OneDrive\Desktop\diplomna\WorkIt\WorkIt\WorkIt.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\prot3\OneDrive\Desktop\diplomna\WorkIt\WorkIt\app\app.iml" filepath="C:\Users\prot3\OneDrive\Desktop\diplomna\WorkIt\WorkIt\app\app.iml" />
     </modules>
   </component>
 </project>

@@ -15,10 +15,28 @@ namespace WorkItAPI.Controllers
 
         [Route("jobs")]
         [HttpGet]
-        public IHttpActionResult Get()
+        public IHttpActionResult GetAllJobs()
         {
             try
             {
+                var result = db.Jobs.ToList();
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
+        }
+
+        [Route("jobs/create")]
+        [HttpPost]
+        public IHttpActionResult CreateJob()
+        {
+            try
+            {
+                //var content = Request.Content.ReadAsStringAsync();
+                //string body = content.Result;
+               
                 var result = db.Jobs.ToList();
                 return Ok(result);
             }

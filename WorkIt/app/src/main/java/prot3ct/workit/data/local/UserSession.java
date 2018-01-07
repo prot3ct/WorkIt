@@ -14,12 +14,12 @@ public class UserSession implements UserSessionContract{
     }
 
     @Override
-    public String getUsername() {
+    public String getEmail() {
         return sharedPreferences.getString("username", null);
     }
 
     @Override
-    public void setUsername(String username) {
+    public void setEmail(String username) {
         sharedPreferences.edit().putString("username", username).apply();
     }
 }
