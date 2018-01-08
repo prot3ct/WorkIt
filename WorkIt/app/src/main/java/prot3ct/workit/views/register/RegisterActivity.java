@@ -26,7 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
                     .commit();
         }
 
-        this.presenter = new RegisterPresenter(registerFragment);
+        this.presenter = new RegisterPresenter(registerFragment, this);
         registerFragment.setPresenter(this.presenter);
     }
 }

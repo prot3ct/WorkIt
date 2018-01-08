@@ -36,9 +36,9 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_list_jobs, container, false);
-        this.loginButton = view.findViewById(R.id.id_login_button);
-        this.registerButton = view.findViewById(R.id.id_register_button);
+        View view = inflater.inflate(R.layout.fragment_login, container, false);
+        this.loginButton = (Button) view.findViewById(R.id.id_login_button);
+        this.registerButton = (Button) view.findViewById(R.id.id_register_button);
 
         this.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override

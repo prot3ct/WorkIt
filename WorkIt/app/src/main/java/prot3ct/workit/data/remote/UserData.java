@@ -61,10 +61,9 @@ public class UserData implements UserDataContract {
     }
 
     @Override
-    public Observable<UserContract> register(String username, String email, String firstname, String lastname, String password) {
+    public Observable<UserContract> register(String email, String firstname, String lastname, String password) {
         Map<String, String> userCredentials = new HashMap<>();
         String passHash = hashProvider.hashPassword(password);
-        userCredentials.put("username", username);
         userCredentials.put("email", email);
         userCredentials.put("firstname", firstname);
         userCredentials.put("lastname", lastname);
