@@ -7,8 +7,13 @@ public interface LoginContract {
         void showListJobsActivity();
 
         void showRegisterActivity();
+
+        void notifyError(String errorMessage);
+
+        void notifySuccessful();
     }
 
     interface Presenter {
+        void loginUser(String email, String password);
     }
 }

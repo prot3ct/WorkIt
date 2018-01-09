@@ -37,26 +37,23 @@ public class UserData implements UserDataContract {
     }
 
     @Override
-    public Observable<UserContract> login(String username, String password) {
+    public Observable<Boolean> login(String email, String password) {
         Map<String, String> userCredentials = new HashMap<>();
         String passHash = hashProvider.hashPassword(password);
-        userCredentials.put("username", username.toLowerCase());
+        userCredentials.put("email", email);
         userCredentials.put("passHash", passHash);
 
         return httpRequester
             .post(apiConstants.loginUrl(), userCredentials)
-            .map(new Function<HttpResponseContract, UserContract>() {
+            .map(new Function<HttpResponseContract, Boolean>() {
                 @Override
-                public UserContract apply(HttpResponseContract iHttpResponse) throws Exception {
+                public Boolean apply(HttpResponseContract iHttpResponse) throws Exception {
                     if (iHttpResponse.getCode() == apiConstants.responseErrorCode()) {
                         throw new Error(iHttpResponse.getMessage());
                     }
                     String responseBody = iHttpResponse.getBody();
-                    String userJson = jsonParser.getDirectMember(responseBody, "result");
-                    UserContract resultUser = jsonParser.fromJson(userJson, userModelType);
-
-                    userSession.setEmail(resultUser.getEmail());
-                    return resultUser;
+                    userSession.setEmail(responseBody);
+                    return true;
                 }
             });
     }

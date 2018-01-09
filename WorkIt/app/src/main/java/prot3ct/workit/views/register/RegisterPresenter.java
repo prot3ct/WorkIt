@@ -35,7 +35,7 @@ public class RegisterPresenter implements RegisterContract.Presenter {
                     @Override
                     public void onNext(Boolean value) {
                         view.notifySuccessful();
-                        view.showListJobsActivity();
+                        view.showLoginActivity();
                     }
 
                     @Override

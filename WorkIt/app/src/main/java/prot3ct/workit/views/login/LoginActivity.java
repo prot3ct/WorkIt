@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
                     .commit();
         }
 
-        this.presenter = new LoginPresenter(loginFragment);
+        this.presenter = new LoginPresenter(loginFragment, this);
         loginFragment.setPresenter(this.presenter);
     }
 }

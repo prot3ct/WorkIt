@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import prot3ct.workit.R;
 import prot3ct.workit.views.list_jobs.ListJobsActivity;
+import prot3ct.workit.views.login.LoginActivity;
 import prot3ct.workit.views.register.base.RegisterContract;
 
 public class RegisterFragment extends Fragment implements RegisterContract.View {
@@ -66,14 +67,14 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
     }
 
     @Override
-    public void showListJobsActivity() {
-        Intent intent = new Intent(this.context, ListJobsActivity.class);
+    public void showLoginActivity() {
+        Intent intent = new Intent(this.context, LoginActivity.class);
         startActivity(intent);
     }
 
     @Override
     public void notifySuccessful() {
-        Toast.makeText(getContext(), "Register made", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "You have registered successfully", Toast.LENGTH_SHORT).show();
     }
 
     @Override
