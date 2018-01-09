@@ -73,7 +73,7 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
 
     @Override
     public void notifySuccessful() {
-        Toast.makeText(getContext(), "LOGINNNN", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Register made", Toast.LENGTH_SHORT).show();
     }
 
     @Override

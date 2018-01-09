@@ -1,6 +1,7 @@
 package prot3ct.workit.data.remote;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -61,7 +62,7 @@ public class UserData implements UserDataContract {
     }
 
     @Override
-    public Observable<UserContract> register(String email, String firstname, String lastname, String password) {
+    public Observable<Boolean> register(String email, String firstname, String lastname, String password) {
         Map<String, String> userCredentials = new HashMap<>();
         String passHash = hashProvider.hashPassword(password);
         userCredentials.put("email", email);
@@ -71,17 +72,14 @@ public class UserData implements UserDataContract {
 
         return httpRequester
                 .post(apiConstants.registerUrl(), userCredentials)
-                .map(new Function<HttpResponseContract, UserContract>() {
+                .map(new Function<HttpResponseContract, Boolean>() {
                     @Override
-                    public UserContract apply(HttpResponseContract iHttpResponse) throws Exception {
+                    public Boolean apply(HttpResponseContract iHttpResponse) throws Exception {
                         if (iHttpResponse.getCode() == apiConstants.responseErrorCode()) {
                             throw new Error(iHttpResponse.getMessage());
                         }
 
-                        String responseBody = iHttpResponse.getBody();
-
-                        String userJson = jsonParser.getDirectMember(responseBody, "result");
-                        return jsonParser.fromJson(userJson, userModelType);
+                        return true;
                     }
                 });
     }

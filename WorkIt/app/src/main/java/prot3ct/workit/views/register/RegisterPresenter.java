@@ -26,21 +26,20 @@ public class RegisterPresenter implements RegisterContract.Presenter {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                new Observer<UserContract>() {
+                new Observer<Boolean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 //                        view.showDialogForLoading();
                     }
 
                     @Override
-                    public void onNext(UserContract value) {
+                    public void onNext(Boolean value) {
                         view.notifySuccessful();
                         view.showListJobsActivity();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d("CEKOOOO", e.getMessage());
                         view.notifyError("Error ocurred when registering. Please try again later.");
                     }
 
