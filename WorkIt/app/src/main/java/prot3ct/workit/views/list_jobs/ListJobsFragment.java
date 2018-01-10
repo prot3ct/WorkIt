@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import prot3ct.workit.R;
+import prot3ct.workit.views.create_job.CreateJobActivity;
 import prot3ct.workit.views.list_jobs.base.ListJobsContract;
 
 public class ListJobsFragment extends Fragment implements ListJobsContract.View {
@@ -56,7 +57,7 @@ public class ListJobsFragment extends Fragment implements ListJobsContract.View 
 
     @Override
     public void showCreateJobActivity() {
-        Intent intent = new Intent(this.context, ListJobsActivity.class);
+        Intent intent = new Intent(this.context, CreateJobActivity.class);
         startActivity(intent);
     }
 }

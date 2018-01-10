@@ -54,24 +54,27 @@ public class CreateJobFragment extends Fragment implements CreateJobContract.Vie
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_create_job, container, false);
 
+        this.startDateTextView = (TextView) view.findViewById(R.id.id_choose_start_date_text_view);
+        this.endDateTextView = (TextView) view.findViewById(R.id.id_choose_end_date_text_view);
+
         this.startDateTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDateTimePicker();
+                showDateTimePicker(1);
             }
         });
 
         this.endDateTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDateTimePicker();
+                showDateTimePicker(2);
             }
         });
 
         return view;
     }
 
-    public void showDateTimePicker() {
+    public void showDateTimePicker(int temp) {
         final Calendar currentDate = Calendar.getInstance();
         this.date = Calendar.getInstance();
         new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
@@ -85,7 +88,7 @@ public class CreateJobFragment extends Fragment implements CreateJobContract.Vie
                         date.set(Calendar.MINUTE, minute);
                         Log.v("CEKOO", "The choosen one " + date.getTime());
                     }
-                }, currentDate.get(Calendar.HOUR_OF_DAY), currentDate.get(Calendar.MINUTE), false).show();
+                }, currentDate.get(Calendar.HOUR_OF_DAY), currentDate.get(Calendar.MINUTE), true).show();
             }
         }, currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DATE)).show();
     }
