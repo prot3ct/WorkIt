@@ -22,4 +22,15 @@ public class UserSession implements UserSessionContract{
     public void setEmail(String username) {
         sharedPreferences.edit().putString("username", username).apply();
     }
+
+    @Override
+    public boolean isUserLoggedIn() {
+        String username = getEmail();
+        return username != null;
+    }
+
+    @Override
+    public void clearSession() {
+        setEmail(null);
+    }
 }

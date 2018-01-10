@@ -17,6 +17,7 @@ namespace WorkIt_Server.Controllers
     {
         private JobBussinessLogic jobsLogic = new JobBussinessLogic();
         private UserBussinessLogic userLogic = new UserBussinessLogic();
+        private PlaceBussinessLogic placeLogic = new PlaceBussinessLogic();
 
         [Route("jobs")]
         [HttpGet]
@@ -37,7 +38,7 @@ namespace WorkIt_Server.Controllers
         public IHttpActionResult CreateJob(JobDTO jobDTO)
         {
 
-                Job job = jobDTO.ToJob(userLogic);
+                Job job = jobDTO.ToJob(userLogic, placeLogic);
                 jobsLogic.AddJob(job);
                 return Ok();
 

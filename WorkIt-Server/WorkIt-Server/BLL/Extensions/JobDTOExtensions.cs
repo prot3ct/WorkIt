@@ -9,19 +9,26 @@ namespace WorkIt_Server.BLL.Extensions
 {
     public static class JobDTOExtensions
     {
-        public static Job ToJob(this JobDTO jobDTO, UserBussinessLogic logic)
+        public static Job ToJob(this JobDTO jobDTO, UserBussinessLogic userLogic, PlaceBussinessLogic placeLogic)
         {
             var job = new Job {
                 MinJobsCompleted = jobDTO.MinJobsCompleted,
                 MinRaiting = jobDTO.MinRaiting,
                 Reward = jobDTO.Reward,
-                Creator = logic.GetUserByEmail(jobDTO.CreatorEmail),
+                Creator = userLogic.GetUserByEmail(jobDTO.CreatorEmail),
                 Description = jobDTO.Description,
                 StartDate = jobDTO.StartDate,
                 EndDate = jobDTO.EndDate,
                 Place = jobDTO.ToPlace(),
                 Title = jobDTO.Title,
             };
+            //var place = jobDTO.ToPlace();
+
+            //if (placeLogic.CheckExsistingPlace(place))
+            //{
+            //    job. = placeLogic.GetPlaceId(place);
+            //}
+            //job.Place = 
 
             return job;
         }

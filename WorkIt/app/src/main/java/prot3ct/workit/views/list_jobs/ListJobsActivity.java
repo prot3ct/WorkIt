@@ -26,7 +26,7 @@ public class ListJobsActivity extends AppCompatActivity {
                     .commit();
         }
 
-        this.presenter = new ListJobsPresenter(listJobsFragment);
+        this.presenter = new ListJobsPresenter(listJobsFragment, this);
         listJobsFragment.setPresenter(this.presenter);
     }
 }

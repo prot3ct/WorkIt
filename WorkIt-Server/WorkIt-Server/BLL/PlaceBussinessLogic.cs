@@ -16,5 +16,10 @@ namespace WorkIt_Server.BLL
             }
             return false;
         }
+
+        public int GetPlaceId(Place place)
+        {
+            return WorkItDb.Places.FirstOrDefault(p => p.Address == place.Address && p.City == place.City && p.Country == place.Country).PlaceId;
+        }
     }
 }

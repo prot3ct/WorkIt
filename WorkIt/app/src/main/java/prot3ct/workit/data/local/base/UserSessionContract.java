@@ -4,4 +4,8 @@ public interface UserSessionContract {
     String getEmail();
 
     void setEmail(String username);
+
+    boolean isUserLoggedIn();
+
+    void clearSession();
 }

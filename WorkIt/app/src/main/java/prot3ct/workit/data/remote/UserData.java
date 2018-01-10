@@ -80,4 +80,14 @@ public class UserData implements UserDataContract {
                     }
                 });
     }
+
+    @Override
+    public void logoutUser() {
+        this.userSession.clearSession();
+    }
+
+    @Override
+    public boolean isLoggedIn() {
+        return this.userSession.isUserLoggedIn();
+    }
 }
