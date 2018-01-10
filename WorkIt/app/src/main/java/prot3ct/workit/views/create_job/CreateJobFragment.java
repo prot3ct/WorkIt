@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -25,8 +26,17 @@ public class CreateJobFragment extends Fragment implements CreateJobContract.Vie
     private CreateJobContract.Presenter presenter;
     private Context context;
 
+    private TextView titleTextView;
     private TextView startDateTextView;
     private TextView endDateTextView;
+    private TextView descriptionTextView;
+    private TextView countryTextView;
+    private TextView cityTextView;
+    private TextView addressTextView;
+    private TextView rewardTextView;
+    private TextView minimalRatingTextView;
+    private TextView minimalJobsCompltedTextView;
+    private Button saveTaskButton;
 
     private Calendar date;
 
@@ -55,8 +65,18 @@ public class CreateJobFragment extends Fragment implements CreateJobContract.Vie
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_create_job, container, false);
 
+        this.titleTextView = (TextView) view.findViewById(R.id.id_title_edit_text);
         this.startDateTextView = (TextView) view.findViewById(R.id.id_choose_start_date_text_view);
         this.endDateTextView = (TextView) view.findViewById(R.id.id_choose_end_date_text_view);
+        this.descriptionTextView = (TextView) view.findViewById(R.id.id_description_edit_text);
+        this.countryTextView = (TextView) view.findViewById(R.id.id_country_edit_text);
+        this.cityTextView = (TextView) view.findViewById(R.id.id_city_edit_text);
+        this.addressTextView = (TextView) view.findViewById(R.id.id_address_edit_text);
+        this.rewardTextView = (TextView) view.findViewById(R.id.id_reward_edit_text);
+        this.minimalRatingTextView = (TextView) view.findViewById(R.id.id_minimal_raiting_to_join_edit_text);
+        this.minimalJobsCompltedTextView = (TextView) view.findViewById(R.id.id_minimal_jobs_completed_edit_text);
+        this.saveTaskButton = (Button) view.findViewById(R.id.id_save_task_button);
+
 
         this.startDateTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +89,24 @@ public class CreateJobFragment extends Fragment implements CreateJobContract.Vie
             @Override
             public void onClick(View v) {
                 showDateTimePicker(2);
+            }
+        });
+
+        this.saveTaskButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.createTask(
+                    titleTextView.getText().toString(),
+                    startDateTextView.getText().toString(),
+                    endDateTextView.getText().toString(),
+                    descriptionTextView.getText().toString(),
+                    countryTextView.getText().toString(),
+                    cityTextView.getText().toString(),
+                    addressTextView.getText().toString(),
+                    rewardTextView.getText().toString(),
+                    minimalRatingTextView.getText().toString(),
+                    minimalJobsCompltedTextView.getText().toString()
+                );
             }
         });
 

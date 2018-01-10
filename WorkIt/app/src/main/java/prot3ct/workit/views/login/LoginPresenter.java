@@ -22,30 +22,29 @@ public class LoginPresenter implements LoginContract.Presenter {
     @Override
     public void loginUser(String email, String password) {
         userData.login(email, password)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        new Observer<Boolean>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                new Observer<Boolean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 //                        view.showDialogForLoading();
-                            }
+                    }
 
-                            @Override
-                            public void onNext(Boolean value) {
-                                view.notifySuccessful();
-                                view.showListJobsActivity();
-                            }
+                    @Override
+                    public void onNext(Boolean value) {
+                        view.notifySuccessful();
+                        view.showListJobsActivity();
+                    }
 
-                            @Override
-                            public void onError(Throwable e) {
-                                Log.d("cekoko", e.getMessage());
-                                view.notifyError("Error ocurred when logining in. Please try again.");
-                            }
+                    @Override
+                    public void onError(Throwable e) {
+                        view.notifyError("Error ocurred when logining in. Please try again.");
+                    }
 
-                            @Override
-                            public void onComplete() {
-                            }
-                        });
+                    @Override
+                    public void onComplete() {
+                    }
+                });
     }
 }

@@ -30,7 +30,7 @@ public class CreateJobActivity extends AppCompatActivity {
                     .commit();
         }
 
-        this.presenter = new CreateJobPresenter(createJobFragment);
+        this.presenter = new CreateJobPresenter(createJobFragment, this);
         createJobFragment.setPresenter(this.presenter);
     }
 }

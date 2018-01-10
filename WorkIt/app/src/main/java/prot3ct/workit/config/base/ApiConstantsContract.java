@@ -5,5 +5,7 @@ public interface ApiConstantsContract {
 
     String registerUrl();
 
+    String createTaskUrl();
+
     int responseErrorCode();
 }
