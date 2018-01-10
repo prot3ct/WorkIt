@@ -22,7 +22,8 @@ namespace WorkIt_Server.Controllers
         {
             try
             {
-                if (db.Users.Any(u => u.Email == credentials.Email && u.PassHash == credentials.PassHash))
+                var user = db.Users.FirstOrDefault(u => u.Email == credentials.Email && u.PassHash == credentials.PassHash);
+                if (user != null)
                 {
                     return Ok(db.Users.FirstOrDefault(u => u.Email == credentials.Email && u.PassHash == credentials.PassHash).Email);
                 }
