@@ -15,6 +15,7 @@ import android.widget.TimePicker;
 
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import prot3ct.workit.R;
@@ -74,21 +75,36 @@ public class CreateJobFragment extends Fragment implements CreateJobContract.Vie
         return view;
     }
 
-    public void showDateTimePicker(int temp) {
+    public void showDateTimePicker(final int temp) {
         final Calendar currentDate = Calendar.getInstance();
         this.date = Calendar.getInstance();
         new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+            boolean first = true;
+
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                date.set(year, monthOfYear, dayOfMonth);
-                new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        date.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                        date.set(Calendar.MINUTE, minute);
-                        Log.v("CEKOO", "The choosen one " + date.getTime());
-                    }
-                }, currentDate.get(Calendar.HOUR_OF_DAY), currentDate.get(Calendar.MINUTE), true).show();
+                if (first) {
+                    date.set(year, monthOfYear, dayOfMonth);
+                    new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
+
+                        @Override
+                        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                            date.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                            date.set(Calendar.MINUTE, minute);
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+
+                            if (temp == 1) {
+                                startDateTextView.setText(dateFormat.format(date.getTime()));
+                            }
+                            else if (temp == 2) {
+                                endDateTextView.setText(dateFormat.format(date.getTime()));
+                            }
+                            first = false;
+                        }
+                    }, currentDate.get(Calendar.HOUR_OF_DAY), currentDate.get(Calendar.MINUTE), true).show();
+
+                    first = false;
+                }
             }
         }, currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DATE)).show();
     }
