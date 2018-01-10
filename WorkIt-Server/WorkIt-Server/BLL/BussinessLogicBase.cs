@@ -8,12 +8,6 @@ namespace WorkIt_Server.BLL
 {
     public class BussinessLogicBase
     {
-        private WorkItDbContext db;
-
-        public BussinessLogicBase() {
-            db = new WorkItDbContext();
-        }
-
-        protected WorkItDbContext WorkItDb { get; set; }
+        protected WorkItDbContext WorkItDb = new WorkItDbContext();
     }
 }

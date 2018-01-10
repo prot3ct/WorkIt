@@ -106,9 +106,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201801090009093_Initial.cs" />
-    <Compile Include="Migrations\201801090009093_Initial.Designer.cs">
-      <DependentUpon>201801090009093_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201801102005455_Initial.cs" />
+    <Compile Include="Migrations\201801102005455_Initial.Designer.cs">
+      <DependentUpon>201801102005455_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801102015074_Add-Not-Null.cs" />
+    <Compile Include="Migrations\201801102015074_Add-Not-Null.Designer.cs">
+      <DependentUpon>201801102015074_Add-Not-Null.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801102033030_Add-indexes.cs" />
+    <Compile Include="Migrations\201801102033030_Add-indexes.Designer.cs">
+      <DependentUpon>201801102033030_Add-indexes.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Context\WorkItDbContext.cs" />
@@ -132,8 +140,14 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201801090009093_Initial.resx">
-      <DependentUpon>201801090009093_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201801102005455_Initial.resx">
+      <DependentUpon>201801102005455_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801102015074_Add-Not-Null.resx">
+      <DependentUpon>201801102015074_Add-Not-Null.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801102033030_Add-indexes.resx">
+      <DependentUpon>201801102033030_Add-indexes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

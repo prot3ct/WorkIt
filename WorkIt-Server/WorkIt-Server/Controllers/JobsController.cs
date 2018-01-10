@@ -36,16 +36,11 @@ namespace WorkIt_Server.Controllers
         [HttpPost]
         public IHttpActionResult CreateJob(JobDTO jobDTO)
         {
-            try
-            {
+
                 Job job = jobDTO.ToJob(userLogic);
                 jobsLogic.AddJob(job);
                 return Ok();
-            }
-            catch (Exception)
-            {
-                return InternalServerError();
-            }
+
         }
     }
 }

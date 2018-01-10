@@ -12,7 +12,9 @@ namespace WorkIt_Server.BLL
 
         public User GetUserByEmail(string email)
         {
-            return base.WorkItDb.Users.Where(u => u.Email == email).FirstOrDefault();
+            var reuslt = base.WorkItDb.Users.Where(u => u.Email == email).FirstOrDefault();
+
+            return reuslt;
         }
     }
 }

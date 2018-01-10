@@ -11,18 +11,35 @@ namespace WorkIt_Server.Models
     {
         [Key]
         public int JobId { get; set; }
+
+        [Required]
         public string Title { get; set; }
+
+        [Required]
         public DateTime StartDate { get; set; }
+
+        [Required]
         public DateTime EndDate { get; set; }
+
+        [Required]
         public string Description { get; set; }
+
+        [Required]
         public string Reward { get; set; }
+
+        [Required]
         public int MinRaiting { get; set; }
+
+        [Required]
         public int MinJobsCompleted { get; set; }
+
         public bool IsCompleted { get; set; }
 
-        public int CreatorId { get; set; }
-        public User Creator { get; set; }
-        public int PlaceId { get; set; }
-        public Place Place { get; set; }
+
+        [Required]
+        public virtual Place Place { get; set; }
+
+        [Required]
+        public virtual User Creator { get; set; }
     }
 }

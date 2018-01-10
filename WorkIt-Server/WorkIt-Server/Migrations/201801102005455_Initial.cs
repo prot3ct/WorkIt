@@ -13,19 +13,21 @@ namespace WorkIt_Server.Migrations
                     {
                         JobId = c.Int(nullable: false, identity: true),
                         Title = c.String(),
-                        StarDate = c.DateTime(nullable: false),
+                        StartDate = c.DateTime(nullable: false),
                         EndDate = c.DateTime(nullable: false),
                         Description = c.String(),
                         Reward = c.String(),
-                        minRaiting = c.Int(nullable: false),
-                        minJobsCompleted = c.Int(nullable: false),
-                        isComplted = c.Boolean(nullable: false),
-                        CreatorId = c.Int(nullable: false),
+                        MinRaiting = c.Int(nullable: false),
+                        MinJobsCompleted = c.Int(nullable: false),
+                        IsCompleted = c.Boolean(nullable: false),
                         Creator_UserId = c.Int(),
+                        Place_PlaceId = c.Int(),
                     })
                 .PrimaryKey(t => t.JobId)
                 .ForeignKey("dbo.Users", t => t.Creator_UserId)
-                .Index(t => t.Creator_UserId);
+                .ForeignKey("dbo.Places", t => t.Place_PlaceId)
+                .Index(t => t.Creator_UserId)
+                .Index(t => t.Place_PlaceId);
             
             CreateTable(
                 "dbo.Users",
@@ -42,12 +44,26 @@ namespace WorkIt_Server.Migrations
                     })
                 .PrimaryKey(t => t.UserId);
             
+            CreateTable(
+                "dbo.Places",
+                c => new
+                    {
+                        PlaceId = c.Int(nullable: false, identity: true),
+                        Country = c.String(),
+                        City = c.String(),
+                        Address = c.String(),
+                    })
+                .PrimaryKey(t => t.PlaceId);
+            
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.Jobs", "Place_PlaceId", "dbo.Places");
             DropForeignKey("dbo.Jobs", "Creator_UserId", "dbo.Users");
+            DropIndex("dbo.Jobs", new[] { "Place_PlaceId" });
             DropIndex("dbo.Jobs", new[] { "Creator_UserId" });
+            DropTable("dbo.Places");
             DropTable("dbo.Users");
             DropTable("dbo.Jobs");
         }

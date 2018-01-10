@@ -11,9 +11,6 @@ namespace WorkIt_Server.BLL.Extensions
     {
         public static Job ToJob(this JobDTO jobDTO, UserBussinessLogic logic)
         {
-            var User = logic.GetUserByEmail(jobDTO.CreatorEmail);
-
-
             var job = new Job {
                 MinJobsCompleted = jobDTO.MinJobsCompleted,
                 MinRaiting = jobDTO.MinRaiting,
@@ -22,7 +19,8 @@ namespace WorkIt_Server.BLL.Extensions
                 Description = jobDTO.Description,
                 StartDate = jobDTO.StartDate,
                 EndDate = jobDTO.EndDate,
-                Place = jobDTO.ToPlace()
+                Place = jobDTO.ToPlace(),
+                Title = jobDTO.Title,
             };
 
             return job;

@@ -15,5 +15,11 @@ namespace WorkIt_Server.Models.Context
         public DbSet<User> Users { get; set; }
         public DbSet<Job> Jobs { get; set; }
         public DbSet<Place> Places { get; set; }
+
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    Database.SetInitializer<WorkItDbContext>(null);
+        //    base.OnModelCreating(modelBuilder);
+        //}
     }
 }
