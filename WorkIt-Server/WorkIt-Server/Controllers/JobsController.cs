@@ -4,14 +4,19 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using WorkIt_Server.BLL;
+using WorkIt_Server.Models;
 using WorkIt_Server.Models.Context;
+using WorkIt_Server.Models.DTO;
+using WorkIt_Server.BLL.Extensions;
 
 namespace WorkIt_Server.Controllers
 {
     [RoutePrefix("api")]
     public class JobsController : ApiController
     {
-        private WorkItDbContext db = new WorkItDbContext();
+        private JobBussinessLogic jobsLogic = new JobBussinessLogic();
+        private UserBussinessLogic userLogic = new UserBussinessLogic();
 
         [Route("jobs")]
         [HttpGet]
@@ -19,7 +24,7 @@ namespace WorkIt_Server.Controllers
         {
             try
             {
-                return Ok("CEKOOUPDATED123");
+                return Ok();
             }
             catch (Exception)
             {
@@ -29,12 +34,13 @@ namespace WorkIt_Server.Controllers
 
         [Route("jobs/create")]
         [HttpPost]
-        public IHttpActionResult CreateJob()
+        public IHttpActionResult CreateJob(JobDTO jobDTO)
         {
             try
             {
-
-                return Ok("CEKOO");
+                Job job = jobDTO.ToJob(userLogic);
+                jobsLogic.AddJob(job);
+                return Ok();
             }
             catch (Exception)
             {

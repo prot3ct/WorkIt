@@ -38,14 +38,14 @@ public class JobData implements JobDataContract{
         Map<String, String> jobDetails = new HashMap<>();
         jobDetails.put("title", title);
         jobDetails.put("startDate", startDate);
-        jobDetails.put("startDate", endDate);
-        jobDetails.put("startDate", description);
-        jobDetails.put("startDate", country);
-        jobDetails.put("startDate", city);
-        jobDetails.put("startDate", address);
-        jobDetails.put("startDate", reward);
-        jobDetails.put("startDate", minimalRating);
-        jobDetails.put("startDate", minimalJobsCompleted);
+        jobDetails.put("endDate", endDate);
+        jobDetails.put("description", description);
+        jobDetails.put("country", country);
+        jobDetails.put("city", city);
+        jobDetails.put("address", address);
+        jobDetails.put("reward", reward);
+        jobDetails.put("minimalRating", minimalRating);
+        jobDetails.put("minimalJobsCompleted", minimalJobsCompleted);
 
         return httpRequester
                 .post(apiConstants.createTaskUrl(), jobDetails)

@@ -97,6 +97,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="BLL\BussinessLogicBase.cs" />
+    <Compile Include="BLL\Extensions\JobDTOExtensions.cs" />
+    <Compile Include="BLL\JobBussinessLogic.cs" />
+    <Compile Include="BLL\UserBussinessLogic.cs" />
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -108,7 +112,9 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Context\WorkItDbContext.cs" />
+    <Compile Include="Models\DTO\JobDTO.cs" />
     <Compile Include="Models\Job.cs" />
+    <Compile Include="Models\Place.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
