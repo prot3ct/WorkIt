@@ -27,6 +27,11 @@
             android:layout_height="wrap_content"
             android:text="Jobs listed: "
             android:textSize="50px"/>
+        <ListView
+            android:id="@+id/id_list_tasks_list_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="22sp" />
     </LinearLayout>
 
 </FrameLayout>
