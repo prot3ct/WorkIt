@@ -8,7 +8,7 @@ using WorkIt_Server.Models.DTO;
 
 namespace WorkIt_Server.BLL
 {
-    public class UserBussinessLogic : BaseService
+    public class UserBussinessLogic
     {
         public UserBussinessLogic() { }
 

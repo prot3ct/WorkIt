@@ -38,9 +38,9 @@ namespace WorkIt_Server.Migrations
                         PassHash = c.String(nullable: false),
                         Firstname = c.String(nullable: false),
                         Lastname = c.String(nullable: false),
-                        RaitingAsEmployee = c.Double(nullable: false),
-                        RaitingAsCreator = c.Double(nullable: false),
-                        JobsCompleted = c.Int(nullable: false),
+                        RaitingAsEmployee = c.Double(nullable: true, defaultValue: 0),
+                        RaitingAsCreator = c.Double(nullable: true, defaultValue: 0),
+                        JobsCompleted = c.Int(nullable: true, defaultValue: 0),
                     })
                 .PrimaryKey(t => t.UserId);
             

@@ -8,7 +8,7 @@ using WorkIt_Server.Models.DTO;
 
 namespace WorkIt_Server.BLL
 {
-    public class LocationBussinessLogic : BaseService
+    public class LocationBussinessLogic
     {
         public bool CheckExsistingLocation(WorkItDbContext db, Location location)
         {

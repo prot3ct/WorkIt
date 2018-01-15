@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Data.Entity.Validation;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
@@ -48,7 +49,7 @@ namespace WorkIt_Server.Controllers
                 }
                 return NotFound();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return InternalServerError();
             }

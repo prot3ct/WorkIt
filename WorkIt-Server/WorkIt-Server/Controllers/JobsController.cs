@@ -34,12 +34,18 @@ namespace WorkIt_Server.Controllers
         [HttpPost]
         public IHttpActionResult CreateJob(JobDTO jobInformation)
         {
-
-            if (service.CreateJob(jobInformation))
+            try
             {
-                return Ok();
+                if (service.CreateJob(jobInformation))
+                {
+                    return Ok();
+                }
+                return NotFound();
             }
-            return NotFound();
+            catch
+            {
+                return InternalServerError();
+            }
         }
     }
 }

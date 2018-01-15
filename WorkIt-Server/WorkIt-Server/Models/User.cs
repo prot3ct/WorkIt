@@ -23,13 +23,10 @@ namespace WorkIt_Server.Models
         [Required]
         public string Lastname { get; set; }
 
-        [Required]
         public double RaitingAsEmployee { get; set; }
 
-        [Required]
         public double RaitingAsCreator { get; set; }
 
-        [Required]
         public int JobsCompleted { get; set; }
     }
 }
