@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using WorkIt_Server.Models.DTO;
@@ -37,9 +38,13 @@ namespace WorkIt_Server.Models
 
 
         [Required]
-        public virtual Place Place { get; set; }
+        [ForeignKey("Location")]
+        public int LocationId { get; set; }
+        public virtual Location Location { get; set; }
 
         [Required]
+        [ForeignKey("Creator")]
+        public int CreatorId { get; set; }
         public virtual User Creator { get; set; }
     }
 }

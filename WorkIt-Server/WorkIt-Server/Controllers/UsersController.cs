@@ -6,26 +6,27 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using WorkIt_Server.BLL;
 using WorkIt_Server.Models;
 using WorkIt_Server.Models.Context;
+using WorkIt_Server.Models.DTO;
 
 namespace WorkIt_Server.Controllers
 {
     [RoutePrefix("api")]
     public class UsersController : ApiController
     {
-        private WorkItDbContext db = new WorkItDbContext();
+        private BaseService service = new BaseService();
 
         [Route("auth/login")]
         [HttpPost]
-        public IHttpActionResult Login(User credentials)
+        public IHttpActionResult Login(LoginDTO credentials)
         {
             try
             {
-                var user = db.Users.FirstOrDefault(u => u.Email == credentials.Email && u.PassHash == credentials.PassHash);
-                if (user != null)
+                if (service.LoginUser(credentials))
                 {
-                    return Ok(user.Email);
+                    return Ok(credentials.Email);
                 }
                 return NotFound();
             }
@@ -37,18 +38,15 @@ namespace WorkIt_Server.Controllers
 
         [Route("auth/register")]
         [HttpPost]
-        public IHttpActionResult Register(User user)
+        public IHttpActionResult Register(RegisterDTO credentials)
         {
             try
             {
-                if (db.Users.Select(u => u.Email).Contains(user.Email))
+                if (service.RegisterUser(credentials))
                 {
-                    return NotFound();
+                    return Ok();
                 }
-
-                db.Users.Add(user);
-                db.SaveChanges();
-                return Ok();
+                return NotFound();
             }
             catch (Exception)
             {

@@ -3,18 +3,43 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using WorkIt_Server.Models;
+using WorkIt_Server.Models.Context;
+using WorkIt_Server.Models.DTO;
 
 namespace WorkIt_Server.BLL
 {
-    public class UserBussinessLogic : BussinessLogicBase
+    public class UserBussinessLogic : BaseService
     {
         public UserBussinessLogic() { }
 
-        public User GetUserByEmail(string email)
+        public bool LoginUser(WorkItDbContext db, LoginDTO credentials)
         {
-            var reuslt = base.WorkItDb.Users.Where(u => u.Email == email).FirstOrDefault();
+            var user = db.Users.FirstOrDefault(u => u.Email == credentials.Email && u.PassHash == credentials.PassHash);
+            if (user != null)
+            {
+                return true;
+            }
+            return false;
+        }
 
-            return reuslt;
+        public bool RegisterUser(WorkItDbContext db, RegisterDTO credentials)
+        {
+            if (db.Users.Select(u => u.Email).Contains(credentials.Email))
+            {
+                return false;
+            }
+
+            var userToBeInserted = new User
+            {
+                Email = credentials.Email,
+                PassHash = credentials.PassHash,
+                Firstname = credentials.Firstname,
+                Lastname = credentials.Lastname
+            };
+
+            db.Users.Add(userToBeInserted);
+            db.SaveChanges();
+            return true;
         }
     }
 }

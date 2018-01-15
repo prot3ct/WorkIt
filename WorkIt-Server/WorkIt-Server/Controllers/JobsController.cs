@@ -8,16 +8,13 @@ using WorkIt_Server.BLL;
 using WorkIt_Server.Models;
 using WorkIt_Server.Models.Context;
 using WorkIt_Server.Models.DTO;
-using WorkIt_Server.BLL.Extensions;
 
 namespace WorkIt_Server.Controllers
 {
     [RoutePrefix("api")]
     public class JobsController : ApiController
     {
-        private JobBussinessLogic jobsLogic = new JobBussinessLogic();
-        private UserBussinessLogic userLogic = new UserBussinessLogic();
-        private PlaceBussinessLogic placeLogic = new PlaceBussinessLogic();
+        private BaseService service = new BaseService();
 
         [Route("jobs")]
         [HttpGet]
@@ -35,13 +32,14 @@ namespace WorkIt_Server.Controllers
 
         [Route("jobs/create")]
         [HttpPost]
-        public IHttpActionResult CreateJob(JobDTO jobDTO)
+        public IHttpActionResult CreateJob(JobDTO jobInformation)
         {
 
-                Job job = jobDTO.ToJob(userLogic, placeLogic);
-                jobsLogic.AddJob(job);
+            if (service.CreateJob(jobInformation))
+            {
                 return Ok();
-
+            }
+            return NotFound();
         }
     }
 }

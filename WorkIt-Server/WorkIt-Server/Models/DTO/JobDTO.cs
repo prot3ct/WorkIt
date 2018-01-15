@@ -18,5 +18,15 @@ namespace WorkIt_Server.Models.DTO
         public string CreatorEmail { get; set; }
         public int MinRaiting { get; set; }
         public int MinJobsCompleted { get; set; }
+
+        public Location ToLocation()
+        {
+            return new Location
+            {
+                City = this.City,
+                Country = this.Country,
+                Address = this.Address
+            };
+        }
     }
 }

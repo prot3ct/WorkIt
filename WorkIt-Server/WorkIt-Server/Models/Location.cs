@@ -7,10 +7,10 @@ using System.Web;
 
 namespace WorkIt_Server.Models
 {
-    public class Place
+    public class Location
     {
         [Key]
-        public int PlaceId { get; set; }
+        public int LocationId { get; set; }
 
         [Required]
         [Index("IX_CountryCityAndAddress", 1, IsUnique = true)]

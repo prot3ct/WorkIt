@@ -97,33 +97,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="BLL\BussinessLogicBase.cs" />
-    <Compile Include="BLL\Extensions\JobDTOExtensions.cs" />
+    <Compile Include="BLL\BaseService.cs" />
     <Compile Include="BLL\JobBussinessLogic.cs" />
-    <Compile Include="BLL\PlaceBussinessLogic.cs" />
+    <Compile Include="BLL\LocationBussinessLogic.cs" />
     <Compile Include="BLL\UserBussinessLogic.cs" />
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201801102005455_Initial.cs" />
-    <Compile Include="Migrations\201801102005455_Initial.Designer.cs">
-      <DependentUpon>201801102005455_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801102015074_Add-Not-Null.cs" />
-    <Compile Include="Migrations\201801102015074_Add-Not-Null.Designer.cs">
-      <DependentUpon>201801102015074_Add-Not-Null.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801102033030_Add-indexes.cs" />
-    <Compile Include="Migrations\201801102033030_Add-indexes.Designer.cs">
-      <DependentUpon>201801102033030_Add-indexes.cs</DependentUpon>
+    <Compile Include="Migrations\201801151756102_Initial.cs" />
+    <Compile Include="Migrations\201801151756102_Initial.Designer.cs">
+      <DependentUpon>201801151756102_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Context\WorkItDbContext.cs" />
     <Compile Include="Models\DTO\JobDTO.cs" />
+    <Compile Include="Models\DTO\LoginDTO.cs" />
+    <Compile Include="Models\DTO\RegisterDTO.cs" />
     <Compile Include="Models\Job.cs" />
-    <Compile Include="Models\Place.cs" />
+    <Compile Include="Models\Location.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -141,14 +134,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201801102005455_Initial.resx">
-      <DependentUpon>201801102005455_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801102015074_Add-Not-Null.resx">
-      <DependentUpon>201801102015074_Add-Not-Null.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801102033030_Add-indexes.resx">
-      <DependentUpon>201801102033030_Add-indexes.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201801151756102_Initial.resx">
+      <DependentUpon>201801151756102_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
