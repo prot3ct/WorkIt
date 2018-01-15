@@ -33,5 +33,10 @@ namespace WorkIt_Server.BLL
             db.SaveChanges();
             return true;
         }
+
+        public IEnumerable<Job> GetAllJobs(WorkItDbContext db)
+        {
+            return db.Jobs.ToList();
+        }
     }
 }

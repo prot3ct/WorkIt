@@ -22,7 +22,7 @@ namespace WorkIt_Server.Controllers
         {
             try
             {
-                return Ok();
+                return Ok(service.GetAllJobs());
             }
             catch (Exception)
             {

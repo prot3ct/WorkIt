@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WorkIt_Server.Models;
 using WorkIt_Server.Models.Context;
 using WorkIt_Server.Models.DTO;
 
@@ -39,6 +40,11 @@ namespace WorkIt_Server.BLL
         {
             var location = LocationLogic.CreateLocation(WorkItDbContext, jobInformation.ToLocation());
             return JobLogic.CreateJob(WorkItDbContext, jobInformation, location.LocationId);
+        }
+
+        public IEnumerable<Job> GetAllJobs()
+        {
+            return JobLogic.GetAllJobs(WorkItDbContext);
         }
     }
 }
