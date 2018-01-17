@@ -7,12 +7,15 @@ using System.Web;
 
 namespace WorkIt_Server.Models
 {
-    public class UserComments
+    public class JobComments
     {
+        [Key]
+        public int JobCommentsId { get; set; }
+
         [Required]
-        [ForeignKey("User")]
-        public int UserId { get; set; }
-        public virtual User User { get; set; }
+        [ForeignKey("Job")]
+        public int JobId { get; set; }
+        public virtual Job Job { get; set; }
 
         [Required]
         [ForeignKey("Comment")]

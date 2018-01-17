@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace WorkIt_Server.Models
 {
-    public class TaskRequests
+    public class JobRequests
     {
         [Key]
-        public int TaskRequestsId { get; set; }
+        public int JobRequestsId { get; set; }
 
         [Required]
         public string Description { get; set; }
@@ -22,8 +21,8 @@ namespace WorkIt_Server.Models
         public virtual User User { get; set; }
 
         [Required]
-        [ForeignKey("Task")]
-        public int TaskId { get; set; }
-        public virtual Task Task { get; set; }
+        [ForeignKey("Job")]
+        public int JobId { get; set; }
+        public virtual Job Job { get; set; }
     }
 }

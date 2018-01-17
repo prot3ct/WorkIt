@@ -49,7 +49,7 @@ namespace WorkIt_Server.Controllers
                 }
                 return NotFound();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return InternalServerError();
             }
