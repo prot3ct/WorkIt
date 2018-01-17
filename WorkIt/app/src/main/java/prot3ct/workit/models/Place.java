@@ -1,8 +1,10 @@
 package prot3ct.workit.models;
 
+import java.io.Serializable;
+
 import prot3ct.workit.models.base.PlaceContract;
 
-public class Place implements PlaceContract {
+public class Place implements PlaceContract, Serializable {
     private String country;
     private String city;
     private String address;

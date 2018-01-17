@@ -5,6 +5,8 @@ public interface ApiConstantsContract {
 
     String registerUrl();
 
+    String getAllJobsUrl();
+
     String createTaskUrl();
 
     int responseErrorCode();

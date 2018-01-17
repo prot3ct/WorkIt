@@ -70,6 +70,8 @@ public class ListJobsFragment extends Fragment implements ListJobsContract.View 
             }
         });
 
+        presenter.getAllTasks();
+
         return view;
     }
 
@@ -97,6 +99,7 @@ public class ListJobsFragment extends Fragment implements ListJobsContract.View 
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
     public void setupTasksAdapter(final List<? extends TaskContract> tasks) {
         this.taskAdapter = new ArrayAdapter<TaskContract>(this.getContext(), -1, (List<TaskContract>) tasks) {
             @NonNull
@@ -109,7 +112,6 @@ public class ListJobsFragment extends Fragment implements ListJobsContract.View 
                 }
 
                 TextView taskTitle = (TextView) view.findViewById(R.id.id_single_task_title_text_view);
-
 
                 taskTitle.setText(tasks.get(position).getTitle());
 

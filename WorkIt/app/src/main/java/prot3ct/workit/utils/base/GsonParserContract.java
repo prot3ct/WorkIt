@@ -10,5 +10,5 @@ public interface GsonParserContract {
 
     String getDirectMember(String json, String memberName);
 
-    <T> List<T> getDirectArray(String json, String memberName, Class<T> elementType);
+    <T> List<T> getDirectArray(String json, Class<T> elementType);
 }

@@ -34,9 +34,23 @@ namespace WorkIt_Server.BLL
             return true;
         }
 
-        public IEnumerable<Job> GetAllJobs(WorkItDbContext db)
+        public IEnumerable<JobDTO> GetAllJobs(WorkItDbContext db)
         {
-            return db.Jobs.ToList();
+            return db.Jobs.ToList().Select(j => new JobDTO
+            {
+                CreatorEmail = j.Creator.Email,
+                Address = j.Location.Address,
+                City = j.Location.City,
+                Country = j.Location.Country,
+                Description = j.Description,
+                EndDate = j.EndDate,
+                StartDate = j.StartDate,
+                MinJobsCompleted = j.MinJobsCompleted,
+                MinRaiting = j.MinRaiting,
+                Reward = j.Reward,
+                Title = j.Title
+            })
+            .ToList();
         }
     }
 }

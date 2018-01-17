@@ -1,8 +1,10 @@
 package prot3ct.workit.models;
 
+import java.io.Serializable;
+
 import prot3ct.workit.models.base.UserContract;
 
-public class User implements UserContract {
+public class User implements UserContract, Serializable {
     private String id;
     private String email;
     private String firstname;

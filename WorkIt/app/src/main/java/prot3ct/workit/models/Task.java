@@ -1,10 +1,11 @@
 package prot3ct.workit.models;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import prot3ct.workit.models.base.TaskContract;
 
-public class Task implements TaskContract
+public class Task implements TaskContract, Serializable
 {
     private String title;
     private Date startDate;
@@ -13,8 +14,9 @@ public class Task implements TaskContract
     private String reward;
     private int minJobsCompleted;
     private double minRating;
+    private Place place;
 
-    public Task(String title, Date startDate, Date endDate, String description, String reward, int minJobsCompleted, double minRating) {
+    public Task(String title, Date startDate, Date endDate, String description, String reward, int minJobsCompleted, double minRating, Place place) {
         setTitle(title);
         setStartDate(startDate);
         setEndDate(endDate);
@@ -22,6 +24,7 @@ public class Task implements TaskContract
         setReward(reward);
         setMinJobsCompleted(minJobsCompleted);
         setMinRating(minRating);
+        setPlace(place);
     }
 
     public String getTitle() {
@@ -78,5 +81,13 @@ public class Task implements TaskContract
 
     public void setMinRating(double minRating) {
         this.minRating = minRating;
+    }
+
+    public Place getPlace() {
+        return place;
+    }
+
+    public void setPlace(Place place) {
+        this.place = place;
     }
 }

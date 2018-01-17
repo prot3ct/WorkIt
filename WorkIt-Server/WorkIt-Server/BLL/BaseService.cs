@@ -42,7 +42,7 @@ namespace WorkIt_Server.BLL
             return JobLogic.CreateJob(WorkItDbContext, jobInformation, location.LocationId);
         }
 
-        public IEnumerable<Job> GetAllJobs()
+        public IEnumerable<JobDTO> GetAllJobs()
         {
             return JobLogic.GetAllJobs(WorkItDbContext);
         }
