@@ -3,7 +3,7 @@ namespace WorkIt_Server.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class NewModels : DbMigration
+    public partial class newmodels : DbMigration
     {
         public override void Up()
         {
@@ -40,8 +40,8 @@ namespace WorkIt_Server.Migrations
                         CommentId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.JobCommentsId)
-                .ForeignKey("dbo.Comments", t => t.CommentId, cascadeDelete: true)
-                .ForeignKey("dbo.Jobs", t => t.JobId, cascadeDelete: true)
+                .ForeignKey("dbo.Comments", t => t.CommentId)
+                .ForeignKey("dbo.Jobs", t => t.JobId)
                 .Index(t => t.JobId)
                 .Index(t => t.CommentId);
             

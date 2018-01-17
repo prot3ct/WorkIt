@@ -7,13 +7,13 @@ namespace WorkIt_Server.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class NewModels : IMigrationMetadata
+    public sealed partial class newmodels : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(NewModels));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(newmodels));
         
         string IMigrationMetadata.Id
         {
-            get { return "201801172210093_New-Models"; }
+            get { return "201801172221597_new-models"; }
         }
         
         string IMigrationMetadata.Source

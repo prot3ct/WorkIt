@@ -110,9 +110,9 @@
     <Compile Include="Migrations\201801151756102_Initial.Designer.cs">
       <DependentUpon>201801151756102_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201801172210093_New-Models.cs" />
-    <Compile Include="Migrations\201801172210093_New-Models.Designer.cs">
-      <DependentUpon>201801172210093_New-Models.cs</DependentUpon>
+    <Compile Include="Migrations\201801172221597_new-models.cs" />
+    <Compile Include="Migrations\201801172221597_new-models.Designer.cs">
+      <DependentUpon>201801172221597_new-models.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -125,7 +125,7 @@
     <Compile Include="Models\TaskReports.cs" />
     <Compile Include="Models\TaskRequests.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="Models\UserComments.cs" />
+    <Compile Include="Models\JobComments.cs" />
     <Compile Include="Models\UserReports.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -146,8 +146,8 @@
     <EmbeddedResource Include="Migrations\201801151756102_Initial.resx">
       <DependentUpon>201801151756102_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801172210093_New-Models.resx">
-      <DependentUpon>201801172210093_New-Models.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201801172221597_new-models.resx">
+      <DependentUpon>201801172221597_new-models.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -19,5 +19,20 @@ namespace WorkIt_Server.Models.Context
         public DbSet<JobComments> UserComments { get; set; }
         public DbSet<UserReports> UserReports { get; set; }
         public DbSet<JobReports> TaskReports { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<JobComments>()
+                .HasRequired(jc => jc.Comment)
+                .WithMany()
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<JobComments>()
+                .HasRequired(jc => jc.Job)
+                .WithMany()
+                .WillCascadeOnDelete(false);
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }
