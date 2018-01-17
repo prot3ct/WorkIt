@@ -15,5 +15,7 @@ namespace WorkIt_Server.Models.Context
         public DbSet<User> Users { get; set; }
         public DbSet<Job> Jobs { get; set; }
         public DbSet<Location> Locations { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<UserComments> UserComments { get; set; }
     }
 }
