@@ -16,6 +16,7 @@ namespace WorkIt_Server.BLL
             this.JobLogic = new JobBussinessLogic();
             this.LocationLogic = new LocationBussinessLogic();
             this.UserLogic = new UserBussinessLogic();
+            this.CommentLogic = new CommentBussinessLogic();
         }
 
         public WorkItDbContext WorkItDbContext { get; private set; }
@@ -25,6 +26,8 @@ namespace WorkIt_Server.BLL
         public LocationBussinessLogic LocationLogic { get; private set; }
 
         public UserBussinessLogic UserLogic { get; private set; }
+        
+        public CommentBussinessLogic CommentLogic { get; private set; }
 
         public bool LoginUser(LoginDTO credentials)
         {
@@ -45,6 +48,11 @@ namespace WorkIt_Server.BLL
         public IEnumerable<JobDTO> GetAllJobs()
         {
             return JobLogic.GetAllJobs(WorkItDbContext);
+        }
+
+        public IEnumerable<CommentDTO> GetCommentsById(int id)
+        {
+            return CommentLogic.GetCommentsById(WorkItDbContext, id);
         }
     }
 }
