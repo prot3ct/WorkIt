@@ -7,7 +7,7 @@ using System.Web;
 
 namespace WorkIt_Server.Models
 {
-    public class UserReports
+    public class UserReport
     {
         [Key]
         public int UserReportId { get; set; }

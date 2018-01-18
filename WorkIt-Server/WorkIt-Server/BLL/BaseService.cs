@@ -17,6 +17,7 @@ namespace WorkIt_Server.BLL
             this.LocationLogic = new LocationBussinessLogic();
             this.UserLogic = new UserBussinessLogic();
             this.CommentLogic = new CommentBussinessLogic();
+            this.JobReportLogic = new JobReportBussinessLogic();
         }
 
         public WorkItDbContext WorkItDbContext { get; private set; }
@@ -28,6 +29,8 @@ namespace WorkIt_Server.BLL
         public UserBussinessLogic UserLogic { get; private set; }
         
         public CommentBussinessLogic CommentLogic { get; private set; }
+
+        public JobReportBussinessLogic JobReportLogic { get; private set; }
 
         public bool LoginUser(LoginDTO credentials)
         {
