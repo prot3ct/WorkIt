@@ -18,8 +18,8 @@ namespace WorkIt_Server.BLL
             this.UserLogic = new UserBussinessLogic();
             this.CommentLogic = new CommentBussinessLogic();
             this.JobReportLogic = new JobReportBussinessLogic();
-            this.jobRequestLogic = new JobRequestBussinessLogic();
-            this.userReportLogic = new UserReportBussinessLogic();
+            this.JobRequestLogic = new JobRequestBussinessLogic();
+            this.UserReportLogic = new UserReportBussinessLogic();
         }
 
         public WorkItDbContext WorkItDbContext { get; private set; }
@@ -34,9 +34,9 @@ namespace WorkIt_Server.BLL
 
         public JobReportBussinessLogic JobReportLogic { get; private set; }
 
-        public JobRequestBussinessLogic jobRequestLogic { get; private set; }
+        public JobRequestBussinessLogic JobRequestLogic { get; private set; }
 
-        public UserReportBussinessLogic userReportLogic { get; private set; }
+        public UserReportBussinessLogic UserReportLogic { get; private set; }
 
         public bool LoginUser(LoginDTO credentials)
         {
@@ -70,15 +70,19 @@ namespace WorkIt_Server.BLL
         }
         public bool CreateJobRequest(JobRequestDTO jobRequest)
         {
-            return jobRequestLogic.CreateJobRequest(WorkItDbContext, jobRequest);
+            return JobRequestLogic.CreateJobRequest(WorkItDbContext, jobRequest);
         }
         public bool CreateUserReport(UserReportDTO userReport)
         {
-            return userReportLogic.CreateUserReport(WorkItDbContext, userReport);
+            return UserReportLogic.CreateUserReport(WorkItDbContext, userReport);
         }
         public bool DeleteJobRequest(int id)
         {
-            return jobRequestLogic.DeleteJobRequest(WorkItDbContext, id);
+            return JobRequestLogic.DeleteJobRequest(WorkItDbContext, id);
+        }
+        public bool DeleteCommentById(int jobId, int CommentId)
+        {
+            return CommentLogic.DeleteCommentById(WorkItDbContext, jobId, CommentId);
         }
     }
 }

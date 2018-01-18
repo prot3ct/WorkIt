@@ -24,5 +24,26 @@ namespace WorkIt_Server.BLL
                 .Where(r => r.JobId == id)
                 .ToList();
         }
+
+        public bool DeleteCommentById(WorkItDbContext db, int jobId, int commentId)
+        {
+            var commentToDelete =
+                db.Comments.Join(db.JobComments,
+                c => c.CommentId,
+                jc => jc.CommentId,
+                (c, jc) => new Comment
+                {
+                    CommentId = c.CommentId,
+                    AuthorId = c.AuthorId,
+                    Message = c.Message
+                })
+                .Where(r => r.CommentId == commentId)
+                .FirstOrDefault();
+
+            db.Comments.Remove(commentToDelete);
+            db.SaveChanges();
+
+            return true;
+        }
     }
 }

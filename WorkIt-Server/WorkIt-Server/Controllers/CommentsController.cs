@@ -26,5 +26,19 @@ namespace WorkIt_Server.Controllers
                 return InternalServerError();
             }
         }
+
+        [Route("jobs/{jobId}/comments/delete/{commentId}")]
+        [HttpGet]
+        public IHttpActionResult GetCommectsForJobById(int jobId, int commentId)
+        {
+            try
+            {
+                return Ok(service.DeleteCommentById(jobId, commentId));
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
+        }
     }
 }
