@@ -18,7 +18,9 @@ namespace WorkIt_Server.Models.Context
         public DbSet<Comment> Comments { get; set; }
         public DbSet<JobComments> JobComments { get; set; }
         public DbSet<UserReport> UserReports { get; set; }
-        public DbSet<JobReport> TaskReports { get; set; }
+        public DbSet<JobReport> JobReports { get; set; }
+
+        public DbSet<JobRequest> JobRequests { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

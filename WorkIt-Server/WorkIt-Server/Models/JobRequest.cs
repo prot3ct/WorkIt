@@ -7,10 +7,10 @@ using System.Web;
 
 namespace WorkIt_Server.Models
 {
-    public class JobRequests
+    public class JobRequest
     {
         [Key]
-        public int JobRequestsId { get; set; }
+        public int JobRequestId { get; set; }
 
         [Required]
         public string Description { get; set; }

@@ -5,10 +5,10 @@ using System.Web;
 
 namespace WorkIt_Server.Models.DTO
 {
-    public class JobReportDTO
+    public class UserReportDTO
     {
         public string Description { get; set; }
-        public int UserId { get; set; }
-        public int JobId { get; set; }
+        public int AuthorUserId { get; set; }
+        public int TargetUserId { get; set; }
     }
 }

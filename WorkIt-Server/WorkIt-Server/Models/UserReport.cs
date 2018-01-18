@@ -16,8 +16,13 @@ namespace WorkIt_Server.Models
         public string Descriptin { get; set; }
 
         [Required]
-        [ForeignKey("User")]
-        public int UserId { get; set; }
-        public virtual User User { get; set; }
+        [ForeignKey("AuthorUser")]
+        public int AuthorUserId { get; set; }
+        public virtual User AuthorUser { get; set; }
+
+        [Required]
+        [ForeignKey("TargetUser")]
+        public int TargetUserId { get; set; }
+        public virtual User TargetUser { get; set; }
     }
 }

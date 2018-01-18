@@ -101,11 +101,15 @@
     <Compile Include="BLL\BaseService.cs" />
     <Compile Include="BLL\CommentBussinessLogic.cs" />
     <Compile Include="BLL\JobBussinessLogic.cs" />
+    <Compile Include="BLL\JobReportBussinessLogic.cs" />
+    <Compile Include="BLL\JobRequestBussinessLogic.cs" />
     <Compile Include="BLL\LocationBussinessLogic.cs" />
     <Compile Include="BLL\UserBussinessLogic.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
+    <Compile Include="Controllers\JobRequestController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
-    <Compile Include="Controllers\TaskReportController.cs" />
+    <Compile Include="Controllers\JobReportController.cs" />
+    <Compile Include="Controllers\UserReportController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -123,15 +127,17 @@
     <Compile Include="Models\Context\WorkItDbContext.cs" />
     <Compile Include="Models\DTO\CommentDTO.cs" />
     <Compile Include="Models\DTO\JobDTO.cs" />
+    <Compile Include="Models\DTO\JobRequestDTO.cs" />
+    <Compile Include="Models\DTO\JobReportDTO.cs" />
     <Compile Include="Models\DTO\LoginDTO.cs" />
     <Compile Include="Models\DTO\RegisterDTO.cs" />
     <Compile Include="Models\Job.cs" />
     <Compile Include="Models\Location.cs" />
-    <Compile Include="Models\TaskReports.cs" />
-    <Compile Include="Models\TaskRequests.cs" />
+    <Compile Include="Models\JobReport.cs" />
+    <Compile Include="Models\JobRequest.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\JobComments.cs" />
-    <Compile Include="Models\UserReports.cs" />
+    <Compile Include="Models\UserReport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

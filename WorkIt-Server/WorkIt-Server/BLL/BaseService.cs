@@ -18,6 +18,8 @@ namespace WorkIt_Server.BLL
             this.UserLogic = new UserBussinessLogic();
             this.CommentLogic = new CommentBussinessLogic();
             this.JobReportLogic = new JobReportBussinessLogic();
+            this.jobRequestLogic = new JobRequestBussinessLogic();
+            this.userReportLogic = new UserReportBussinessLogic();
         }
 
         public WorkItDbContext WorkItDbContext { get; private set; }
@@ -31,6 +33,10 @@ namespace WorkIt_Server.BLL
         public CommentBussinessLogic CommentLogic { get; private set; }
 
         public JobReportBussinessLogic JobReportLogic { get; private set; }
+
+        public JobRequestBussinessLogic jobRequestLogic { get; private set; }
+
+        public UserReportBussinessLogic userReportLogic { get; private set; }
 
         public bool LoginUser(LoginDTO credentials)
         {
@@ -56,6 +62,23 @@ namespace WorkIt_Server.BLL
         public IEnumerable<CommentDTO> GetCommentsById(int id)
         {
             return CommentLogic.GetCommentsById(WorkItDbContext, id);
+        }
+
+        public bool PostJobReport(JobReportDTO jobReport)
+        {
+            return JobReportLogic.CreateJobReport(WorkItDbContext, jobReport);
+        }
+        public bool CreateJobRequest(JobRequestDTO jobRequest)
+        {
+            return jobRequestLogic.CreateJobRequest(WorkItDbContext, jobRequest);
+        }
+        public bool CreateUserReport(UserReportDTO userReport)
+        {
+            return userReportLogic.CreateUserReport(WorkItDbContext, userReport);
+        }
+        public bool DeleteJobRequest(int id)
+        {
+            return jobRequestLogic.DeleteJobRequest(WorkItDbContext, id);
         }
     }
 }

@@ -10,17 +10,17 @@ using WorkIt_Server.Models.DTO;
 namespace WorkIt_Server.Controllers
 {
     [RoutePrefix("api")]
-    public class JobReportController : ApiController
+    public class JobRequestController : ApiController
     {
         private BaseService service = new BaseService();
 
-        [Route("jobs/reports")]
+        [Route("jobs/requests")]
         [HttpPost]
-        public IHttpActionResult GetCommectsForJobById(JobReportDTO jobReport)
+        public IHttpActionResult GetCommectsForJobById(JobRequestDTO jobRequest)
         {
             try
             {
-                return Ok(service.PostJobReport(jobReport));
+                return Ok(service.CreateJobRequest(jobRequest));
             }
             catch (Exception)
             {
