@@ -98,13 +98,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="BLL\BaseService.cs" />
-    <Compile Include="BLL\CommentBussinessLogic.cs" />
-    <Compile Include="BLL\JobBussinessLogic.cs" />
-    <Compile Include="BLL\JobReportBussinessLogic.cs" />
-    <Compile Include="BLL\JobRequestBussinessLogic.cs" />
-    <Compile Include="BLL\LocationBussinessLogic.cs" />
-    <Compile Include="BLL\UserBussinessLogic.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\JobRequestController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
