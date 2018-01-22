@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import prot3ct.workit.R;
+import prot3ct.workit.utils.WorkItProgressDialog;
 import prot3ct.workit.views.list_jobs.ListJobsActivity;
 import prot3ct.workit.views.login.LoginActivity;
 import prot3ct.workit.views.register.base.RegisterContract;
@@ -27,6 +28,8 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
     private EditText lastnameEditText;
     private EditText passwordEditText;
     private Button registerButton;
+
+    private WorkItProgressDialog dialog;
 
     public RegisterFragment() {
     }
@@ -45,6 +48,7 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_register, container, false);
 
+        this.dialog = new WorkItProgressDialog(context);
         this.registerButton = (Button) view.findViewById(R.id.id_register_button);
         this.emailEditText = (EditText) view.findViewById(R.id.id_email_edit_text);
         this.firstnameEditText = (EditText) view.findViewById(R.id.id_firstname_edit_text);
@@ -89,4 +93,13 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
         this.context = context;
     }
 
+    @Override
+    public void showDialogforLoading() {
+        this.dialog.showProgress("Registering...");
+    }
+
+    @Override
+    public void dismissDialog() {
+        this.dialog.dismissProgress();
+    }
 }

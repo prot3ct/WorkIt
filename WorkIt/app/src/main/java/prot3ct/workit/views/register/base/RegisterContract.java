@@ -9,6 +9,10 @@ public interface RegisterContract {
         void notifySuccessful();
 
         void notifyError(String message);
+
+        void showDialogforLoading();
+
+        void dismissDialog();
     }
 
     interface Presenter {

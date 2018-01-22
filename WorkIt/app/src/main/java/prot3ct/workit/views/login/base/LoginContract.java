@@ -11,6 +11,10 @@ public interface LoginContract {
         void notifyError(String errorMessage);
 
         void notifySuccessful();
+
+        void showDialogforLoading();
+
+        void dismissDialog();
     }
 
     interface Presenter {

@@ -28,12 +28,13 @@ public class LoginPresenter implements LoginContract.Presenter {
                 new Observer<Boolean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-//                        view.showDialogForLoading();
+                        view.showDialogforLoading();
                     }
 
                     @Override
                     public void onNext(Boolean value) {
                         view.notifySuccessful();
+                        view.dismissDialog();
                         view.showListJobsActivity();
                     }
 

@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import prot3ct.workit.R;
+import prot3ct.workit.utils.WorkItProgressDialog;
 import prot3ct.workit.views.list_jobs.ListJobsActivity;
 import prot3ct.workit.views.login.base.LoginContract;
 import prot3ct.workit.views.register.RegisterActivity;
@@ -25,6 +26,8 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     private EditText passwordEditText;
     private Button loginButton;
     private Button registerButton;
+
+    private WorkItProgressDialog dialog;
 
     public LoginFragment() {
     }
@@ -43,6 +46,8 @@ public class LoginFragment extends Fragment implements LoginContract.View {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
+
+        this.dialog = new WorkItProgressDialog(context);
         this.usernameEditText = (EditText) view.findViewById(R.id.id_username_edit_text);
         this.passwordEditText = (EditText) view.findViewById(R.id.id_password_edit_text);
         this.loginButton = (Button) view.findViewById(R.id.id_login_button);
@@ -92,5 +97,15 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     @Override
     public void notifySuccessful() {
         Toast.makeText(getContext(), "You have logged in successfully", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showDialogforLoading() {
+        this.dialog.showProgress("Logging in...");
+    }
+
+    @Override
+    public void dismissDialog() {
+        this.dialog.dismissProgress();
     }
 }
