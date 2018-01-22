@@ -7,13 +7,13 @@ public interface TaskContract {
 
     public void setTitle(String title);
 
-    public Date getStartDate();
+    public String getStartDate();
 
-    public void setStartDate(Date startDate);
+    public void setStartDate(String startDate);
 
-    public Date getEndDate();
+    public String getEndDate();
 
-    public void setEndDate(Date endDate);
+    public void setEndDate(String endDate);
 
     public String getDescription();
 
@@ -30,4 +30,20 @@ public interface TaskContract {
     public double getMinRating();
 
     public void setMinRating(double minRating);
+
+    public String getCountry();
+
+    public void setCountry(String country);
+
+    public String getCity();
+
+    public void setCity(String city);
+
+    public String getCreatorEmail();
+
+    public void setCreatorEmail(String creatorEmail);
+
+    public String getAddress();
+
+    public void setAddress(String address);
 }

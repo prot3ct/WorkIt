@@ -1,31 +1,21 @@
 package prot3ct.workit.models;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import prot3ct.workit.models.base.TaskContract;
 
-public class Task implements TaskContract, Serializable
-{
+public class Task implements TaskContract, Serializable {
     private String title;
-    private Date startDate;
-    private Date endDate;
+    private String startDate;
+    private String endDate;
     private String description;
+    private String country;
+    private String city;
+    private String address;
     private String reward;
+    private String creatorEmail;
+    private double minRaiting;
     private int minJobsCompleted;
-    private double minRating;
-    private Place place;
-
-    public Task(String title, Date startDate, Date endDate, String description, String reward, int minJobsCompleted, double minRating, Place place) {
-        setTitle(title);
-        setStartDate(startDate);
-        setEndDate(endDate);
-        setDescription(description);
-        setReward(reward);
-        setMinJobsCompleted(minJobsCompleted);
-        setMinRating(minRating);
-        setPlace(place);
-    }
 
     public String getTitle() {
         return title;
@@ -35,19 +25,19 @@ public class Task implements TaskContract, Serializable
         this.title = title;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 
@@ -59,12 +49,20 @@ public class Task implements TaskContract, Serializable
         this.description = description;
     }
 
-    public String getReward() {
-        return reward;
+    public String getCountry() {
+        return country;
     }
 
-    public void setReward(String reward) {
-        this.reward = reward;
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public int getMinJobsCompleted() {
@@ -76,18 +74,34 @@ public class Task implements TaskContract, Serializable
     }
 
     public double getMinRating() {
-        return minRating;
+        return minRaiting;
     }
 
-    public void setMinRating(double minRating) {
-        this.minRating = minRating;
+    public void setMinRating(double minRaiting) {
+        this.minRaiting = minRaiting;
     }
 
-    public Place getPlace() {
-        return place;
+    public String getCreatorEmail() {
+        return creatorEmail;
     }
 
-    public void setPlace(Place place) {
-        this.place = place;
+    public void setCreatorEmail(String creatorEmail) {
+        this.creatorEmail = creatorEmail;
+    }
+
+    public String getReward() {
+        return reward;
+    }
+
+    public void setReward(String reward) {
+        this.reward = reward;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
