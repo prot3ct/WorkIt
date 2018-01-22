@@ -10,9 +10,26 @@ namespace WorkIt_Server.BLL
 {
     public class JobBussinessLogic
     {
-        public JobBussinessLogic() { }
+        private WorkItDbContext db;
 
-        public bool CreateJob(WorkItDbContext db, JobDTO jobInformation, int locationId)
+        public JobBussinessLogic(WorkItDbContext db)
+        {
+            this.Db = db;
+        }
+
+        public WorkItDbContext Db
+        {
+            get
+            {
+                return this.db;
+            }
+            set
+            {
+                this.db = value;
+            }
+        }
+
+        public bool CreateJob(JobDTO jobInformation, int locationId)
         {
             var creator = db.Users.Where(u => u.Email == jobInformation.CreatorEmail).FirstOrDefault();
 
@@ -34,7 +51,7 @@ namespace WorkIt_Server.BLL
             return true;
         }
 
-        public IEnumerable<JobDTO> GetAllJobs(WorkItDbContext db)
+        public IEnumerable<JobDTO> GetAllJobs()
         {
             return db.Jobs.ToList().Select(j => new JobDTO
             {

@@ -10,7 +10,26 @@ namespace WorkIt_Server.BLL
 {
     public class JobReportBussinessLogic
     {
-        public bool CreateJobReport(WorkItDbContext db, JobReportDTO jobReport)
+        private WorkItDbContext db;
+
+        public JobReportBussinessLogic(WorkItDbContext db)
+        {
+            this.Db = db;
+        }
+
+        public WorkItDbContext Db
+        {
+            get
+            {
+                return this.db;
+            }
+            set
+            {
+                this.db = value;
+            }
+        }
+
+        public bool CreateJobReport(JobReportDTO jobReport)
         {
             var jobReportToBeInserted = new JobReport
             {

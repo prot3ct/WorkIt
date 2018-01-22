@@ -10,11 +10,30 @@ namespace WorkIt_Server.BLL
 {
     public class UserReportBussinessLogic
     {
-        public bool CreateUserReport(WorkItDbContext db, UserReportDTO userReport)
+        private WorkItDbContext db;
+
+        public UserReportBussinessLogic(WorkItDbContext db)
+        {
+            this.Db = db;
+        }
+
+        public WorkItDbContext Db
+        {
+            get
+            {
+                return this.db;
+            }
+            set
+            {
+                this.db = value;
+            }
+        }
+
+        public bool CreateUserReport(UserReportDTO userReport)
         {
             var userReportTobeInserted = new UserReport
             {
-                Descriptin = userReport.Description,
+                Description = userReport.Description,
                 AuthorUserId = userReport.AuthorUserId,
                 TargetUserId = userReport.TargetUserId
             };

@@ -13,7 +13,7 @@ namespace WorkIt_Server.Models
         public int UserReportId { get; set; }
 
         [Required]
-        public string Descriptin { get; set; }
+        public string Description { get; set; }
 
         [Required]
         [ForeignKey("AuthorUser")]

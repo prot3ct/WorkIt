@@ -10,7 +10,26 @@ namespace WorkIt_Server.BLL
 {
     public class JobRequestBussinessLogic
     {
-        public bool CreateJobRequest(WorkItDbContext db, JobRequestDTO jobRequest)
+        private WorkItDbContext db;
+
+        public JobRequestBussinessLogic(WorkItDbContext db)
+        {
+            this.Db = db;
+        }
+
+        public WorkItDbContext Db
+        {
+            get
+            {
+                return this.db;
+            }
+            set
+            {
+                this.db = value;
+            }
+        }
+
+        public bool CreateJobRequest(JobRequestDTO jobRequest)
         {
             var jobRequestToBeInserted = new JobRequest
             {
@@ -24,7 +43,7 @@ namespace WorkIt_Server.BLL
             return true;
         }
 
-        public bool DeleteJobRequest(WorkItDbContext db, int id)
+        public bool DeleteJobRequest(int id)
         {
             var jobRequest = db.JobRequests.Where(jr => jr.JobRequestId == id).FirstOrDefault();
 

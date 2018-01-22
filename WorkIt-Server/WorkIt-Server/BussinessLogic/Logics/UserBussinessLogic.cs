@@ -10,9 +10,28 @@ namespace WorkIt_Server.BLL
 {
     public class UserBussinessLogic
     {
+        private WorkItDbContext db;
+
+        public UserBussinessLogic(WorkItDbContext db)
+        {
+            this.Db = db;
+        }
+
+        public WorkItDbContext Db
+        {
+            get
+            {
+                return this.db;
+            }
+            set
+            {
+                this.db = value;
+            }
+        }
+
         public UserBussinessLogic() { }
 
-        public bool LoginUser(WorkItDbContext db, LoginDTO credentials)
+        public bool LoginUser(LoginDTO credentials)
         {
             var user = db.Users.FirstOrDefault(u => u.Email == credentials.Email && u.PassHash == credentials.PassHash);
             if (user != null)
@@ -22,7 +41,7 @@ namespace WorkIt_Server.BLL
             return false;
         }
 
-        public bool RegisterUser(WorkItDbContext db, RegisterDTO credentials)
+        public bool RegisterUser(RegisterDTO credentials)
         {
             if (db.Users.Select(u => u.Email).Contains(credentials.Email))
             {

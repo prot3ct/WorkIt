@@ -10,7 +10,26 @@ namespace WorkIt_Server.BLL
 {
     public class LocationBussinessLogic
     {
-        public bool CheckExsistingLocation(WorkItDbContext db, Location location)
+        private WorkItDbContext db;
+
+        public LocationBussinessLogic(WorkItDbContext db)
+        {
+            this.Db = db;
+        }
+
+        public WorkItDbContext Db
+        {
+            get
+            {
+                return this.db;
+            }
+            set
+            {
+                this.db = value;
+            }
+        }
+
+        public bool CheckExsistingLocation(Location location)
         {
             if (db.Locations.Any(p => p.Address == location.Address && p.City == location.City && p.Country == location.Country)) 
             {
@@ -19,9 +38,9 @@ namespace WorkIt_Server.BLL
             return false;
         }
 
-        public Location CreateLocation(WorkItDbContext db, Location location)
+        public Location CreateLocation(Location location)
         {
-            if (!CheckExsistingLocation(db, location))
+            if (!CheckExsistingLocation(location))
             {
                 db.Locations.Add(location);
                 db.SaveChanges();

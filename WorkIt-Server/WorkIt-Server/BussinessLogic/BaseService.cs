@@ -13,13 +13,13 @@ namespace WorkIt_Server.BLL
         public BaseService()
         {
             this.WorkItDbContext = new WorkItDbContext();
-            this.JobLogic = new JobBussinessLogic();
-            this.LocationLogic = new LocationBussinessLogic();
-            this.UserLogic = new UserBussinessLogic();
-            this.CommentLogic = new CommentBussinessLogic();
-            this.JobReportLogic = new JobReportBussinessLogic();
-            this.JobRequestLogic = new JobRequestBussinessLogic();
-            this.UserReportLogic = new UserReportBussinessLogic();
+            this.JobLogic = new JobBussinessLogic(this.WorkItDbContext);
+            this.LocationLogic = new LocationBussinessLogic(this.WorkItDbContext);
+            this.UserLogic = new UserBussinessLogic(this.WorkItDbContext);
+            this.CommentLogic = new CommentBussinessLogic(this.WorkItDbContext);
+            this.JobReportLogic = new JobReportBussinessLogic(this.WorkItDbContext);
+            this.JobRequestLogic = new JobRequestBussinessLogic(this.WorkItDbContext);
+            this.UserReportLogic = new UserReportBussinessLogic(this.WorkItDbContext);
         }
 
         public WorkItDbContext WorkItDbContext { get; private set; }
@@ -40,49 +40,49 @@ namespace WorkIt_Server.BLL
 
         public bool LoginUser(LoginDTO credentials)
         {
-            return UserLogic.LoginUser(WorkItDbContext, credentials);
+            return UserLogic.LoginUser(credentials);
         }
 
         public bool RegisterUser(RegisterDTO credentials)
         {
-            return UserLogic.RegisterUser(WorkItDbContext, credentials);
+            return UserLogic.RegisterUser(credentials);
         }
 
         public bool CreateJob(JobDTO jobInformation)
         {
-            var location = LocationLogic.CreateLocation(WorkItDbContext, jobInformation.ToLocation());
-            return JobLogic.CreateJob(WorkItDbContext, jobInformation, location.LocationId);
+            var location = LocationLogic.CreateLocation(jobInformation.ToLocation());
+            return JobLogic.CreateJob(jobInformation, location.LocationId);
         }
 
         public IEnumerable<JobDTO> GetAllJobs()
         {
-            return JobLogic.GetAllJobs(WorkItDbContext);
+            return JobLogic.GetAllJobs();
         }
 
         public IEnumerable<CommentDTO> GetCommentsById(int id)
         {
-            return CommentLogic.GetCommentsById(WorkItDbContext, id);
+            return CommentLogic.GetCommentsById(id);
         }
 
         public bool PostJobReport(JobReportDTO jobReport)
         {
-            return JobReportLogic.CreateJobReport(WorkItDbContext, jobReport);
+            return JobReportLogic.CreateJobReport(jobReport);
         }
         public bool CreateJobRequest(JobRequestDTO jobRequest)
         {
-            return JobRequestLogic.CreateJobRequest(WorkItDbContext, jobRequest);
+            return JobRequestLogic.CreateJobRequest(jobRequest);
         }
         public bool CreateUserReport(UserReportDTO userReport)
         {
-            return UserReportLogic.CreateUserReport(WorkItDbContext, userReport);
+            return UserReportLogic.CreateUserReport(userReport);
         }
         public bool DeleteJobRequest(int id)
         {
-            return JobRequestLogic.DeleteJobRequest(WorkItDbContext, id);
+            return JobRequestLogic.DeleteJobRequest(id);
         }
         public bool DeleteCommentById(int jobId, int CommentId)
         {
-            return CommentLogic.DeleteCommentById(WorkItDbContext, jobId, CommentId);
+            return CommentLogic.DeleteCommentById(jobId, CommentId);
         }
     }
 }

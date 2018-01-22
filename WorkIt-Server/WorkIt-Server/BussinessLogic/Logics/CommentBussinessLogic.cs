@@ -10,10 +10,29 @@ namespace WorkIt_Server.BLL
 {
     public class CommentBussinessLogic
     {
-        public IEnumerable<CommentDTO> GetCommentsById(WorkItDbContext db, int id)
+        private WorkItDbContext db;
+
+        public CommentBussinessLogic(WorkItDbContext db)
+        {
+            this.Db = db;
+        }
+
+        public WorkItDbContext Db
+        {
+            get
+            {
+                return this.db;
+            }
+            set
+            {
+                this.db = value;
+            }
+        }
+
+        public IEnumerable<CommentDTO> GetCommentsById(int id)
         {
             return
-                db.Comments.Join(db.JobComments,
+                Db.Comments.Join(Db.JobComments,
                 c => c.CommentId,
                 jc => jc.CommentId,
                 (c, jc) => new CommentDTO {
@@ -25,10 +44,10 @@ namespace WorkIt_Server.BLL
                 .ToList();
         }
 
-        public bool DeleteCommentById(WorkItDbContext db, int jobId, int commentId)
+        public bool DeleteCommentById(int jobId, int commentId)
         {
             var commentToDelete =
-                db.Comments.Join(db.JobComments,
+                Db.Comments.Join(Db.JobComments,
                 c => c.CommentId,
                 jc => jc.CommentId,
                 (c, jc) => new Comment
@@ -40,8 +59,8 @@ namespace WorkIt_Server.BLL
                 .Where(r => r.CommentId == commentId)
                 .FirstOrDefault();
 
-            db.Comments.Remove(commentToDelete);
-            db.SaveChanges();
+            Db.Comments.Remove(commentToDelete);
+            Db.SaveChanges();
 
             return true;
         }

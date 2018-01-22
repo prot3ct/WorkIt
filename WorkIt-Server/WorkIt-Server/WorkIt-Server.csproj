@@ -98,6 +98,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="BussinessLogic\BaseService.cs" />
+    <Compile Include="BussinessLogic\Logics\CommentBussinessLogic.cs" />
+    <Compile Include="BussinessLogic\Logics\JobBussinessLogic.cs" />
+    <Compile Include="BussinessLogic\Logics\JobReportBussinessLogic.cs" />
+    <Compile Include="BussinessLogic\Logics\JobRequestBussinessLogic.cs" />
+    <Compile Include="BussinessLogic\Logics\LocationBussinessLogic.cs" />
+    <Compile Include="BussinessLogic\Logics\UserBussinessLogic.cs" />
+    <Compile Include="BussinessLogic\Logics\UserReportBussinessLogic.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\JobRequestController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
@@ -124,6 +132,7 @@
     <Compile Include="Models\DTO\JobReportDTO.cs" />
     <Compile Include="Models\DTO\LoginDTO.cs" />
     <Compile Include="Models\DTO\RegisterDTO.cs" />
+    <Compile Include="Models\DTO\UserReportDTO.cs" />
     <Compile Include="Models\Job.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\JobReport.cs" />
