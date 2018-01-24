@@ -5,9 +5,9 @@ using System.Web;
 
 namespace WorkIt_Server.Models.DTO
 {
-    public class JobRequestDTO
+    public class TaskRequestDTO
     {
-        public int JobId { get; set; }
+        public int TaskId { get; set; }
         public int UserId { get; set; } 
         public string Description { get; set; }
     }

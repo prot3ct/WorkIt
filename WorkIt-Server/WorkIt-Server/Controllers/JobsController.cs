@@ -32,7 +32,7 @@ namespace WorkIt_Server.Controllers
 
         [Route("jobs/create")]
         [HttpPost]
-        public IHttpActionResult CreateJob(JobDTO jobInformation)
+        public IHttpActionResult CreateJob(TaskDTO jobInformation)
         {
             try
             {

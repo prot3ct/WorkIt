@@ -29,13 +29,13 @@ namespace WorkIt_Server.BLL
             }
         }
 
-        public bool CreateJob(JobDTO jobInformation, int locationId)
+        public bool CreateJob(TaskDTO jobInformation, int locationId)
         {
             var creator = db.Users.Where(u => u.Email == jobInformation.CreatorEmail).FirstOrDefault();
 
-            var jobToBeInserted = new Job
+            var jobToBeInserted = new Task
             {
-                MinJobsCompleted = jobInformation.MinJobsCompleted,
+                MinJobsCompleted = jobInformation.MinTasksCompleted,
                 MinRaiting = jobInformation.MinRaiting,
                 Reward = jobInformation.Reward,
                 Creator = creator,
@@ -46,14 +46,14 @@ namespace WorkIt_Server.BLL
                 Title = jobInformation.Title,
             };
 
-            db.Jobs.Add(jobToBeInserted);
+            db.Tasks.Add(jobToBeInserted);
             db.SaveChanges();
             return true;
         }
 
-        public IEnumerable<JobDTO> GetAllJobs()
+        public IEnumerable<TaskDTO> GetAllJobs()
         {
-            return db.Jobs.ToList().Select(j => new JobDTO
+            return db.Tasks.ToList().Select(j => new TaskDTO
             {
                 CreatorEmail = j.Creator.Email,
                 Address = j.Location.Address,
@@ -62,7 +62,7 @@ namespace WorkIt_Server.BLL
                 Description = j.Description,
                 EndDate = j.EndDate,
                 StartDate = j.StartDate,
-                MinJobsCompleted = j.MinJobsCompleted,
+                MinTasksCompleted = j.MinJobsCompleted,
                 MinRaiting = j.MinRaiting,
                 Reward = j.Reward,
                 Title = j.Title

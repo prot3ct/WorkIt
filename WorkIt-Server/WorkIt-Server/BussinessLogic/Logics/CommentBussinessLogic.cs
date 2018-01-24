@@ -32,22 +32,22 @@ namespace WorkIt_Server.BLL
         public IEnumerable<CommentDTO> GetCommentsById(int id)
         {
             return
-                Db.Comments.Join(Db.JobComments,
+                Db.Comments.Join(Db.TasksComments,
                 c => c.CommentId,
                 jc => jc.CommentId,
                 (c, jc) => new CommentDTO {
-                    JobId = jc.JobId,
+                    TaskId = jc.TaskId,
                     AuthorId = c.AuthorId,
                     Message = c.Message
                 })
-                .Where(r => r.JobId == id)
+                .Where(r => r.TaskId == id)
                 .ToList();
         }
 
         public bool DeleteCommentById(int jobId, int commentId)
         {
             var commentToDelete =
-                Db.Comments.Join(Db.JobComments,
+                Db.Comments.Join(Db.TasksComments,
                 c => c.CommentId,
                 jc => jc.CommentId,
                 (c, jc) => new Comment

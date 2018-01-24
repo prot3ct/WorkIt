@@ -8,18 +8,18 @@ using System.Web;
 
 namespace WorkIt_Server.Models
 {
-    public class JobReport
+    public class TaskReport
     {
         [Key]
-        public int JobReportId { get; set; }
+        public int TaskReportId { get; set; }
 
         [Required]
         public string Description { get; set; }
 
         [Required]
-        [ForeignKey("Job")]
-        public int JobId { get; set; }
-        public virtual Job Job { get; set; }
+        [ForeignKey("Task")]
+        public int TaskId { get; set; }
+        public virtual Task Task { get; set; }
 
         [Required]
         [ForeignKey("User")]

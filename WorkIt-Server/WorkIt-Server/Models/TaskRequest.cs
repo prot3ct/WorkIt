@@ -7,10 +7,10 @@ using System.Web;
 
 namespace WorkIt_Server.Models
 {
-    public class JobRequest
+    public class TaskRequest
     {
         [Key]
-        public int JobRequestId { get; set; }
+        public int TaskRequestId { get; set; }
 
         [Required]
         public string Description { get; set; }
@@ -21,8 +21,8 @@ namespace WorkIt_Server.Models
         public virtual User User { get; set; }
 
         [Required]
-        [ForeignKey("Job")]
-        public int JobId { get; set; }
-        public virtual Job Job { get; set; }
+        [ForeignKey("Task")]
+        public int TaskId { get; set; }
+        public virtual Task Task { get; set; }
     }
 }

@@ -115,30 +115,22 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201801151756102_Initial.cs" />
-    <Compile Include="Migrations\201801151756102_Initial.Designer.cs">
-      <DependentUpon>201801151756102_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801172221597_new-models.cs" />
-    <Compile Include="Migrations\201801172221597_new-models.Designer.cs">
-      <DependentUpon>201801172221597_new-models.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Context\WorkItDbContext.cs" />
     <Compile Include="Models\DTO\CommentDTO.cs" />
-    <Compile Include="Models\DTO\JobDTO.cs" />
-    <Compile Include="Models\DTO\JobRequestDTO.cs" />
-    <Compile Include="Models\DTO\JobReportDTO.cs" />
+    <Compile Include="Models\DTO\TaskDTO.cs" />
+    <Compile Include="Models\DTO\TaskRequestDTO.cs" />
+    <Compile Include="Models\DTO\TaskReportDTO.cs" />
     <Compile Include="Models\DTO\LoginDTO.cs" />
     <Compile Include="Models\DTO\RegisterDTO.cs" />
     <Compile Include="Models\DTO\UserReportDTO.cs" />
-    <Compile Include="Models\Job.cs" />
+    <Compile Include="Models\Task.cs" />
     <Compile Include="Models\Location.cs" />
-    <Compile Include="Models\JobReport.cs" />
-    <Compile Include="Models\JobRequest.cs" />
+    <Compile Include="Models\TaskReport.cs" />
+    <Compile Include="Models\TaskRequest.cs" />
+    <Compile Include="Models\Raiting.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="Models\JobComments.cs" />
+    <Compile Include="Models\TaskComments.cs" />
     <Compile Include="Models\UserReport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -154,14 +146,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201801151756102_Initial.resx">
-      <DependentUpon>201801151756102_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801172221597_new-models.resx">
-      <DependentUpon>201801172221597_new-models.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

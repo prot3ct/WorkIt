@@ -27,6 +27,6 @@ namespace WorkIt_Server.Models
 
         public double RaitingAsCreator { get; set; }
 
-        public int JobsCompleted { get; set; }
+        public int TaskCompleted { get; set; }
     }
 }

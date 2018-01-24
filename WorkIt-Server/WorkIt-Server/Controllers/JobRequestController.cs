@@ -16,7 +16,7 @@ namespace WorkIt_Server.Controllers
 
         [Route("jobs/requests")]
         [HttpPost]
-        public IHttpActionResult GetCommectsForJobById(JobRequestDTO jobRequest)
+        public IHttpActionResult GetCommectsForJobById(TaskRequestDTO jobRequest)
         {
             try
             {

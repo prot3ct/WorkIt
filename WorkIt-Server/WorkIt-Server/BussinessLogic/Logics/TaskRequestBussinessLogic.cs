@@ -29,25 +29,25 @@ namespace WorkIt_Server.BLL
             }
         }
 
-        public bool CreateJobRequest(JobRequestDTO jobRequest)
+        public bool CreateJobRequest(TaskRequestDTO jobRequest)
         {
-            var jobRequestToBeInserted = new JobRequest
+            var jobRequestToBeInserted = new TaskRequest
             {
                 Description = jobRequest.Description,
-                JobId = jobRequest.JobId,
+                TaskId = jobRequest.TaskId,
                 UserId = jobRequest.UserId
             };
 
-            db.JobRequests.Add(jobRequestToBeInserted);
+            db.TaskRequests.Add(jobRequestToBeInserted);
             db.SaveChanges();
             return true;
         }
 
         public bool DeleteJobRequest(int id)
         {
-            var jobRequest = db.JobRequests.Where(jr => jr.JobRequestId == id).FirstOrDefault();
+            var jobRequest = db.TaskRequests.Where(jr => jr.TaskRequestId == id).FirstOrDefault();
 
-            db.JobRequests.Remove(jobRequest);
+            db.TaskRequests.Remove(jobRequest);
             db.SaveChanges();
             return true;
         }

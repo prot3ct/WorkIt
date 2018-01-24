@@ -8,7 +8,7 @@ using WorkIt_Server.Models.DTO;
 
 namespace WorkIt_Server.Models
 {
-    public class Job
+    public class Task
     {
         [Key]
         public int JobId { get; set; }

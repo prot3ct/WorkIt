@@ -5,7 +5,7 @@ using System.Web;
 
 namespace WorkIt_Server.Models.DTO
 {
-    public class JobDTO
+    public class TaskDTO
     {
         public string Title { get; set; }
         public DateTime StartDate { get; set; }
@@ -17,7 +17,7 @@ namespace WorkIt_Server.Models.DTO
         public string Reward { get; set; }
         public string CreatorEmail { get; set; }
         public int MinRaiting { get; set; }
-        public int MinJobsCompleted { get; set; }
+        public int MinTasksCompleted { get; set; }
 
         public Location ToLocation()
         {

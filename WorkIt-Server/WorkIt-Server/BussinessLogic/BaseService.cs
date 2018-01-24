@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WorkIt_Server.BussinessLogic.Logics;
 using WorkIt_Server.Models;
 using WorkIt_Server.Models.Context;
 using WorkIt_Server.Models.DTO;
@@ -20,6 +21,7 @@ namespace WorkIt_Server.BLL
             this.JobReportLogic = new JobReportBussinessLogic(this.WorkItDbContext);
             this.JobRequestLogic = new JobRequestBussinessLogic(this.WorkItDbContext);
             this.UserReportLogic = new UserReportBussinessLogic(this.WorkItDbContext);
+            this.RaitingLogic = new RaitingBussinessLogic(this.WorkItDbContext);
         }
 
         public WorkItDbContext WorkItDbContext { get; private set; }
@@ -38,6 +40,8 @@ namespace WorkIt_Server.BLL
 
         public UserReportBussinessLogic UserReportLogic { get; private set; }
 
+        public RaitingBussinessLogic RaitingLogic { get; private set; }
+
         public bool LoginUser(LoginDTO credentials)
         {
             return UserLogic.LoginUser(credentials);
@@ -48,13 +52,13 @@ namespace WorkIt_Server.BLL
             return UserLogic.RegisterUser(credentials);
         }
 
-        public bool CreateJob(JobDTO jobInformation)
+        public bool CreateJob(TaskDTO jobInformation)
         {
             var location = LocationLogic.CreateLocation(jobInformation.ToLocation());
             return JobLogic.CreateJob(jobInformation, location.LocationId);
         }
 
-        public IEnumerable<JobDTO> GetAllJobs()
+        public IEnumerable<TaskDTO> GetAllJobs()
         {
             return JobLogic.GetAllJobs();
         }
@@ -64,11 +68,11 @@ namespace WorkIt_Server.BLL
             return CommentLogic.GetCommentsById(id);
         }
 
-        public bool PostJobReport(JobReportDTO jobReport)
+        public bool PostJobReport(TaskReportDTO jobReport)
         {
             return JobReportLogic.CreateJobReport(jobReport);
         }
-        public bool CreateJobRequest(JobRequestDTO jobRequest)
+        public bool CreateJobRequest(TaskRequestDTO jobRequest)
         {
             return JobRequestLogic.CreateJobRequest(jobRequest);
         }
@@ -83,6 +87,10 @@ namespace WorkIt_Server.BLL
         public bool DeleteCommentById(int jobId, int CommentId)
         {
             return CommentLogic.DeleteCommentById(jobId, CommentId);
+        }
+        public void AddRaiting(Raiting raiting)
+        {
+            this.RaitingLogic.CreateRatiing(raiting);
         }
     }
 }

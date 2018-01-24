@@ -29,16 +29,16 @@ namespace WorkIt_Server.BLL
             }
         }
 
-        public bool CreateJobReport(JobReportDTO jobReport)
+        public bool CreateJobReport(TaskReportDTO jobReport)
         {
-            var jobReportToBeInserted = new JobReport
+            var jobReportToBeInserted = new TaskReport
             {
                 Description = jobReport.Description,
-                JobId = jobReport.JobId,
+                TaskId = jobReport.TaskId,
                 UserId = jobReport.UserId
             };
 
-            db.JobReports.Add(jobReportToBeInserted);
+            db.TasksReports.Add(jobReportToBeInserted);
             db.SaveChanges();
             return true;
         }
