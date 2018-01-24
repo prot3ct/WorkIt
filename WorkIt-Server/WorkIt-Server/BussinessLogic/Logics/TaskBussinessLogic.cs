@@ -29,13 +29,13 @@ namespace WorkIt_Server.BLL
             }
         }
 
-        public bool CreateJob(TaskDTO jobInformation, int locationId)
+        public void CreateTask(TaskDTO jobInformation, int locationId)
         {
-            var creator = db.Users.Where(u => u.Email == jobInformation.CreatorEmail).FirstOrDefault();
+            var creator = Db.Users.Where(u => u.Email == jobInformation.CreatorEmail).FirstOrDefault();
 
             var jobToBeInserted = new Task
             {
-                MinJobsCompleted = jobInformation.MinTasksCompleted,
+                MinTasksCompleted = jobInformation.MinTasksCompleted,
                 MinRaiting = jobInformation.MinRaiting,
                 Reward = jobInformation.Reward,
                 Creator = creator,
@@ -46,14 +46,13 @@ namespace WorkIt_Server.BLL
                 Title = jobInformation.Title,
             };
 
-            db.Tasks.Add(jobToBeInserted);
-            db.SaveChanges();
-            return true;
+            Db.Tasks.Add(jobToBeInserted);
+            Db.SaveChanges();
         }
 
-        public IEnumerable<TaskDTO> GetAllJobs()
+        public IEnumerable<TaskDTO> GetAllTasks()
         {
-            return db.Tasks.ToList().Select(j => new TaskDTO
+            return Db.Tasks.Select(j => new TaskDTO
             {
                 CreatorEmail = j.Creator.Email,
                 Address = j.Location.Address,
@@ -62,12 +61,39 @@ namespace WorkIt_Server.BLL
                 Description = j.Description,
                 EndDate = j.EndDate,
                 StartDate = j.StartDate,
-                MinTasksCompleted = j.MinJobsCompleted,
+                MinTasksCompleted = j.MinTasksCompleted,
                 MinRaiting = j.MinRaiting,
                 Reward = j.Reward,
                 Title = j.Title
             })
             .ToList();
+        }
+
+        public void DeleteTaskById(int taskId)
+        {
+            var taskToBeDeleted = Db.Tasks.FirstOrDefault(t => t.TaskId == taskId);
+            Db.Tasks.Remove(taskToBeDeleted);
+            Db.SaveChanges();
+        }
+
+        public TaskDTO GetTaskById(int taskId)
+        {
+            var task = Db.Tasks.FirstOrDefault(t => t.TaskId == taskId);
+
+            return new TaskDTO
+            {
+                Address = task.Location.Address,
+                City = task.Location.City,
+                Country = task.Location.Country,
+                Title = task.Title,
+                Description = task.Description,
+                CreatorEmail = task.Creator.Email,
+                MinTasksCompleted = task.MinTasksCompleted,
+                EndDate = task.EndDate,
+                StartDate = task.StartDate,
+                MinRaiting = task.MinRaiting,
+                Reward = task.Reward
+            };
         }
     }
 }

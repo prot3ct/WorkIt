@@ -7,7 +7,7 @@ using System.Web.Http;
 
 namespace WorkIt_Server.Controllers
 {
-    public class UserReportController : ApiController
+    public class UserReportsController : ApiController
     {
     }
 }

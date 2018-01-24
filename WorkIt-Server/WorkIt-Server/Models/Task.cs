@@ -11,7 +11,7 @@ namespace WorkIt_Server.Models
     public class Task
     {
         [Key]
-        public int JobId { get; set; }
+        public int TaskId { get; set; }
 
         [Required]
         public string Title { get; set; }
@@ -32,7 +32,7 @@ namespace WorkIt_Server.Models
         public int MinRaiting { get; set; }
 
         [Required]
-        public int MinJobsCompleted { get; set; }
+        public int MinTasksCompleted { get; set; }
 
         public bool IsCompleted { get; set; }
 

@@ -14,19 +14,19 @@ namespace WorkIt_Server.BLL
         public BaseService()
         {
             this.WorkItDbContext = new WorkItDbContext();
-            this.JobLogic = new JobBussinessLogic(this.WorkItDbContext);
+            this.TaskLogic = new JobBussinessLogic(this.WorkItDbContext);
             this.LocationLogic = new LocationBussinessLogic(this.WorkItDbContext);
             this.UserLogic = new UserBussinessLogic(this.WorkItDbContext);
             this.CommentLogic = new CommentBussinessLogic(this.WorkItDbContext);
-            this.JobReportLogic = new JobReportBussinessLogic(this.WorkItDbContext);
-            this.JobRequestLogic = new JobRequestBussinessLogic(this.WorkItDbContext);
+            this.TaskReportLogic = new JobReportBussinessLogic(this.WorkItDbContext);
+            this.TaskRequestLogic = new JobRequestBussinessLogic(this.WorkItDbContext);
             this.UserReportLogic = new UserReportBussinessLogic(this.WorkItDbContext);
             this.RaitingLogic = new RaitingBussinessLogic(this.WorkItDbContext);
         }
 
         public WorkItDbContext WorkItDbContext { get; private set; }
 
-        public JobBussinessLogic JobLogic { get; private set; }
+        public JobBussinessLogic TaskLogic { get; private set; }
         
         public LocationBussinessLogic LocationLogic { get; private set; }
 
@@ -34,9 +34,9 @@ namespace WorkIt_Server.BLL
         
         public CommentBussinessLogic CommentLogic { get; private set; }
 
-        public JobReportBussinessLogic JobReportLogic { get; private set; }
+        public JobReportBussinessLogic TaskReportLogic { get; private set; }
 
-        public JobRequestBussinessLogic JobRequestLogic { get; private set; }
+        public JobRequestBussinessLogic TaskRequestLogic { get; private set; }
 
         public UserReportBussinessLogic UserReportLogic { get; private set; }
 
@@ -52,29 +52,39 @@ namespace WorkIt_Server.BLL
             return UserLogic.RegisterUser(credentials);
         }
 
-        public bool CreateJob(TaskDTO jobInformation)
+        public void CreateTask(TaskDTO taskInformation)
         {
-            var location = LocationLogic.CreateLocation(jobInformation.ToLocation());
-            return JobLogic.CreateJob(jobInformation, location.LocationId);
+            var location = LocationLogic.CreateLocation(taskInformation.ToLocation());
+            TaskLogic.CreateTask(taskInformation, location.LocationId);
         }
 
         public IEnumerable<TaskDTO> GetAllJobs()
         {
-            return JobLogic.GetAllJobs();
+            return TaskLogic.GetAllTasks();
+        }
+
+        public void DeleteTaskById(int taskId)
+        {
+            TaskLogic.DeleteTaskById(taskId);
+        }
+
+        public TaskDTO GetTaskById(int taskId)
+        {
+            return TaskLogic.GetTaskById(taskId);
         }
 
         public IEnumerable<CommentDTO> GetCommentsById(int id)
         {
-            return CommentLogic.GetCommentsById(id);
+            return CommentLogic.GetCommentsByTaskId(id);
         }
 
         public bool PostJobReport(TaskReportDTO jobReport)
         {
-            return JobReportLogic.CreateJobReport(jobReport);
+            return TaskReportLogic.CreateJobReport(jobReport);
         }
         public bool CreateJobRequest(TaskRequestDTO jobRequest)
         {
-            return JobRequestLogic.CreateJobRequest(jobRequest);
+            return TaskRequestLogic.CreateJobRequest(jobRequest);
         }
         public bool CreateUserReport(UserReportDTO userReport)
         {
@@ -82,7 +92,7 @@ namespace WorkIt_Server.BLL
         }
         public bool DeleteJobRequest(int id)
         {
-            return JobRequestLogic.DeleteJobRequest(id);
+            return TaskRequestLogic.DeleteJobRequest(id);
         }
         public bool DeleteCommentById(int jobId, int CommentId)
         {

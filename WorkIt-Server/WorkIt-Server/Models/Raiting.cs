@@ -26,5 +26,13 @@ namespace WorkIt_Server.Models
         [ForeignKey("Task")]
         public int TaskId { get; set; }
         public virtual Task Task { get; set; }
+
+        [Required]
+        [ForeignKey("ReceiverUserRole")]
+        public int ReceiverUserRoleId { get; set; }
+        public virtual UserRole ReceiverUserRole { get; set; }
+
+        [Required]
+        public int Value { get; set; }
     }
 }
