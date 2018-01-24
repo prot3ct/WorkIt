@@ -100,21 +100,23 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="BussinessLogic\BaseService.cs" />
     <Compile Include="BussinessLogic\Logics\CommentBussinessLogic.cs" />
-    <Compile Include="BussinessLogic\Logics\JobBussinessLogic.cs" />
-    <Compile Include="BussinessLogic\Logics\JobReportBussinessLogic.cs" />
-    <Compile Include="BussinessLogic\Logics\JobRequestBussinessLogic.cs" />
+    <Compile Include="BussinessLogic\Logics\RaitingBussinessLogic.cs" />
+    <Compile Include="BussinessLogic\Logics\TaskBussinessLogic.cs" />
+    <Compile Include="BussinessLogic\Logics\TaskReportBussinessLogic.cs" />
+    <Compile Include="BussinessLogic\Logics\TaskRequestBussinessLogic.cs" />
     <Compile Include="BussinessLogic\Logics\LocationBussinessLogic.cs" />
     <Compile Include="BussinessLogic\Logics\UserBussinessLogic.cs" />
     <Compile Include="BussinessLogic\Logics\UserReportBussinessLogic.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
-    <Compile Include="Controllers\JobRequestController.cs" />
-    <Compile Include="Controllers\JobsController.cs" />
-    <Compile Include="Controllers\JobReportController.cs" />
-    <Compile Include="Controllers\UserReportController.cs" />
+    <Compile Include="Controllers\TaskRequestsController.cs" />
+    <Compile Include="Controllers\TasksController.cs" />
+    <Compile Include="Controllers\TaskReportController.cs" />
+    <Compile Include="Controllers\UserReportsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Context\WorkItDbContext.cs" />
     <Compile Include="Models\DTO\CommentDTO.cs" />
@@ -124,6 +126,7 @@
     <Compile Include="Models\DTO\LoginDTO.cs" />
     <Compile Include="Models\DTO\RegisterDTO.cs" />
     <Compile Include="Models\DTO\UserReportDTO.cs" />
+    <Compile Include="Models\RequestStatus.cs" />
     <Compile Include="Models\Task.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\TaskReport.cs" />
@@ -132,6 +135,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\TaskComments.cs" />
     <Compile Include="Models\UserReport.cs" />
+    <Compile Include="Models\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

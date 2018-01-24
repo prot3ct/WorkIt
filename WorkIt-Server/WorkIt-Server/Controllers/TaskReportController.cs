@@ -10,7 +10,7 @@ using WorkIt_Server.Models.DTO;
 namespace WorkIt_Server.Controllers
 {
     [RoutePrefix("api")]
-    public class JobReportController : ApiController
+    public class TaskReportController : ApiController
     {
         private BaseService service = new BaseService();
 

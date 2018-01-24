@@ -20,7 +20,7 @@ namespace WorkIt_Server.Controllers
         {
             try
             {
-                return Ok(service.GetRequestsForCurrentTask(taskId););
+                return Ok(service.GetRequestsForCurrentTask(taskId));
             }
             catch (Exception)
             {
