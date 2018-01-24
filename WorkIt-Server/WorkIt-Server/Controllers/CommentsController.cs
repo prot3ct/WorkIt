@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using WorkIt_Server.BLL;
+using WorkIt_Server.Models.DTO;
 
 namespace WorkIt_Server.Controllers
 {
@@ -13,13 +14,14 @@ namespace WorkIt_Server.Controllers
     {
         private BaseService service = new BaseService();
 
-        [Route("jobs/{id}/comments")]
+        [Route("tasks/{taskId}/comments")]
         [HttpGet]
-        public IHttpActionResult GetCommectsForJobById(int id)
+        public IHttpActionResult CreateComment(CommentDTO comment)
         {
             try
             {
-                return Ok(service.GetCommentsById(id));
+                service.CreateComment(comment);
+                return Ok();
             }
             catch (Exception)
             {
@@ -27,13 +29,43 @@ namespace WorkIt_Server.Controllers
             }
         }
 
-        [Route("jobs/{jobId}/comments/delete/{commentId}")]
+        [Route("tasks/{taskId}/comments")]
         [HttpGet]
-        public IHttpActionResult GetCommectsForJobById(int jobId, int commentId)
+        public IHttpActionResult GetCommentsByTaskId(int taskId)
         {
             try
             {
-                return Ok(service.DeleteCommentById(jobId, commentId));
+                return Ok(service.GetCommentsByTaskId(taskId));
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
+        }
+
+        [Route("tasks/comments/{commentId}/delete")]
+        [HttpPost]
+        public IHttpActionResult DeleteCommentById(int commentId)
+        {
+            try
+            {
+                service.DeleteCommentById(commentId);
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
+        }
+
+        [Route("tasks/{taskId}/comments/delete")]
+        [HttpPost]
+        public IHttpActionResult DeleteCommentByTaskId(int taskId)
+        {
+            try
+            {
+                service.DeleteCommentsByTaskId(taskId);
+                return Ok();
             }
             catch (Exception)
             {

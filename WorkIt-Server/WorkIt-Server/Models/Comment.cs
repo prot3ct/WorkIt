@@ -19,5 +19,10 @@ namespace WorkIt_Server.Models
         [ForeignKey("Author")]
         public int AuthorId { get; set; }
         public virtual User Author { get; set; }
+
+        [Required]
+        [ForeignKey("Task")]
+        public int TaskId { get; set; }
+        public virtual Task Task { get; set; }
     }
 }

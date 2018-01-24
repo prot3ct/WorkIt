@@ -29,40 +29,45 @@ namespace WorkIt_Server.BLL
             }
         }
 
-        public IEnumerable<CommentDTO> GetCommentsById(int id)
+        public void CreateComment(CommentDTO comment)
         {
-            return
-                Db.Comments.Join(Db.TasksComments,
-                c => c.CommentId,
-                jc => jc.CommentId,
-                (c, jc) => new CommentDTO {
-                    TaskId = jc.TaskId,
-                    AuthorId = c.AuthorId,
-                    Message = c.Message
-                })
-                .Where(r => r.TaskId == id)
-                .ToList();
+            var commentToBeInserted = new Comment
+            {
+                AuthorId = comment.AuthorId,
+                Message = comment.Message,
+                TaskId = comment.TaskId,
+            };
+
+            Db.Comments.Add(commentToBeInserted);
+            Db.SaveChanges();
         }
 
-        public bool DeleteCommentById(int jobId, int commentId)
+        public IEnumerable<CommentDTO> GetCommentsByTaskId(int taskId)
         {
-            var commentToDelete =
-                Db.Comments.Join(Db.TasksComments,
-                c => c.CommentId,
-                jc => jc.CommentId,
-                (c, jc) => new Comment
+            return Db.Comments
+                .Where(c => c.TaskId == taskId)
+                .Select(c => new CommentDTO
                 {
-                    CommentId = c.CommentId,
                     AuthorId = c.AuthorId,
-                    Message = c.Message
-                })
-                .Where(r => r.CommentId == commentId)
-                .FirstOrDefault();
+                    Message = c.Message,
+                    TaskId = c.TaskId
+                });
+        }
+        
+        public void DeleteCommentById(int commentId)
+        {
+            var commentToBeRemoved = Db.Comments.FirstOrDefault(c => c.CommentId == commentId);
 
-            Db.Comments.Remove(commentToDelete);
+            Db.Comments.Remove(commentToBeRemoved);
             Db.SaveChanges();
+        }
 
-            return true;
+        public void DeleteCommentsByTaskId(int taskId)
+        {
+            var commentsToBeRemoved = Db.Comments.Where(c => c.TaskId == taskId).ToList();
+
+            Db.Comments.RemoveRange(commentsToBeRemoved);
+            Db.SaveChanges();
         }
     }
 }

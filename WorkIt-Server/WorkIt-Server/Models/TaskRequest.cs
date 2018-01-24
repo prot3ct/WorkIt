@@ -24,5 +24,10 @@ namespace WorkIt_Server.Models
         [ForeignKey("Task")]
         public int TaskId { get; set; }
         public virtual Task Task { get; set; }
+
+        [Required]
+        [ForeignKey("RequestStatus")]
+        public int RequestStatusId { get; set; }
+        public virtual RequestStatus RequestStatus { get; set; }
     }
 }

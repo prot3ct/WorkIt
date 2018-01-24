@@ -58,7 +58,7 @@ namespace WorkIt_Server.BLL
             TaskLogic.CreateTask(taskInformation, location.LocationId);
         }
 
-        public IEnumerable<TaskDTO> GetAllJobs()
+        public IEnumerable<TaskDTO> GetAllTasks()
         {
             return TaskLogic.GetAllTasks();
         }
@@ -73,30 +73,49 @@ namespace WorkIt_Server.BLL
             return TaskLogic.GetTaskById(taskId);
         }
 
-        public IEnumerable<CommentDTO> GetCommentsById(int id)
+        public void CreateTaskRequest(TaskRequestDTO jobRequest)
         {
-            return CommentLogic.GetCommentsByTaskId(id);
+            TaskRequestLogic.CreateTaskRequest(jobRequest);
         }
 
+        public void DeleteTaskRequestById(int taskId)
+        {
+            TaskRequestLogic.DeleteTaskRequest(taskId);
+        }
+
+        public IEnumerable<TaskRequestDTO> GetRequestsForCurrentTask(int taskId)
+        {
+            return TaskRequestLogic.GetRequestsForCurrentTask(taskId);
+        }
+
+        public void DeleteCommentById(int commentId)
+        {
+            CommentLogic.DeleteCommentById(commentId);
+        }
+
+        public void DeleteCommentsByTaskId(int taskId)
+        {
+            CommentLogic.DeleteCommentsByTaskId(taskId);
+        }
+
+        public IEnumerable<CommentDTO> GetCommentsByTaskId(int taskId)
+        {
+            return CommentLogic.GetCommentsByTaskId(taskId);
+        }
+
+        public void CreateComment(CommentDTO comment)
+        {
+            CommentLogic.CreateComment(comment);
+        }
+
+        //
         public bool PostJobReport(TaskReportDTO jobReport)
         {
             return TaskReportLogic.CreateJobReport(jobReport);
         }
-        public bool CreateJobRequest(TaskRequestDTO jobRequest)
-        {
-            return TaskRequestLogic.CreateJobRequest(jobRequest);
-        }
         public bool CreateUserReport(UserReportDTO userReport)
         {
             return UserReportLogic.CreateUserReport(userReport);
-        }
-        public bool DeleteJobRequest(int id)
-        {
-            return TaskRequestLogic.DeleteJobRequest(id);
-        }
-        public bool DeleteCommentById(int jobId, int CommentId)
-        {
-            return CommentLogic.DeleteCommentById(jobId, CommentId);
         }
         public void AddRaiting(Raiting raiting)
         {

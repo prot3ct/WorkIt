@@ -60,7 +60,7 @@ namespace WorkIt_Server.Controllers
         }
 
         [Route("tasks/{taskId}/delete")]
-        [HttpGet]
+        [HttpPost]
         public IHttpActionResult DeleteTaskById(int taskId)
         {
             try

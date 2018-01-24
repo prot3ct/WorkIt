@@ -29,7 +29,17 @@ namespace WorkIt_Server.BLL
             }
         }
 
-        public bool CreateJobRequest(TaskRequestDTO jobRequest)
+        public IEnumerable<TaskRequestDTO> GetRequestsForCurrentTask(int taskId)
+        {
+            return Db.TaskRequests.Select(tr => new TaskRequestDTO
+            {
+                Description = tr.Description,
+                TaskId = tr.TaskId,
+                UserId = tr.UserId
+            }).ToList();
+        }
+
+        public void CreateTaskRequest(TaskRequestDTO jobRequest)
         {
             var jobRequestToBeInserted = new TaskRequest
             {
@@ -38,18 +48,16 @@ namespace WorkIt_Server.BLL
                 UserId = jobRequest.UserId
             };
 
-            db.TaskRequests.Add(jobRequestToBeInserted);
-            db.SaveChanges();
-            return true;
+            Db.TaskRequests.Add(jobRequestToBeInserted);
+            Db.SaveChanges();
         }
 
-        public bool DeleteJobRequest(int id)
+        public void DeleteTaskRequest(int taskId)
         {
-            var jobRequest = db.TaskRequests.Where(jr => jr.TaskRequestId == id).FirstOrDefault();
+            var jobRequest = Db.TaskRequests.Where(jr => jr.TaskRequestId == taskId).FirstOrDefault();
 
-            db.TaskRequests.Remove(jobRequest);
-            db.SaveChanges();
-            return true;
+            Db.TaskRequests.Remove(jobRequest);
+            Db.SaveChanges();
         }
     }
 }
