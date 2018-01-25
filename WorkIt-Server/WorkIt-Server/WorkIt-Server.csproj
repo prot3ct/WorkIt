@@ -108,18 +108,24 @@
     <Compile Include="BussinessLogic\Logics\UserBussinessLogic.cs" />
     <Compile Include="BussinessLogic\Logics\UserReportBussinessLogic.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
+    <Compile Include="Controllers\RaitingsController.cs" />
     <Compile Include="Controllers\TaskRequestsController.cs" />
     <Compile Include="Controllers\TasksController.cs" />
-    <Compile Include="Controllers\TaskReportController.cs" />
+    <Compile Include="Controllers\TaskReportsController.cs" />
     <Compile Include="Controllers\UserReportsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801251205075_Initial.cs" />
+    <Compile Include="Migrations\201801251205075_Initial.Designer.cs">
+      <DependentUpon>201801251205075_Initial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Context\WorkItDbContext.cs" />
     <Compile Include="Models\DTO\CommentDTO.cs" />
+    <Compile Include="Models\DTO\RaitingDTO.cs" />
     <Compile Include="Models\DTO\TaskDTO.cs" />
     <Compile Include="Models\DTO\TaskRequestDTO.cs" />
     <Compile Include="Models\DTO\TaskReportDTO.cs" />
@@ -150,6 +156,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201801251205075_Initial.resx">
+      <DependentUpon>201801251205075_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

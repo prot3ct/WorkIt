@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using WorkIt_Server.Models;
+﻿using WorkIt_Server.Models;
 using WorkIt_Server.Models.Context;
 using WorkIt_Server.Models.DTO;
 
@@ -29,7 +25,7 @@ namespace WorkIt_Server.BLL
             }
         }
 
-        public bool CreateJobReport(TaskReportDTO jobReport)
+        public void CreateTaskReport(TaskReportDTO jobReport)
         {
             var jobReportToBeInserted = new TaskReport
             {
@@ -38,9 +34,8 @@ namespace WorkIt_Server.BLL
                 UserId = jobReport.UserId
             };
 
-            db.TasksReports.Add(jobReportToBeInserted);
-            db.SaveChanges();
-            return true;
+            Db.TasksReports.Add(jobReportToBeInserted);
+            Db.SaveChanges();
         }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using WorkIt_Server.Models;
+﻿using WorkIt_Server.Models;
 using WorkIt_Server.Models.Context;
 using WorkIt_Server.Models.DTO;
 
@@ -29,7 +25,7 @@ namespace WorkIt_Server.BLL
             }
         }
 
-        public bool CreateUserReport(UserReportDTO userReport)
+        public void CreateUserReport(UserReportDTO userReport)
         {
             var userReportTobeInserted = new UserReport
             {
@@ -40,7 +36,6 @@ namespace WorkIt_Server.BLL
 
             db.UserReports.Add(userReportTobeInserted);
             db.SaveChanges();
-            return true;
         }
     }
 }

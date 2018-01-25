@@ -1,9 +1,8 @@
 namespace WorkIt_Server.Migrations
 {
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
+    using WorkIt_Server.Models;
+    using WorkIt_Server.Models.Context;
 
     internal sealed class Configuration : DbMigrationsConfiguration<WorkIt_Server.Models.Context.WorkItDbContext>
     {
@@ -12,12 +11,19 @@ namespace WorkIt_Server.Migrations
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(WorkIt_Server.Models.Context.WorkItDbContext context)
+        protected override void Seed(WorkItDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            context.RequestStatuses.AddOrUpdate(
+                new RequestStatus { Name = "Closed" },
+                new RequestStatus { Name = "Open" }
+            );
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data.
+            context.UserRoles.AddOrUpdate(
+                new UserRole { Name = "Employee" },
+                new UserRole { Name = "Employer" }
+            );
+
+            context.SaveChanges();
         }
     }
 }

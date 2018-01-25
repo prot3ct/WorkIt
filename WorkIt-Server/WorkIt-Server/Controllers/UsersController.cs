@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Data.Entity.Validation;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using WorkIt_Server.BLL;
-using WorkIt_Server.Models;
-using WorkIt_Server.Models.Context;
 using WorkIt_Server.Models.DTO;
 
 namespace WorkIt_Server.Controllers

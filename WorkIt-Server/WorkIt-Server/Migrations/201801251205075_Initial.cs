@@ -7,18 +7,36 @@ namespace WorkIt_Server.Migrations
     {
         public override void Up()
         {
-            DropForeignKey("dbo.Jobs", "CreatorId", "dbo.Users");
-            DropForeignKey("dbo.Jobs", "LocationId", "dbo.Locations");
-            DropForeignKey("dbo.JobReports", "JobId", "dbo.Jobs");
-            DropForeignKey("dbo.JobComments", "CommentId", "dbo.Comments");
-            DropForeignKey("dbo.JobComments", "JobId", "dbo.Jobs");
-            DropForeignKey("dbo.UserReports", "UserId", "dbo.Users");
-            DropIndex("dbo.Jobs", new[] { "LocationId" });
-            DropIndex("dbo.Jobs", new[] { "CreatorId" });
-            DropIndex("dbo.JobReports", new[] { "JobId" });
-            DropIndex("dbo.JobComments", new[] { "JobId" });
-            DropIndex("dbo.JobComments", new[] { "CommentId" });
-            DropIndex("dbo.UserReports", new[] { "UserId" });
+            CreateTable(
+                "dbo.Comments",
+                c => new
+                    {
+                        CommentId = c.Int(nullable: false, identity: true),
+                        Message = c.String(nullable: false),
+                        AuthorId = c.Int(nullable: false),
+                        TaskId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.CommentId)
+                .ForeignKey("dbo.Users", t => t.AuthorId, cascadeDelete: true)
+                .ForeignKey("dbo.Tasks", t => t.TaskId, cascadeDelete: true)
+                .Index(t => t.AuthorId)
+                .Index(t => t.TaskId);
+            
+            CreateTable(
+                "dbo.Users",
+                c => new
+                    {
+                        UserId = c.Int(nullable: false, identity: true),
+                        Email = c.String(nullable: false),
+                        PassHash = c.String(nullable: false),
+                        Firstname = c.String(nullable: false),
+                        Lastname = c.String(nullable: false),
+                        RaitingAsEmployee = c.Double(nullable: false),
+                        RaitingAsCreator = c.Double(nullable: false),
+                        TaskCompleted = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.UserId);
+            
             CreateTable(
                 "dbo.Tasks",
                 c => new
@@ -36,10 +54,22 @@ namespace WorkIt_Server.Migrations
                         CreatorId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.TaskId)
-                .ForeignKey("dbo.Users", t => t.CreatorId, cascadeDelete: true)
+                .ForeignKey("dbo.Users", t => t.CreatorId, cascadeDelete: false)
                 .ForeignKey("dbo.Locations", t => t.LocationId, cascadeDelete: true)
                 .Index(t => t.LocationId)
                 .Index(t => t.CreatorId);
+            
+            CreateTable(
+                "dbo.Locations",
+                c => new
+                    {
+                        LocationId = c.Int(nullable: false, identity: true),
+                        Country = c.String(nullable: false, maxLength: 50),
+                        City = c.String(nullable: false, maxLength: 50),
+                        Address = c.String(nullable: false, maxLength: 50),
+                    })
+                .PrimaryKey(t => t.LocationId)
+                .Index(t => new { t.Country, t.City, t.Address }, unique: true, name: "IX_CountryCityAndAddress");
             
             CreateTable(
                 "dbo.Raitings",
@@ -54,7 +84,7 @@ namespace WorkIt_Server.Migrations
                     })
                 .PrimaryKey(t => t.RaitingId)
                 .ForeignKey("dbo.Users", t => t.GiverUserId, cascadeDelete: true)
-                .ForeignKey("dbo.Users", t => t.ReceiverUserId, cascadeDelete: true)
+                .ForeignKey("dbo.Users", t => t.ReceiverUserId, cascadeDelete: false)
                 .ForeignKey("dbo.UserRoles", t => t.ReceiverUserRoleId, cascadeDelete: true)
                 .ForeignKey("dbo.Tasks", t => t.TaskId, cascadeDelete: true)
                 .Index(t => t.GiverUserId)
@@ -70,6 +100,15 @@ namespace WorkIt_Server.Migrations
                         Name = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.UserRoleId);
+            
+            CreateTable(
+                "dbo.RequestStatus",
+                c => new
+                    {
+                        RequestStatusId = c.Int(nullable: false, identity: true),
+                        Name = c.String(nullable: false),
+                    })
+                .PrimaryKey(t => t.RequestStatusId);
             
             CreateTable(
                 "dbo.TaskRequests",
@@ -88,15 +127,6 @@ namespace WorkIt_Server.Migrations
                 .Index(t => t.UserId)
                 .Index(t => t.TaskId)
                 .Index(t => t.RequestStatusId);
-            
-            CreateTable(
-                "dbo.RequestStatus",
-                c => new
-                    {
-                        RequestStatusId = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false),
-                    })
-                .PrimaryKey(t => t.RequestStatusId);
             
             CreateTable(
                 "dbo.TaskComments",
@@ -138,72 +168,14 @@ namespace WorkIt_Server.Migrations
                     })
                 .PrimaryKey(t => t.UserReportId)
                 .ForeignKey("dbo.Users", t => t.AuthorUserId, cascadeDelete: true)
-                .ForeignKey("dbo.Users", t => t.TargetUserId, cascadeDelete: true)
+                .ForeignKey("dbo.Users", t => t.TargetUserId, cascadeDelete: false)
                 .Index(t => t.AuthorUserId)
                 .Index(t => t.TargetUserId);
             
-            AddColumn("dbo.Comments", "TaskId", c => c.Int(nullable: false));
-            AddColumn("dbo.Users", "TaskCompleted", c => c.Int(nullable: false));
-            CreateIndex("dbo.Comments", "TaskId");
-            AddForeignKey("dbo.Comments", "TaskId", "dbo.Tasks", "TaskId", cascadeDelete: true);
-            DropColumn("dbo.Users", "JobsCompleted");
-            DropTable("dbo.Jobs");
-            DropTable("dbo.JobReports");
-            DropTable("dbo.JobComments");
-            DropTable("dbo.UserReports");
         }
         
         public override void Down()
         {
-            CreateTable(
-                "dbo.UserReports",
-                c => new
-                    {
-                        UserReportId = c.Int(nullable: false, identity: true),
-                        Descriptin = c.String(nullable: false),
-                        UserId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.UserReportId);
-            
-            CreateTable(
-                "dbo.JobComments",
-                c => new
-                    {
-                        JobCommentsId = c.Int(nullable: false, identity: true),
-                        JobId = c.Int(nullable: false),
-                        CommentId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.JobCommentsId);
-            
-            CreateTable(
-                "dbo.JobReports",
-                c => new
-                    {
-                        JobReportId = c.Int(nullable: false, identity: true),
-                        Descriptin = c.String(nullable: false),
-                        JobId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.JobReportId);
-            
-            CreateTable(
-                "dbo.Jobs",
-                c => new
-                    {
-                        JobId = c.Int(nullable: false, identity: true),
-                        Title = c.String(nullable: false),
-                        StartDate = c.DateTime(nullable: false),
-                        EndDate = c.DateTime(nullable: false),
-                        Description = c.String(nullable: false),
-                        Reward = c.String(nullable: false),
-                        MinRaiting = c.Int(nullable: false),
-                        MinJobsCompleted = c.Int(nullable: false),
-                        IsCompleted = c.Boolean(nullable: false),
-                        LocationId = c.Int(nullable: false),
-                        CreatorId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.JobId);
-            
-            AddColumn("dbo.Users", "JobsCompleted", c => c.Int(nullable: false));
             DropForeignKey("dbo.UserReports", "TargetUserId", "dbo.Users");
             DropForeignKey("dbo.UserReports", "AuthorUserId", "dbo.Users");
             DropForeignKey("dbo.TaskReports", "UserId", "dbo.Users");
@@ -220,6 +192,7 @@ namespace WorkIt_Server.Migrations
             DropForeignKey("dbo.Comments", "TaskId", "dbo.Tasks");
             DropForeignKey("dbo.Tasks", "LocationId", "dbo.Locations");
             DropForeignKey("dbo.Tasks", "CreatorId", "dbo.Users");
+            DropForeignKey("dbo.Comments", "AuthorId", "dbo.Users");
             DropIndex("dbo.UserReports", new[] { "TargetUserId" });
             DropIndex("dbo.UserReports", new[] { "AuthorUserId" });
             DropIndex("dbo.TaskReports", new[] { "UserId" });
@@ -233,31 +206,22 @@ namespace WorkIt_Server.Migrations
             DropIndex("dbo.Raitings", new[] { "TaskId" });
             DropIndex("dbo.Raitings", new[] { "ReceiverUserId" });
             DropIndex("dbo.Raitings", new[] { "GiverUserId" });
+            DropIndex("dbo.Locations", "IX_CountryCityAndAddress");
             DropIndex("dbo.Tasks", new[] { "CreatorId" });
             DropIndex("dbo.Tasks", new[] { "LocationId" });
             DropIndex("dbo.Comments", new[] { "TaskId" });
-            DropColumn("dbo.Users", "TaskCompleted");
-            DropColumn("dbo.Comments", "TaskId");
+            DropIndex("dbo.Comments", new[] { "AuthorId" });
             DropTable("dbo.UserReports");
             DropTable("dbo.TaskReports");
             DropTable("dbo.TaskComments");
-            DropTable("dbo.RequestStatus");
             DropTable("dbo.TaskRequests");
+            DropTable("dbo.RequestStatus");
             DropTable("dbo.UserRoles");
             DropTable("dbo.Raitings");
+            DropTable("dbo.Locations");
             DropTable("dbo.Tasks");
-            CreateIndex("dbo.UserReports", "UserId");
-            CreateIndex("dbo.JobComments", "CommentId");
-            CreateIndex("dbo.JobComments", "JobId");
-            CreateIndex("dbo.JobReports", "JobId");
-            CreateIndex("dbo.Jobs", "CreatorId");
-            CreateIndex("dbo.Jobs", "LocationId");
-            AddForeignKey("dbo.UserReports", "UserId", "dbo.Users", "UserId", cascadeDelete: true);
-            AddForeignKey("dbo.JobComments", "JobId", "dbo.Jobs", "JobId");
-            AddForeignKey("dbo.JobComments", "CommentId", "dbo.Comments", "CommentId");
-            AddForeignKey("dbo.JobReports", "JobId", "dbo.Jobs", "JobId", cascadeDelete: true);
-            AddForeignKey("dbo.Jobs", "LocationId", "dbo.Locations", "LocationId", cascadeDelete: true);
-            AddForeignKey("dbo.Jobs", "CreatorId", "dbo.Users", "UserId", cascadeDelete: true);
+            DropTable("dbo.Users");
+            DropTable("dbo.Comments");
         }
     }
 }

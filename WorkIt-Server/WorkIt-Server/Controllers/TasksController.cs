@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using WorkIt_Server.BLL;
-using WorkIt_Server.Models;
-using WorkIt_Server.Models.Context;
 using WorkIt_Server.Models.DTO;
 
 namespace WorkIt_Server.Controllers
@@ -30,7 +24,7 @@ namespace WorkIt_Server.Controllers
             }
         }
 
-        [Route("tasks/create")]
+        [Route("tasks")]
         [HttpPost]
         public IHttpActionResult CreateTask(TaskDTO jobInformation)
         {

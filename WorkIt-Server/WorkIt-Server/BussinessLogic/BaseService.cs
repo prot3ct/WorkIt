@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using WorkIt_Server.BussinessLogic.Logics;
-using WorkIt_Server.Models;
 using WorkIt_Server.Models.Context;
 using WorkIt_Server.Models.DTO;
 
@@ -108,18 +104,24 @@ namespace WorkIt_Server.BLL
             CommentLogic.CreateComment(comment);
         }
 
-        //
-        public bool PostJobReport(TaskReportDTO jobReport)
+        public void CreateTaskReport(TaskReportDTO jobReport)
         {
-            return TaskReportLogic.CreateJobReport(jobReport);
+            TaskReportLogic.CreateTaskReport(jobReport);
         }
-        public bool CreateUserReport(UserReportDTO userReport)
+
+        public void CreateUserReport(UserReportDTO userReport)
         {
-            return UserReportLogic.CreateUserReport(userReport);
+            UserReportLogic.CreateUserReport(userReport);
         }
-        public void AddRaiting(Raiting raiting)
+
+        public void CreateRaiting(RaitingDTO raiting)
         {
             this.RaitingLogic.CreateRatiing(raiting);
+        }
+
+        public IEnumerable<RaitingDTO> GetAllRaitingsByUserId(int userId)
+        {
+            return this.RaitingLogic.GetAllRaitingByUserId(userId);
         }
     }
 }

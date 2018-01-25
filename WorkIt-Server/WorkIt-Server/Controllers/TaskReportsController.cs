@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using WorkIt_Server.BLL;
 using WorkIt_Server.Models.DTO;
@@ -10,17 +6,18 @@ using WorkIt_Server.Models.DTO;
 namespace WorkIt_Server.Controllers
 {
     [RoutePrefix("api")]
-    public class TaskReportController : ApiController
+    public class TaskReportsController : ApiController
     {
         private BaseService service = new BaseService();
 
-        [Route("jobs/reports")]
+        [Route("tasks/reports/create")]
         [HttpPost]
-        public IHttpActionResult GetCommectsForJobById(TaskReportDTO jobReport)
+        public IHttpActionResult CreateTaskReport(TaskReportDTO taskReport)
         {
             try
             {
-                return Ok(service.PostJobReport(jobReport));
+                service.CreateTaskReport(taskReport);
+                return Ok();
             }
             catch (Exception)
             {

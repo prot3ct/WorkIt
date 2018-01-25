@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using WorkIt_Server.Models;
 using WorkIt_Server.Models.Context;
+using WorkIt_Server.Models.DTO;
 
 namespace WorkIt_Server.BussinessLogic.Logics
 {
@@ -28,10 +27,36 @@ namespace WorkIt_Server.BussinessLogic.Logics
             }
         }
 
-        public void CreateRatiing(Raiting raiting)
+        public void CreateRatiing(RaitingDTO raiting)
         {
-            db.Raitings.Add(raiting);
+            var raitingToBeInserted = new Raiting
+            {
+                Value = raiting.Value,
+                GiverUserId = raiting.GiverUserId,
+                ReceiverUserId = raiting.ReceiverUserId,
+                TaskId = raiting.TaskId,
+                ReceiverUserRoleId = raiting.ReceiverUserRoleId
+            };
+
+            db.Raitings.Add(raitingToBeInserted);
             db.SaveChanges();
+        }
+
+        public IEnumerable<RaitingDTO> GetAllRaitingByUserId(int userId)
+        {
+            var raitings = Db.Raitings
+                .Where(r => r.ReceiverUserId == userId)
+                .Select(r => new RaitingDTO
+                {
+                    Value = r.Value,
+                    GiverUserId = r.GiverUserId,
+                    ReceiverUserId = r.ReceiverUserId,
+                    ReceiverUserRoleId = r.ReceiverUserRoleId,
+                    TaskId = r.TaskId
+                })
+                .ToList();
+
+            return raitings;
         }
     }
 }

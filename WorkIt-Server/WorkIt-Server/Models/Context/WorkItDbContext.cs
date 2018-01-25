@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Web;
+using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace WorkIt_Server.Models.Context
 {
@@ -21,9 +19,21 @@ namespace WorkIt_Server.Models.Context
         public DbSet<TaskReport> TasksReports { get; set; }
         public DbSet<TaskRequest> TaskRequests { get; set; }
         public DbSet<Raiting> Raitings { get; set; }
+        public DbSet<RequestStatus> RequestStatuses { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            //modelBuilder.Entity<Task>()
+            //    .HasRequired(t => t.Creator)
+            //    .WithMany()
+            //    .WillCascadeOnDelete(false);
+
+            //modelBuilder.Entity<User>()
+            //    .HasRequired(u => u.Tasks)
+            //    .WithMany()
+            //    .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<TaskComments>()
                 .HasRequired(jc => jc.Comment)
                 .WithMany()
@@ -33,6 +43,7 @@ namespace WorkIt_Server.Models.Context
                 .HasRequired(jc => jc.Task)
                 .WithMany()
                 .WillCascadeOnDelete(false);
+
 
             base.OnModelCreating(modelBuilder);
         }
