@@ -41,6 +41,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                     @Override
                     public void onError(Throwable e) {
                         view.notifyError("Error ocurred when logining in. Please try again.");
+                        view.dismissDialog();
                     }
 
                     @Override

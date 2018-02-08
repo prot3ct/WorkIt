@@ -33,8 +33,8 @@ namespace WorkIt_Server.BLL
 
             var jobToBeInserted = new Task
             {
-                MinTasksCompleted = jobInformation.MinTasksCompleted,
-                MinRaiting = jobInformation.MinRaiting,
+                MinTasksCompleted = int.Parse(jobInformation.MinTasksCompleted),
+                MinRaiting = int.Parse(jobInformation.MinRaiting),
                 Reward = jobInformation.Reward,
                 CreatorId = creator.UserId,
                 Description = jobInformation.Description,
@@ -59,8 +59,8 @@ namespace WorkIt_Server.BLL
                 Description = j.Description,
                 EndDate = j.EndDate,
                 StartDate = j.StartDate,
-                MinTasksCompleted = j.MinTasksCompleted,
-                MinRaiting = j.MinRaiting,
+                MinTasksCompleted = j.MinTasksCompleted.ToString(),
+                MinRaiting = j.MinRaiting.ToString(),
                 Reward = j.Reward,
                 Title = j.Title
             })
@@ -86,10 +86,10 @@ namespace WorkIt_Server.BLL
                 Title = task.Title,
                 Description = task.Description,
                 CreatorEmail = task.Creator.Email,
-                MinTasksCompleted = task.MinTasksCompleted,
+                MinTasksCompleted = task.MinTasksCompleted.ToString(),
                 EndDate = task.EndDate,
                 StartDate = task.StartDate,
-                MinRaiting = task.MinRaiting,
+                MinRaiting = task.MinRaiting.ToString(),
                 Reward = task.Reward
             };
         }

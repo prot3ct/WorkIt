@@ -121,6 +121,10 @@
     <Compile Include="Migrations\201801251205075_Initial.Designer.cs">
       <DependentUpon>201801251205075_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802081819258_change-date-to-string.cs" />
+    <Compile Include="Migrations\201802081819258_change-date-to-string.Designer.cs">
+      <DependentUpon>201802081819258_change-date-to-string.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Context\WorkItDbContext.cs" />
@@ -161,6 +165,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201801251205075_Initial.resx">
       <DependentUpon>201801251205075_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802081819258_change-date-to-string.resx">
+      <DependentUpon>201802081819258_change-date-to-string.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

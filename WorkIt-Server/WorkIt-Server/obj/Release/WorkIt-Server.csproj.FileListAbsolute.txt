@@ -45,3 +45,4 @@ C:\Users\prot3\OneDrive\Desktop\diplomna\WorkIt\WorkIt-Server\WorkIt-Server\obj\
 C:\Users\prot3\OneDrive\Desktop\diplomna\WorkIt\WorkIt-Server\WorkIt-Server\obj\Release\WorkIt-Server.pdb
 C:\Users\prot3\OneDrive\Desktop\diplomna\WorkIt\WorkIt-Server\WorkIt-Server\obj\Release\WorkIt_Server.Migrations.Initial.resources
 C:\Users\prot3\OneDrive\Desktop\diplomna\WorkIt\WorkIt-Server\WorkIt-Server\obj\Release\WorkIt-Server.csproj.GenerateResource.Cache
+C:\Users\prot3\OneDrive\Desktop\diplomna\WorkIt\WorkIt-Server\WorkIt-Server\obj\Release\WorkIt_Server.Migrations.changedatetostring.resources

@@ -1,6 +1,7 @@
 package prot3ct.workit.views.create_job;
 
 import android.content.Context;
+import android.util.Log;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -30,18 +31,20 @@ public class CreateJobPresenter implements CreateJobContract.Presenter {
                         new Observer<Boolean>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-//                        view.showDialogForLoading();
+                                view.showDialogforLoading();
                             }
 
                             @Override
                             public void onNext(Boolean value) {
-//                                view.notifySuccessful();
-//                                view.showListJobsActivity();
+                                view.notifySuccessful();
+                                view.showListJobsActivity();
+                                view.dismissDialog();
                             }
 
                             @Override
                             public void onError(Throwable e) {
-//                                view.notifyError("Error ocurred when logining in. Please try again.");
+                                view.notifyError("Error ocurred when trying to create task. Please try again.");
+                                view.dismissDialog();
                             }
 
                             @Override

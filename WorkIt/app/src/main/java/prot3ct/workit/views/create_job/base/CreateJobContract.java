@@ -5,6 +5,15 @@ import prot3ct.workit.views.list_jobs.base.ListJobsContract;
 
 public interface CreateJobContract {
     interface View extends BaseView<CreateJobContract.Presenter> {
+        void showListJobsActivity();
+
+        void notifySuccessful();
+
+        void showDialogforLoading();
+
+        void dismissDialog();
+
+        void notifyError(String errorMessage);
     }
 
     interface Presenter {

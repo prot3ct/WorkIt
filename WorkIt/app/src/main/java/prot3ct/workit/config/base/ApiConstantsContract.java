@@ -10,4 +10,6 @@ public interface ApiConstantsContract {
     String createTaskUrl();
 
     int responseErrorCode();
+
+    int reponseServerErrorCode();
 }

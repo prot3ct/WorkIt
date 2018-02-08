@@ -45,15 +45,16 @@ public class JobData implements JobDataContract{
         jobDetails.put("city", city);
         jobDetails.put("address", address);
         jobDetails.put("reward", reward);
-        jobDetails.put("minimalRating", minimalRating);
-        jobDetails.put("minimalJobsCompleted", minimalJobsCompleted);
+        jobDetails.put("minRaiting", minimalRating);
+        jobDetails.put("minTasksCompleted", minimalJobsCompleted);
+        jobDetails.put("creatorEmail", this.userSession.getEmail().replaceAll("\"", ""));
 
         return httpRequester
                 .post(apiConstants.createTaskUrl(), jobDetails)
                 .map(new Function<HttpResponseContract, Boolean>() {
                     @Override
                     public Boolean apply(HttpResponseContract iHttpResponse) throws Exception {
-                        if (iHttpResponse.getCode() == apiConstants.responseErrorCode()) {
+                        if (iHttpResponse.getCode() == apiConstants.responseErrorCode() || iHttpResponse.getCode() == apiConstants.reponseServerErrorCode()) {
                             throw new Error(iHttpResponse.getMessage());
                         }
 

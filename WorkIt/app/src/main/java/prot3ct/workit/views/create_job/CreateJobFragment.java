@@ -3,6 +3,7 @@ package prot3ct.workit.views.create_job;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -20,7 +22,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import prot3ct.workit.R;
+import prot3ct.workit.utils.WorkItProgressDialog;
 import prot3ct.workit.views.create_job.base.CreateJobContract;
+import prot3ct.workit.views.list_jobs.ListJobsActivity;
 
 public class CreateJobFragment extends Fragment implements CreateJobContract.View {
     private CreateJobContract.Presenter presenter;
@@ -39,6 +43,8 @@ public class CreateJobFragment extends Fragment implements CreateJobContract.Vie
     private Button saveTaskButton;
 
     private Calendar date;
+
+    private WorkItProgressDialog dialog;
 
     public CreateJobFragment() {
         // Required empty public constructor
@@ -65,6 +71,7 @@ public class CreateJobFragment extends Fragment implements CreateJobContract.Vie
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_create_job, container, false);
 
+        this.dialog = new WorkItProgressDialog(context);
         this.titleTextView = (TextView) view.findViewById(R.id.id_title_edit_text);
         this.startDateTextView = (TextView) view.findViewById(R.id.id_choose_start_date_text_view);
         this.endDateTextView = (TextView) view.findViewById(R.id.id_choose_end_date_text_view);
@@ -111,6 +118,32 @@ public class CreateJobFragment extends Fragment implements CreateJobContract.Vie
         });
 
         return view;
+    }
+
+    @Override
+    public void showListJobsActivity() {
+        Intent intent = new Intent(this.context, ListJobsActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void notifyError(String errorMessage) {
+        Toast.makeText(getContext(), errorMessage, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void notifySuccessful() {
+        Toast.makeText(getContext(), "Task created successfully", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showDialogforLoading() {
+        this.dialog.showProgress("Loading...");
+    }
+
+    @Override
+    public void dismissDialog() {
+        this.dialog.dismissProgress();
     }
 
     public void showDateTimePicker(final int temp) {
