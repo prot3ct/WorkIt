@@ -42,6 +42,7 @@ public class RegisterPresenter implements RegisterContract.Presenter {
                     @Override
                     public void onError(Throwable e) {
                         view.notifyError("Error ocurred when registering. Please try again later.");
+                        view.dismissDialog();
                     }
 
                     @Override

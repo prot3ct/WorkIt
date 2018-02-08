@@ -50,7 +50,8 @@ namespace WorkIt_Server.BLL
 
         public void CreateTask(TaskDTO taskInformation)
         {
-            var location = LocationLogic.CreateLocation(taskInformation.ToLocation());
+            LocationLogic.CreateLocation(taskInformation.ToLocation());
+            var location = LocationLogic.GetLocationByInfo(taskInformation.ToLocation());
             TaskLogic.CreateTask(taskInformation, location.LocationId);
         }
 

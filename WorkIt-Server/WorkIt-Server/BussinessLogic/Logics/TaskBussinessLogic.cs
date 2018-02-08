@@ -36,12 +36,12 @@ namespace WorkIt_Server.BLL
                 MinTasksCompleted = jobInformation.MinTasksCompleted,
                 MinRaiting = jobInformation.MinRaiting,
                 Reward = jobInformation.Reward,
-                Creator = creator,
+                CreatorId = creator.UserId,
                 Description = jobInformation.Description,
                 StartDate = jobInformation.StartDate,
                 EndDate = jobInformation.EndDate,
                 LocationId = locationId,
-                Title = jobInformation.Title,
+                Title = jobInformation.Title
             };
 
             Db.Tasks.Add(jobToBeInserted);

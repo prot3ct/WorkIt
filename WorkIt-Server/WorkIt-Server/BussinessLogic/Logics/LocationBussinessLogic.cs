@@ -34,15 +34,18 @@ namespace WorkIt_Server.BLL
             return false;
         }
 
-        public Location CreateLocation(Location location)
+        public void CreateLocation(Location location)
         {
             if (!CheckExsistingLocation(location))
             {
                 db.Locations.Add(location);
                 db.SaveChanges();
             }
+        }
 
-            return location;
+        public Location GetLocationByInfo(Location location)
+        {
+            return db.Locations.FirstOrDefault(p => p.Address == location.Address && p.City == location.City && p.Country == location.Country);
         }
     }
 }
