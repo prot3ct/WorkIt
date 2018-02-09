@@ -1,8 +1,9 @@
 package prot3ct.workit.models.base;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public interface TaskContract {
+public interface TaskContract extends Serializable {
     public String getTitle();
 
     public void setTitle(String title);

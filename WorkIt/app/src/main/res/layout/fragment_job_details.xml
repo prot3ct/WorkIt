@@ -1,0 +1,62 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="prot3ct.workit.views.job_details.JobDetailsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/id_apply_for_task_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Apply"/>
+            <Button
+                android:id="@+id/id_cancel_application_task_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancel"/>
+            <Button
+                android:id="@+id/id_edit_task_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/id_title_details_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="50px"
+            android:text="Title"/>
+        <TextView
+            android:id="@+id/id_description_details_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="50px"
+            android:text="Description"/>
+        <TextView
+            android:id="@+id/id_start_time_details_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="50px"
+            android:text="Start TIme"/>
+        <TextView
+            android:id="@+id/id_end_time_details_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="50px"
+            android:text="End Time"/>
+        <TextView
+            android:id="@+id/id_reward_details_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="50px"
+            android:text="Reward"/>
+    </LinearLayout>
+
+</FrameLayout>

@@ -66,18 +66,18 @@ public class JobData implements JobDataContract{
     @Override
     public Observable<List<Task>> getAllTasks() {
         return httpRequester
-                .get(apiConstants.getAllJobsUrl())
-                .map(new Function<HttpResponseContract, List<Task>>() {
-                    @Override
-                    public List<Task> apply(HttpResponseContract iHttpResponse) throws Exception {
-                        if (iHttpResponse.getCode() == apiConstants.responseErrorCode()) {
-                            throw new Error(iHttpResponse.getMessage());
-                        }
-
-                        String responseBody = iHttpResponse.getBody();
-                        List<Task> tasks = jsonParser.fromJson(responseBody, new TypeToken<List<Task>>(){}.getType());
-                        return tasks;
+            .get(apiConstants.getAllJobsUrl())
+            .map(new Function<HttpResponseContract, List<Task>>() {
+                @Override
+                public List<Task> apply(HttpResponseContract iHttpResponse) throws Exception {
+                    if (iHttpResponse.getCode() == apiConstants.responseErrorCode()) {
+                        throw new Error(iHttpResponse.getMessage());
                     }
-                });
+
+                    String responseBody = iHttpResponse.getBody();
+                    List<Task> tasks = jsonParser.fromJson(responseBody, new TypeToken<List<Task>>(){}.getType());
+                    return tasks;
+                }
+            });
     }
 }

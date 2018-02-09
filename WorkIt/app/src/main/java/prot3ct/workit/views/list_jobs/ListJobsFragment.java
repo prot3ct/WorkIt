@@ -19,6 +19,7 @@ import java.util.List;
 import prot3ct.workit.R;
 import prot3ct.workit.models.base.TaskContract;
 import prot3ct.workit.views.create_job.CreateJobActivity;
+import prot3ct.workit.views.job_details.JobDetailsActivity;
 import prot3ct.workit.views.list_jobs.base.ListJobsContract;
 import prot3ct.workit.views.login.LoginActivity;
 
@@ -114,7 +115,14 @@ public class ListJobsFragment extends Fragment implements ListJobsContract.View 
                 TextView taskTitle = (TextView) view.findViewById(R.id.id_single_task_title_text_view);
 
                 taskTitle.setText(tasks.get(position).getTitle());
-
+                taskTitle.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(context, JobDetailsActivity.class);
+                        intent.putExtra("TaskDetails", tasks.get(position));
+                        startActivity(intent);
+                    }
+                });
                 return view;
             }
         };
