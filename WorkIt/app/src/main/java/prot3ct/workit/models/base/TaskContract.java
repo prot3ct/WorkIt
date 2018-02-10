@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 public interface TaskContract extends Serializable {
+    int getId();
+
+    void setId(int id);
+
     public String getTitle();
 
     public void setTitle(String title);

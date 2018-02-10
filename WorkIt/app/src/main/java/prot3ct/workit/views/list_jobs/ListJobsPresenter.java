@@ -44,7 +44,6 @@ public class ListJobsPresenter implements ListJobsContract.Presenter {
 
                             @Override
                             public void onNext(List<Task> tasks) {
-                                Log.d("CEKO2", "WIN");
                                 view.setupTasksAdapter(tasks);
 //                                view.notifySuccessful();
 //                                view.showListJobsActivity();
@@ -52,7 +51,6 @@ public class ListJobsPresenter implements ListJobsContract.Presenter {
 
                             @Override
                             public void onError(Throwable e) {
-                                Log.d("CEKO2", e.getMessage());
 //                                view.notifyError("Error ocurred when logining in. Please try again.");
                             }
 

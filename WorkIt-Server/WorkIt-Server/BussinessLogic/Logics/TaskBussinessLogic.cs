@@ -52,6 +52,7 @@ namespace WorkIt_Server.BLL
         {
             return Db.Tasks.Select(j => new TaskDTO
             {
+                Id = j.TaskId,
                 CreatorEmail = j.Creator.Email,
                 Address = j.Location.Address,
                 City = j.Location.City,

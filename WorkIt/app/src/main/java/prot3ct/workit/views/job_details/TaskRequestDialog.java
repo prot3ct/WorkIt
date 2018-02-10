@@ -44,7 +44,6 @@ public class TaskRequestDialog extends Dialog {
     }
 
     private void createRequest() {
-        // TO DO this.presenter
         activity.finish();
     }
 

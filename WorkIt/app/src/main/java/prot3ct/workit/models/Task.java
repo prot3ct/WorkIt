@@ -5,6 +5,7 @@ import java.io.Serializable;
 import prot3ct.workit.models.base.TaskContract;
 
 public class Task implements TaskContract, Serializable {
+    private int id;
     private String title;
     private String startDate;
     private String endDate;
@@ -103,5 +104,13 @@ public class Task implements TaskContract, Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
