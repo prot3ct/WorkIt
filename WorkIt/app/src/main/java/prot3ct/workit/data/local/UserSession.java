@@ -19,8 +19,18 @@ public class UserSession implements UserSessionContract{
     }
 
     @Override
+    public int getId() {
+        return sharedPreferences.getInt("id", 0);
+    }
+
+    @Override
     public void setEmail(String username) {
         sharedPreferences.edit().putString("username", username).apply();
+    }
+
+    @Override
+    public void setId(int id) {
+        sharedPreferences.edit().putInt("id", id).apply();
     }
 
     @Override

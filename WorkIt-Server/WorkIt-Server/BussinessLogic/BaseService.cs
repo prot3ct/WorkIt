@@ -38,6 +38,11 @@ namespace WorkIt_Server.BLL
 
         public RaitingBussinessLogic RaitingLogic { get; private set; }
 
+        public int GetUserIdByEmail(string email)
+        {
+            return UserLogic.GetUserIdByEmail(email);
+        }
+
         public bool LoginUser(LoginDTO credentials)
         {
             return UserLogic.LoginUser(credentials);

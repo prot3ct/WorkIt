@@ -28,6 +28,11 @@ namespace WorkIt_Server.BLL
 
         public UserBussinessLogic() { }
 
+        public int GetUserIdByEmail(string email)
+        {
+            return db.Users.FirstOrDefault(u => u.Email == email).UserId;
+        }
+
         public bool LoginUser(LoginDTO credentials)
         {
             var user = db.Users.FirstOrDefault(u => u.Email == credentials.Email && u.PassHash == credentials.PassHash);

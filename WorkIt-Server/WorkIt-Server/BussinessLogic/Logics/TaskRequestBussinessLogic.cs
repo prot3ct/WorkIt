@@ -43,7 +43,8 @@ namespace WorkIt_Server.BLL
             {
                 Description = jobRequest.Description,
                 TaskId = jobRequest.TaskId,
-                UserId = jobRequest.UserId
+                UserId = jobRequest.UserId,
+                RequestStatusId = 1
             };
 
             Db.TaskRequests.Add(jobRequestToBeInserted);

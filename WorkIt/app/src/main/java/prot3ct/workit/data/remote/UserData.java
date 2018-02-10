@@ -12,6 +12,7 @@ import io.reactivex.functions.Function;
 import prot3ct.workit.config.ApiConstants;
 import prot3ct.workit.data.local.UserSession;
 import prot3ct.workit.data.remote.base.UserDataContract;
+import prot3ct.workit.data.remote.result_models.LoginResult;
 import prot3ct.workit.models.User;
 import prot3ct.workit.models.base.HttpResponseContract;
 import prot3ct.workit.models.base.UserContract;
@@ -38,7 +39,7 @@ public class UserData implements UserDataContract {
 
     @Override
     public Observable<Boolean> login(String email, String password) {
-        Map<String, String> userCredentials = new HashMap<>();
+        final Map<String, String> userCredentials = new HashMap<>();
         String passHash = hashProvider.hashPassword(password);
         userCredentials.put("email", email);
         userCredentials.put("passHash", passHash);
@@ -52,7 +53,9 @@ public class UserData implements UserDataContract {
                         throw new Error(iHttpResponse.getMessage());
                     }
                     String responseBody = iHttpResponse.getBody();
-                    userSession.setEmail(responseBody);
+                    LoginResult result = jsonParser.fromJson(responseBody, LoginResult.class);
+                    userSession.setEmail(result.getEmail());
+                    userSession.setId(result.getId());
                     return true;
                 }
             });

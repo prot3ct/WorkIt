@@ -5,6 +5,10 @@ public interface UserSessionContract {
 
     void setEmail(String username);
 
+    void setId(int id);
+
+    int getId();
+
     boolean isUserLoggedIn();
 
     void clearSession();

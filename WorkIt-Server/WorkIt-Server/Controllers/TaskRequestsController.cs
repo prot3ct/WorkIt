@@ -24,7 +24,7 @@ namespace WorkIt_Server.Controllers
             }
         }
 
-        [Route("tasks/requests/create")]
+        [Route("tasks/requests")]
         [HttpPost]
         public IHttpActionResult CreateTaskRequest(TaskRequestDTO taskRequest)
         {
