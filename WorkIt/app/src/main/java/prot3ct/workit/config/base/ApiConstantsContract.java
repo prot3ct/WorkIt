@@ -13,5 +13,5 @@ public interface ApiConstantsContract {
 
     int reponseServerErrorCode();
 
-    String CreateTaskRequestUrl();
+    String CreateTaskRequestUrl(int taskId);
 }

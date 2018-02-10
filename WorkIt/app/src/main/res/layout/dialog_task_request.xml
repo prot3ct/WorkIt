@@ -5,7 +5,6 @@
     android:background="#3E80B4"
     android:orientation="vertical" >
 
-
     <EditText
         android:id="@+id/id_task_request_description_edit_text"
         android:layout_width="wrap_content"
@@ -14,34 +13,5 @@
         android:textSize="15dp"
         android:hint="Add description"
         android:textStyle="bold"/>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="#3E80B4"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/id_task_request_confirm_button"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:background="@android:color/white"
-            android:clickable="true"
-            android:text="Confirm"
-            android:textColor="#5DBCD2"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/id_task_request_cancel_button"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="5dp"
-            android:background="@android:color/white"
-            android:clickable="true"
-            android:text="Cancel"
-            android:textColor="#5DBCD2"
-            android:textStyle="bold" />
-    </LinearLayout>
 
 </LinearLayout>

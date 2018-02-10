@@ -1,53 +1,55 @@
 package prot3ct.workit.views.job_details;
 
-import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 
 import prot3ct.workit.R;
+import prot3ct.workit.views.job_details.base.JobDetailsContract;
 
-public class TaskRequestDialog extends Dialog {
-    private JobDetailsPresenter presenter;
-
-    private Activity activity;
-    private Dialog dialog;
+public class TaskRequestDialog extends DialogFragment {
+    private JobDetailsContract.Presenter presenter;
+    private int taskId;
+    private View view;
     private Button confirmButton;
     private Button cancelButton;
+    private EditText description;
 
-    public TaskRequestDialog(Activity activity) {
-        super(activity);
-        this.activity = activity;
-    }
-
+    @NonNull
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.dialog_task_request);
-        this.confirmButton = (Button) findViewById(R.id.id_task_request_confirm_button);
-        this.cancelButton = (Button) findViewById(R.id.id_task_request_cancel_button);
-        this.confirmButton.setOnClickListener(new View.OnClickListener() {
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        this.view = inflater.inflate(R.layout.dialog_task_request, null);
+
+        this.description = view.findViewById(R.id.id_task_request_description_edit_text);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setView(view).setPositiveButton("Save", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                createRequest();
+            public void onClick(DialogInterface dialog, int which) {
+                presenter.createTaskRequest(description.getText().toString(), taskId);
+            }
+        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
             }
         });
-        this.cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cancelRequest();
-            }
-        });
+
+        return builder.create();
     }
 
-    private void createRequest() {
-        activity.finish();
+    public void setTaskId(int id) {
+        this.taskId = id;
     }
 
-    private void cancelRequest() {
-        dismiss();
+    public void setPresenter(JobDetailsContract.Presenter presenter) {
+        this.presenter = presenter;
     }
 }

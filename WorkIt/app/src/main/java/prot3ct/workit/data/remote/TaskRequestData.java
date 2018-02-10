@@ -36,7 +36,7 @@ public class TaskRequestData implements TaskRequestDataContract {
         taskRequest.put("userId", Integer.toString(userSession.getId()));
 
         return httpRequester
-                .post(apiConstants.CreateTaskRequestUrl(), taskRequest)
+                .post(apiConstants.CreateTaskRequestUrl(taskId), taskRequest)
                 .map(new Function<HttpResponseContract, Boolean>() {
                     @Override
                     public Boolean apply(HttpResponseContract iHttpResponse) throws Exception {

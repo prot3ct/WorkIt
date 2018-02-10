@@ -1,10 +1,16 @@
 package prot3ct.workit.views.job_details;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +56,8 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract.V
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_job_details, container, false);
 
-        applyForTaskWindow = new TaskRequestDialog(this.getActivity());
+        applyForTaskWindow = new TaskRequestDialog();
+        applyForTaskWindow.setPresenter(this.presenter);
         this.dialog = new WorkItProgressDialog(context);
         this.applyForTaskButton = view.findViewById(R.id.id_apply_for_task_button);
         this.taskTitle = view.findViewById(R.id.id_title_details_edit_text);
@@ -59,6 +66,7 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract.V
         this.taskEndDate = view.findViewById(R.id.id_end_time_details_edit_text);
 
         this.taskDetails = (TaskContract) this.getActivity().getIntent().getSerializableExtra("TaskDetails");
+        applyForTaskWindow.setTaskId(taskDetails.getId());
 
         this.taskTitle.setText(taskDetails.getTitle());
         this.taskDescription.setText(taskDetails.getDescription());
@@ -68,7 +76,7 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract.V
         this.applyForTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                applyForTaskWindow.show(getFragmentManager(), "text_popup");
             }
         });
 
@@ -102,51 +110,5 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract.V
         this.dialog.dismissProgress();
     }
 
-    public class TaskRequestDialog extends Dialog {
-        private JobDetailsPresenter presenter;
 
-        private Activity activity;
-        private Dialog dialog;
-        private Button confirmButton;
-        private Button cancelButton;
-        private EditText description;
-
-            public TaskRequestDialog(Activity activity) {
-            super(activity);
-            this.activity = activity;
-        }
-
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            requestWindowFeature(Window.FEATURE_NO_TITLE);
-            setContentView(R.layout.dialog_task_request);
-
-            this.confirmButton = findViewById(R.id.id_task_request_confirm_button);
-            this.cancelButton = findViewById(R.id.id_task_request_cancel_button);
-            this.description = findViewById(R.id.id_task_request_description_edit_text);
-
-            this.confirmButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    createRequest();
-                }
-            });
-            this.cancelButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    cancelRequest();
-                }
-            });
-        }
-
-        private void createRequest() {
-            presenter.createTaskRequest(this.description.getText().toString(), taskDetails.getId());
-            activity.finish();
-        }
-
-        private void cancelRequest() {
-            dismiss();
-        }
-    }
 }

@@ -1,6 +1,7 @@
 package prot3ct.workit.views.job_details;
 
 import android.content.Context;
+import android.util.Log;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -40,6 +41,7 @@ public class JobDetailsPresenter implements JobDetailsContract.Presenter {
                     @Override
                     public void onError(Throwable e) {
                         view.notifyError("Error ocurred when sending request. Please try again.");
+                        Log.d("CEKO", e.getMessage());
                         view.dismissDialog();
                     }
 
