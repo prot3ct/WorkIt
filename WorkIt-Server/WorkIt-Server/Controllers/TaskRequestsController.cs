@@ -10,13 +10,13 @@ namespace WorkIt_Server.Controllers
     {
         private BaseService service = new BaseService();
 
-        [Route("tasks/{taskId}/requests")]
+        [Route("users/{userId}/requests")]
         [HttpGet]
-        public IHttpActionResult GetRequestsForCurrentTask(int taskId)
+        public IHttpActionResult GetRequestsForCurrentUser(int userId)
         {
             try
             {
-                return Ok(service.GetRequestsForCurrentTask(taskId));
+                return Ok(service.GetRequestsForCurrentUser(userId));
             }
             catch (Exception)
             {

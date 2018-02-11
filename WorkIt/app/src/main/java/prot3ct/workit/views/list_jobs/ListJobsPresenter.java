@@ -33,30 +33,30 @@ public class ListJobsPresenter implements ListJobsContract.Presenter {
     @Override
     public void getAllTasks() {
         jobData.getAllTasks()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        new Observer<List<Task>>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                new Observer<List<Task>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 //                        view.showDialogForLoading();
-                            }
+                    }
 
-                            @Override
-                            public void onNext(List<Task> tasks) {
-                                view.setupTasksAdapter(tasks);
+                    @Override
+                    public void onNext(List<Task> tasks) {
+                        view.setupTasksAdapter(tasks);
 //                                view.notifySuccessful();
 //                                view.showListJobsActivity();
-                            }
+                    }
 
-                            @Override
-                            public void onError(Throwable e) {
+                    @Override
+                    public void onError(Throwable e) {
 //                                view.notifyError("Error ocurred when logining in. Please try again.");
-                            }
+                    }
 
-                            @Override
-                            public void onComplete() {
-                            }
-                        });
+                    @Override
+                    public void onComplete() {
+                    }
+                });
     }
 }

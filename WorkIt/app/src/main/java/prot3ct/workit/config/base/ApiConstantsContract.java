@@ -9,9 +9,11 @@ public interface ApiConstantsContract {
 
     String createTaskUrl();
 
+    String getTaskRequestsForCurrentUserUrl(int userId);
+
+    String createTaskRequestUrl(int taskId);
+
     int responseErrorCode();
 
     int reponseServerErrorCode();
-
-    String CreateTaskRequestUrl(int taskId);
 }

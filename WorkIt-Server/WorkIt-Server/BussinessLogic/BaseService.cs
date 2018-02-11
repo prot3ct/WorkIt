@@ -85,9 +85,9 @@ namespace WorkIt_Server.BLL
             TaskRequestLogic.DeleteTaskRequest(taskId);
         }
 
-        public IEnumerable<TaskRequestDTO> GetRequestsForCurrentTask(int taskId)
+        public IEnumerable<TaskRequestDTO> GetRequestsForCurrentUser(int taskId)
         {
-            return TaskRequestLogic.GetRequestsForCurrentTask(taskId);
+            return TaskRequestLogic.GetRequestsForCurrentUser(taskId);
         }
 
         public void DeleteCommentById(int commentId)

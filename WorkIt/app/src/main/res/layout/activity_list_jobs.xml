@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context="prot3ct.workit.views.list_jobs.ListJobsActivity">
 
+    <fragment
+        android:id="@+id/id_navigation_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:name="prot3ct.workit.views.navigation.DrawerFragment" />
+
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"

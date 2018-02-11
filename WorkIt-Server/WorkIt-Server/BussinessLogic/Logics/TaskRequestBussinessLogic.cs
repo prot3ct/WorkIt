@@ -27,14 +27,16 @@ namespace WorkIt_Server.BLL
             }
         }
 
-        public IEnumerable<TaskRequestDTO> GetRequestsForCurrentTask(int taskId)
+        public IEnumerable<TaskRequestDTO> GetRequestsForCurrentUser(int userId)
         {
-            return Db.TaskRequests.Select(tr => new TaskRequestDTO
-            {
-                Description = tr.Description,
-                TaskId = tr.TaskId,
-                UserId = tr.UserId
-            }).ToList();
+            return Db.TaskRequests
+                .Where(tr => tr.UserId == userId)
+                .Select(tr => new TaskRequestDTO
+                {
+                    Description = tr.Description,
+                    TaskId = tr.TaskId,
+                    UserId = tr.UserId
+                }).ToList();
         }
 
         public void CreateTaskRequest(TaskRequestDTO jobRequest)
