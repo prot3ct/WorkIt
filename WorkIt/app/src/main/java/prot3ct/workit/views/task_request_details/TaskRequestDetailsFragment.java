@@ -37,7 +37,7 @@ public class TaskRequestDetailsFragment extends Fragment implements TaskRequestD
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_job_details, container, false);
+        View view = inflater.inflate(R.layout.fragment_task_request_details, container, false);
 
         this.taskTitle = view.findViewById(R.id.id_task_request_title_text_view);
         this.taskRequestDescription = view.findViewById(R.id.id_task_request_description_edit_text);

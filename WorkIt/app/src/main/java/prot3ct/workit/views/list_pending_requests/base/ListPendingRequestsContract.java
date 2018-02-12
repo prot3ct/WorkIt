@@ -7,7 +7,7 @@ import prot3ct.workit.data.remote.result_models.TaskRequestListViewModel;
 
 public interface ListPendingRequestsContract {
     interface View extends BaseView<Presenter> {
-        void setupTasksAdapter(final List<? extends TaskRequestListViewModel> taskRequests);
+        void setupTaskRequestsAdapter(final List<? extends TaskRequestListViewModel> taskRequests);
     }
 
     interface Presenter {

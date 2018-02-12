@@ -64,7 +64,9 @@ namespace WorkIt_Server.BLL
                 {
                     Description = tr.Description,
                     TaskId = tr.TaskId,
-                    UserId = tr.UserId
+                    UserId = tr.UserId,
+                    TaskTitle = tr.Task.Title,
+                    Status = tr.RequestStatus.Name
                 }).ToList();
         }
 

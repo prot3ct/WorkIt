@@ -42,10 +42,15 @@ namespace WorkIt_Server.Controllers
         [HttpPost]
         public IHttpActionResult CreateTaskRequest(TaskRequestDTO taskRequest)
         {
-       
+            try
+            {
                 service.CreateTaskRequest(taskRequest);
                 return Ok();
-   
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
         }
 
         [Route("requests/{requestId}/comments")]

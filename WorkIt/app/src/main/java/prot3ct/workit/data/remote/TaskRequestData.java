@@ -2,6 +2,7 @@ package prot3ct.workit.data.remote;
 
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.reflect.TypeToken;
 
@@ -84,7 +85,9 @@ public class TaskRequestData implements TaskRequestDataContract {
                     }
 
                     String responseBody = iHttpResponse.getBody();
+                    Log.d("CEKO", responseBody);
                     List<TaskRequestListViewModel> taskRequests = jsonParser.fromJson(responseBody, new TypeToken<List<TaskRequestListViewModel>>(){}.getType());
+                    Log.d("CEKO", taskRequests.get(1).getTaskTitle());
                     return taskRequests;
                 }
             });

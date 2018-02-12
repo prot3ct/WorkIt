@@ -16,6 +16,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import prot3ct.workit.R;
 import prot3ct.workit.views.list_jobs.ListJobsActivity;
 import prot3ct.workit.views.list_pending_requests.ListPendingRequestsActivity;
+import prot3ct.workit.views.login.LoginActivity;
 
 
 public class DrawerFragment extends Fragment {

@@ -25,7 +25,7 @@ public class ListPendingRequestsFragment extends Fragment implements ListPending
     private Context context;
 
     ArrayAdapter<TaskRequestListViewModel> taskRequestAdapter;
-    private ListView listTaskRequestView;
+    private ListView taskRequestListView;
 
     public ListPendingRequestsFragment() {
     }
@@ -42,7 +42,11 @@ public class ListPendingRequestsFragment extends Fragment implements ListPending
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_list_jobs, container, false);
+        View view = inflater.inflate(R.layout.fragment_list_pending_requests, container, false);
+
+        this.taskRequestListView = view.findViewById(R.id.id_task_requests_list_view);
+
+        this.presenter.getTaskRequestsForCurrentUser();
 
         return view;
     }
@@ -55,7 +59,7 @@ public class ListPendingRequestsFragment extends Fragment implements ListPending
     }
 
     @Override
-    public void setupTasksAdapter(final List<? extends TaskRequestListViewModel> taskRequests) {
+    public void setupTaskRequestsAdapter(final List<? extends TaskRequestListViewModel> taskRequests) {
         this.taskRequestAdapter = new ArrayAdapter<TaskRequestListViewModel>(this.getContext(), -1, (List<TaskRequestListViewModel>) taskRequests) {
             @NonNull
             @Override
@@ -83,6 +87,6 @@ public class ListPendingRequestsFragment extends Fragment implements ListPending
             }
         };
 
-        this.listTaskRequestView.setAdapter(taskRequestAdapter);
+        this.taskRequestListView.setAdapter(taskRequestAdapter);
     }
 }

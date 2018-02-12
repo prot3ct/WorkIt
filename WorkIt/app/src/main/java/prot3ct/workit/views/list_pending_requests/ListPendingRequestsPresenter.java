@@ -1,6 +1,7 @@
 package prot3ct.workit.views.list_pending_requests;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.List;
 
@@ -35,13 +36,14 @@ public class ListPendingRequestsPresenter implements ListPendingRequestsContract
 
                             @Override
                             public void onNext(List<TaskRequestListViewModel> taskRequests) {
-                                view.setupTasksAdapter(taskRequests);
+                                view.setupTaskRequestsAdapter(taskRequests);
 //                                view.notifySuccessful();
 //                                view.showListJobsActivity();
                             }
 
                             @Override
                             public void onError(Throwable e) {
+                                Log.d("CEKO", e.getMessage());
 //                                view.notifyError("Error ocurred when logining in. Please try again.");
                             }
 

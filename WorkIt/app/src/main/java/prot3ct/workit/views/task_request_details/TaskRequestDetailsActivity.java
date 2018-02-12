@@ -12,7 +12,7 @@ public class TaskRequestDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_pending_requests);
+        setContentView(R.layout.activity_task_request_detail);
 
         TaskRequestDetailsFragment taskRequestDetailsFragment =
                 (TaskRequestDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
