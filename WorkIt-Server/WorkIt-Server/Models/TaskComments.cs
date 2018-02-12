@@ -8,10 +8,13 @@ namespace WorkIt_Server.Models
         [Key]
         public int TaskCommentsId { get; set; }
 
-        [Required]
         [ForeignKey("Task")]
         public int TaskId { get; set; }
         public virtual Task Task { get; set; }
+
+        [ForeignKey("TaskRequest")]
+        public int TaskRequestId { get; set; }
+        public virtual Task TaskRequest { get; set; }
 
         [Required]
         [ForeignKey("Comment")]

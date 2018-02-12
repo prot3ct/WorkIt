@@ -1,8 +1,10 @@
 namespace WorkIt_Server.Migrations
 {
+    using System;
+    using System.Data.Entity;
     using System.Data.Entity.Migrations;
+    using System.Linq;
     using WorkIt_Server.Models;
-    using WorkIt_Server.Models.Context;
 
     internal sealed class Configuration : DbMigrationsConfiguration<WorkIt_Server.Models.Context.WorkItDbContext>
     {
@@ -11,7 +13,7 @@ namespace WorkIt_Server.Migrations
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(WorkItDbContext context)
+        protected override void Seed(WorkIt_Server.Models.Context.WorkItDbContext context)
         {
             context.RequestStatuses.AddOrUpdate(
                 new RequestStatus { Name = "Closed" },

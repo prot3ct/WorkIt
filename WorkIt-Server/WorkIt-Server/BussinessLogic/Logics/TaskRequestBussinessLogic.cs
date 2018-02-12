@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using WorkIt_Server.Models;
 using WorkIt_Server.Models.Context;
@@ -30,13 +31,14 @@ namespace WorkIt_Server.BLL
         public TaskRequestDTO GetTaskRequestById(int requestId)
         {
             var taskRequest = db.TaskRequests.FirstOrDefault(tr => tr.TaskRequestId == requestId);
+            var user = db.Users.FirstOrDefault(u => u.UserId == taskRequest.UserId);
 
             return new TaskRequestDTO
             {
                 Description = taskRequest.Description,
                 TaskRequestId = taskRequest.TaskRequestId,
-                TaskId = taskRequest.TaskId,
-                UserId = taskRequest.UserId
+                TaskTitle = db.Tasks.FirstOrDefault(t => t.TaskId == taskRequest.TaskId).Title,
+                Name = user.Firstname + " " + user.Lastname
             };
         }
 
@@ -64,6 +66,44 @@ namespace WorkIt_Server.BLL
                     TaskId = tr.TaskId,
                     UserId = tr.UserId
                 }).ToList();
+        }
+
+        public void CreateTaskRequestComment(CommentDTO comment)
+        {
+            var commentToBeInserted = new Comment
+            {
+                Body = comment.Body,
+                UserId = comment.UserId
+            };
+
+            db.Comments.Add(commentToBeInserted);
+            db.SaveChanges();
+
+            var commentRelation = new TaskComments
+            {
+                CommentId = commentToBeInserted.CommentId,
+                TaskRequestId = comment.TargetId
+            };
+
+            db.TasksComments.Add(commentRelation);
+            db.SaveChanges();
+        }
+
+        public List<CommentDTO> GetTaskRequestComments(int taskRequestId)
+        {
+            var commentIds = db.TasksComments
+                .Where(tc => tc.TaskRequestId == taskRequestId)
+                .Select(tc => tc.CommentId)
+                .ToList();
+
+            return db.Comments
+                .Where(c => commentIds.Contains(c.CommentId))
+                .Select(c => new CommentDTO
+                {
+                    Body = c.Body,
+                    UserId = 1//c.User.Firstname + " " + c.User.Lastname
+                })
+                .ToList();
         }
 
         public void DeleteTaskRequest(int taskId)

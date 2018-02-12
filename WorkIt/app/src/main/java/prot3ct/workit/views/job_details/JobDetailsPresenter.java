@@ -41,6 +41,7 @@ public class JobDetailsPresenter implements JobDetailsContract.Presenter {
                     @Override
                     public void onError(Throwable e) {
                         view.notifyError("Error ocurred when sending request. Please try again.");
+                        Log.d("CEKO", e.getMessage());
                         view.dismissDialog();
                     }
 

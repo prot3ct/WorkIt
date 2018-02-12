@@ -42,16 +42,37 @@ namespace WorkIt_Server.Controllers
         [HttpPost]
         public IHttpActionResult CreateTaskRequest(TaskRequestDTO taskRequest)
         {
-            try
-            {
+       
                 service.CreateTaskRequest(taskRequest);
                 return Ok();
+   
+        }
+
+        [Route("requests/{requestId}/comments")]
+        [HttpPost]
+        public IHttpActionResult CreateTaskRequestComment(CommentDTO comment)
+        {
+            
+                service.CreateTaskRequestComment(comment);
+                return Ok();
+            
+        }
+
+        [Route("requests/{requestId}/comments")]
+        [HttpGet]
+        public IHttpActionResult GetCommentsByTaskRequestId(int requestId)
+        {
+            try
+            {
+                return Ok(service.GetCommentsByTaskRequestId(requestId));
             }
             catch (Exception)
             {
                 return InternalServerError();
             }
         }
+
+
 
         // TO DO
         [Route("requests/{requestId}/update")]

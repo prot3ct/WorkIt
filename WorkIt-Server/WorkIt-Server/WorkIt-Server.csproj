@@ -99,7 +99,6 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="BussinessLogic\BaseService.cs" />
-    <Compile Include="BussinessLogic\Logics\CommentBussinessLogic.cs" />
     <Compile Include="BussinessLogic\Logics\RaitingBussinessLogic.cs" />
     <Compile Include="BussinessLogic\Logics\TaskBussinessLogic.cs" />
     <Compile Include="BussinessLogic\Logics\TaskReportBussinessLogic.cs" />
@@ -107,7 +106,6 @@
     <Compile Include="BussinessLogic\Logics\LocationBussinessLogic.cs" />
     <Compile Include="BussinessLogic\Logics\UserBussinessLogic.cs" />
     <Compile Include="BussinessLogic\Logics\UserReportBussinessLogic.cs" />
-    <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\RaitingsController.cs" />
     <Compile Include="Controllers\TaskRequestsController.cs" />
     <Compile Include="Controllers\TasksController.cs" />
@@ -117,16 +115,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201801251205075_Initial.cs" />
-    <Compile Include="Migrations\201801251205075_Initial.Designer.cs">
-      <DependentUpon>201801251205075_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201802121947241_Initial.cs" />
+    <Compile Include="Migrations\201802121947241_Initial.Designer.cs">
+      <DependentUpon>201802121947241_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201802081819258_change-date-to-string.cs" />
-    <Compile Include="Migrations\201802081819258_change-date-to-string.Designer.cs">
-      <DependentUpon>201802081819258_change-date-to-string.cs</DependentUpon>
+    <Compile Include="Migrations\201802122102413_SeedOnly.cs" />
+    <Compile Include="Migrations\201802122102413_SeedOnly.Designer.cs">
+      <DependentUpon>201802122102413_SeedOnly.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Context\WorkItDbContext.cs" />
     <Compile Include="Models\DTO\CommentDTO.cs" />
     <Compile Include="Models\DTO\RaitingDTO.cs" />
@@ -142,6 +139,7 @@
     <Compile Include="Models\TaskReport.cs" />
     <Compile Include="Models\TaskRequest.cs" />
     <Compile Include="Models\Raiting.cs" />
+    <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\TaskComments.cs" />
     <Compile Include="Models\UserReport.cs" />
@@ -163,11 +161,11 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201801251205075_Initial.resx">
-      <DependentUpon>201801251205075_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201802121947241_Initial.resx">
+      <DependentUpon>201802121947241_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802081819258_change-date-to-string.resx">
-      <DependentUpon>201802081819258_change-date-to-string.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201802122102413_SeedOnly.resx">
+      <DependentUpon>201802122102413_SeedOnly.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -8,7 +8,6 @@ public class ApiConstants implements ApiConstantsContract {
     private static final String URL_SIGN_UP = API_URL + "/auth/register";
     private static final String URL_GET_JOBS = API_URL + "/tasks";
     private static final String URL_CREATE_TASK = API_URL + "/tasks";
-    private static final String URL_CREATE_TASK_REQUEST = API_URL + "tasks/";
 
     private static final int RESPNCE_SUCCESS_CODE = 200;
     private static final int RESPONSE_ERROR_CODE = 404;
@@ -33,7 +32,7 @@ public class ApiConstants implements ApiConstantsContract {
     }
 
     @Override
-    public String createTaskRequestUrl(int taskId) { return URL_CREATE_TASK_REQUEST + taskId + "/requests"; }
+    public String createTaskRequestUrl() { return API_URL + "/requests"; }
 
     @Override
     public String getTaskRequestsForCurrentUserUrl(int userId) { return API_URL + "/" + userId + "/requests"; }

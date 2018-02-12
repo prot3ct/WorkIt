@@ -13,7 +13,6 @@ namespace WorkIt_Server.BLL
             this.TaskLogic = new JobBussinessLogic(this.WorkItDbContext);
             this.LocationLogic = new LocationBussinessLogic(this.WorkItDbContext);
             this.UserLogic = new UserBussinessLogic(this.WorkItDbContext);
-            this.CommentLogic = new CommentBussinessLogic(this.WorkItDbContext);
             this.TaskReportLogic = new JobReportBussinessLogic(this.WorkItDbContext);
             this.TaskRequestLogic = new JobRequestBussinessLogic(this.WorkItDbContext);
             this.UserReportLogic = new UserReportBussinessLogic(this.WorkItDbContext);
@@ -27,8 +26,6 @@ namespace WorkIt_Server.BLL
         public LocationBussinessLogic LocationLogic { get; private set; }
 
         public UserBussinessLogic UserLogic { get; private set; }
-        
-        public CommentBussinessLogic CommentLogic { get; private set; }
 
         public JobReportBussinessLogic TaskReportLogic { get; private set; }
 
@@ -90,26 +87,6 @@ namespace WorkIt_Server.BLL
             return TaskRequestLogic.GetRequestsForCurrentUser(userId);
         }
 
-        public void DeleteCommentById(int commentId)
-        {
-            CommentLogic.DeleteCommentById(commentId);
-        }
-
-        public void DeleteCommentsByTaskId(int taskId)
-        {
-            CommentLogic.DeleteCommentsByTaskId(taskId);
-        }
-
-        public IEnumerable<CommentDTO> GetCommentsByTaskId(int taskId)
-        {
-            return CommentLogic.GetCommentsByTaskId(taskId);
-        }
-
-        public void CreateComment(CommentDTO comment)
-        {
-            CommentLogic.CreateComment(comment);
-        }
-
         public void CreateTaskReport(TaskReportDTO jobReport)
         {
             TaskReportLogic.CreateTaskReport(jobReport);
@@ -128,6 +105,21 @@ namespace WorkIt_Server.BLL
         public IEnumerable<RaitingDTO> GetAllRaitingsByUserId(int userId)
         {
             return this.RaitingLogic.GetAllRaitingByUserId(userId);
+        }
+
+        public TaskRequestDTO GetTaskRequestById(int requestId)
+        {
+            return this.TaskRequestLogic.GetTaskRequestById(requestId);
+        }
+
+        public void CreateTaskRequestComment(CommentDTO comment)
+        {
+            this.TaskRequestLogic.CreateTaskRequestComment(comment);
+        }
+
+        public List<CommentDTO> GetCommentsByTaskRequestId(int taskRequestId)
+        {
+            return this.TaskRequestLogic.GetTaskRequestComments(taskRequestId);
         }
     }
 }

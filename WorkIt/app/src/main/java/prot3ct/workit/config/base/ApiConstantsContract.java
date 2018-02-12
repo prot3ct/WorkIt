@@ -11,7 +11,7 @@ public interface ApiConstantsContract {
 
     String getTaskRequestsForCurrentUserUrl(int userId);
 
-    String createTaskRequestUrl(int taskId);
+    String createTaskRequestUrl();
 
     String getTaskRequestByIdUrl(int requestId);
 
