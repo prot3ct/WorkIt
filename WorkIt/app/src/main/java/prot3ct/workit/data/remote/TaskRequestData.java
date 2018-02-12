@@ -14,8 +14,8 @@ import io.reactivex.functions.Function;
 import prot3ct.workit.config.ApiConstants;
 import prot3ct.workit.data.local.UserSession;
 import prot3ct.workit.data.remote.base.TaskRequestDataContract;
-import prot3ct.workit.data.remote.result_models.TaskRequestResult;
-import prot3ct.workit.models.Task;
+import prot3ct.workit.data.remote.result_models.TaskRequestDetailsViewModel;
+import prot3ct.workit.data.remote.result_models.TaskRequestListViewModel;
 import prot3ct.workit.models.base.HttpResponseContract;
 import prot3ct.workit.utils.GsonParser;
 import prot3ct.workit.utils.OkHttpRequester;
@@ -31,6 +31,24 @@ public class TaskRequestData implements TaskRequestDataContract {
         this.httpRequester = new OkHttpRequester();
         this.apiConstants = new ApiConstants();
         this.userSession = new UserSession(context);
+    }
+
+    @Override
+    public Observable<TaskRequestDetailsViewModel> getTaskRequestBtId(int taskRequestId) {
+        return httpRequester
+                .get(apiConstants.getTaskRequestByIdUrl(taskRequestId))
+                .map(new Function<HttpResponseContract, TaskRequestDetailsViewModel>() {
+                    @Override
+                    public TaskRequestDetailsViewModel apply(HttpResponseContract iHttpResponse) throws Exception {
+                        if (iHttpResponse.getCode() == apiConstants.responseErrorCode()) {
+                            throw new Error(iHttpResponse.getMessage());
+                        }
+
+                        String responseBody = iHttpResponse.getBody();
+                        TaskRequestDetailsViewModel taskRequestDetails = jsonParser.fromJson(responseBody, TaskRequestDetailsViewModel.class);
+                        return taskRequestDetails;
+                    }
+                });
     }
 
     @Override
@@ -55,18 +73,18 @@ public class TaskRequestData implements TaskRequestDataContract {
     }
 
     @Override
-    public Observable<List<TaskRequestResult>> getAllTaskRequestsForUser() {
+    public Observable<List<TaskRequestListViewModel>> getAllTaskRequestsForUser() {
         return httpRequester
             .get(apiConstants.getTaskRequestsForCurrentUserUrl(userSession.getId()))
-            .map(new Function<HttpResponseContract, List<TaskRequestResult>>() {
+            .map(new Function<HttpResponseContract, List<TaskRequestListViewModel>>() {
                 @Override
-                public List<TaskRequestResult> apply(HttpResponseContract iHttpResponse) throws Exception {
+                public List<TaskRequestListViewModel> apply(HttpResponseContract iHttpResponse) throws Exception {
                     if (iHttpResponse.getCode() == apiConstants.responseErrorCode()) {
                         throw new Error(iHttpResponse.getMessage());
                     }
 
                     String responseBody = iHttpResponse.getBody();
-                    List<TaskRequestResult> taskRequests = jsonParser.fromJson(responseBody, new TypeToken<List<TaskRequestResult>>(){}.getType());
+                    List<TaskRequestListViewModel> taskRequests = jsonParser.fromJson(responseBody, new TypeToken<List<TaskRequestListViewModel>>(){}.getType());
                     return taskRequests;
                 }
             });

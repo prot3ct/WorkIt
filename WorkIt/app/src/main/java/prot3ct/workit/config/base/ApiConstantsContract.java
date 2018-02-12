@@ -13,6 +13,8 @@ public interface ApiConstantsContract {
 
     String createTaskRequestUrl(int taskId);
 
+    String getTaskRequestByIdUrl(int requestId);
+
     int responseErrorCode();
 
     int reponseServerErrorCode();

@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 import prot3ct.workit.R;
@@ -18,8 +17,6 @@ public class TaskRequestDialog extends DialogFragment {
     private JobDetailsContract.Presenter presenter;
     private int taskId;
     private View view;
-    private Button confirmButton;
-    private Button cancelButton;
     private EditText description;
 
     @NonNull

@@ -15,15 +15,16 @@ import android.widget.TextView;
 import java.util.List;
 
 import prot3ct.workit.R;
-import prot3ct.workit.data.remote.result_models.TaskRequestResult;
+import prot3ct.workit.data.remote.result_models.TaskRequestListViewModel;
 import prot3ct.workit.views.list_jobs.ListJobsActivity;
 import prot3ct.workit.views.list_pending_requests.base.ListPendingRequestsContract;
+import prot3ct.workit.views.task_request_details.TaskRequestDetailsActivity;
 
 public class ListPendingRequestsFragment extends Fragment implements ListPendingRequestsContract.View {
     private ListPendingRequestsContract.Presenter presenter;
     private Context context;
 
-    ArrayAdapter<TaskRequestResult> taskRequestAdapter;
+    ArrayAdapter<TaskRequestListViewModel> taskRequestAdapter;
     private ListView listTaskRequestView;
 
     public ListPendingRequestsFragment() {
@@ -54,8 +55,8 @@ public class ListPendingRequestsFragment extends Fragment implements ListPending
     }
 
     @Override
-    public void setupTasksAdapter(final List<? extends TaskRequestResult> taskRequests) {
-        this.taskRequestAdapter = new ArrayAdapter<TaskRequestResult>(this.getContext(), -1, (List<TaskRequestResult>) taskRequests) {
+    public void setupTasksAdapter(final List<? extends TaskRequestListViewModel> taskRequests) {
+        this.taskRequestAdapter = new ArrayAdapter<TaskRequestListViewModel>(this.getContext(), -1, (List<TaskRequestListViewModel>) taskRequests) {
             @NonNull
             @Override
             public View getView(final int position, View convertView, ViewGroup parent) {
@@ -73,8 +74,8 @@ public class ListPendingRequestsFragment extends Fragment implements ListPending
                 taskTitle.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(context, ListJobsActivity.class);
-//                        intent.putExtra("TaskDetails", taskRequests.get(position));
+                        Intent intent = new Intent(context, TaskRequestDetailsActivity.class);
+                        intent.putExtra("taskRequestId", taskRequests.get(position).getTaskRequestId());
                         startActivity(intent);
                     }
                 });

@@ -50,12 +50,12 @@ public class DrawerFragment extends Fragment {
                 .withActivity(getActivity())
                 .withToolbar(toolbar)
                 .addDrawerItems(
-                        this.createPendingRequestDraweerItem()
+                        this.createPendingRequestDrawerItem()
                 )
                 .build();
     }
 
-    private PrimaryDrawerItem createPendingRequestDraweerItem() {
+    private PrimaryDrawerItem createPendingRequestDrawerItem() {
         return new PrimaryDrawerItem()
             .withIdentifier(0)
             .withName("My pending requests")

@@ -24,6 +24,10 @@
         <activity
             android:name=".views.job_details.JobDetailsActivity"
             android:label="@string/title_activity_job_details"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".views.task_request_details.TaskRequestDetailsActivity"
+            android:label="@string/title_activity_task_request_detail"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

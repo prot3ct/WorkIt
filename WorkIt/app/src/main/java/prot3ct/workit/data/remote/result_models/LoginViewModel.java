@@ -1,6 +1,6 @@
 package prot3ct.workit.data.remote.result_models;
 
-public class LoginResult {
+public class LoginViewModel {
     private int id;
     private String email;
 

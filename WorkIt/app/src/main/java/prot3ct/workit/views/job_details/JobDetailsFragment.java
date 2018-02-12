@@ -109,6 +109,4 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract.V
     public void dismissDialog() {
         this.dialog.dismissProgress();
     }
-
-
 }

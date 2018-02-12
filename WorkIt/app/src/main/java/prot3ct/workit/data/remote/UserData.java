@@ -1,7 +1,6 @@
 package prot3ct.workit.data.remote;
 
 import android.content.Context;
-import android.util.Log;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -12,10 +11,9 @@ import io.reactivex.functions.Function;
 import prot3ct.workit.config.ApiConstants;
 import prot3ct.workit.data.local.UserSession;
 import prot3ct.workit.data.remote.base.UserDataContract;
-import prot3ct.workit.data.remote.result_models.LoginResult;
+import prot3ct.workit.data.remote.result_models.LoginViewModel;
 import prot3ct.workit.models.User;
 import prot3ct.workit.models.base.HttpResponseContract;
-import prot3ct.workit.models.base.UserContract;
 import prot3ct.workit.utils.GsonParser;
 import prot3ct.workit.utils.HashProvider;
 import prot3ct.workit.utils.OkHttpRequester;
@@ -53,7 +51,7 @@ public class UserData implements UserDataContract {
                         throw new Error(iHttpResponse.getMessage());
                     }
                     String responseBody = iHttpResponse.getBody();
-                    LoginResult result = jsonParser.fromJson(responseBody, LoginResult.class);
+                    LoginViewModel result = jsonParser.fromJson(responseBody, LoginViewModel.class);
                     userSession.setEmail(result.getEmail());
                     userSession.setId(result.getId());
                     return true;

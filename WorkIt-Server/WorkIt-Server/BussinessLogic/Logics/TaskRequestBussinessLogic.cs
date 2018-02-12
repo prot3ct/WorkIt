@@ -27,16 +27,17 @@ namespace WorkIt_Server.BLL
             }
         }
 
-        public IEnumerable<TaskRequestDTO> GetRequestsForCurrentUser(int userId)
+        public TaskRequestDTO GetTaskRequestById(int requestId)
         {
-            return Db.TaskRequests
-                .Where(tr => tr.UserId == userId)
-                .Select(tr => new TaskRequestDTO
-                {
-                    Description = tr.Description,
-                    TaskId = tr.TaskId,
-                    UserId = tr.UserId
-                }).ToList();
+            var taskRequest = db.TaskRequests.FirstOrDefault(tr => tr.TaskRequestId == requestId);
+
+            return new TaskRequestDTO
+            {
+                Description = taskRequest.Description,
+                TaskRequestId = taskRequest.TaskRequestId,
+                TaskId = taskRequest.TaskId,
+                UserId = taskRequest.UserId
+            };
         }
 
         public void CreateTaskRequest(TaskRequestDTO jobRequest)
@@ -51,6 +52,18 @@ namespace WorkIt_Server.BLL
 
             Db.TaskRequests.Add(jobRequestToBeInserted);
             Db.SaveChanges();
+        }
+
+        public IEnumerable<TaskRequestDTO> GetRequestsForCurrentUser(int userId)
+        {
+            return Db.TaskRequests
+                .Where(tr => tr.UserId == userId)
+                .Select(tr => new TaskRequestDTO
+                {
+                    Description = tr.Description,
+                    TaskId = tr.TaskId,
+                    UserId = tr.UserId
+                }).ToList();
         }
 
         public void DeleteTaskRequest(int taskId)

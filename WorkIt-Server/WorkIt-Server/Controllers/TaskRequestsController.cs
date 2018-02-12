@@ -10,6 +10,20 @@ namespace WorkIt_Server.Controllers
     {
         private BaseService service = new BaseService();
 
+        [Route("requests/{requestId}")]
+        [HttpGet]
+        public IHttpActionResult GetTaskRequestById(int requestId)
+        {
+            try
+            {
+                return Ok(service.GetTaskRequestById(requestId));
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
+        }
+
         [Route("users/{userId}/requests")]
         [HttpGet]
         public IHttpActionResult GetRequestsForCurrentUser(int userId)
@@ -24,7 +38,7 @@ namespace WorkIt_Server.Controllers
             }
         }
 
-        [Route("tasks/{taskId}/requests")]
+        [Route("requests")]
         [HttpPost]
         public IHttpActionResult CreateTaskRequest(TaskRequestDTO taskRequest)
         {
@@ -39,7 +53,8 @@ namespace WorkIt_Server.Controllers
             }
         }
 
-        [Route("tasks/requests/{requestId}/delete")]
+        // TO DO
+        [Route("requests/{requestId}/update")]
         [HttpPost]
         public IHttpActionResult DeleteTaskRequestById(int requestId)
         {

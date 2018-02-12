@@ -8,12 +8,8 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import prot3ct.workit.data.remote.JobData;
 import prot3ct.workit.data.remote.TaskRequestData;
-import prot3ct.workit.data.remote.UserData;
-import prot3ct.workit.data.remote.result_models.TaskRequestResult;
-import prot3ct.workit.models.Task;
-import prot3ct.workit.views.list_jobs.base.ListJobsContract;
+import prot3ct.workit.data.remote.result_models.TaskRequestListViewModel;
 import prot3ct.workit.views.list_pending_requests.base.ListPendingRequestsContract;
 
 public class ListPendingRequestsPresenter implements ListPendingRequestsContract.Presenter {
@@ -31,14 +27,14 @@ public class ListPendingRequestsPresenter implements ListPendingRequestsContract
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        new Observer<List<TaskRequestResult>>() {
+                        new Observer<List<TaskRequestListViewModel>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
 //                        view.showDialogForLoading();
                             }
 
                             @Override
-                            public void onNext(List<TaskRequestResult> taskRequests) {
+                            public void onNext(List<TaskRequestListViewModel> taskRequests) {
                                 view.setupTasksAdapter(taskRequests);
 //                                view.notifySuccessful();
 //                                view.showListJobsActivity();

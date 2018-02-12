@@ -7,4 +7,5 @@
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_create_job">CreateJobActivity</string>
     <string name="title_activity_job_details">JobDetailsActivity</string>
+    <string name="title_activity_task_request_detail">TaskRequestDetailActivity</string>
 </resources>
