@@ -102,7 +102,7 @@ namespace WorkIt_Server.BLL
                 .Select(c => new CommentDTO
                 {
                     Body = c.Body,
-                    UserId = 1//c.User.Firstname + " " + c.User.Lastname
+                    Name = c.User.Firstname + " " + c.User.Lastname
                 })
                 .ToList();
         }

@@ -57,11 +57,16 @@ namespace WorkIt_Server.Controllers
         [HttpPost]
         public IHttpActionResult CreateTaskRequestComment(CommentDTO comment)
         {
-            
+            try
+            {
                 service.CreateTaskRequestComment(comment);
                 return Ok();
-            
-        }
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
+        }   
 
         [Route("requests/{requestId}/comments")]
         [HttpGet]

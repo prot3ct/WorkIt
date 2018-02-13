@@ -42,7 +42,13 @@ public class ApiConstants implements ApiConstantsContract {
         return API_URL + "/requests/" + requestId;
     }
 
+    @Override
     public String createTaskRequestCommentUrl(int taskRequestId) {
+        return API_URL + "/requests/" + taskRequestId + "/comments";
+    }
+
+    @Override
+    public String getTaskRequestComments(int taskRequestId) {
         return API_URL + "/requests/" + taskRequestId + "/comments";
     }
 

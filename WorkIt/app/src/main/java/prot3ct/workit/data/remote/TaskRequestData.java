@@ -16,6 +16,7 @@ import prot3ct.workit.config.ApiConstants;
 import prot3ct.workit.data.local.UserSession;
 import prot3ct.workit.data.remote.base.TaskRequestDataContract;
 import prot3ct.workit.data.remote.result_models.TaskRequestDetailsViewModel;
+import prot3ct.workit.data.remote.result_models.TaskRequestListCommentsViewModel;
 import prot3ct.workit.data.remote.result_models.TaskRequestListViewModel;
 import prot3ct.workit.models.base.HttpResponseContract;
 import prot3ct.workit.utils.GsonParser;
@@ -91,6 +92,7 @@ public class TaskRequestData implements TaskRequestDataContract {
             });
     }
 
+    @Override
     public Observable<Boolean> createTaskRequestComment(int taskRequestId, String body) {
         Map<String, String> comment = new HashMap<>();
         comment.put("targetId", Integer.toString(taskRequestId));
@@ -107,6 +109,24 @@ public class TaskRequestData implements TaskRequestDataContract {
                         }
 
                         return true;
+                    }
+                });
+    }
+
+    @Override
+    public Observable<List<TaskRequestListCommentsViewModel>> getTaskRequestComments(int taskRequestId) {
+        return httpRequester
+                .get(apiConstants.getTaskRequestComments(taskRequestId))
+                .map(new Function<HttpResponseContract, List<TaskRequestListCommentsViewModel>>() {
+                    @Override
+                    public List<TaskRequestListCommentsViewModel> apply(HttpResponseContract iHttpResponse) throws Exception {
+                        if (iHttpResponse.getCode() == apiConstants.responseErrorCode()) {
+                            throw new Error(iHttpResponse.getMessage());
+                        }
+
+                        String responseBody = iHttpResponse.getBody();
+                        List<TaskRequestListCommentsViewModel> taskRequestComments = jsonParser.fromJson(responseBody, new TypeToken<List<TaskRequestListCommentsViewModel>>(){}.getType());
+                        return taskRequestComments;
                     }
                 });
     }

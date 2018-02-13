@@ -17,6 +17,8 @@ public interface ApiConstantsContract {
 
     String createTaskRequestCommentUrl(int taskRequestId);
 
+    String getTaskRequestComments(int taskRequestId);
+
     int responseErrorCode();
 
     int reponseServerErrorCode();
