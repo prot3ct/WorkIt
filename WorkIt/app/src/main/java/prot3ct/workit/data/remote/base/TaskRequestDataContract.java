@@ -11,5 +11,5 @@ public interface TaskRequestDataContract {
 
     Observable<List<TaskRequestListViewModel>> getAllTaskRequestsForUser();
 
-    Observable<TaskRequestDetailsViewModel> getTaskRequestBtId(int id);
+    Observable<TaskRequestDetailsViewModel> getTaskRequestById(int id);
 }

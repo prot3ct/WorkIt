@@ -119,9 +119,9 @@
     <Compile Include="Migrations\201802121947241_Initial.Designer.cs">
       <DependentUpon>201802121947241_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201802122102413_SeedOnly.cs" />
-    <Compile Include="Migrations\201802122102413_SeedOnly.Designer.cs">
-      <DependentUpon>201802122102413_SeedOnly.cs</DependentUpon>
+    <Compile Include="Migrations\201802131714328_Allow-Null.cs" />
+    <Compile Include="Migrations\201802131714328_Allow-Null.Designer.cs">
+      <DependentUpon>201802131714328_Allow-Null.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Context\WorkItDbContext.cs" />
@@ -164,8 +164,8 @@
     <EmbeddedResource Include="Migrations\201802121947241_Initial.resx">
       <DependentUpon>201802121947241_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802122102413_SeedOnly.resx">
-      <DependentUpon>201802122102413_SeedOnly.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201802131714328_Allow-Null.resx">
+      <DependentUpon>201802131714328_Allow-Null.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

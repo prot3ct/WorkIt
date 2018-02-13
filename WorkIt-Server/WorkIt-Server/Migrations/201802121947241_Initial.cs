@@ -130,8 +130,8 @@ namespace WorkIt_Server.Migrations
                 c => new
                     {
                         TaskCommentsId = c.Int(nullable: false, identity: true),
-                        TaskId = c.Int(nullable: false),
-                        TaskRequestId = c.Int(nullable: false),
+                        TaskId = c.Int(nullable: true),
+                        TaskRequestId = c.Int(nullable: true),
                         CommentId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.TaskCommentsId)

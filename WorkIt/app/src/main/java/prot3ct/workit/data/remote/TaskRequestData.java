@@ -35,7 +35,7 @@ public class TaskRequestData implements TaskRequestDataContract {
     }
 
     @Override
-    public Observable<TaskRequestDetailsViewModel> getTaskRequestBtId(int taskRequestId) {
+    public Observable<TaskRequestDetailsViewModel> getTaskRequestById(final int taskRequestId) {
         return httpRequester
                 .get(apiConstants.getTaskRequestByIdUrl(taskRequestId))
                 .map(new Function<HttpResponseContract, TaskRequestDetailsViewModel>() {
@@ -85,11 +85,29 @@ public class TaskRequestData implements TaskRequestDataContract {
                     }
 
                     String responseBody = iHttpResponse.getBody();
-                    Log.d("CEKO", responseBody);
                     List<TaskRequestListViewModel> taskRequests = jsonParser.fromJson(responseBody, new TypeToken<List<TaskRequestListViewModel>>(){}.getType());
-                    Log.d("CEKO", taskRequests.get(1).getTaskTitle());
                     return taskRequests;
                 }
             });
+    }
+
+    public Observable<Boolean> createTaskRequestComment(int taskRequestId, String body) {
+        Map<String, String> comment = new HashMap<>();
+        comment.put("targetId", Integer.toString(taskRequestId));
+        comment.put("body", body);
+        comment.put("userId", Integer.toString(userSession.getId()));
+
+        return httpRequester
+                .post(apiConstants.createTaskRequestCommentUrl(taskRequestId), comment)
+                .map(new Function<HttpResponseContract, Boolean>() {
+                    @Override
+                    public Boolean apply(HttpResponseContract iHttpResponse) throws Exception {
+                        if (iHttpResponse.getCode() == apiConstants.responseErrorCode()) {
+                            throw new Error(iHttpResponse.getMessage());
+                        }
+
+                        return true;
+                    }
+                });
     }
 }

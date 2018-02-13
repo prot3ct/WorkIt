@@ -43,7 +43,6 @@ public class ListPendingRequestsPresenter implements ListPendingRequestsContract
 
                             @Override
                             public void onError(Throwable e) {
-                                Log.d("CEKO", e.getMessage());
 //                                view.notifyError("Error ocurred when logining in. Please try again.");
                             }
 

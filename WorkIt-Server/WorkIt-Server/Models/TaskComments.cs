@@ -9,11 +9,11 @@ namespace WorkIt_Server.Models
         public int TaskCommentsId { get; set; }
 
         [ForeignKey("Task")]
-        public int TaskId { get; set; }
+        public int? TaskId { get; set; }
         public virtual Task Task { get; set; }
 
         [ForeignKey("TaskRequest")]
-        public int TaskRequestId { get; set; }
+        public int? TaskRequestId { get; set; }
         public virtual Task TaskRequest { get; set; }
 
         [Required]

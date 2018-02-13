@@ -31,13 +31,14 @@ namespace WorkIt_Server.BLL
         public TaskRequestDTO GetTaskRequestById(int requestId)
         {
             var taskRequest = db.TaskRequests.FirstOrDefault(tr => tr.TaskRequestId == requestId);
-            var user = db.Users.FirstOrDefault(u => u.UserId == taskRequest.UserId);
+            var user = taskRequest.User;
 
             return new TaskRequestDTO
             {
                 Description = taskRequest.Description,
                 TaskRequestId = taskRequest.TaskRequestId,
-                TaskTitle = db.Tasks.FirstOrDefault(t => t.TaskId == taskRequest.TaskId).Title,
+                TaskTitle = taskRequest.Task.Title,
+                Status = taskRequest.RequestStatus.Name,
                 Name = user.Firstname + " " + user.Lastname
             };
         }
@@ -62,9 +63,7 @@ namespace WorkIt_Server.BLL
                 .Where(tr => tr.UserId == userId)
                 .Select(tr => new TaskRequestDTO
                 {
-                    Description = tr.Description,
-                    TaskId = tr.TaskId,
-                    UserId = tr.UserId,
+                    TaskRequestId = tr.TaskRequestId,
                     TaskTitle = tr.Task.Title,
                     Status = tr.RequestStatus.Name
                 }).ToList();

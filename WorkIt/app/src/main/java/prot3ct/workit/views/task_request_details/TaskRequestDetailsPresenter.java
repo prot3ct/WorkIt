@@ -1,6 +1,7 @@
 package prot3ct.workit.views.task_request_details;
 
 import android.content.Context;
+import android.util.Log;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -21,27 +22,54 @@ public class TaskRequestDetailsPresenter implements  TaskRequestDetailsContract.
 
     @Override
     public void getTaskRequestById(int taskRequestId) {
-        taskRequestData.getTaskRequestBtId(taskRequestId)
+        taskRequestData.getTaskRequestById(taskRequestId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 new Observer<TaskRequestDetailsViewModel>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        //view.showDialogforLoading();
+                        view.showDialogforLoading();
                     }
 
                     @Override
                     public void onNext(TaskRequestDetailsViewModel taskRequest) {
                         view.updateView(taskRequest.getTaskTitle(), taskRequest.getDescription());
-                        //view.dismissDialog();
-//                                redirect to requests view
+                        view.dismissDialog();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        //view.notifyError("Error ocurred when sending request. Please try again.");
-//                        view.dismissDialog();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
+    }
+
+    @Override
+    public void createTaskRequestComment(int taskRequestId, String body) {
+        taskRequestData.createTaskRequestComment(taskRequestId, body)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                new Observer<Boolean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        view.showDialogforLoading();
+                    }
+
+                    @Override
+                    public void onNext(Boolean taskRequest) {
+                        view.dismissDialog();
+                        view.notifySuccessful("Comment has been created successfully");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        view.dismissDialog();
+                        view.notifyError("Error ocurred when creating comment. Please try again.");
                     }
 
                     @Override
