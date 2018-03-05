@@ -51,7 +51,8 @@ public class DrawerFragment extends Fragment {
                 .withActivity(getActivity())
                 .withToolbar(toolbar)
                 .addDrawerItems(
-                        this.createPendingRequestDrawerItem()
+                        this.createPendingRequestDrawerItem(),
+                        createMyTasksDrawerItem()
                 )
                 .build();
     }
@@ -68,5 +69,20 @@ public class DrawerFragment extends Fragment {
                     return true;
                 }
             });
+    }
+
+    private PrimaryDrawerItem createMyTasksDrawerItem() {
+        return new PrimaryDrawerItem()
+                .withIdentifier(1)
+                .withName("My tasks")
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        Intent intent = new Intent(getContext(), ListJobsActivity.class);
+                        intent.putExtra("TYPE", "MyTasks");
+                        startActivity(intent);
+                        return true;
+                    }
+                });
     }
 }

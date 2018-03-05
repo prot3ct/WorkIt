@@ -24,6 +24,20 @@ namespace WorkIt_Server.Controllers
             }
         }
 
+        [Route("users/{userId}/tasks")]
+        [HttpGet]
+        public IHttpActionResult GetTasksByUser(int userId)
+        {
+            try
+            {
+                return Ok(service.GetTasksByUser(int userId));
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
+        }
+
         [Route("tasks")]
         [HttpPost]
         public IHttpActionResult CreateTask(TaskDTO jobInformation)

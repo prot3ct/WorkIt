@@ -11,4 +11,6 @@ public interface JobDataContract {
                                    String reward, String minimalRating, String minimalJobsCompleted);
 
     Observable<List<Task>> getAllTasks();
+
+    Observable<List<Task>> getMyTasks();
 }

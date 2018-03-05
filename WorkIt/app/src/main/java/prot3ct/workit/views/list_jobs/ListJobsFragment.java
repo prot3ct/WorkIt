@@ -71,7 +71,13 @@ public class ListJobsFragment extends Fragment implements ListJobsContract.View 
             }
         });
 
-        presenter.getAllTasks();
+        if( getActivity().getIntent().getStringExtra("TYPE").equals("MyTasks")) {
+            presenter.getMyTasks();
+        }
+        else
+        {
+            presenter.getAllTasks();
+        }
 
         return view;
     }

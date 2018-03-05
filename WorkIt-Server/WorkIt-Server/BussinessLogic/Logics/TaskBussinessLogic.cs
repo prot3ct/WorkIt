@@ -68,6 +68,29 @@ namespace WorkIt_Server.BLL
             .ToList();
         }
 
+
+        public IEnumerable<TaskDTO> GetTasksByUser(int userId)
+        {
+            return Db.Tasks
+                .Where(t => t.Creator.UserId == userId)
+                .Select(j => new TaskDTO
+                {
+                    Id = j.TaskId,
+                    CreatorEmail = j.Creator.Email,
+                    Address = j.Location.Address,
+                    City = j.Location.City,
+                    Country = j.Location.Country,
+                    Description = j.Description,
+                    EndDate = j.EndDate,
+                    StartDate = j.StartDate,
+                    MinTasksCompleted = j.MinTasksCompleted.ToString(),
+                    MinRaiting = j.MinRaiting.ToString(),
+                    Reward = j.Reward,
+                    Title = j.Title
+                })
+                .ToList();
+        }
+
         public void DeleteTaskById(int taskId)
         {
             var taskToBeDeleted = Db.Tasks.FirstOrDefault(t => t.TaskId == taskId);

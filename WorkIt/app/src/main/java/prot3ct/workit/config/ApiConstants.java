@@ -27,6 +27,11 @@ public class ApiConstants implements ApiConstantsContract {
     public String getAllJobsUrl() { return URL_GET_JOBS; }
 
     @Override
+    public String getAllTasksUrl(int userId) {
+        return API_URL + "/users/" + userId + "/tasks";
+    }
+
+    @Override
     public String createTaskUrl() {
         return URL_CREATE_TASK;
     }

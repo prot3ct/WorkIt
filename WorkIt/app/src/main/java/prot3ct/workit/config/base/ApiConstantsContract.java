@@ -7,6 +7,8 @@ public interface ApiConstantsContract {
 
     String getAllJobsUrl();
 
+    String getAllTasksUrl(int userId);
+
     String createTaskUrl();
 
     String getTaskRequestsForCurrentUserUrl(int userId);

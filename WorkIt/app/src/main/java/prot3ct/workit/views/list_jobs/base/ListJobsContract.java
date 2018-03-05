@@ -20,5 +20,7 @@ public interface ListJobsContract {
         void logout();
 
         void getAllTasks();
+
+        void getMyTasks();
     }
 }
