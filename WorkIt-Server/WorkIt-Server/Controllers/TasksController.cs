@@ -30,7 +30,7 @@ namespace WorkIt_Server.Controllers
         {
             try
             {
-                return Ok(service.GetTasksByUser(int userId));
+                return Ok(service.GetTasksByUser(userId));
             }
             catch (Exception)
             {
