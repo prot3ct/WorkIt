@@ -13,7 +13,7 @@ namespace WorkIt_Server.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201802121947241_Initial"; }
+            get { return "201803062138082_Initial"; }
         }
         
         string IMigrationMetadata.Source

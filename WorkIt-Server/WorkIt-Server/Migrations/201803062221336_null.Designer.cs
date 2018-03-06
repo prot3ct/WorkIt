@@ -7,13 +7,13 @@ namespace WorkIt_Server.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class AllowNull : IMigrationMetadata
+    public sealed partial class _null : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AllowNull));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(_null));
         
         string IMigrationMetadata.Id
         {
-            get { return "201802131714328_Allow-Null"; }
+            get { return "201803062221336_null"; }
         }
         
         string IMigrationMetadata.Source

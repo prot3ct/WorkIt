@@ -115,13 +115,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201802121947241_Initial.cs" />
-    <Compile Include="Migrations\201802121947241_Initial.Designer.cs">
-      <DependentUpon>201802121947241_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201803062138082_Initial.cs" />
+    <Compile Include="Migrations\201803062138082_Initial.Designer.cs">
+      <DependentUpon>201803062138082_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201802131714328_Allow-Null.cs" />
-    <Compile Include="Migrations\201802131714328_Allow-Null.Designer.cs">
-      <DependentUpon>201802131714328_Allow-Null.cs</DependentUpon>
+    <Compile Include="Migrations\201803062221336_null.cs" />
+    <Compile Include="Migrations\201803062221336_null.Designer.cs">
+      <DependentUpon>201803062221336_null.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Context\WorkItDbContext.cs" />
@@ -163,11 +163,11 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201802121947241_Initial.resx">
-      <DependentUpon>201802121947241_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201803062138082_Initial.resx">
+      <DependentUpon>201803062138082_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802131714328_Allow-Null.resx">
-      <DependentUpon>201802131714328_Allow-Null.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201803062221336_null.resx">
+      <DependentUpon>201803062221336_null.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,6 +1,7 @@
 package prot3ct.workit.data.remote;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -48,6 +49,7 @@ public class UserData implements UserDataContract {
                 @Override
                 public Boolean apply(HttpResponseContract iHttpResponse) throws Exception {
                     if (iHttpResponse.getCode() == apiConstants.responseErrorCode()) {
+                        Log.d("CEKO", iHttpResponse.getMessage());
                         throw new Error(iHttpResponse.getMessage());
                     }
                     String responseBody = iHttpResponse.getBody();

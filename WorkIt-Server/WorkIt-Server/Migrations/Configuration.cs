@@ -16,7 +16,7 @@ namespace WorkIt_Server.Migrations
         protected override void Seed(WorkIt_Server.Models.Context.WorkItDbContext context)
         {
             context.RequestStatuses.AddOrUpdate(
-                new RequestStatus { Name = "Declined" },
+                new RequestStatus { Name = "Pending" },
                 new RequestStatus { Name = "Declined" },
                 new RequestStatus { Name = "Accepted" }
             );

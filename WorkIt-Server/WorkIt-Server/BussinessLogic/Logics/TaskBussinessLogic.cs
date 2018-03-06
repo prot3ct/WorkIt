@@ -41,7 +41,11 @@ namespace WorkIt_Server.BLL
                 StartDate = jobInformation.StartDate,
                 EndDate = jobInformation.EndDate,
                 LocationId = locationId,
-                Title = jobInformation.Title
+                Title = jobInformation.Title,
+                IsCompleted = false,
+                HasCreatorGivenRating = false,
+                HasTaskterGivenRating = false,
+                AssignedUserId = null
             };
 
             Db.Tasks.Add(jobToBeInserted);

@@ -83,14 +83,14 @@ public class TaskRequestDetailsFragment extends Fragment implements TaskRequestD
         this.taskRequestAcceptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.updateTaskRequest(taskRequestId , 2);
+                presenter.updateTaskRequest(taskRequestId , 3);
             }
         });
 
         this.taskRequestDeclineButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.updateTaskRequest(taskRequestId, 1);
+                presenter.updateTaskRequest(taskRequestId, 2);
             }
         });
 

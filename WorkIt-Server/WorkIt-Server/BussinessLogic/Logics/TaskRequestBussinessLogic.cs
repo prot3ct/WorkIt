@@ -49,13 +49,13 @@ namespace WorkIt_Server.BLL
             var updatedTaskRequest = db.TaskRequests.FirstOrDefault(tr => tr.TaskRequestId == taskRequest.TaskRequestId);
             updatedTaskRequest.RequestStatusId = taskRequest.RequestStatusId;
 
-            if (updatedTaskRequest.RequestStatusId == 2)
+            if (updatedTaskRequest.RequestStatusId == 3)
             {
                 var updatedTask = updatedTaskRequest.Task;
                 updatedTask.AssignedUserId = updatedTaskRequest.User.UserId;
 
                 var taskRequestsForTheSameTask = db.TaskRequests.Where(tr => tr.TaskId == updatedTaskRequest.TaskId).ToList();
-                taskRequestsForTheSameTask.ForEach(tr => tr.RequestStatusId = 1);
+                taskRequestsForTheSameTask.ForEach(tr => tr.RequestStatusId = 2);
             }
 
             db.SaveChanges();

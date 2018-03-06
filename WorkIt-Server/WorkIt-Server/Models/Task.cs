@@ -32,6 +32,9 @@ namespace WorkIt_Server.Models
 
         public bool IsCompleted { get; set; }
 
+        public bool HasCreatorGivenRating { get; set; }
+
+        public bool HasTaskterGivenRating { get; set; }
 
         [Required]
         [ForeignKey("Location")]
@@ -44,7 +47,7 @@ namespace WorkIt_Server.Models
         public virtual User Creator { get; set; }
 
         [ForeignKey("AssignedUser")]
-        public int AssignedUserId { get; set; }
+        public int? AssignedUserId { get; set; }
         public virtual User AssignedUser { get; set; }
     }
 }

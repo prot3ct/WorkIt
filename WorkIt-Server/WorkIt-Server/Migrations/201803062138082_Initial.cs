@@ -88,15 +88,20 @@ namespace WorkIt_Server.Migrations
                         Reward = c.String(nullable: false),
                         MinRaiting = c.Int(nullable: false),
                         MinTasksCompleted = c.Int(nullable: false),
-                        IsCompleted = c.Boolean(nullable: false),
+                        IsCompleted = c.Boolean(nullable: true),
+                        HasCreatorGivenRating = c.Boolean(nullable: true),
+                        HasTaskterGivenRating = c.Boolean(nullable: true),
                         LocationId = c.Int(nullable: false),
                         CreatorId = c.Int(nullable: false),
+                        AssignedUserId = c.Int(nullable: true),
                     })
                 .PrimaryKey(t => t.TaskId)
+                .ForeignKey("dbo.Users", t => t.AssignedUserId, cascadeDelete: false)
                 .ForeignKey("dbo.Users", t => t.CreatorId, cascadeDelete: false)
                 .ForeignKey("dbo.Locations", t => t.LocationId, cascadeDelete: true)
                 .Index(t => t.LocationId)
-                .Index(t => t.CreatorId);
+                .Index(t => t.CreatorId)
+                .Index(t => t.AssignedUserId);
             
             CreateTable(
                 "dbo.RequestStatus",
@@ -137,7 +142,7 @@ namespace WorkIt_Server.Migrations
                 .PrimaryKey(t => t.TaskCommentsId)
                 .ForeignKey("dbo.Comments", t => t.CommentId)
                 .ForeignKey("dbo.Tasks", t => t.TaskId)
-                .ForeignKey("dbo.Tasks", t => t.TaskRequestId, cascadeDelete: true)
+                .ForeignKey("dbo.Tasks", t => t.TaskRequestId)
                 .Index(t => t.TaskId)
                 .Index(t => t.TaskRequestId)
                 .Index(t => t.CommentId);
@@ -189,6 +194,7 @@ namespace WorkIt_Server.Migrations
             DropForeignKey("dbo.Raitings", "TaskId", "dbo.Tasks");
             DropForeignKey("dbo.Tasks", "LocationId", "dbo.Locations");
             DropForeignKey("dbo.Tasks", "CreatorId", "dbo.Users");
+            DropForeignKey("dbo.Tasks", "AssignedUserId", "dbo.Users");
             DropForeignKey("dbo.Raitings", "ReceiverUserRoleId", "dbo.UserRoles");
             DropForeignKey("dbo.Raitings", "ReceiverUserId", "dbo.Users");
             DropForeignKey("dbo.Raitings", "GiverUserId", "dbo.Users");
@@ -203,6 +209,7 @@ namespace WorkIt_Server.Migrations
             DropIndex("dbo.TaskRequests", new[] { "RequestStatusId" });
             DropIndex("dbo.TaskRequests", new[] { "TaskId" });
             DropIndex("dbo.TaskRequests", new[] { "UserId" });
+            DropIndex("dbo.Tasks", new[] { "AssignedUserId" });
             DropIndex("dbo.Tasks", new[] { "CreatorId" });
             DropIndex("dbo.Tasks", new[] { "LocationId" });
             DropIndex("dbo.Raitings", new[] { "ReceiverUserRoleId" });
