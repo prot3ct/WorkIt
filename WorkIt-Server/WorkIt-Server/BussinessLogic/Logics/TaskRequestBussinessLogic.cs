@@ -57,6 +57,19 @@ namespace WorkIt_Server.BLL
             Db.SaveChanges();
         }
 
+        public IEnumerable<TaskRequestDTO> GetRequestsForTask(int taskId)
+        {
+            return Db.TaskRequests
+                .Where(tr => tr.UserId == userId)
+                .Select(tr => new TaskRequestDTO
+                {
+                    TaskRequestId = tr.TaskRequestId,
+                    TaskTitle = tr.Task.Title,
+                    Status = tr.RequestStatus.Name
+                })
+                .ToList();
+        }
+
         public IEnumerable<TaskRequestDTO> GetRequestsForCurrentUser(int userId)
         {
             return Db.TaskRequests
@@ -66,7 +79,8 @@ namespace WorkIt_Server.BLL
                     TaskRequestId = tr.TaskRequestId,
                     TaskTitle = tr.Task.Title,
                     Status = tr.RequestStatus.Name
-                }).ToList();
+                })
+                .ToList();
         }
 
         public void CreateTaskRequestComment(CommentDTO comment)

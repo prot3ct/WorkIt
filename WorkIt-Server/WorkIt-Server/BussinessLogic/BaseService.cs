@@ -92,6 +92,11 @@ namespace WorkIt_Server.BLL
             return TaskRequestLogic.GetRequestsForCurrentUser(userId);
         }
 
+        public  IEnumerable<TaskRequestDTO> GetRequestsForTask(int taskId)
+        {
+            return TaskRequestLogic.GetRequestsForTask(taskId);
+        }
+
         public void CreateTaskReport(TaskReportDTO jobReport)
         {
             TaskReportLogic.CreateTaskReport(jobReport);

@@ -38,6 +38,20 @@ namespace WorkIt_Server.Controllers
             }
         }
 
+        [Route("tasks/{taskId}/requests")]
+        [HttpGet]
+        public IHttpActionResult GetRequestsForTask(int taskId)
+        {
+            try
+            {
+                return Ok(service.GetRequestsForTask(taskId));
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
+        }
+
         [Route("requests")]
         [HttpPost]
         public IHttpActionResult CreateTaskRequest(TaskRequestDTO taskRequest)
