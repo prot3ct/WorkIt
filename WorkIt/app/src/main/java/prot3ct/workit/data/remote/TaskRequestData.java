@@ -93,6 +93,24 @@ public class TaskRequestData implements TaskRequestDataContract {
     }
 
     @Override
+    public Observable<List<TaskRequestListViewModel>> getAllTaskRequestsForTask(int taskId) {
+        return httpRequester
+                .get(apiConstants.getRequestsForTaskUrl(taskId))
+                .map(new Function<HttpResponseContract, List<TaskRequestListViewModel>>() {
+                    @Override
+                    public List<TaskRequestListViewModel> apply(HttpResponseContract iHttpResponse) throws Exception {
+                        if (iHttpResponse.getCode() == apiConstants.responseErrorCode()) {
+                            throw new Error(iHttpResponse.getMessage());
+                        }
+
+                        String responseBody = iHttpResponse.getBody();
+                        List<TaskRequestListViewModel> taskRequests = jsonParser.fromJson(responseBody, new TypeToken<List<TaskRequestListViewModel>>(){}.getType());
+                        return taskRequests;
+                    }
+                });
+    }
+
+    @Override
     public Observable<Boolean> createTaskRequestComment(int taskRequestId, String body) {
         Map<String, String> comment = new HashMap<>();
         comment.put("targetId", Integer.toString(taskRequestId));

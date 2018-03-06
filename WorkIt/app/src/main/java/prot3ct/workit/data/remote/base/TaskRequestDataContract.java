@@ -17,4 +17,6 @@ public interface TaskRequestDataContract {
     Observable<Boolean> createTaskRequestComment(int taskRequestId, String body);
 
     Observable<List<TaskRequestListCommentsViewModel>> getTaskRequestComments(int taskRequestId);
+
+    Observable<List<TaskRequestListViewModel>> getAllTaskRequestsForTask(int taskId);
 }

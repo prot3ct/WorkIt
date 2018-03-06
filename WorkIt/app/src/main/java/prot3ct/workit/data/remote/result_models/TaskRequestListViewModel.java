@@ -2,15 +2,15 @@ package prot3ct.workit.data.remote.result_models;
 
 public class TaskRequestListViewModel {
     private int taskRequestId;
-    private String taskTitle;
+    private String name;
     private String status;
 
-    public String getTaskTitle() {
-        return taskTitle;
+    public String getName() {
+        return name;
     }
 
-    public void setTaskTitle(String taskTitle) {
-        this.taskTitle = taskTitle;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getStatus() {

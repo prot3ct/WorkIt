@@ -4,6 +4,7 @@ using System.Linq;
 using WorkIt_Server.Models;
 using WorkIt_Server.Models.Context;
 using WorkIt_Server.Models.DTO;
+using WorkIt_Server.Models.ViewModels;
 
 namespace WorkIt_Server.BLL
 {
@@ -28,12 +29,12 @@ namespace WorkIt_Server.BLL
             }
         }
 
-        public TaskRequestDTO GetTaskRequestById(int requestId)
+        public TaskRequestDetailsViewModel GetTaskRequestById(int requestId)
         {
             var taskRequest = db.TaskRequests.FirstOrDefault(tr => tr.TaskRequestId == requestId);
             var user = taskRequest.User;
 
-            return new TaskRequestDTO
+            return new TaskRequestDetailsViewModel
             {
                 Description = taskRequest.Description,
                 TaskRequestId = taskRequest.TaskRequestId,
@@ -57,27 +58,14 @@ namespace WorkIt_Server.BLL
             Db.SaveChanges();
         }
 
-        public IEnumerable<TaskRequestDTO> GetRequestsForTask(int taskId)
+        public IEnumerable<TaskRequestListViewModel> GetRequestsForTask(int taskId)
         {
             return Db.TaskRequests
-                .Where(tr => tr.UserId == userId)
-                .Select(tr => new TaskRequestDTO
+                .Where(tr => tr.TaskId == taskId)
+                .Select(tr => new TaskRequestListViewModel
                 {
                     TaskRequestId = tr.TaskRequestId,
-                    TaskTitle = tr.Task.Title,
-                    Status = tr.RequestStatus.Name
-                })
-                .ToList();
-        }
-
-        public IEnumerable<TaskRequestDTO> GetRequestsForCurrentUser(int userId)
-        {
-            return Db.TaskRequests
-                .Where(tr => tr.UserId == userId)
-                .Select(tr => new TaskRequestDTO
-                {
-                    TaskRequestId = tr.TaskRequestId,
-                    TaskTitle = tr.Task.Title,
+                    Name = tr.User.Firstname + " " + tr.User.Lastname,
                     Status = tr.RequestStatus.Name
                 })
                 .ToList();

@@ -15,8 +15,6 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import prot3ct.workit.R;
 import prot3ct.workit.views.list_jobs.ListJobsActivity;
-import prot3ct.workit.views.list_pending_requests.ListPendingRequestsActivity;
-import prot3ct.workit.views.login.LoginActivity;
 
 
 public class DrawerFragment extends Fragment {
@@ -51,24 +49,9 @@ public class DrawerFragment extends Fragment {
                 .withActivity(getActivity())
                 .withToolbar(toolbar)
                 .addDrawerItems(
-                        this.createPendingRequestDrawerItem(),
                         createMyTasksDrawerItem()
                 )
                 .build();
-    }
-
-    private PrimaryDrawerItem createPendingRequestDrawerItem() {
-        return new PrimaryDrawerItem()
-            .withIdentifier(0)
-            .withName("My pending requests")
-            .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                @Override
-                public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                    Intent intent = new Intent(getContext(), ListPendingRequestsActivity.class);
-                    startActivity(intent);
-                    return true;
-                }
-            });
     }
 
     private PrimaryDrawerItem createMyTasksDrawerItem() {

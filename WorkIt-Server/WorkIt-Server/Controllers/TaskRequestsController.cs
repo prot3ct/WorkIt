@@ -24,20 +24,6 @@ namespace WorkIt_Server.Controllers
             }
         }
 
-        [Route("users/{userId}/requests")]
-        [HttpGet]
-        public IHttpActionResult GetRequestsForCurrentUser(int userId)
-        {
-            try
-            {
-                return Ok(service.GetRequestsForCurrentUser(userId));
-            }
-            catch (Exception)
-            {
-                return InternalServerError();
-            }
-        }
-
         [Route("tasks/{taskId}/requests")]
         [HttpGet]
         public IHttpActionResult GetRequestsForTask(int taskId)

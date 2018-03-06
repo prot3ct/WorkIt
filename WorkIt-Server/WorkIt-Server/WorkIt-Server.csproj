@@ -144,6 +144,8 @@
     <Compile Include="Models\TaskComments.cs" />
     <Compile Include="Models\UserReport.cs" />
     <Compile Include="Models\UserRole.cs" />
+    <Compile Include="Models\ViewModels\TaskRequestDetailsViewModel.cs" />
+    <Compile Include="Models\ViewModels\TaskRequestListViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

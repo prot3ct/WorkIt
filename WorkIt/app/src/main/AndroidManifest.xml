@@ -32,7 +32,7 @@
             android:name=".views.task_request_details.TaskRequestDetailsActivity"
             android:label="@string/title_activity_task_request_detail" />
         <activity
-            android:name=".views.list_pending_requests.ListPendingRequestsActivity" />
+            android:name=".views.list_task_requests.ListTaskRequestsActivity" />
     </application>
 
 </manifest>

@@ -1,22 +1,13 @@
 package prot3ct.workit.views.job_details;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +15,7 @@ import prot3ct.workit.R;
 import prot3ct.workit.models.base.TaskContract;
 import prot3ct.workit.utils.WorkItProgressDialog;
 import prot3ct.workit.views.job_details.base.JobDetailsContract;
+import prot3ct.workit.views.list_task_requests.ListTaskRequestsActivity;
 
 public class JobDetailsFragment extends Fragment implements JobDetailsContract.View {
     private JobDetailsContract.Presenter presenter;
@@ -36,6 +28,7 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract.V
     private TextView taskStartDate;
     private TextView taskEndDate;
     private Button applyForTaskButton;
+    private Button taskersButton;
     private WorkItProgressDialog dialog;
 
     public JobDetailsFragment() {
@@ -59,6 +52,7 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract.V
         applyForTaskWindow = new TaskRequestDialog();
         applyForTaskWindow.setPresenter(this.presenter);
         this.dialog = new WorkItProgressDialog(context);
+        this.taskersButton = view.findViewById(R.id.id_taskers_button);
         this.applyForTaskButton = view.findViewById(R.id.id_apply_for_task_button);
         this.taskTitle = view.findViewById(R.id.id_title_details_edit_text);
         this.taskDescription = view.findViewById(R.id.id_description_details_edit_text);
@@ -77,6 +71,15 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract.V
             @Override
             public void onClick(View v) {
                 applyForTaskWindow.show(getFragmentManager(), "text_popup");
+            }
+        });
+
+        this.taskersButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ListTaskRequestsActivity.class);
+                intent.putExtra("TaskId", taskDetails.getId());
+                startActivity(intent);
             }
         });
 

@@ -2,6 +2,7 @@
 using WorkIt_Server.BussinessLogic.Logics;
 using WorkIt_Server.Models.Context;
 using WorkIt_Server.Models.DTO;
+using WorkIt_Server.Models.ViewModels;
 
 namespace WorkIt_Server.BLL
 {
@@ -87,12 +88,7 @@ namespace WorkIt_Server.BLL
             TaskRequestLogic.DeleteTaskRequest(taskId);
         }
 
-        public IEnumerable<TaskRequestDTO> GetRequestsForCurrentUser(int userId)
-        {
-            return TaskRequestLogic.GetRequestsForCurrentUser(userId);
-        }
-
-        public  IEnumerable<TaskRequestDTO> GetRequestsForTask(int taskId)
+        public  IEnumerable<TaskRequestListViewModel> GetRequestsForTask(int taskId)
         {
             return TaskRequestLogic.GetRequestsForTask(taskId);
         }
@@ -117,7 +113,7 @@ namespace WorkIt_Server.BLL
             return this.RaitingLogic.GetAllRaitingByUserId(userId);
         }
 
-        public TaskRequestDTO GetTaskRequestById(int requestId)
+        public TaskRequestDetailsViewModel GetTaskRequestById(int requestId)
         {
             return this.TaskRequestLogic.GetTaskRequestById(requestId);
         }
