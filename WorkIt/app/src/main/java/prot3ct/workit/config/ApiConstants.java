@@ -63,6 +63,9 @@ public class ApiConstants implements ApiConstantsContract {
     }
 
     @Override
+    public String updateTaskRequestUrl() { return API_URL + "/requests/update"; }
+
+    @Override
     public int responseErrorCode() {
         return RESPONSE_ERROR_CODE;
     }

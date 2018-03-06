@@ -16,8 +16,9 @@ namespace WorkIt_Server.Migrations
         protected override void Seed(WorkIt_Server.Models.Context.WorkItDbContext context)
         {
             context.RequestStatuses.AddOrUpdate(
-                new RequestStatus { Name = "Closed" },
-                new RequestStatus { Name = "Open" }
+                new RequestStatus { Name = "Declined" },
+                new RequestStatus { Name = "Declined" },
+                new RequestStatus { Name = "Accepted" }
             );
 
             context.UserRoles.AddOrUpdate(

@@ -28,5 +28,7 @@ public interface TaskRequestDetailsContract {
         void createTaskRequestComment(int taskRequestId, String body);
 
         void getTaskRequestComments(int taskRequestId);
+
+        void updateTaskRequest(int taskRequestId, int status);
     }
 }

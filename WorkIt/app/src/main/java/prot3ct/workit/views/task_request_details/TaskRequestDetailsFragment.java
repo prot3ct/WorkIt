@@ -35,6 +35,8 @@ public class TaskRequestDetailsFragment extends Fragment implements TaskRequestD
     private EditText taskRequestDescription;
     private EditText taskRequestCommentEditText;
     private Button taskRequestCommentButton;
+    private Button taskRequestAcceptButton;
+    private Button taskRequestDeclineButton;
     private ListView taskRequestCommentsListView;
     ArrayAdapter<TaskRequestListCommentsViewModel> taskRequestCommentsAdapter;
 
@@ -59,6 +61,8 @@ public class TaskRequestDetailsFragment extends Fragment implements TaskRequestD
         View view = inflater.inflate(R.layout.fragment_task_request_details, container, false);
 
         this.dialog = new WorkItProgressDialog(context);
+        this.taskRequestAcceptButton = view.findViewById(R.id.id_task_request_accept_button);
+        this.taskRequestDeclineButton = view.findViewById(R.id.id_task_request_decline_button);
         this.taskTitle = view.findViewById(R.id.id_task_request_details_title_text_view);
         this.taskRequestDescription = view.findViewById(R.id.id_task_request_details_description_edit_text);
         this.taskRequestCommentEditText = view.findViewById(R.id.id_task_request_comment_edit_text);
@@ -73,6 +77,20 @@ public class TaskRequestDetailsFragment extends Fragment implements TaskRequestD
             @Override
             public void onClick(View v) {
                 presenter.createTaskRequestComment(taskRequestId, taskRequestCommentEditText.getText().toString());
+            }
+        });
+
+        this.taskRequestAcceptButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.updateTaskRequest(taskRequestId , 2);
+            }
+        });
+
+        this.taskRequestDeclineButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.updateTaskRequest(taskRequestId, 1);
             }
         });
 

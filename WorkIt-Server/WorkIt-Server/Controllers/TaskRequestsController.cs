@@ -53,6 +53,21 @@ namespace WorkIt_Server.Controllers
             }
         }
 
+        [Route("requests/update")]
+        [HttpPost]
+        public IHttpActionResult UpdateTaskRequest(TaskRequestDTO taskRequest)
+        {
+            try
+            {
+                service.UpdateTaskRequest(taskRequest);
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
+        }
+
         [Route("requests/{requestId}/comments")]
         [HttpPost]
         public IHttpActionResult CreateTaskRequestComment(CommentDTO comment)

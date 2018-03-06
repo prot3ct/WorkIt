@@ -132,6 +132,26 @@ public class TaskRequestData implements TaskRequestDataContract {
     }
 
     @Override
+    public Observable<Boolean> updateTaskRequest(int taskRequestId, int status) {
+        Map<String, String> comment = new HashMap<>();
+        comment.put("taskRequestId", Integer.toString(taskRequestId));
+        comment.put("requestStatusId", Integer.toString(status));
+
+        return httpRequester
+                .post(apiConstants.updateTaskRequestUrl(), comment)
+                .map(new Function<HttpResponseContract, Boolean>() {
+                    @Override
+                    public Boolean apply(HttpResponseContract iHttpResponse) throws Exception {
+                        if (iHttpResponse.getCode() == apiConstants.responseErrorCode()) {
+                            throw new Error(iHttpResponse.getMessage());
+                        }
+
+                        return true;
+                    }
+                });
+    }
+
+    @Override
     public Observable<List<TaskRequestListCommentsViewModel>> getTaskRequestComments(int taskRequestId) {
         return httpRequester
                 .get(apiConstants.getTaskRequestComments(taskRequestId))

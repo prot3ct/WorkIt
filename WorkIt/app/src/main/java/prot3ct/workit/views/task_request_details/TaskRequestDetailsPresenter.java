@@ -108,4 +108,34 @@ public class TaskRequestDetailsPresenter implements  TaskRequestDetailsContract.
                     }
                 });
     }
+
+    @Override
+    public void updateTaskRequest(int taskRequestId, int status) {
+        taskRequestData.updateTaskRequest(taskRequestId, status)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                new Observer<Boolean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        view.showDialogforLoading();
+                    }
+
+                    @Override
+                    public void onNext(Boolean taskRequestComments) {
+                        view.dismissDialog();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        view.dismissDialog();
+                        view.notifyError("Error ocurred when submitting result. Please try again.");
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
+    }
+
 }

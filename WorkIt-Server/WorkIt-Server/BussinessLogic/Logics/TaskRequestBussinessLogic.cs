@@ -44,17 +44,34 @@ namespace WorkIt_Server.BLL
             };
         }
 
-        public void CreateTaskRequest(TaskRequestDTO jobRequest)
+        public void UpdateTaskRequest(TaskRequestDTO taskRequest)
         {
-            var jobRequestToBeInserted = new TaskRequest
+            var updatedTaskRequest = db.TaskRequests.FirstOrDefault(tr => tr.TaskRequestId == taskRequest.TaskRequestId);
+            updatedTaskRequest.RequestStatusId = taskRequest.RequestStatusId;
+
+            if (updatedTaskRequest.RequestStatusId == 2)
             {
-                Description = jobRequest.Description,
-                TaskId = jobRequest.TaskId,
-                UserId = jobRequest.UserId,
+                var updatedTask = updatedTaskRequest.Task;
+                updatedTask.AssignedUserId = updatedTaskRequest.User.UserId;
+
+                var taskRequestsForTheSameTask = db.TaskRequests.Where(tr => tr.TaskId == updatedTaskRequest.TaskId).ToList();
+                taskRequestsForTheSameTask.ForEach(tr => tr.RequestStatusId = 1);
+            }
+
+            db.SaveChanges();
+        }
+
+        public void CreateTaskRequest(TaskRequestDTO taskRequest)
+        {
+            var taskRequestToBeInserted = new TaskRequest
+            {
+                Description = taskRequest.Description,
+                TaskId = taskRequest.TaskId,
+                UserId = taskRequest.UserId,
                 RequestStatusId = 1
             };
 
-            Db.TaskRequests.Add(jobRequestToBeInserted);
+            Db.TaskRequests.Add(taskRequestToBeInserted);
             Db.SaveChanges();
         }
 

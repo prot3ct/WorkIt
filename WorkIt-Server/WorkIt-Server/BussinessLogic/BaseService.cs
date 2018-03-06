@@ -83,6 +83,11 @@ namespace WorkIt_Server.BLL
             TaskRequestLogic.CreateTaskRequest(jobRequest);
         }
 
+        public void UpdateTaskRequest(TaskRequestDTO taskRequest)
+        {
+            TaskRequestLogic.UpdateTaskRequest(taskRequest);
+        }
+
         public void DeleteTaskRequestById(int taskId)
         {
             TaskRequestLogic.DeleteTaskRequest(taskId);

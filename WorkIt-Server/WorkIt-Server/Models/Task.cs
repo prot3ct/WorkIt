@@ -42,5 +42,9 @@ namespace WorkIt_Server.Models
         [ForeignKey("Creator")]
         public int CreatorId { get; set; }
         public virtual User Creator { get; set; }
+
+        [ForeignKey("AssignedUser")]
+        public int AssignedUserId { get; set; }
+        public virtual User AssignedUser { get; set; }
     }
 }

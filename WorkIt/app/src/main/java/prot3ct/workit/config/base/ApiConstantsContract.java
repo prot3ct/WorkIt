@@ -23,6 +23,8 @@ public interface ApiConstantsContract {
 
     String getRequestsForTaskUrl(int taskId);
 
+    String updateTaskRequestUrl();
+
     int responseErrorCode();
 
     int reponseServerErrorCode();
