@@ -63,18 +63,18 @@ public class CompletedTasksPresenter implements CompletedTasksContract.Presenter
                         new Observer<Boolean>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-//                        view.showDialogForLoading();
+                                view.showDialogForLoading();
                             }
 
                             @Override
                             public void onNext(Boolean result) {
-//                                view.notifySuccessful();
-//                                view.showListJobsActivity();
+                                view.dismissDialog();
                             }
 
                             @Override
                             public void onError(Throwable e) {
-//                                view.notifyError("Error ocurred when logining in. Please try again.");
+                                view.dismissDialog();
+                                view.notifyError("Error ocurred when retrieving data. Please try again.");
                             }
 
                             @Override

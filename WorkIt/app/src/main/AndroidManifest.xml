@@ -33,6 +33,8 @@
             android:label="@string/title_activity_task_request_detail" />
         <activity
             android:name=".views.list_task_requests.ListTaskRequestsActivity" />
+        <activity
+            android:name=".views.completed_tasks.CompletedTasksActivity" />
     </application>
 
 </manifest>

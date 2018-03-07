@@ -51,7 +51,8 @@ public class DrawerFragment extends Fragment {
                 .withActivity(getActivity())
                 .withToolbar(toolbar)
                 .addDrawerItems(
-                        createMyTasksDrawerItem()
+                        createMyTasksDrawerItem(),
+                        createMyCompletedTasksDrawerItem()
                 )
                 .build();
     }
@@ -73,15 +74,15 @@ public class DrawerFragment extends Fragment {
 
     private PrimaryDrawerItem createMyCompletedTasksDrawerItem() {
         return new PrimaryDrawerItem()
-                .withIdentifier(1)
-                .withName("Completed tasks")
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        Intent intent = new Intent(getContext(), CompletedTasksActivity.class);
-                        startActivity(intent);
-                        return true;
-                    }
-                });
+            .withIdentifier(1)
+            .withName("Completed tasks")
+            .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                @Override
+                public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                    Intent intent = new Intent(getContext(), CompletedTasksActivity.class);
+                    startActivity(intent);
+                    return true;
+                }
+            });
     }
 }

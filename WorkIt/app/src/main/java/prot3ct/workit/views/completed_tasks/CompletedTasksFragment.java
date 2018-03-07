@@ -18,6 +18,7 @@ import java.util.List;
 
 import prot3ct.workit.R;
 import prot3ct.workit.models.base.TaskContract;
+import prot3ct.workit.utils.WorkItProgressDialog;
 import prot3ct.workit.views.completed_tasks.base.CompletedTasksContract;
 import prot3ct.workit.views.create_job.CreateJobActivity;
 import prot3ct.workit.views.job_details.JobDetailsActivity;
@@ -31,6 +32,8 @@ public class CompletedTasksFragment extends Fragment implements CompletedTasksCo
     private RateTaskDialog rateTaskDialog;
     private Button createJobButton;
     private ListView listTaskView;
+
+    private WorkItProgressDialog dialog;
 
     ArrayAdapter<TaskContract> taskAdapter;
 
@@ -52,6 +55,7 @@ public class CompletedTasksFragment extends Fragment implements CompletedTasksCo
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list_jobs, container, false);
 
+        this.dialog = new WorkItProgressDialog(context);
         this.rateTaskDialog = new RateTaskDialog();
         this.rateTaskDialog.setPresenter(this.presenter);
         this.createJobButton = (Button) view.findViewById(R.id.id_create_job_button);
@@ -68,6 +72,25 @@ public class CompletedTasksFragment extends Fragment implements CompletedTasksCo
         this.context = context;
     }
 
+    @Override
+    public void notifyError(String msg) {
+        Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void notifySuccessful(String msg) {
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showDialogForLoading() {
+        this.dialog.showProgress("Loading...");
+    }
+
+    @Override
+    public void dismissDialog() {
+        this.dialog.dismissProgress();
+    }
 
     @Override
     public void setupTasksAdapter(final List<? extends TaskContract> tasks) {
