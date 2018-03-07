@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using WorkIt_Server.Models;
 using WorkIt_Server.Models.Context;
@@ -50,6 +52,29 @@ namespace WorkIt_Server.BLL
 
             Db.Tasks.Add(jobToBeInserted);
             Db.SaveChanges();
+        }
+
+        public IEnumerable<TaskDTO> GetCompletedTasksByUser(int userId)
+        {
+            return Db.Tasks
+                .Where(t => t.AssignedUserId == userId || t.CreatorId == userId)
+                .Where(t => EntityFunctions.CreateDateTime(t.EndDate.Year, t.EndDate.Month, t.EndDate.Day, t.EndDate.Hour, t.EndDate.Minute, 0) >= DateTime.Now)
+                .Select(t => new TaskDTO
+                {
+                    Id = t.TaskId,
+                    CreatorEmail = t.Creator.Email,
+                    Address = t.Location.Address,
+                    City = t.Location.City,
+                    Country = t.Location.Country,
+                    Description = t.Description,
+                    EndDate = t.EndDate,
+                    StartDate = t.StartDate,
+                    MinTasksCompleted = t.MinTasksCompleted.ToString(),
+                    MinRaiting = t.MinRaiting.ToString(),
+                    Reward = t.Reward,
+                    Title = t.Title
+                })
+                .ToList();
         }
 
         public IEnumerable<TaskDTO> GetAllTasks()

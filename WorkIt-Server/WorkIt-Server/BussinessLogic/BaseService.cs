@@ -68,6 +68,11 @@ namespace WorkIt_Server.BLL
             return TaskLogic.GetTasksByUser(userId);
         }
 
+        //public IEnumerable<TaskDTO> GetCompletedTasksByUser(int userId)
+        //{
+        //    return TaskLogic.GetCompletedTasksByUser(userId);
+        //}
+
         public void DeleteTaskById(int taskId)
         {
             TaskLogic.DeleteTaskById(taskId);

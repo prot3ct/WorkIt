@@ -63,6 +63,11 @@ public class ApiConstants implements ApiConstantsContract {
     }
 
     @Override
+    public String getMyCompletedTasksUrl(int userId) {
+        return API_URL + "/users/" + userId + "/completed-tasks";
+    }
+
+    @Override
     public String updateTaskRequestUrl() { return API_URL + "/requests/update"; }
 
     @Override

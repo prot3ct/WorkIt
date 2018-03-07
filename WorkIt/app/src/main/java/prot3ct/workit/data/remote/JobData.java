@@ -84,7 +84,25 @@ public class JobData implements JobDataContract{
     @Override
     public Observable<List<Task>> getMyTasks() {
         return httpRequester
-                .get(apiConstants.getAllTasksUrl(this.userSession.getId()))
+            .get(apiConstants.getAllTasksUrl(this.userSession.getId()))
+            .map(new Function<HttpResponseContract, List<Task>>() {
+                @Override
+                public List<Task> apply(HttpResponseContract iHttpResponse) throws Exception {
+                if (iHttpResponse.getCode() == apiConstants.responseErrorCode()) {
+                    throw new Error(iHttpResponse.getMessage());
+                }
+
+                String responseBody = iHttpResponse.getBody();
+                List<Task> tasks = jsonParser.fromJson(responseBody, new TypeToken<List<Task>>(){}.getType());
+                return tasks;
+                }
+            });
+    }
+
+    @Override
+    public Observable<List<Task>> getMyCompletedTasks() {
+        return httpRequester
+                .get(apiConstants.getMyCompletedTasksUrl(this.userSession.getId()))
                 .map(new Function<HttpResponseContract, List<Task>>() {
                     @Override
                     public List<Task> apply(HttpResponseContract iHttpResponse) throws Exception {

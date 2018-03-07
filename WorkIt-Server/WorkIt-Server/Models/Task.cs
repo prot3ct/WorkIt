@@ -13,10 +13,10 @@ namespace WorkIt_Server.Models
         public string Title { get; set; }
 
         [Required]
-        public string StartDate { get; set; }
+        public DateTime StartDate { get; set; }
 
         [Required]
-        public string EndDate { get; set; }
+        public DateTime EndDate { get; set; }
 
         [Required]
         public string Description { get; set; }

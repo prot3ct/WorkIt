@@ -123,6 +123,10 @@
     <Compile Include="Migrations\201803062221336_null.Designer.cs">
       <DependentUpon>201803062221336_null.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803070925265_Change-Datetime.cs" />
+    <Compile Include="Migrations\201803070925265_Change-Datetime.Designer.cs">
+      <DependentUpon>201803070925265_Change-Datetime.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Context\WorkItDbContext.cs" />
     <Compile Include="Models\DTO\CommentDTO.cs" />
@@ -168,6 +172,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803062221336_null.resx">
       <DependentUpon>201803062221336_null.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803070925265_Change-Datetime.resx">
+      <DependentUpon>201803070925265_Change-Datetime.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

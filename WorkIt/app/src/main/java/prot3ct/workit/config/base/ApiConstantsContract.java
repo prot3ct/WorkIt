@@ -25,6 +25,8 @@ public interface ApiConstantsContract {
 
     String updateTaskRequestUrl();
 
+    String getMyCompletedTasksUrl(int userId);
+
     int responseErrorCode();
 
     int reponseServerErrorCode();

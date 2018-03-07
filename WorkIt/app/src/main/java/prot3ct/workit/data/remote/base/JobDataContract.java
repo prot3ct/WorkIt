@@ -13,4 +13,6 @@ public interface JobDataContract {
     Observable<List<Task>> getAllTasks();
 
     Observable<List<Task>> getMyTasks();
+
+    Observable<List<Task>> getMyCompletedTasks();
 }
