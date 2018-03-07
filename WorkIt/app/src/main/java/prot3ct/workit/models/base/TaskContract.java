@@ -51,4 +51,8 @@ public interface TaskContract extends Serializable {
     public String getAddress();
 
     public void setAddress(String address);
+
+    int getAssignedUserId();
+
+    void setAssignedUserId(int assignedUserId);
 }

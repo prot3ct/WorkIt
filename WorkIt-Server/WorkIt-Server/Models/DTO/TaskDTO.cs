@@ -16,6 +16,7 @@ namespace WorkIt_Server.Models.DTO
         public string CreatorEmail { get; set; }
         public string MinRaiting { get; set; }
         public string MinTasksCompleted { get; set; }
+        public int? AssignedUserId { get; set; }
 
         public Location ToLocation()
         {

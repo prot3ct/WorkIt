@@ -21,12 +21,14 @@ import prot3ct.workit.models.base.TaskContract;
 import prot3ct.workit.views.completed_tasks.base.CompletedTasksContract;
 import prot3ct.workit.views.create_job.CreateJobActivity;
 import prot3ct.workit.views.job_details.JobDetailsActivity;
+import prot3ct.workit.views.job_details.TaskRequestDialog;
 import prot3ct.workit.views.login.LoginActivity;
 
 public class CompletedTasksFragment extends Fragment implements CompletedTasksContract.View {
     private CompletedTasksContract.Presenter presenter;
     private Context context;
 
+    private RateTaskDialog rateTaskDialog;
     private Button createJobButton;
     private ListView listTaskView;
 
@@ -50,6 +52,8 @@ public class CompletedTasksFragment extends Fragment implements CompletedTasksCo
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list_jobs, container, false);
 
+        this.rateTaskDialog = new RateTaskDialog();
+        this.rateTaskDialog.setPresenter(this.presenter);
         this.createJobButton = (Button) view.findViewById(R.id.id_create_job_button);
         this.listTaskView = (ListView) view.findViewById(R.id.id_list_tasks_list_view);
         presenter.getMyTasks();
@@ -92,7 +96,8 @@ public class CompletedTasksFragment extends Fragment implements CompletedTasksCo
                 rateButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        rateTaskDialog.setInfo(tasks.get(position).getId(), tasks.get(position).getAssignedUserId());
+                        rateTaskDialog.show(getFragmentManager(), "rate_popup");
                     }
                 });
 

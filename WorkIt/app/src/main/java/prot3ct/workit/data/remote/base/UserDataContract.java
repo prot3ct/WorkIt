@@ -8,6 +8,8 @@ public interface UserDataContract {
 
     Observable<Boolean> register(String email, String firstname, String lastname, String password);
 
+    Observable<Boolean> createRaiting(int receiverUserId, int taskId, int receiverUserRoleId, String value);
+
     void logoutUser();
 
     boolean isLoggedIn();

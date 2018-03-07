@@ -27,6 +27,8 @@ public interface ApiConstantsContract {
 
     String getMyCompletedTasksUrl(int userId);
 
+    String createRatingUrl(int userId);
+
     int responseErrorCode();
 
     int reponseServerErrorCode();

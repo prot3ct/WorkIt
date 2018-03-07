@@ -11,11 +11,6 @@ namespace WorkIt_Server.Models
         public int RaitingId { get; set; }
 
         [Required]
-        [ForeignKey("GiverUser")]
-        public int GiverUserId { get; set; }
-        public virtual User GiverUser { get; set; }
-
-        [Required]
         [ForeignKey("ReceiverUser")]
         public int ReceiverUserId { get; set; }
         public virtual User ReceiverUser { get; set; }

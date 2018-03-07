@@ -14,6 +14,8 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import prot3ct.workit.R;
+import prot3ct.workit.views.completed_tasks.CompletedTasksActivity;
+import prot3ct.workit.views.completed_tasks.CompletedTasksFragment;
 import prot3ct.workit.views.list_jobs.ListJobsActivity;
 
 
@@ -56,13 +58,27 @@ public class DrawerFragment extends Fragment {
 
     private PrimaryDrawerItem createMyTasksDrawerItem() {
         return new PrimaryDrawerItem()
-                .withIdentifier(1)
+                .withIdentifier(0)
                 .withName("My tasks")
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         Intent intent = new Intent(getContext(), ListJobsActivity.class);
                         intent.putExtra("TYPE", "MyTasks");
+                        startActivity(intent);
+                        return true;
+                    }
+                });
+    }
+
+    private PrimaryDrawerItem createMyCompletedTasksDrawerItem() {
+        return new PrimaryDrawerItem()
+                .withIdentifier(1)
+                .withName("Completed tasks")
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        Intent intent = new Intent(getContext(), CompletedTasksActivity.class);
                         startActivity(intent);
                         return true;
                     }

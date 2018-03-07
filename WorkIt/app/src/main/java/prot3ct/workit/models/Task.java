@@ -15,6 +15,7 @@ public class Task implements TaskContract, Serializable {
     private String address;
     private String reward;
     private String creatorEmail;
+    private int assignedUserId;
     private double minRaiting;
     private int minJobsCompleted;
 
@@ -112,5 +113,13 @@ public class Task implements TaskContract, Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getAssignedUserId() {
+        return assignedUserId;
+    }
+
+    public void setAssignedUserId(int assignedUserId) {
+        this.assignedUserId = assignedUserId;
     }
 }

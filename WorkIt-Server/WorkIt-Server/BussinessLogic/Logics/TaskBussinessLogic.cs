@@ -72,7 +72,8 @@ namespace WorkIt_Server.BLL
                     MinTasksCompleted = t.MinTasksCompleted.ToString(),
                     MinRaiting = t.MinRaiting.ToString(),
                     Reward = t.Reward,
-                    Title = t.Title
+                    Title = t.Title,
+                    AssignedUserId = t.AssignedUserId
                 })
                 .ToList();
         }

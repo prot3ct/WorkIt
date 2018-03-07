@@ -16,10 +16,12 @@ import prot3ct.workit.views.completed_tasks.base.CompletedTasksContract;
 public class CompletedTasksPresenter implements CompletedTasksContract.Presenter {
     private CompletedTasksContract.View view;
     private JobData jobData;
+    private UserData userData;
 
     public CompletedTasksPresenter(CompletedTasksContract.View view, Context context) {
         this.view = view;
         this.jobData = new JobData(context);
+        this.userData = new UserData(context);
     }
 
     @Override
@@ -50,5 +52,34 @@ public class CompletedTasksPresenter implements CompletedTasksContract.Presenter
                     public void onComplete() {
                     }
                 });
+    }
+
+    @Override
+    public void createRating(int receiverUserId, int taskId, int receiverUserRoleId, String value) {
+        userData.createRaiting(receiverUserId, taskId, receiverUserRoleId, value)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        new Observer<Boolean>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+//                        view.showDialogForLoading();
+                            }
+
+                            @Override
+                            public void onNext(Boolean result) {
+//                                view.notifySuccessful();
+//                                view.showListJobsActivity();
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+//                                view.notifyError("Error ocurred when logining in. Please try again.");
+                            }
+
+                            @Override
+                            public void onComplete() {
+                            }
+                        });
     }
 }

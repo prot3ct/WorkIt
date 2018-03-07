@@ -23,7 +23,7 @@ namespace WorkIt_Server.Controllers
             }
         }
 
-        [Route("raitings/create")]
+        [Route("users/{userId}/raitings")]
         [HttpPost]
         public IHttpActionResult CreateRaiting(RaitingDTO raiting)
         {

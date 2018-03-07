@@ -22,7 +22,7 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract.V
     private Context context;
     private TaskContract taskDetails;
 
-    private TaskRequestDialog applyForTaskWindow;
+    private TaskRequestDialog applyForTaskDialog;
     private TextView taskTitle;
     private TextView taskDescription;
     private TextView taskStartDate;
@@ -49,8 +49,8 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract.V
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_job_details, container, false);
 
-        applyForTaskWindow = new TaskRequestDialog();
-        applyForTaskWindow.setPresenter(this.presenter);
+        applyForTaskDialog = new TaskRequestDialog();
+        applyForTaskDialog.setPresenter(this.presenter);
         this.dialog = new WorkItProgressDialog(context);
         this.taskersButton = view.findViewById(R.id.id_taskers_button);
         this.applyForTaskButton = view.findViewById(R.id.id_apply_for_task_button);
@@ -60,7 +60,7 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract.V
         this.taskEndDate = view.findViewById(R.id.id_end_time_details_edit_text);
 
         this.taskDetails = (TaskContract) this.getActivity().getIntent().getSerializableExtra("TaskDetails");
-        applyForTaskWindow.setTaskId(taskDetails.getId());
+        applyForTaskDialog.setTaskId(taskDetails.getId());
 
         this.taskTitle.setText(taskDetails.getTitle());
         this.taskDescription.setText(taskDetails.getDescription());
@@ -70,7 +70,7 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract.V
         this.applyForTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                applyForTaskWindow.show(getFragmentManager(), "text_popup");
+                applyForTaskDialog.show(getFragmentManager(), "text_popup");
             }
         });
 

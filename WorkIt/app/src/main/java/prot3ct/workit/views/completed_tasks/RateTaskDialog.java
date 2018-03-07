@@ -16,23 +16,25 @@ import prot3ct.workit.views.job_details.base.JobDetailsContract;
 
 public class RateTaskDialog extends DialogFragment {
     private CompletedTasksContract.Presenter presenter;
-    private int taskId;
     private View view;
-    private EditText description;
+    private EditText status;
+
+    private int taskId;
+    private int assignedUserId;
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        this.view = inflater.inflate(R.layout.dialog_task_request, null);
+        this.view = inflater.inflate(R.layout.dialog_rate_task, null);
 
-        this.description = view.findViewById(R.id.id_task_request_description_edit_text);
+        this.status = view.findViewById(R.id.id_rate_task_edit_text);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view).setPositiveButton("Save", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                presenter.createTaskRequest(description.getText().toString(), taskId);
+                presenter.createRating(assignedUserId, taskId, 1, status.getText().toString());
             }
         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
@@ -43,8 +45,9 @@ public class RateTaskDialog extends DialogFragment {
         return builder.create();
     }
 
-    public void setTaskId(int id) {
-        this.taskId = id;
+    public void setInfo(int taskId, int assignedUserId) {
+        this.taskId = taskId;
+        this.assignedUserId = assignedUserId;
     }
 
     public void setPresenter(CompletedTasksContract.Presenter presenter) {

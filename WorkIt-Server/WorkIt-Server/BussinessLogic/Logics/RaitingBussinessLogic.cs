@@ -32,7 +32,6 @@ namespace WorkIt_Server.BussinessLogic.Logics
             var raitingToBeInserted = new Raiting
             {
                 Value = raiting.Value,
-                GiverUserId = raiting.GiverUserId,
                 ReceiverUserId = raiting.ReceiverUserId,
                 TaskId = raiting.TaskId,
                 ReceiverUserRoleId = raiting.ReceiverUserRoleId
@@ -49,7 +48,6 @@ namespace WorkIt_Server.BussinessLogic.Logics
                 .Select(r => new RaitingDTO
                 {
                     Value = r.Value,
-                    GiverUserId = r.GiverUserId,
                     ReceiverUserId = r.ReceiverUserId,
                     ReceiverUserRoleId = r.ReceiverUserRoleId,
                     TaskId = r.TaskId

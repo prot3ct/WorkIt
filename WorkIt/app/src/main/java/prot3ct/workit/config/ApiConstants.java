@@ -68,6 +68,11 @@ public class ApiConstants implements ApiConstantsContract {
     }
 
     @Override
+    public String createRatingUrl(int userId) {
+        return API_URL + "/users/" + userId + "/raitings";
+    }
+
+    @Override
     public String updateTaskRequestUrl() { return API_URL + "/requests/update"; }
 
     @Override

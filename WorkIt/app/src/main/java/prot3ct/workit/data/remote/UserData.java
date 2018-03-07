@@ -85,6 +85,29 @@ public class UserData implements UserDataContract {
     }
 
     @Override
+    public Observable<Boolean> createRaiting(int receiverUserId, int taskId, int receiverUserRoleId, String value) {
+        Map<String, String> raiting = new HashMap<>();
+        raiting.put("giverUserId", Integer.toString(this.userSession.getId()));
+        raiting.put("receiverUserId", Integer.toString(receiverUserId));
+        raiting.put("taskId", Integer.toString(taskId));
+        raiting.put("receiverUserRoleId", Integer.toString(receiverUserRoleId));
+        raiting.put("value", value);
+
+        return httpRequester
+            .post(apiConstants.createRatingUrl(this.userSession.getId()), raiting)
+            .map(new Function<HttpResponseContract, Boolean>() {
+                @Override
+                public Boolean apply(HttpResponseContract iHttpResponse) throws Exception {
+                    if (iHttpResponse.getCode() == apiConstants.responseErrorCode()) {
+                        throw new Error(iHttpResponse.getMessage());
+                    }
+
+                    return true;
+                }
+            });
+    }
+
+    @Override
     public void logoutUser() {
         this.userSession.clearSession();
     }

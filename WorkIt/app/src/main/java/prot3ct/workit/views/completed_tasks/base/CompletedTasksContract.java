@@ -12,5 +12,7 @@ public interface CompletedTasksContract {
 
     interface Presenter {
         void getMyTasks();
+
+        void createRating(int receiverUserId, int taskId, int receiverUserRoleId, String value);
     }
 }

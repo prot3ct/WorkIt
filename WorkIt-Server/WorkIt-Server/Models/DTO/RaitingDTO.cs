@@ -2,8 +2,6 @@
 {
     public class RaitingDTO
     {
-        public int GiverUserId { get; set; }
-
         public int ReceiverUserId { get; set; }
 
         public int TaskId { get; set; }

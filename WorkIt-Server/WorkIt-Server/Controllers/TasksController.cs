@@ -38,19 +38,19 @@ namespace WorkIt_Server.Controllers
             }
         }
 
-        //[Route("users/{userId}/completed-tasks")]
-        //[HttpGet]
-        //public IHttpActionResult GetCompletedTasksByUser(int userId)
-        //{
-        //    try
-        //    {
-        //        return Ok(service.GetCompletedTasksByUser(userId));
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return InternalServerError();
-        //    }
-        //}
+        [Route("users/{userId}/completed-tasks")]
+        [HttpGet]
+        public IHttpActionResult GetCompletedTasksByUser(int userId)
+        {
+            try
+            {
+                return Ok(service.GetCompletedTasksByUser(userId));
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
+        }
 
         [Route("tasks")]
         [HttpPost]
