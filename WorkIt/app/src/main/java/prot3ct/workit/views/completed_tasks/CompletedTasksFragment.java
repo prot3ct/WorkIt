@@ -60,7 +60,7 @@ public class CompletedTasksFragment extends Fragment implements CompletedTasksCo
         this.rateTaskDialog.setPresenter(this.presenter);
         this.createJobButton = (Button) view.findViewById(R.id.id_create_job_button);
         this.listTaskView = (ListView) view.findViewById(R.id.id_list_tasks_list_view);
-        presenter.getMyTasks();
+        presenter.getMyCompletedTasks();
 
         return view;
     }

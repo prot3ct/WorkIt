@@ -25,7 +25,7 @@ public class CompletedTasksPresenter implements CompletedTasksContract.Presenter
     }
 
     @Override
-    public void getMyTasks() {
+    public void getMyCompletedTasks() {
         jobData.getMyCompletedTasks()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -33,19 +33,18 @@ public class CompletedTasksPresenter implements CompletedTasksContract.Presenter
                 new Observer<List<Task>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-//                        view.showDialogForLoading();
+                        view.showDialogForLoading();
                     }
 
                     @Override
                     public void onNext(List<Task> tasks) {
                         view.setupTasksAdapter(tasks);
-//                                view.notifySuccessful();
-//                                view.showListJobsActivity();
+                        view.dismissDialog();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-//                                view.notifyError("Error ocurred when logining in. Please try again.");
+                        view.notifyError("Error ocurred when retrieving data. Please try again.");
                     }
 
                     @Override
@@ -69,12 +68,13 @@ public class CompletedTasksPresenter implements CompletedTasksContract.Presenter
                             @Override
                             public void onNext(Boolean result) {
                                 view.dismissDialog();
+                                view.notifySuccessful("Result submitted successfully.");
                             }
 
                             @Override
                             public void onError(Throwable e) {
                                 view.dismissDialog();
-                                view.notifyError("Error ocurred when retrieving data. Please try again.");
+                                view.notifyError("Error ocurred when submitting result. Please try again.");
                             }
 
                             @Override

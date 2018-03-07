@@ -52,7 +52,8 @@ public class DrawerFragment extends Fragment {
                 .withToolbar(toolbar)
                 .addDrawerItems(
                         createMyTasksDrawerItem(),
-                        createMyCompletedTasksDrawerItem()
+                        createMyCompletedTasksDrawerItem(),
+                        createAssignedTasksDrawerItem()
                 )
                 .build();
     }
@@ -84,5 +85,19 @@ public class DrawerFragment extends Fragment {
                     return true;
                 }
             });
+    }
+
+    private PrimaryDrawerItem createAssignedTasksDrawerItem() {
+        return new PrimaryDrawerItem()
+                .withIdentifier(1)
+                .withName("Assigned to me tasks")
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        Intent intent = new Intent(getContext(), CompletedTasksActivity.class);
+                        startActivity(intent);
+                        return true;
+                    }
+                });
     }
 }

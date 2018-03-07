@@ -58,7 +58,8 @@ namespace WorkIt_Server.BLL
         {
             return Db.Tasks
                 .Where(t => t.AssignedUserId == userId || t.CreatorId == userId)
-                .Where(t => EntityFunctions.CreateDateTime(t.EndDate.Year, t.EndDate.Month, t.EndDate.Day, t.EndDate.Hour, t.EndDate.Minute, 0) >= DateTime.Now)
+                .Where(t => EntityFunctions.CreateDateTime(t.EndDate.Year, t.EndDate.Month, t.EndDate.Day, t.EndDate.Hour, t.EndDate.Minute, 0) <= DateTime.Now)
+                .Where(t => t.AssignedUserId == userId || t.CreatorId == userId)
                 .Select(t => new TaskDTO
                 {
                     Id = t.TaskId,
