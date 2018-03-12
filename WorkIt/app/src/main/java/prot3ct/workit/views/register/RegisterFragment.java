@@ -58,11 +58,13 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
         this.registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.registerUser(
-                    emailEditText.getText().toString(),
-                    fullnameEditText.getText().toString(),
-                    passwordEditText.getText().toString()
-                );
+                String email = emailEditText.getText().toString();
+                String password = passwordEditText.getText().toString();
+                String fullName = fullnameEditText.getText().toString();
+
+                if (checkCredentials(email, password)) {
+                    presenter.registerUser(email, fullName, password);
+                }
             }
         });
 
@@ -83,8 +85,8 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
     }
 
     @Override
-    public void notifySuccessful() {
-        Toast.makeText(getContext(), "You have registered successfully", Toast.LENGTH_SHORT).show();
+    public void notifySuccessful(String msg) {
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -97,6 +99,20 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
         super.onAttach(context);
 
         this.context = context;
+    }
+
+    private boolean checkCredentials(String email, String password) {
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            notifyError("Invalid email address.");
+            return false;
+        }
+
+        if (password.length() < 6) {
+            notifyError("Password must be 6 or more symbols long.");
+            return false;
+        }
+
+        return true;
     }
 
     @Override

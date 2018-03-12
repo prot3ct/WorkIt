@@ -33,7 +33,6 @@ public class LoginPresenter implements LoginContract.Presenter {
 
                     @Override
                     public void onNext(Boolean value) {
-                        view.notifySuccessful();
                         view.dismissDialog();
                         view.showListJobsActivity();
                     }

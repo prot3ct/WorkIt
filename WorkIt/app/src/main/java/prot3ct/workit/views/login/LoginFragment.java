@@ -21,7 +21,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     private LoginContract.Presenter presenter;
     private Context context;
 
-    private EditText usernameEditText;
+    private EditText emailEditText;
     private EditText passwordEditText;
     private Button loginButton;
     private Button registerButton;
@@ -47,15 +47,15 @@ public class LoginFragment extends Fragment implements LoginContract.View {
 
 
         this.dialog = new WorkItProgressDialog(context);
-        this.usernameEditText = (EditText) view.findViewById(R.id.id_username_edit_text);
-        this.passwordEditText = (EditText) view.findViewById(R.id.id_password_edit_text);
-        this.loginButton = (Button) view.findViewById(R.id.id_login_button);
-        this.registerButton = (Button) view.findViewById(R.id.id_register_button);
+        this.emailEditText = view.findViewById(R.id.id_email_edit_text);
+        this.passwordEditText = view.findViewById(R.id.id_password_edit_text);
+        this.loginButton = view.findViewById(R.id.id_login_button);
+        this.registerButton = view.findViewById(R.id.id_register_button);
 
         this.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.loginUser(usernameEditText.getText().toString(), passwordEditText.getText().toString());
+                presenter.loginUser(emailEditText.getText().toString(), passwordEditText.getText().toString());
             }
         });
 
@@ -91,11 +91,6 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     @Override
     public void notifyError(String errorMessage) {
         Toast.makeText(getContext(), errorMessage, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void notifySuccessful() {
-        Toast.makeText(getContext(), "You have logged in successfully", Toast.LENGTH_SHORT).show();
     }
 
     @Override

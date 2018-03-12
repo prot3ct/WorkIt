@@ -6,7 +6,7 @@ public interface RegisterContract {
     interface View extends BaseView<Presenter> {
         void showLoginActivity();
 
-        void notifySuccessful();
+        void notifySuccessful(String msg);
 
         void notifyError(String message);
 
