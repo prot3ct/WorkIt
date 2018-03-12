@@ -29,6 +29,8 @@ public interface ApiConstantsContract {
 
     String createRatingUrl(int userId);
 
+    int responseSuccessCode();
+
     int responseErrorCode();
 
     int reponseServerErrorCode();

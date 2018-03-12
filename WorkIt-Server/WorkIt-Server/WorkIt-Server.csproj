@@ -131,6 +131,10 @@
     <Compile Include="Migrations\201803071820330_UpdateRaiting.Designer.cs">
       <DependentUpon>201803071820330_UpdateRaiting.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803121614460_ChangeFullName.cs" />
+    <Compile Include="Migrations\201803121614460_ChangeFullName.Designer.cs">
+      <DependentUpon>201803121614460_ChangeFullName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Context\WorkItDbContext.cs" />
     <Compile Include="Models\DTO\CommentDTO.cs" />
@@ -182,6 +186,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803071820330_UpdateRaiting.resx">
       <DependentUpon>201803071820330_UpdateRaiting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803121614460_ChangeFullName.resx">
+      <DependentUpon>201803121614460_ChangeFullName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

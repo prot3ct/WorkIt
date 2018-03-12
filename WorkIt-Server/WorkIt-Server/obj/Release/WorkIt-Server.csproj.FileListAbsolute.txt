@@ -48,3 +48,4 @@ C:\Users\prot3\OneDrive\Desktop\diplomna\WorkIt\WorkIt-Server\WorkIt-Server\obj\
 C:\Users\prot3\OneDrive\Desktop\diplomna\WorkIt\WorkIt-Server\WorkIt-Server\obj\Release\WorkIt_Server.Migrations._null.resources
 C:\Users\prot3\OneDrive\Desktop\diplomna\WorkIt\WorkIt-Server\WorkIt-Server\obj\Release\WorkIt_Server.Migrations.ChangeDatetime.resources
 C:\Users\prot3\OneDrive\Desktop\diplomna\WorkIt\WorkIt-Server\WorkIt-Server\obj\Release\WorkIt_Server.Migrations.UpdateRaiting.resources
+C:\Users\prot3\OneDrive\Desktop\diplomna\WorkIt\WorkIt-Server\WorkIt-Server\obj\Release\WorkIt_Server.Migrations.ChangeFullName.resources

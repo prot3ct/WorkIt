@@ -4,10 +4,6 @@ import prot3ct.workit.config.base.ApiConstantsContract;
 
 public class ApiConstants implements ApiConstantsContract {
     private static final String API_URL = "https://workit-server.azurewebsites.net/api";
-    private static final String URL_SIGN_IN = API_URL + "/auth/login";
-    private static final String URL_SIGN_UP = API_URL + "/auth/register";
-    private static final String URL_GET_JOBS = API_URL + "/tasks";
-    private static final String URL_CREATE_TASK = API_URL + "/tasks";
 
     private static final int RESPNCE_SUCCESS_CODE = 200;
     private static final int RESPONSE_ERROR_CODE = 404;
@@ -15,16 +11,16 @@ public class ApiConstants implements ApiConstantsContract {
 
     @Override
     public String loginUrl() {
-        return URL_SIGN_IN;
+        return API_URL + "/auth/login";
     }
 
     @Override
     public String registerUrl() {
-        return URL_SIGN_UP;
+        return API_URL + "/auth/register";
     }
 
     @Override
-    public String getAllJobsUrl() { return URL_GET_JOBS; }
+    public String getAllJobsUrl() { return API_URL + "/tasks"; }
 
     @Override
     public String getAllTasksUrl(int userId) {
@@ -33,7 +29,7 @@ public class ApiConstants implements ApiConstantsContract {
 
     @Override
     public String createTaskUrl() {
-        return URL_CREATE_TASK;
+        return API_URL + "/tasks";
     }
 
     @Override
@@ -74,6 +70,11 @@ public class ApiConstants implements ApiConstantsContract {
 
     @Override
     public String updateTaskRequestUrl() { return API_URL + "/requests/update"; }
+
+    @Override
+    public int responseSuccessCode() {
+        return RESPNCE_SUCCESS_CODE;
+    }
 
     @Override
     public int responseErrorCode() {
