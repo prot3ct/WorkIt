@@ -4,7 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,11 +31,9 @@ public class ListJobsFragment extends Fragment implements ListJobsContract.View 
     private ListJobsContract.Presenter presenter;
     private Context context;
 
-    private Button createJobButton;
-    private Button logoutButton;
-    private ListView listTaskView;
-
-    ArrayAdapter<TaskContract> taskAdapter;
+    private FloatingActionButton createTaskButton;
+//    private Button logoutButton;
+    private RecyclerView recyclerTaskView;
 
     public ListJobsFragment() {
         // Required empty public constructor
@@ -51,25 +53,27 @@ public class ListJobsFragment extends Fragment implements ListJobsContract.View 
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list_jobs, container, false);
 
-        this.createJobButton = (Button) view.findViewById(R.id.id_create_job_button);
-        this.logoutButton = (Button) view.findViewById(R.id.id_logout_button);
-        this.listTaskView = (ListView) view.findViewById(R.id.id_list_tasks_list_view);
+        this.createTaskButton = view.findViewById(R.id.id_create_task_button);
+//        this.logoutButton = view.findViewById(R.id.id_logout_button);
+        this.recyclerTaskView = view.findViewById(R.id.id_list_tasks_list_view);
+        LinearLayoutManager llm = new LinearLayoutManager(context);
+        recyclerTaskView.setLayoutManager(llm);
 
-        this.createJobButton.setOnClickListener(new View.OnClickListener() {
+        this.createTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showCreateJobActivity();
             }
         });
 
-        this.logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.logout();
-                notifySuccessful("You have logged out successfully");
-                showLoginActivity();
-            }
-        });
+//        this.logoutButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                presenter.logout();
+//                notifySuccessful("You have logged out successfully");
+//                showLoginActivity();
+//            }
+//        });
 
         if( getActivity().getIntent().getStringExtra("TYPE") == null) {
             presenter.getAllTasks();
@@ -108,31 +112,7 @@ public class ListJobsFragment extends Fragment implements ListJobsContract.View 
 
     @Override
     public void setupTasksAdapter(final List<? extends TaskContract> tasks) {
-        this.taskAdapter = new ArrayAdapter<TaskContract>(this.getContext(), -1, (List<TaskContract>) tasks) {
-            @NonNull
-            @Override
-            public View getView(final int position, View convertView, ViewGroup parent) {
-                View view = convertView;
-                if (view == null) {
-                    LayoutInflater inflater = LayoutInflater.from(this.getContext());
-                    view = inflater.inflate(R.layout.single_task, parent, false);
-                }
-
-                TextView taskTitle = (TextView) view.findViewById(R.id.id_single_task_title_text_view);
-
-                taskTitle.setText(tasks.get(position).getTitle());
-                taskTitle.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(context, JobDetailsActivity.class);
-                        intent.putExtra("TaskDetails", tasks.get(position));
-                        startActivity(intent);
-                    }
-                });
-                return view;
-            }
-        };
-
-        this.listTaskView.setAdapter(taskAdapter);
+        RVAdapter adapter = new RVAdapter(tasks);
+        recyclerTaskView.setAdapter(adapter);
     }
 }

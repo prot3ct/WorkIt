@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +31,7 @@ public class CompletedTasksFragment extends Fragment implements CompletedTasksCo
     private Context context;
 
     private RateTaskDialog rateTaskDialog;
-    private Button createJobButton;
+    private FloatingActionButton createTaskButton;
     private ListView listTaskView;
 
     private WorkItProgressDialog dialog;
@@ -58,7 +59,6 @@ public class CompletedTasksFragment extends Fragment implements CompletedTasksCo
         this.dialog = new WorkItProgressDialog(context);
         this.rateTaskDialog = new RateTaskDialog();
         this.rateTaskDialog.setPresenter(this.presenter);
-        this.createJobButton = (Button) view.findViewById(R.id.id_create_job_button);
         this.listTaskView = (ListView) view.findViewById(R.id.id_list_tasks_list_view);
         presenter.getMyCompletedTasks();
 

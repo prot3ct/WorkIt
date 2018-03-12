@@ -13,33 +13,45 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <fragment
-                android:id="@+id/id_navigation_fragment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:name="prot3ct.workit.views.navigation.DrawerFragment" />
+            <!--<fragment-->
+                <!--android:id="@+id/id_navigation_fragment"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:name="prot3ct.workit.views.navigation.DrawerFragment" />-->
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/id_create_job_button"
-                android:text="Create Job"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/id_logout_button"
-                android:text="Logout"/>
+            <!--<Button-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/id_create_job_button"-->
+                <!--android:text="Create Job"/>-->
+            <!--<Button-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/id_logout_button"-->
+                <!--android:text="Logout"/>-->
         </LinearLayout>
-        <TextView
+        <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/main_content"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Jobs listed: "
-            android:textSize="50px"/>
-        <ListView
-            android:id="@+id/id_list_tasks_list_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="22sp" />
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/id_list_tasks_list_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="22sp" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/id_create_task_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:layout_margin="16dp"
+                android:src="@drawable/ic_new_task"
+                app:layout_anchorGravity="bottom|right|end" />
+        </android.support.design.widget.CoordinatorLayout>
     </LinearLayout>
 
 </FrameLayout>
