@@ -40,7 +40,7 @@ namespace WorkIt_Server.BLL
                 TaskRequestId = taskRequest.TaskRequestId,
                 TaskTitle = taskRequest.Task.Title,
                 Status = taskRequest.RequestStatus.Name,
-                Name = user.Firstname + " " + user.Lastname
+                Name = user.FullName
             };
         }
 
@@ -82,7 +82,7 @@ namespace WorkIt_Server.BLL
                 .Select(tr => new TaskRequestListViewModel
                 {
                     TaskRequestId = tr.TaskRequestId,
-                    Name = tr.User.Firstname + " " + tr.User.Lastname,
+                    Name = tr.User.FullName,
                     Status = tr.RequestStatus.Name
                 })
                 .ToList();
@@ -121,7 +121,7 @@ namespace WorkIt_Server.BLL
                 .Select(c => new CommentDTO
                 {
                     Body = c.Body,
-                    Name = c.User.Firstname + " " + c.User.Lastname
+                    Name = c.User.FullName
                 })
                 .ToList();
         }

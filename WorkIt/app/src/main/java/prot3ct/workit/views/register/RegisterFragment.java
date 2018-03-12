@@ -24,10 +24,10 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
     private Context context;
 
     private EditText emailEditText;
-    private EditText firstnameEditText;
-    private EditText lastnameEditText;
+    private EditText fullnameEditText;
     private EditText passwordEditText;
     private Button registerButton;
+    private Button returnToLoginButton;
 
     private WorkItProgressDialog dialog;
 
@@ -49,21 +49,27 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
         View view = inflater.inflate(R.layout.fragment_register, container, false);
 
         this.dialog = new WorkItProgressDialog(context);
-        this.registerButton = (Button) view.findViewById(R.id.id_register_button);
-        this.emailEditText = (EditText) view.findViewById(R.id.id_email_edit_text);
-        this.firstnameEditText = (EditText) view.findViewById(R.id.id_firstname_edit_text);
-        this.lastnameEditText = (EditText) view.findViewById(R.id.id_lastname_edit_text);
-        this.passwordEditText = (EditText) view.findViewById(R.id.id_password_edit_text);
+        this.registerButton = view.findViewById(R.id.id_register_button);
+        this.emailEditText = view.findViewById(R.id.id_email_edit_text);
+        this.fullnameEditText = view.findViewById(R.id.id_full_name_edit_text);
+        this.passwordEditText = view.findViewById(R.id.id_password_edit_text);
+        this.returnToLoginButton = view.findViewById(R.id.id_return_to_login_button);
 
         this.registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.registerUser(
                     emailEditText.getText().toString(),
-                    firstnameEditText.getText().toString(),
-                    lastnameEditText.getText().toString(),
+                    fullnameEditText.getText().toString(),
                     passwordEditText.getText().toString()
                 );
+            }
+        });
+
+        this.returnToLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showLoginActivity();
             }
         });
 

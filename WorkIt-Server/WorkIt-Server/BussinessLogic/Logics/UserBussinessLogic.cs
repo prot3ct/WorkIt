@@ -54,8 +54,7 @@ namespace WorkIt_Server.BLL
             {
                 Email = credentials.Email,
                 PassHash = credentials.PassHash,
-                Firstname = credentials.Firstname,
-                Lastname = credentials.Lastname
+                FullName = credentials.FullName
             };
 
             db.Users.Add(userToBeInserted);

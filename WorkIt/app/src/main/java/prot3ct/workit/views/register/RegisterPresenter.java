@@ -21,8 +21,8 @@ public class RegisterPresenter implements RegisterContract.Presenter {
     }
 
     @Override
-    public void registerUser(String email, String firstname, String lastname, String password) {
-        userData.register(email, firstname, lastname, password)
+    public void registerUser(String email, String fullName, String password) {
+        userData.register(email, fullName, password)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
