@@ -20,6 +20,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import prot3ct.workit.R;
 import prot3ct.workit.views.completed_tasks.CompletedTasksActivity;
 import prot3ct.workit.views.list_jobs.base.ListJobsContract;
+import prot3ct.workit.views.login.LoginActivity;
 
 public class ListJobsActivity extends AppCompatActivity {
     private ListJobsContract.Presenter presenter;
@@ -52,9 +53,13 @@ public class ListJobsActivity extends AppCompatActivity {
                 .withToolbar(toolbar)
                 .withAccountHeader(headerResult)
                 .addDrawerItems(
+                        createBrowseTasksDrawerItem(),
                         createMyTasksDrawerItem(),
                         createMyCompletedTasksDrawerItem(),
-                        createAssignedTasksDrawerItem()
+                        createAssignedTasksDrawerItem(),
+                        createProfileDrawerItem(),
+                        createSettingsDrawerItem(),
+                        createLogoutDrawerItem()
                 )
                 .build();
 
@@ -82,9 +87,23 @@ public class ListJobsActivity extends AppCompatActivity {
         return true;
     }
 
-    private PrimaryDrawerItem createMyTasksDrawerItem() {
+    private PrimaryDrawerItem createBrowseTasksDrawerItem() {
         return new PrimaryDrawerItem()
                 .withIdentifier(0)
+                .withName("Browse tasks")
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        Intent intent = new Intent(getBaseContext(), CompletedTasksActivity.class);
+                        startActivity(intent);
+                        return true;
+                    }
+                });
+    }
+
+    private PrimaryDrawerItem createMyTasksDrawerItem() {
+        return new PrimaryDrawerItem()
+                .withIdentifier(1)
                 .withName("My tasks")
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -99,7 +118,7 @@ public class ListJobsActivity extends AppCompatActivity {
 
     private PrimaryDrawerItem createMyCompletedTasksDrawerItem() {
         return new PrimaryDrawerItem()
-                .withIdentifier(1)
+                .withIdentifier(2)
                 .withName("Completed tasks")
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -113,12 +132,55 @@ public class ListJobsActivity extends AppCompatActivity {
 
     private PrimaryDrawerItem createAssignedTasksDrawerItem() {
         return new PrimaryDrawerItem()
-                .withIdentifier(1)
+                .withIdentifier(3)
                 .withName("Assigned to me tasks")
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        Intent intent = new Intent(getBaseContext(), CompletedTasksActivity.class);
+                        Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                        startActivity(intent);
+                        return true;
+                    }
+                });
+    }
+
+    private PrimaryDrawerItem createProfileDrawerItem() {
+        return new PrimaryDrawerItem()
+                .withIdentifier(4)
+                .withName("My profile")
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                        startActivity(intent);
+                        return true;
+                    }
+                });
+    }
+
+    private PrimaryDrawerItem createSettingsDrawerItem() {
+        return new PrimaryDrawerItem()
+                .withIdentifier(5)
+                .withName("Settings")
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                        startActivity(intent);
+                        return true;
+                    }
+                });
+    }
+
+    private PrimaryDrawerItem createLogoutDrawerItem() {
+        return new PrimaryDrawerItem()
+                .withIdentifier(6)
+                .withName("Logout Me")
+                .withTextColor(getResources().getColor(R.color.md_red_900))
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        Intent intent = new Intent(getBaseContext(), LoginActivity.class);
                         startActivity(intent);
                         return true;
                     }
