@@ -18,10 +18,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+
 import java.util.List;
 
 import prot3ct.workit.R;
 import prot3ct.workit.models.base.TaskContract;
+import prot3ct.workit.views.completed_tasks.CompletedTasksActivity;
 import prot3ct.workit.views.create_job.CreateJobActivity;
 import prot3ct.workit.views.job_details.JobDetailsActivity;
 import prot3ct.workit.views.list_jobs.base.ListJobsContract;
@@ -112,7 +118,7 @@ public class ListJobsFragment extends Fragment implements ListJobsContract.View 
 
     @Override
     public void setupTasksAdapter(final List<? extends TaskContract> tasks) {
-        RVAdapter adapter = new RVAdapter(tasks);
+        RVAdapter adapter = new RVAdapter(tasks, context);
         recyclerTaskView.setAdapter(adapter);
     }
 }

@@ -13,22 +13,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!--<fragment-->
-                <!--android:id="@+id/id_navigation_fragment"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:name="prot3ct.workit.views.navigation.DrawerFragment" />-->
-
-            <!--<Button-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:id="@+id/id_create_job_button"-->
-                <!--android:text="Create Job"/>-->
-            <!--<Button-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:id="@+id/id_logout_button"-->
-                <!--android:text="Logout"/>-->
         </LinearLayout>
         <android.support.design.widget.CoordinatorLayout
             android:id="@+id/main_content"

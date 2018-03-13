@@ -22,11 +22,10 @@
         <activity
             android:name=".views.register.RegisterActivity" />
         <activity
-            android:name=".views.list_jobs.ListJobsActivity"
-            android:theme="@style/MaterialTheme.ActionBar.DayNight">
-        </activity>
+            android:name=".views.list_jobs.ListJobsActivity"/>
         <activity
-            android:name=".views.create_job.CreateJobActivity" />
+            android:name=".views.create_job.CreateJobActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".views.job_details.JobDetailsActivity"
             android:label="@string/title_activity_job_details" />
