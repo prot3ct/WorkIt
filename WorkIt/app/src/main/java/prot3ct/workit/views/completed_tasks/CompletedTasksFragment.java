@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,7 @@ import prot3ct.workit.views.completed_tasks.base.CompletedTasksContract;
 import prot3ct.workit.views.create_job.CreateJobActivity;
 import prot3ct.workit.views.job_details.JobDetailsActivity;
 import prot3ct.workit.views.job_details.TaskRequestDialog;
+import prot3ct.workit.views.list_jobs.RVAdapter;
 import prot3ct.workit.views.login.LoginActivity;
 
 public class CompletedTasksFragment extends Fragment implements CompletedTasksContract.View {
@@ -32,11 +35,9 @@ public class CompletedTasksFragment extends Fragment implements CompletedTasksCo
 
     private RateTaskDialog rateTaskDialog;
     private FloatingActionButton createTaskButton;
-    private ListView listTaskView;
-
     private WorkItProgressDialog dialog;
 
-    ArrayAdapter<TaskContract> taskAdapter;
+    private RecyclerView recyclerTaskView;
 
     public CompletedTasksFragment() {
         // Required empty public constructor
@@ -59,7 +60,9 @@ public class CompletedTasksFragment extends Fragment implements CompletedTasksCo
         this.dialog = new WorkItProgressDialog(context);
         this.rateTaskDialog = new RateTaskDialog();
         this.rateTaskDialog.setPresenter(this.presenter);
-        this.listTaskView = (ListView) view.findViewById(R.id.id_list_tasks_list_view);
+        this.recyclerTaskView = view.findViewById(R.id.id_list_tasks_list_view);
+        LinearLayoutManager llm = new LinearLayoutManager(context);
+        recyclerTaskView.setLayoutManager(llm);
         presenter.getMyCompletedTasks();
 
         return view;
@@ -94,40 +97,7 @@ public class CompletedTasksFragment extends Fragment implements CompletedTasksCo
 
     @Override
     public void setupTasksAdapter(final List<? extends TaskContract> tasks) {
-        this.taskAdapter = new ArrayAdapter<TaskContract>(this.getContext(), -1, (List<TaskContract>) tasks) {
-            @NonNull
-            @Override
-            public View getView(final int position, View convertView, ViewGroup parent) {
-                View view = convertView;
-                if (view == null) {
-                    LayoutInflater inflater = LayoutInflater.from(this.getContext());
-                    view = inflater.inflate(R.layout.single_completed_task, parent, false);
-                }
-
-                TextView taskTitle = (TextView) view.findViewById(R.id.id_single_task_title_text_view);
-                Button rateButton = view.findViewById(R.id.id_completed_task_rate_button);
-
-                taskTitle.setText(tasks.get(position).getTitle());
-                taskTitle.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(context, JobDetailsActivity.class);
-                        intent.putExtra("TaskDetails", tasks.get(position));
-                        startActivity(intent);
-                    }
-                });
-                rateButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        rateTaskDialog.setInfo(tasks.get(position).getId(), tasks.get(position).getAssignedUserId());
-                        rateTaskDialog.show(getFragmentManager(), "rate_popup");
-                    }
-                });
-
-                return view;
-            }
-        };
-
-        this.listTaskView.setAdapter(taskAdapter);
+        CompletedTaskAdapter adapter = new CompletedTaskAdapter(tasks, context);
+        recyclerTaskView.setAdapter(adapter);
     }
 }
