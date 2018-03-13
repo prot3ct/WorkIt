@@ -7,61 +7,64 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-        <LinearLayout
+        android:orientation="vertical"
+        android:layout_margin="10dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sept 27th in the Afternoon"
+            android:textSize="22dp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp" />
+        <TextView
+            android:id="@+id/id_task_creator_text_view"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <Button
-                android:id="@+id/id_apply_for_task_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Apply"/>
-            <Button
-                android:id="@+id/id_cancel_application_task_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cancel"/>
-            <Button
-                android:id="@+id/id_edit_task_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Edit"/>
-            <Button
-                android:id="@+id/id_taskers_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Taskers"/>
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:textColor="@color/md_green_900"
+            android:textSize="50px"
+            android:text="Title"/>
         <TextView
             android:id="@+id/id_title_details_edit_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="50px"
+            android:textColor="@color/md_black_1000"
+            android:textStyle="bold"
+            android:textSize="36dp"
             android:text="Title"/>
         <TextView
             android:id="@+id/id_description_details_edit_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
             android:textSize="50px"
-            android:text="Description"/>
-        <TextView
-            android:id="@+id/id_start_time_details_edit_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="50px"
-            android:text="Start TIme"/>
-        <TextView
-            android:id="@+id/id_end_time_details_edit_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="50px"
-            android:text="End Time"/>
+            android:text="Description"
+            android:layout_marginBottom="15dp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+
         <TextView
             android:id="@+id/id_reward_details_edit_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="50px"
-            android:text="Reward"/>
+            android:text="BGN 20/hr"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No Thanks"
+                android:layout_weight="1"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="I'll Do it"
+                android:layout_weight="1"/>
+        </LinearLayout>
     </LinearLayout>
 
 </FrameLayout>

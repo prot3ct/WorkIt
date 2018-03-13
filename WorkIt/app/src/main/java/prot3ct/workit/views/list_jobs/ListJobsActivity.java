@@ -8,10 +8,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 
+import com.mikepenz.materialdrawer.AccountHeader;
+import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 import prot3ct.workit.R;
 import prot3ct.workit.views.completed_tasks.CompletedTasksActivity;
@@ -27,9 +31,26 @@ public class ListJobsActivity extends AppCompatActivity {
         Toolbar toolbar = this.findViewById(R.id.id_drawer_toolbar);
         toolbar.setTitle("Browse tasks");
         setSupportActionBar(toolbar);
+
+        AccountHeader headerResult = new AccountHeaderBuilder()
+                .withActivity(this)
+                .withHeaderBackground(R.drawable.navigation_background)
+                .withTextColor(getResources().getColor(R.color.md_black_1000))
+                .addProfiles(
+                        new ProfileDrawerItem().withName("Georgi Karaboychev").withEmail("prot3ctore@gmail.com").withIcon(getResources().getDrawable(R.drawable.blank_profile_picture))
+                )
+                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
+                    @Override
+                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
+                        return false;
+                    }
+                })
+                .build();
+
         new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
+                .withAccountHeader(headerResult)
                 .addDrawerItems(
                         createMyTasksDrawerItem(),
                         createMyCompletedTasksDrawerItem(),

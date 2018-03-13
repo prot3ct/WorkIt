@@ -52,36 +52,36 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract.V
         applyForTaskDialog = new TaskRequestDialog();
         applyForTaskDialog.setPresenter(this.presenter);
         this.dialog = new WorkItProgressDialog(context);
-        this.taskersButton = view.findViewById(R.id.id_taskers_button);
-        this.applyForTaskButton = view.findViewById(R.id.id_apply_for_task_button);
+//        this.taskersButton = view.findViewById(R.id.id_taskers_button);
+//        this.applyForTaskButton = view.findViewById(R.id.id_apply_for_task_button);
         this.taskTitle = view.findViewById(R.id.id_title_details_edit_text);
         this.taskDescription = view.findViewById(R.id.id_description_details_edit_text);
-        this.taskStartDate = view.findViewById(R.id.id_start_time_details_edit_text);
-        this.taskEndDate = view.findViewById(R.id.id_end_time_details_edit_text);
+//        this.taskStartDate = view.findViewById(R.id.id_start_time_details_edit_text);
+//        this.taskEndDate = view.findViewById(R.id.id_end_time_details_edit_text);
 
         this.taskDetails = (TaskContract) this.getActivity().getIntent().getSerializableExtra("TaskDetails");
         applyForTaskDialog.setTaskId(taskDetails.getId());
 
-        this.taskTitle.setText(taskDetails.getTitle());
-        this.taskDescription.setText(taskDetails.getDescription());
-        this.taskStartDate.setText(taskDetails.getStartDate());
-        this.taskEndDate.setText(taskDetails.getEndDate());
+//        this.taskTitle.setText(taskDetails.getTitle());
+//        this.taskDescription.setText(taskDetails.getDescription());
+//        this.taskStartDate.setText(taskDetails.getStartDate());
+//        this.taskEndDate.setText(taskDetails.getEndDate());
 
-        this.applyForTaskButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                applyForTaskDialog.show(getFragmentManager(), "text_popup");
-            }
-        });
+//        this.applyForTaskButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                applyForTaskDialog.show(getFragmentManager(), "text_popup");
+//            }
+//        });
 
-        this.taskersButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, ListTaskRequestsActivity.class);
-                intent.putExtra("TaskId", taskDetails.getId());
-                startActivity(intent);
-            }
-        });
+//        this.taskersButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(context, ListTaskRequestsActivity.class);
+//                intent.putExtra("TaskId", taskDetails.getId());
+//                startActivity(intent);
+//            }
+//        });
 
         return view;
     }
