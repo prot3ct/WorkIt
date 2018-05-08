@@ -34,19 +34,17 @@ public class JobData implements JobDataContract{
 
     @Override
     public Observable<Boolean> createTask(String title, String startDate, String endDate,
-                                          String description, String country, String city, String address,
-                                          String reward, String minimalRating, String minimalJobsCompleted) {
+                                          String description, String city, String address,
+                                          String reward, String minimalRating) {
         Map<String, String> jobDetails = new HashMap<>();
         jobDetails.put("title", title);
         jobDetails.put("startDate", startDate);
         jobDetails.put("endDate", endDate);
         jobDetails.put("description", description);
-        jobDetails.put("country", country);
         jobDetails.put("city", city);
         jobDetails.put("address", address);
         jobDetails.put("reward", reward);
         jobDetails.put("minRaiting", minimalRating);
-        jobDetails.put("minTasksCompleted", minimalJobsCompleted);
         jobDetails.put("creatorEmail", this.userSession.getEmail().replaceAll("\"", ""));
 
         return httpRequester

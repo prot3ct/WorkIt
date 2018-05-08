@@ -34,13 +34,13 @@ public class RegisterPresenter implements RegisterContract.Presenter {
 
                     @Override
                     public void onNext(Boolean value) {
-                        view.notifySuccessful("You have registered successfully.");
                         view.dismissDialog();
                         view.showLoginActivity();
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        Log.d("SOmrihng", e.getMessage());
                         view.notifyError("Error ocurred when registering. Please try again later.");
                         view.dismissDialog();
                     }

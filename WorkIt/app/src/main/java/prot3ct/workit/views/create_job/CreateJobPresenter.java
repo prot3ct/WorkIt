@@ -21,10 +21,10 @@ public class CreateJobPresenter implements CreateJobContract.Presenter {
 
     @Override
     public void createTask(String title, String startDate, String endDate,
-                           String description, String country, String city, String address,
-                           String reward, String minimalRating, String minimalJobsCompleted) {
-        jobData.createTask(title, startDate, endDate, description, country,
-                city, address, reward, minimalJobsCompleted, minimalJobsCompleted)
+                           String description, String city, String address,
+                           String reward, String minimalRating) {
+        jobData.createTask(title, startDate, endDate, description,
+                city, address, reward, minimalRating)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
