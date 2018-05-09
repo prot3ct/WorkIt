@@ -17,7 +17,7 @@ public interface CreateJobContract {
     }
 
     interface Presenter {
-        void createTask(String title, String startDate, String endDate,
+        void createTask(String title, String startDate, String length,
                         String description, String city, String address,
                         String reward, String minimalRating);
     }

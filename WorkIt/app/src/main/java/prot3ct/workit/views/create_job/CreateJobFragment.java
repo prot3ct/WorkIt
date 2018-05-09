@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -32,7 +33,7 @@ public class CreateJobFragment extends Fragment implements CreateJobContract.Vie
 
     private TextView titleTextView;
     private TextView startDateTextView;
-    private TextView endDateTextView;
+    private EditText lengthEditText;
     private TextView descriptionTextView;
     private TextView cityTextView;
     private TextView addressTextView;
@@ -72,13 +73,13 @@ public class CreateJobFragment extends Fragment implements CreateJobContract.Vie
         this.dialog = new WorkItProgressDialog(context);
         this.titleTextView = (TextView) view.findViewById(R.id.id_title_edit_text);
         this.startDateTextView = (TextView) view.findViewById(R.id.id_choose_start_date_text_view);
-        this.endDateTextView = (TextView) view.findViewById(R.id.id_choose_end_date_text_view);
+        this.lengthEditText = (EditText) view.findViewById(R.id.id_length_edit_text);
         this.descriptionTextView = (TextView) view.findViewById(R.id.id_description_edit_text);
         this.cityTextView = (TextView) view.findViewById(R.id.id_city_edit_text);
         this.addressTextView = (TextView) view.findViewById(R.id.id_address_edit_text);
         this.rewardTextView = (TextView) view.findViewById(R.id.id_reward_edit_text);
         this.minimalRatingTextView = (TextView) view.findViewById(R.id.id_minimal_raiting_to_join_edit_text);
-        this.saveTaskButton = (Button) view.findViewById(R.id.id_save_task_button);
+        this.saveTaskButton = (Button) view.findViewById(R.id.id_create_task_btn);
 
 
         this.startDateTextView.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +89,7 @@ public class CreateJobFragment extends Fragment implements CreateJobContract.Vie
             }
         });
 
-        this.endDateTextView.setOnClickListener(new View.OnClickListener() {
+        this.lengthEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDateTimePicker(2);
@@ -101,7 +102,7 @@ public class CreateJobFragment extends Fragment implements CreateJobContract.Vie
                 presenter.createTask(
                     titleTextView.getText().toString(),
                     startDateTextView.getText().toString(),
-                    endDateTextView.getText().toString(),
+                    lengthEditText.getText().toString(),
                     descriptionTextView.getText().toString(),
                     cityTextView.getText().toString(),
                     addressTextView.getText().toString(),
@@ -162,7 +163,7 @@ public class CreateJobFragment extends Fragment implements CreateJobContract.Vie
                                 startDateTextView.setText(dateFormat.format(date.getTime()));
                             }
                             else if (temp == 2) {
-                                endDateTextView.setText(dateFormat.format(date.getTime()));
+                                lengthEditText.setText(dateFormat.format(date.getTime()));
                             }
                             first = false;
                         }

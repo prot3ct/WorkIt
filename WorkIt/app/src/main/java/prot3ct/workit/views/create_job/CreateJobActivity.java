@@ -17,7 +17,7 @@ public class CreateJobActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("Create task");
-        setContentView(R.layout.activity_list_jobs);
+        setContentView(R.layout.activity_create_job);
 
         CreateJobFragment createJobFragment =
                 (CreateJobFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
