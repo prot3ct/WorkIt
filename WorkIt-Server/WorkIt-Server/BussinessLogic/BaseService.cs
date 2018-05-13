@@ -12,7 +12,6 @@ namespace WorkIt_Server.BLL
         {
             this.WorkItDbContext = new WorkItDbContext();
             this.TaskLogic = new JobBussinessLogic(this.WorkItDbContext);
-            this.LocationLogic = new LocationBussinessLogic(this.WorkItDbContext);
             this.UserLogic = new UserBussinessLogic(this.WorkItDbContext);
             this.TaskReportLogic = new JobReportBussinessLogic(this.WorkItDbContext);
             this.TaskRequestLogic = new JobRequestBussinessLogic(this.WorkItDbContext);
@@ -24,7 +23,6 @@ namespace WorkIt_Server.BLL
 
         public JobBussinessLogic TaskLogic { get; private set; }
         
-        public LocationBussinessLogic LocationLogic { get; private set; }
 
         public UserBussinessLogic UserLogic { get; private set; }
 
@@ -53,9 +51,7 @@ namespace WorkIt_Server.BLL
 
         public void CreateTask(TaskDTO taskInformation)
         {
-            LocationLogic.CreateLocation(taskInformation.ToLocation());
-            var location = LocationLogic.GetLocationByInfo(taskInformation.ToLocation());
-            TaskLogic.CreateTask(taskInformation, location.LocationId);
+            TaskLogic.CreateTask(taskInformation);
         }
 
         public IEnumerable<TaskDTO> GetAllTasks()

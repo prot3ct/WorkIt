@@ -103,7 +103,6 @@
     <Compile Include="BussinessLogic\Logics\TaskBussinessLogic.cs" />
     <Compile Include="BussinessLogic\Logics\TaskReportBussinessLogic.cs" />
     <Compile Include="BussinessLogic\Logics\TaskRequestBussinessLogic.cs" />
-    <Compile Include="BussinessLogic\Logics\LocationBussinessLogic.cs" />
     <Compile Include="BussinessLogic\Logics\UserBussinessLogic.cs" />
     <Compile Include="BussinessLogic\Logics\UserReportBussinessLogic.cs" />
     <Compile Include="Controllers\RaitingsController.cs" />
@@ -135,6 +134,10 @@
     <Compile Include="Migrations\201803121614460_ChangeFullName.Designer.cs">
       <DependentUpon>201803121614460_ChangeFullName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805130921401_DatabaseRedesign.cs" />
+    <Compile Include="Migrations\201805130921401_DatabaseRedesign.Designer.cs">
+      <DependentUpon>201805130921401_DatabaseRedesign.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Context\WorkItDbContext.cs" />
     <Compile Include="Models\DTO\CommentDTO.cs" />
@@ -147,7 +150,6 @@
     <Compile Include="Models\DTO\UserReportDTO.cs" />
     <Compile Include="Models\RequestStatus.cs" />
     <Compile Include="Models\Task.cs" />
-    <Compile Include="Models\Location.cs" />
     <Compile Include="Models\TaskReport.cs" />
     <Compile Include="Models\TaskRequest.cs" />
     <Compile Include="Models\Raiting.cs" />
@@ -162,8 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Properties\PublishProfiles\WorkIt - Web Deploy.pubxml" />
-    <None Include="Properties\PublishProfiles\WorkIt-Server - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\WorkIt-Server20180513121646 - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -189,6 +190,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803121614460_ChangeFullName.resx">
       <DependentUpon>201803121614460_ChangeFullName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805130921401_DatabaseRedesign.resx">
+      <DependentUpon>201805130921401_DatabaseRedesign.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

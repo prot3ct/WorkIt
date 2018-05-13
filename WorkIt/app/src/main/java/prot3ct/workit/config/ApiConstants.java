@@ -3,7 +3,8 @@ package prot3ct.workit.config;
 import prot3ct.workit.config.base.ApiConstantsContract;
 
 public class ApiConstants implements ApiConstantsContract {
-    private static final String API_URL = "https://workit-server.azurewebsites.net/api";
+//    private static final String API_URL = "https://workit-server.azurewebsites.net/api";
+    private static final String API_URL = "http://workit-server20180513121646.azurewebsites.net/api";
 
     private static final int RESPNCE_SUCCESS_CODE = 200;
     private static final int RESPONSE_ERROR_CODE = 404;

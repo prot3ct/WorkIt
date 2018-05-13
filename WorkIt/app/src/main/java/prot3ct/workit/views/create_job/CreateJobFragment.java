@@ -133,7 +133,7 @@ public class CreateJobFragment extends Fragment implements CreateJobContract.Vie
 
     @Override
     public void showDialogforLoading() {
-        this.dialog.showProgress("Loading...");
+        this.dialog.showProgress("Creating task...");
     }
 
     @Override

@@ -6,7 +6,7 @@ import io.reactivex.Observable;
 import prot3ct.workit.models.Task;
 
 public interface JobDataContract {
-    Observable<Boolean> createTask(String title, String startDate, String endDate,
+    Observable<Boolean> createTask(String title, String startDate, String length,
                                    String description, String city, String address,
                                    String reward, String minimalRating);
 

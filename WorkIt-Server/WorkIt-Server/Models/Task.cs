@@ -16,30 +16,28 @@ namespace WorkIt_Server.Models
         public DateTime StartDate { get; set; }
 
         [Required]
-        public DateTime EndDate { get; set; }
+        public string Description { get; set; }
 
         [Required]
-        public string Description { get; set; }
+        public string City { get; set; }
+
+        [Required]
+        public string Address { get; set; }
 
         [Required]
         public string Reward { get; set; }
 
         [Required]
-        public int MinRaiting { get; set; }
+        public int Length { get; set; }
 
         [Required]
-        public int MinTasksCompleted { get; set; }
+        public int MinRaiting { get; set; }
 
         public bool IsCompleted { get; set; }
 
         public bool HasCreatorGivenRating { get; set; }
 
-        public bool HasTaskterGivenRating { get; set; }
-
-        [Required]
-        [ForeignKey("Location")]
-        public int LocationId { get; set; }
-        public virtual Location Location { get; set; }
+        public bool HasTaskerGivenRating { get; set; }
 
         [Required]
         [ForeignKey("Creator")]

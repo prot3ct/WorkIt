@@ -12,7 +12,6 @@ namespace WorkIt_Server.Models.Context
 
         public DbSet<User> Users { get; set; }
         public DbSet<Task> Tasks { get; set; }
-        public DbSet<Location> Locations { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<TaskComments> TasksComments { get; set; }
         public DbSet<UserReport> UserReports { get; set; }
