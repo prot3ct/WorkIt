@@ -54,9 +54,9 @@ namespace WorkIt_Server.BLL
             TaskLogic.CreateTask(taskInformation);
         }
 
-        public IEnumerable<TaskDTO> GetAllTasks()
+        public IEnumerable<TaskDTO> GetAllAvailableTasks()
         {
-            return TaskLogic.GetAllTasks();
+            return TaskLogic.GetAllAvailableTasks();
         }
 
         public IEnumerable<TaskDTO> GetTasksByUser(int userId)

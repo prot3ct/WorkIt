@@ -12,11 +12,11 @@ namespace WorkIt_Server.Controllers
 
         [Route("tasks")]
         [HttpGet]
-        public IHttpActionResult GetAllTasks()
+        public IHttpActionResult GetAllAvailableTasks()
         {
             try
             {
-                return Ok(service.GetAllTasks());
+                return Ok(service.GetAllAvailableTasks());
             }
             catch (Exception)
             {

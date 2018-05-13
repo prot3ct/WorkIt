@@ -157,7 +157,7 @@ public class CreateJobFragment extends Fragment implements CreateJobContract.Vie
                         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                             date.set(Calendar.HOUR_OF_DAY, hourOfDay);
                             date.set(Calendar.MINUTE, minute);
-                            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd,hh:mm");
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd,HH:mm");
 
                             if (temp == 1) {
                                 startDateTextView.setText(dateFormat.format(date.getTime()));

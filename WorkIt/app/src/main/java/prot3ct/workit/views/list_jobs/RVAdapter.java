@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.DateFormat;
+import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -43,30 +44,40 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.TaskViewHolder> {
 
     @Override
     public void onBindViewHolder(TaskViewHolder holder, final int position) {
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm", Locale.ENGLISH);
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.ENGLISH);
         Date date = null;
         try {
             date = format.parse(tasks.get(position).getStartDate());
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
         Date currentDate = Calendar.getInstance().getTime();
-        Log.d("CECCO", Integer.toString(currentDate.getDay()));
-        Log.d("CECCO", format.format(date));
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        Calendar currentCalendar = Calendar.getInstance();
+        currentCalendar.setTime(currentDate);
+
         if (currentDate.getDay() == date.getDay()) {
             holder.startTime.setText("Today");
             if (date.getHours() != currentDate.getHours()) {
-                holder.timeLeft.setText(date.getHours() - currentDate.getHours() + " hours left to respond");
+                if (calendar.get(Calendar.HOUR_OF_DAY) - currentCalendar.get(Calendar.HOUR_OF_DAY) <= 0) {
+                    holder.timeLeft.setText("Expired");
+                }
+                else {
+                    holder.timeLeft.setText(calendar.get(Calendar.HOUR_OF_DAY) - currentCalendar.get(Calendar.HOUR_OF_DAY) + " hours left to respond");
+                }
             }
             else {
-                holder.timeLeft.setText(date.getMinutes() - currentDate.getMinutes() + " minutes left to respond");
+                if (calendar.get(Calendar.MINUTE) - currentCalendar.get(Calendar.MINUTE) <= 0) {
+                    tasks.remove(position);
+                    return;
+                }
+                holder.timeLeft.setText(calendar.get(Calendar.MINUTE) - currentCalendar.get(Calendar.MINUTE) + " minutes left to respond");
             }
         }
-        else if (currentDate.getDay() - 1 == date.getDay()) {
-            holder.startTime.setText("Tomorrow");
-        }
         else {
-            holder.startTime.setText(date.getDay() + "." + date.getMonth());
+            holder.startTime.setText(getOrdinal(calendar.get(Calendar.DAY_OF_MONTH)) + " " + getMonthForInt(calendar.get(Calendar.MONTH)));
         }
         holder.taskTitle.setText(tasks.get(position).getTitle());
         holder.taskCreator.setText("for " + tasks.get(position).getCreatorEmail());
@@ -99,6 +110,29 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.TaskViewHolder> {
             timeLeft = itemView.findViewById(R.id.id_task_time_left);
             taskTitle = itemView.findViewById(R.id.id_task_title);
             taskCreator = itemView.findViewById(R.id.id_task_creator);
+        }
+    }
+
+    private String getMonthForInt(int num) {
+        String month = "wrong";
+        DateFormatSymbols dfs = new DateFormatSymbols();
+        String[] months = dfs.getMonths();
+        if (num >= 0 && num <= 11 ) {
+            month = months[num];
+        }
+        return month;
+    }
+
+    public static String getOrdinal(int i) {
+        String[] sufixes = new String[] { "th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th" };
+        switch (i % 100) {
+            case 11:
+            case 12:
+            case 13:
+                return i + "th";
+            default:
+                return i + sufixes[i % 10];
+
         }
     }
 }

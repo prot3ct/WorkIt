@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Objects;
+using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using WorkIt_Server.Models;
 using WorkIt_Server.Models.Context;
@@ -75,21 +77,24 @@ namespace WorkIt_Server.BLL
                 .ToList();
         }
 
-        public IEnumerable<TaskDTO> GetAllTasks()
+        public IEnumerable<TaskDTO> GetAllAvailableTasks()
         {
-            return Db.Tasks.Select(j => new TaskDTO
-            {
-                Id = j.TaskId,
-                CreatorEmail = j.Creator.Email,
-                Address = j.Address,
-                City = j.City,
-                Description = j.Description,
-                StartDate = j.StartDate,
-                MinRaiting = j.MinRaiting.ToString(),
-                Reward = j.Reward,
-                Title = j.Title
-            })
-            .ToList();
+            return Db.Tasks
+                .Where(t => t.StartDate > DateTime.Now)
+                .OrderBy(t => t.StartDate)
+                .Select(j => new TaskDTO
+                {
+                    Id = j.TaskId,
+                    CreatorEmail = j.Creator.Email,
+                    Address = j.Address,
+                    City = j.City,
+                    Description = j.Description,
+                    StartDate = j.StartDate,
+                    MinRaiting = j.MinRaiting.ToString(),
+                    Reward = j.Reward,
+                    Title = j.Title
+                })
+                .ToList();
         }
 
 
