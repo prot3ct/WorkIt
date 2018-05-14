@@ -16,7 +16,7 @@ public interface JobDetailsContract {
     }
 
     interface Presenter {
-        void createTaskRequest(String description, int taskId);
+        void createTaskRequest(int taskId);
 
         void getLatLng(String location);
     }

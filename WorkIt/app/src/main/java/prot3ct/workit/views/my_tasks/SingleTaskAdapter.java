@@ -1,8 +1,7 @@
-package prot3ct.workit.views.list_jobs;
+package prot3ct.workit.views.my_tasks;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,20 +20,19 @@ import java.util.Locale;
 
 import prot3ct.workit.R;
 import prot3ct.workit.models.base.TaskContract;
-import prot3ct.workit.views.job_details.JobDetailsActivity;
 
-public class RVAdapter extends RecyclerView.Adapter<RVAdapter.TaskViewHolder> {
+public class SingleTaskAdapter extends RecyclerView.Adapter<SingleTaskAdapter.TaskViewHolder> {
     List<? extends TaskContract> tasks;
     private Context context;
 
-    RVAdapter(List<? extends TaskContract> tasks, Context context){
+    SingleTaskAdapter(List<? extends TaskContract> tasks, Context context){
         this.tasks = tasks;
         this.context = context;
     }
 
     @Override
     public TaskViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_task_list_tasks, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_tasks_my_tasks, parent, false);
         TaskViewHolder pvh = new TaskViewHolder(v);
         return pvh;
     }
@@ -55,55 +53,30 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.TaskViewHolder> {
         Calendar currentCalendar = Calendar.getInstance();
         currentCalendar.setTime(currentDate);
 
-        if (currentCalendar.get(Calendar.DAY_OF_MONTH) == calendar.get(Calendar.DAY_OF_MONTH)) {
+        if (currentDate.getDay() == date.getDay()) {
             holder.startTime.setText("Today");
             if (date.getHours() != currentDate.getHours()) {
                 if (calendar.get(Calendar.HOUR_OF_DAY) - currentCalendar.get(Calendar.HOUR_OF_DAY) <= 0) {
                     holder.timeLeft.setText("Expired");
                 }
                 else {
-                    holder.timeLeft.setText(calendar.get(Calendar.HOUR_OF_DAY) - currentCalendar.get(Calendar.HOUR_OF_DAY) + " hours left to respond");
+                    holder.timeLeft.setText(calendar.get(Calendar.HOUR_OF_DAY) - currentCalendar.get(Calendar.HOUR_OF_DAY) + " hours left until start");
                 }
             }
             else {
-                holder.timeLeft.setText(calendar.get(Calendar.MINUTE) - currentCalendar.get(Calendar.MINUTE) + " minutes left to respond");
+                holder.timeLeft.setText(calendar.get(Calendar.MINUTE) - currentCalendar.get(Calendar.MINUTE) + " minutes left until start");
             }
         }
         else {
             holder.startTime.setText(getOrdinal(calendar.get(Calendar.DAY_OF_MONTH)) + " " + getMonthForInt(calendar.get(Calendar.MONTH)));
         }
         holder.taskTitle.setText(tasks.get(position).getTitle());
-        holder.taskCreator.setText("for " + tasks.get(position).getCreatorEmail());
-        holder.cv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, JobDetailsActivity.class);
-                intent.putExtra("TaskDetails", tasks.get(position));
-                context.startActivity(intent);
-            }
-        });
+        holder.taskCreator.setText("for me");
     }
 
     @Override
     public int getItemCount() {
         return tasks.size();
-    }
-
-    public static class TaskViewHolder extends RecyclerView.ViewHolder {
-        CardView cv;
-        TextView startTime;
-        TextView timeLeft;
-        TextView taskTitle;
-        TextView taskCreator;
-
-        TaskViewHolder(View itemView) {
-            super(itemView);
-            cv = itemView.findViewById(R.id.id_single_task_from_list_tasks);
-            startTime = itemView.findViewById(R.id.id_task_start_time);
-            timeLeft = itemView.findViewById(R.id.id_task_time_left);
-            taskTitle = itemView.findViewById(R.id.id_task_title);
-            taskCreator = itemView.findViewById(R.id.id_task_creator);
-        }
     }
 
     private String getMonthForInt(int num) {
@@ -125,6 +98,23 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.TaskViewHolder> {
                 return i + "th";
             default:
                 return i + sufixes[i % 10];
+        }
+    }
+
+    public static class TaskViewHolder extends RecyclerView.ViewHolder {
+        CardView cv;
+        TextView startTime;
+        TextView timeLeft;
+        TextView taskTitle;
+        TextView taskCreator;
+
+        TaskViewHolder(View itemView) {
+            super(itemView);
+            cv = itemView.findViewById(R.id.id_single_task_from_my_tasks);
+            startTime = itemView.findViewById(R.id.id_task_start_time);
+            timeLeft = itemView.findViewById(R.id.id_task_time_left);
+            taskTitle = itemView.findViewById(R.id.id_task_title);
+            taskCreator = itemView.findViewById(R.id.id_task_creator);
         }
     }
 }

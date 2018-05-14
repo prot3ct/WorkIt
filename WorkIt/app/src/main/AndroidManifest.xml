@@ -49,6 +49,8 @@
             android:name=".views.list_task_requests.ListTaskRequestsActivity" />
         <activity
             android:name=".views.completed_tasks.CompletedTasksActivity" />
+        <activity
+            android:name=".views.my_tasks.MyTasksActivity" />
 
         <uses-library android:name="com.google.android.maps"/>
 

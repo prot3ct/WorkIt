@@ -9,9 +9,6 @@ namespace WorkIt_Server.Models
         public int TaskRequestId { get; set; }
 
         [Required]
-        public string Description { get; set; }
-
-        [Required]
         [ForeignKey("User")]
         public int UserId { get; set; }
         public virtual User User { get; set; }

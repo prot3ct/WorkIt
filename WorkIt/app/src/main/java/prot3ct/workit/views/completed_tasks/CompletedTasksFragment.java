@@ -1,9 +1,7 @@
 package prot3ct.workit.views.completed_tasks;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,10 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -23,11 +17,6 @@ import prot3ct.workit.R;
 import prot3ct.workit.models.base.TaskContract;
 import prot3ct.workit.utils.WorkItProgressDialog;
 import prot3ct.workit.views.completed_tasks.base.CompletedTasksContract;
-import prot3ct.workit.views.create_job.CreateJobActivity;
-import prot3ct.workit.views.job_details.JobDetailsActivity;
-import prot3ct.workit.views.job_details.TaskRequestDialog;
-import prot3ct.workit.views.list_jobs.RVAdapter;
-import prot3ct.workit.views.login.LoginActivity;
 
 public class CompletedTasksFragment extends Fragment implements CompletedTasksContract.View {
     private CompletedTasksContract.Presenter presenter;

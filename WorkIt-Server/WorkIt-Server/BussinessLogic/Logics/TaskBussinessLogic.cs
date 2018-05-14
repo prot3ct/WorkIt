@@ -34,7 +34,6 @@ namespace WorkIt_Server.BLL
         public void CreateTask(TaskDTO jobInformation)
         {
             var creator = Db.Users.Where(u => u.Email == jobInformation.CreatorEmail).FirstOrDefault();
-
             var jobToBeInserted = new Task
             {
                 MinRaiting = int.Parse(jobInformation.MinRaiting),
@@ -102,6 +101,8 @@ namespace WorkIt_Server.BLL
         {
             return Db.Tasks
                 .Where(t => t.Creator.UserId == userId)
+                .Where(t => t.StartDate > DateTime.Now)
+                .OrderBy(t => t.StartDate)
                 .Select(j => new TaskDTO
                 {
                     Id = j.TaskId,

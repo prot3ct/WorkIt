@@ -1,65 +1,53 @@
-package prot3ct.workit.views.list_jobs;
+package prot3ct.workit.views.my_tasks;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.mikepenz.materialdrawer.Drawer;
-import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import java.util.List;
 
 import prot3ct.workit.R;
 import prot3ct.workit.models.base.TaskContract;
-import prot3ct.workit.views.completed_tasks.CompletedTasksActivity;
 import prot3ct.workit.views.create_job.CreateJobActivity;
-import prot3ct.workit.views.job_details.JobDetailsActivity;
-import prot3ct.workit.views.list_jobs.base.ListJobsContract;
 import prot3ct.workit.views.login.LoginActivity;
+import prot3ct.workit.views.my_tasks.base.MyTasksContract;
 
-public class ListJobsFragment extends Fragment implements ListJobsContract.View {
-    private ListJobsContract.Presenter presenter;
+public class MyTasksFragment extends Fragment implements MyTasksContract.View {
+    private MyTasksContract.Presenter presenter;
     private Context context;
 
     private FloatingActionButton createTaskButton;
+//    private Button logoutButton;
     private RecyclerView recyclerTaskView;
 
-    public ListJobsFragment() {
+    public MyTasksFragment() {
         // Required empty public constructor
     }
 
-    public static ListJobsFragment newInstance() {
-        return new ListJobsFragment();
+    public static MyTasksFragment newInstance() {
+        return new MyTasksFragment();
     }
 
     @Override
-    public void setPresenter(ListJobsContract.Presenter presenter) {
+    public void setPresenter(MyTasksContract.Presenter presenter) {
         this.presenter = presenter;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_list_jobs, container, false);
+        View view = inflater.inflate(R.layout.fragment_my_tasks, container, false);
 
         this.createTaskButton = view.findViewById(R.id.id_create_task_button);
-        this.recyclerTaskView = view.findViewById(R.id.id_list_tasks_list_view);
+        this.recyclerTaskView = view.findViewById(R.id.id_my_tasks_list_view);
         LinearLayoutManager llm = new LinearLayoutManager(context);
         recyclerTaskView.setLayoutManager(llm);
 
@@ -70,7 +58,7 @@ public class ListJobsFragment extends Fragment implements ListJobsContract.View 
             }
         });
 
-        presenter.getAllTasks();
+        presenter.getMyTasks();
 
         return view;
     }
@@ -89,19 +77,13 @@ public class ListJobsFragment extends Fragment implements ListJobsContract.View 
     }
 
     @Override
-    public void showLoginActivity() {
-        Intent intent = new Intent(this.context, LoginActivity.class);
-        startActivity(intent);
-    }
-
-    @Override
     public void notifySuccessful(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void setupTasksAdapter(final List<? extends TaskContract> tasks) {
-        RVAdapter adapter = new RVAdapter(tasks, context);
+        SingleTaskAdapter adapter = new SingleTaskAdapter(tasks, context);
         recyclerTaskView.setAdapter(adapter);
     }
 }

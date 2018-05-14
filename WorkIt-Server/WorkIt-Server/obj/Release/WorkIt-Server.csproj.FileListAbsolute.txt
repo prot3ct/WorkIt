@@ -79,3 +79,4 @@ C:\Users\prot3\Desktop\diplomna\WorkIt\WorkIt-Server\WorkIt-Server\bin\System.We
 C:\Users\prot3\Desktop\diplomna\WorkIt\WorkIt-Server\WorkIt-Server\bin\System.Web.Http.WebHost.xml
 C:\Users\prot3\Desktop\diplomna\WorkIt\WorkIt-Server\WorkIt-Server\obj\Release\WorkIt-Server.csproj.CopyComplete
 C:\Users\prot3\Desktop\diplomna\WorkIt\WorkIt-Server\WorkIt-Server\obj\Release\WorkIt_Server.Migrations.DatabaseRedesign.resources
+C:\Users\prot3\Desktop\diplomna\WorkIt\WorkIt-Server\WorkIt-Server\obj\Release\WorkIt_Server.Migrations.ModifyTaskRequest.resources

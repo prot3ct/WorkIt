@@ -54,9 +54,8 @@ public class TaskRequestData implements TaskRequestDataContract {
     }
 
     @Override
-    public Observable<Boolean> createTaskRequest(String descritpion, int taskId) {
+    public Observable<Boolean> createTaskRequest(int taskId) {
         Map<String, String> taskRequest = new HashMap<>();
-        taskRequest.put("description", descritpion);
         taskRequest.put("taskId", Integer.toString(taskId));
         taskRequest.put("userId", Integer.toString(userSession.getId()));
 

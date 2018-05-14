@@ -138,6 +138,10 @@
     <Compile Include="Migrations\201805130921401_DatabaseRedesign.Designer.cs">
       <DependentUpon>201805130921401_DatabaseRedesign.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805141457549_ModifyTaskRequest.cs" />
+    <Compile Include="Migrations\201805141457549_ModifyTaskRequest.Designer.cs">
+      <DependentUpon>201805141457549_ModifyTaskRequest.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Context\WorkItDbContext.cs" />
     <Compile Include="Models\DTO\CommentDTO.cs" />
@@ -193,6 +197,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805130921401_DatabaseRedesign.resx">
       <DependentUpon>201805130921401_DatabaseRedesign.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805141457549_ModifyTaskRequest.resx">
+      <DependentUpon>201805141457549_ModifyTaskRequest.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

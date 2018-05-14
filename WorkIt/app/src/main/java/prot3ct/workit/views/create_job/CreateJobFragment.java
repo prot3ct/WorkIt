@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ import prot3ct.workit.R;
 import prot3ct.workit.utils.WorkItProgressDialog;
 import prot3ct.workit.views.create_job.base.CreateJobContract;
 import prot3ct.workit.views.list_jobs.ListJobsActivity;
+import prot3ct.workit.views.navigation.DrawerUtil;
 
 public class CreateJobFragment extends Fragment implements CreateJobContract.View {
     private CreateJobContract.Presenter presenter;
@@ -39,6 +41,7 @@ public class CreateJobFragment extends Fragment implements CreateJobContract.Vie
     private TextView addressTextView;
     private TextView rewardTextView;
     private TextView minimalRatingTextView;
+    private Toolbar toolbar;
     private Button saveTaskButton;
 
     private Calendar date;
@@ -70,6 +73,7 @@ public class CreateJobFragment extends Fragment implements CreateJobContract.Vie
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_create_job, container, false);
 
+        this.toolbar = view.findViewById(R.id.id_drawer_toolbar);
         this.dialog = new WorkItProgressDialog(context);
         this.titleTextView = (TextView) view.findViewById(R.id.id_title_edit_text);
         this.startDateTextView = (TextView) view.findViewById(R.id.id_choose_start_date_text_view);
@@ -80,7 +84,8 @@ public class CreateJobFragment extends Fragment implements CreateJobContract.Vie
         this.rewardTextView = (TextView) view.findViewById(R.id.id_reward_edit_text);
         this.minimalRatingTextView = (TextView) view.findViewById(R.id.id_minimal_raiting_to_join_edit_text);
         this.saveTaskButton = (Button) view.findViewById(R.id.id_create_task_btn);
-
+        DrawerUtil drawer = new DrawerUtil(this.getActivity(), this.toolbar);
+        drawer.getDrawer();
 
         this.startDateTextView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,7 +1,6 @@
-package prot3ct.workit.views.list_jobs;
+package prot3ct.workit.views.my_tasks;
 
 import android.content.Context;
-import android.util.Log;
 
 import java.util.List;
 
@@ -12,22 +11,22 @@ import io.reactivex.schedulers.Schedulers;
 import prot3ct.workit.data.remote.JobData;
 import prot3ct.workit.data.remote.UserData;
 import prot3ct.workit.models.Task;
-import prot3ct.workit.views.list_jobs.base.ListJobsContract;
+import prot3ct.workit.views.my_tasks.base.MyTasksContract;
 
-public class ListJobsPresenter implements ListJobsContract.Presenter {
-    private ListJobsContract.View view;
+public class MyTasksPresenter implements MyTasksContract.Presenter {
+    private MyTasksContract.View view;
     private UserData userData;
     private JobData jobData;
 
-    public ListJobsPresenter(ListJobsContract.View view, Context context) {
+    public MyTasksPresenter(MyTasksContract.View view, Context context) {
         this.view = view;
         this.userData = new UserData(context);
         this.jobData = new JobData(context);
     }
 
     @Override
-    public void getAllTasks() {
-        jobData.getAllTasks()
+    public void getMyTasks() {
+        jobData.getMyTasks()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -54,5 +53,4 @@ public class ListJobsPresenter implements ListJobsContract.Presenter {
                     }
                 });
     }
-
 }

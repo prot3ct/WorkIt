@@ -25,8 +25,8 @@ public class JobDetailsPresenter implements JobDetailsContract.Presenter {
     }
 
     @Override
-    public void createTaskRequest(String description, int taskId) {
-        taskRequestData.createTaskRequest(description, taskId)
+    public void createTaskRequest(int taskId) {
+        taskRequestData.createTaskRequest(taskId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(

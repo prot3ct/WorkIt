@@ -8,7 +8,7 @@ import prot3ct.workit.data.remote.result_models.TaskRequestListCommentsViewModel
 import prot3ct.workit.data.remote.result_models.TaskRequestListViewModel;
 
 public interface TaskRequestDataContract {
-    Observable<Boolean> createTaskRequest(String descritpion, int taskId);
+    Observable<Boolean> createTaskRequest(int taskId);
 
     Observable<List<TaskRequestListViewModel>> getAllTaskRequestsForUser();
 

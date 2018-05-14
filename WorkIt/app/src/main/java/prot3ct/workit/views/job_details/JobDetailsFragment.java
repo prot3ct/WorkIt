@@ -1,12 +1,9 @@
 package prot3ct.workit.views.job_details;
 
 import android.content.Context;
-import android.content.Intent;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +17,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.mikepenz.materialdrawer.Drawer;
 
 import java.text.DateFormat;
 import java.text.DateFormatSymbols;
@@ -27,14 +25,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import prot3ct.workit.R;
 import prot3ct.workit.models.base.TaskContract;
 import prot3ct.workit.utils.WorkItProgressDialog;
 import prot3ct.workit.views.job_details.base.JobDetailsContract;
-import prot3ct.workit.views.list_task_requests.ListTaskRequestsActivity;
+import prot3ct.workit.views.navigation.DrawerUtil;
 
 public class JobDetailsFragment extends Fragment implements JobDetailsContract.View, OnMapReadyCallback {
     private JobDetailsContract.Presenter presenter;
@@ -43,12 +40,13 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract.V
 
     private GoogleMap mMap;
 
-    private TaskRequestDialog applyForTaskDialog;
     private TextView taskTitle;
     private TextView taskDescription;
     private TextView taskStartDate;
     private TextView reward;
     private TextView city;
+    private Toolbar toolbar;
+    private Button applyForTask;
     private WorkItProgressDialog dialog;
 
     public JobDetailsFragment() {
@@ -73,17 +71,19 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract.V
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        applyForTaskDialog = new TaskRequestDialog();
-        applyForTaskDialog.setPresenter(this.presenter);
         this.dialog = new WorkItProgressDialog(context);
+        this.applyForTask = view.findViewById(R.id.id_apply_for_task_button);
+        this.toolbar = view.findViewById(R.id.id_drawer_toolbar);
         this.taskTitle = view.findViewById(R.id.id_title_details_edit_text);
         this.reward = view.findViewById(R.id.id_reward_details_edit_text);
         this.taskDescription = view.findViewById(R.id.id_description_details_edit_text);
         this.taskStartDate = view.findViewById(R.id.id_date_details_text_view);
         this.city = view.findViewById(R.id.id_city_details_text_view);
 
+        DrawerUtil drawer = new DrawerUtil(this.getActivity(), this.toolbar);
+        drawer.getDrawer();
+
         this.taskDetails = (TaskContract) this.getActivity().getIntent().getSerializableExtra("TaskDetails");
-        applyForTaskDialog.setTaskId(taskDetails.getId());
 
         this.taskTitle.setText(taskDetails.getTitle());
         this.taskDescription.setText(taskDetails.getDescription());
@@ -104,13 +104,14 @@ public class JobDetailsFragment extends Fragment implements JobDetailsContract.V
         this.reward.setText("BGN " + taskDetails.getReward() +"/hr");
         this.city.setText(taskDetails.getCity() + ", " + taskDetails.getAddress());// for
 
+        this.applyForTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.createTaskRequest(taskDetails.getId());
+                getActivity().finish();
+            }
+        });
 
-//        this.applyForTaskButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                applyForTaskDialog.show(getFragmentManager(), "text_popup");
-//            }
-//        });
 
         return view;
     }

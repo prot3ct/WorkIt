@@ -36,7 +36,6 @@ namespace WorkIt_Server.BLL
 
             return new TaskRequestDetailsViewModel
             {
-                Description = taskRequest.Description,
                 TaskRequestId = taskRequest.TaskRequestId,
                 TaskTitle = taskRequest.Task.Title,
                 Status = taskRequest.RequestStatus.Name,
@@ -65,7 +64,6 @@ namespace WorkIt_Server.BLL
         {
             var taskRequestToBeInserted = new TaskRequest
             {
-                Description = taskRequest.Description,
                 TaskId = taskRequest.TaskId,
                 UserId = taskRequest.UserId,
                 RequestStatusId = 1
