@@ -10,20 +10,27 @@
         android:orientation="vertical"
         android:layout_margin="10dp">
         <TextView
+            android:id="@+id/id_date_details_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Sept 27th in the Afternoon"
             android:textSize="22dp"/>
-        <ImageView
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:map="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
-            android:layout_height="150dp" />
+            android:layout_height="150dp"
+
+            tools:context=".views.job_details.JobDetailsFragment" />
         <TextView
-            android:id="@+id/id_task_creator_text_view"
+            android:id="@+id/id_city_details_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/md_green_900"
             android:textSize="50px"
-            android:text="Title"/>
+            android:text="City"/>
         <TextView
             android:id="@+id/id_title_details_edit_text"
             android:layout_width="wrap_content"
@@ -50,21 +57,14 @@
             android:layout_height="wrap_content"
             android:textSize="50px"
             android:text="BGN 20/hr"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="2">
+
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="No Thanks"
-                android:layout_weight="1"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:background="@color/bg_login"
+                android:textSize="25sp"
                 android:text="I'll Do it"
                 android:layout_weight="1"/>
-        </LinearLayout>
     </LinearLayout>
 
 </FrameLayout>

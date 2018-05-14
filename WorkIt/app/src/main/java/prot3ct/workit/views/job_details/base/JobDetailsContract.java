@@ -10,10 +10,14 @@ public interface JobDetailsContract {
 
         void showDialogforLoading();
 
+        void updateMap(double lat, double lng);
+
         void dismissDialog();
     }
 
     interface Presenter {
         void createTaskRequest(String description, int taskId);
+
+        void getLatLng(String location);
     }
 }

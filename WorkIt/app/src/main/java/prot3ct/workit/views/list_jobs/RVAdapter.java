@@ -69,10 +69,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.TaskViewHolder> {
                 }
             }
             else {
-                if (calendar.get(Calendar.MINUTE) - currentCalendar.get(Calendar.MINUTE) <= 0) {
-                    tasks.remove(position);
-                    return;
-                }
                 holder.timeLeft.setText(calendar.get(Calendar.MINUTE) - currentCalendar.get(Calendar.MINUTE) + " minutes left to respond");
             }
         }
@@ -123,7 +119,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.TaskViewHolder> {
         return month;
     }
 
-    public static String getOrdinal(int i) {
+    private String getOrdinal(int i) {
         String[] sufixes = new String[] { "th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th" };
         switch (i % 100) {
             case 11:
@@ -132,7 +128,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.TaskViewHolder> {
                 return i + "th";
             default:
                 return i + sufixes[i % 10];
-
         }
     }
 }
