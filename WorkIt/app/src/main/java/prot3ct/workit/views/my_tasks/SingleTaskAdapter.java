@@ -2,11 +2,13 @@ package prot3ct.workit.views.my_tasks;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.text.DateFormat;
@@ -20,6 +22,8 @@ import java.util.Locale;
 
 import prot3ct.workit.R;
 import prot3ct.workit.models.base.TaskContract;
+import prot3ct.workit.views.edit_task.EditTaskActivity;
+import prot3ct.workit.views.job_details.JobDetailsActivity;
 
 public class SingleTaskAdapter extends RecyclerView.Adapter<SingleTaskAdapter.TaskViewHolder> {
     List<? extends TaskContract> tasks;
@@ -72,6 +76,15 @@ public class SingleTaskAdapter extends RecyclerView.Adapter<SingleTaskAdapter.Ta
         }
         holder.taskTitle.setText(tasks.get(position).getTitle());
         holder.taskCreator.setText("for me");
+
+        holder.editTaskButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, EditTaskActivity.class);
+                intent.putExtra("taskId", tasks.get(position).getId());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -107,6 +120,8 @@ public class SingleTaskAdapter extends RecyclerView.Adapter<SingleTaskAdapter.Ta
         TextView timeLeft;
         TextView taskTitle;
         TextView taskCreator;
+        Button editTaskButton;
+        Button taskRequestersButton;
 
         TaskViewHolder(View itemView) {
             super(itemView);
@@ -115,6 +130,8 @@ public class SingleTaskAdapter extends RecyclerView.Adapter<SingleTaskAdapter.Ta
             timeLeft = itemView.findViewById(R.id.id_task_time_left);
             taskTitle = itemView.findViewById(R.id.id_task_title);
             taskCreator = itemView.findViewById(R.id.id_task_creator);
+            editTaskButton = itemView.findViewById(R.id.id_edit_task_button);
+            taskRequestersButton = itemView.findViewById(R.id.id_task_requests_button);
         }
     }
 }

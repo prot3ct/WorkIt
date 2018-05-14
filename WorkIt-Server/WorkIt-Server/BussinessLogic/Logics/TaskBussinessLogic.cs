@@ -36,7 +36,7 @@ namespace WorkIt_Server.BLL
             var creator = Db.Users.Where(u => u.Email == jobInformation.CreatorEmail).FirstOrDefault();
             var jobToBeInserted = new Task
             {
-                MinRaiting = int.Parse(jobInformation.MinRaiting),
+                MinRaiting = jobInformation.MinRaiting,
                 Reward = jobInformation.Reward,
                 CreatorId = creator.UserId,
                 Description = jobInformation.Description,
@@ -55,6 +55,23 @@ namespace WorkIt_Server.BLL
             Db.SaveChanges();
         }
 
+        public void UpdateTask(TaskDTO jobInformation)
+        {
+            var creator = Db.Users.Where(u => u.Email == jobInformation.CreatorEmail).FirstOrDefault();
+            var updatedTask = db.Tasks.FirstOrDefault(t => t.TaskId == jobInformation.Id);
+
+            updatedTask.Title = jobInformation.Title;
+            updatedTask.StartDate = jobInformation.StartDate;
+            updatedTask.Reward = jobInformation.Reward;
+            updatedTask.MinRaiting = jobInformation.MinRaiting;
+            updatedTask.Length = jobInformation.Length;
+            updatedTask.Description = jobInformation.Description;
+            updatedTask.City = jobInformation.City;
+            updatedTask.Address = jobInformation.Address;
+
+            Db.SaveChanges();
+        }
+
         public IEnumerable<TaskDTO> GetCompletedTasksByUser(int userId)
         {
             return Db.Tasks
@@ -69,7 +86,7 @@ namespace WorkIt_Server.BLL
                     City = t.City,
                     Description = t.Description,
                     StartDate = t.StartDate,
-                    MinRaiting = t.MinRaiting.ToString(),
+                    MinRaiting = t.MinRaiting,
                     Reward = t.Reward,
                     Title = t.Title,
                 })
@@ -89,7 +106,7 @@ namespace WorkIt_Server.BLL
                     City = j.City,
                     Description = j.Description,
                     StartDate = j.StartDate,
-                    MinRaiting = j.MinRaiting.ToString(),
+                    MinRaiting = j.MinRaiting,
                     Reward = j.Reward,
                     Title = j.Title
                 })
@@ -111,7 +128,7 @@ namespace WorkIt_Server.BLL
                     City = j.City,
                     Description = j.Description,
                     StartDate = j.StartDate,
-                    MinRaiting = j.MinRaiting.ToString(),
+                    MinRaiting = j.MinRaiting,
                     Reward = j.Reward,
                     Title = j.Title
                 })
@@ -135,9 +152,9 @@ namespace WorkIt_Server.BLL
                 City = task.City,
                 Title = task.Title,
                 Description = task.Description,
-                CreatorEmail = task.Creator.Email,
+                Length = task.Length,
                 StartDate = task.StartDate,
-                MinRaiting = task.MinRaiting.ToString(),
+                MinRaiting = task.MinRaiting,
                 Reward = task.Reward
             };
         }

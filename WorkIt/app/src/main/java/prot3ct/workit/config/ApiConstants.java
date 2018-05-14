@@ -34,6 +34,16 @@ public class ApiConstants implements ApiConstantsContract {
     }
 
     @Override
+    public String updateTaskUrl(int taskId) {
+        return API_URL + "/tasks/" + taskId +"/update";
+    }
+
+    @Override
+    public String getTaskByIdUrl(int taskId) {
+        return API_URL  + "/tasks/" + taskId;
+    }
+
+    @Override
     public String createTaskRequestUrl() { return API_URL + "/requests"; }
 
     @Override

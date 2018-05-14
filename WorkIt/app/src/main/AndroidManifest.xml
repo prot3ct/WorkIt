@@ -32,25 +32,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".views.register.RegisterActivity" />
-        <activity
-            android:name=".views.list_jobs.ListJobsActivity"/>
-        <activity
-            android:name=".views.create_job.CreateJobActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity
-            android:name=".views.job_details.JobDetailsActivity"
-            android:label="@string/title_activity_job_details" />
-        <activity
-            android:name=".views.task_request_details.TaskRequestDetailsActivity"
-            android:label="@string/title_activity_task_request_detail" />
-        <activity
-            android:name=".views.list_task_requests.ListTaskRequestsActivity" />
-        <activity
-            android:name=".views.completed_tasks.CompletedTasksActivity" />
-        <activity
-            android:name=".views.my_tasks.MyTasksActivity" />
+        <activity android:name=".views.register.RegisterActivity" />
+        <activity android:name=".views.list_jobs.ListJobsActivity"/>
+        <activity android:name=".views.create_job.CreateJobActivity"/>
+        <activity android:name=".views.job_details.JobDetailsActivity" />
+        <activity android:name=".views.task_request_details.TaskRequestDetailsActivity" />
+        <activity android:name=".views.list_task_requests.ListTaskRequestsActivity" />
+        <activity android:name=".views.completed_tasks.CompletedTasksActivity" />
+        <activity android:name=".views.my_tasks.MyTasksActivity" />
+        <activity android:name=".views.edit_task.EditTaskActivity" />
 
         <uses-library android:name="com.google.android.maps"/>
 

@@ -67,6 +67,21 @@ namespace WorkIt_Server.Controllers
             }
         }
 
+        [Route("tasks/{taskId}/update")]
+        [HttpPost]
+        public IHttpActionResult UpdateTask(TaskDTO jobInformation)
+        {
+            try
+            {
+                service.UpdateTask(jobInformation);
+                return Ok();
+            }
+            catch(Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+
         [Route("tasks/{taskId}")]
         [HttpGet]
         public IHttpActionResult GetTaskById(int taskId)

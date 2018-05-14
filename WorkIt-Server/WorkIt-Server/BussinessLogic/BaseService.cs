@@ -54,6 +54,11 @@ namespace WorkIt_Server.BLL
             TaskLogic.CreateTask(taskInformation);
         }
 
+        public void UpdateTask(TaskDTO task)
+        {
+            TaskLogic.UpdateTask(task);
+        }
+
         public IEnumerable<TaskDTO> GetAllAvailableTasks()
         {
             return TaskLogic.GetAllAvailableTasks();

@@ -14,6 +14,7 @@ import io.reactivex.functions.Function;
 import prot3ct.workit.config.ApiConstants;
 import prot3ct.workit.data.local.UserSession;
 import prot3ct.workit.data.remote.base.JobDataContract;
+import prot3ct.workit.data.remote.result_models.EditTaskViewModel;
 import prot3ct.workit.models.Task;
 import prot3ct.workit.models.base.HttpResponseContract;
 import prot3ct.workit.utils.GsonParser;
@@ -62,6 +63,35 @@ public class JobData implements JobDataContract{
     }
 
     @Override
+    public Observable<Boolean> updateTask(int taskId, String title, String startDate, String length,
+                                          String description, String city, String address,
+                                          String reward, String minimalRating) {
+        Map<String, String> jobDetails = new HashMap<>();
+        jobDetails.put("id", taskId + "");
+        jobDetails.put("title", title);
+        jobDetails.put("startDate", startDate);
+        jobDetails.put("length", length);
+        jobDetails.put("description", description);
+        jobDetails.put("city", city);
+        jobDetails.put("address", address);
+        jobDetails.put("reward", reward);
+        jobDetails.put("minRaiting", minimalRating);
+
+        return httpRequester
+                .post(apiConstants.updateTaskUrl(taskId), jobDetails)
+                .map(new Function<HttpResponseContract, Boolean>() {
+                    @Override
+                    public Boolean apply(HttpResponseContract iHttpResponse) throws Exception {
+                        if (iHttpResponse.getCode() == apiConstants.responseErrorCode() || iHttpResponse.getCode() == apiConstants.reponseServerErrorCode()) {
+                            throw new Error(iHttpResponse.getMessage());
+                        }
+
+                        return true;
+                    }
+                });
+    }
+
+    @Override
     public Observable<List<Task>> getAllTasks() {
         return httpRequester
             .get(apiConstants.getAllJobsUrl())
@@ -77,6 +107,23 @@ public class JobData implements JobDataContract{
                     return tasks;
                 }
             });
+    }
+
+    @Override
+    public Observable<EditTaskViewModel> getTaskById(int taskId) {
+        return httpRequester
+                .get(apiConstants.getTaskByIdUrl(taskId))
+                .map(new Function<HttpResponseContract, EditTaskViewModel>() {
+                    @Override
+                    public EditTaskViewModel apply(HttpResponseContract iHttpResponse) throws Exception {
+                        if (iHttpResponse.getCode() == apiConstants.responseErrorCode()) {
+                            throw new Error(iHttpResponse.getMessage());
+                        }
+
+                        String responseBody = iHttpResponse.getBody();
+                        return jsonParser.fromJson(responseBody, EditTaskViewModel.class);
+                    }
+                });
     }
 
     @Override

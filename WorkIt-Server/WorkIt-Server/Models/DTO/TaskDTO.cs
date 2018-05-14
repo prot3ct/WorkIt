@@ -11,8 +11,8 @@ namespace WorkIt_Server.Models.DTO
         public string Description { get; set; }
         public string City { get; set; }
         public string Address { get; set; }
-        public string Reward { get; set; }
+        public double Reward { get; set; }
         public string CreatorEmail { get; set; }
-        public string MinRaiting { get; set; }
+        public double MinRaiting { get; set; }
     }
 }

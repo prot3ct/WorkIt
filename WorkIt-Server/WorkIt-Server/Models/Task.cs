@@ -25,13 +25,13 @@ namespace WorkIt_Server.Models
         public string Address { get; set; }
 
         [Required]
-        public string Reward { get; set; }
+        public double Reward { get; set; }
 
         [Required]
         public int Length { get; set; }
 
         [Required]
-        public int MinRaiting { get; set; }
+        public double MinRaiting { get; set; }
 
         public bool IsCompleted { get; set; }
 
