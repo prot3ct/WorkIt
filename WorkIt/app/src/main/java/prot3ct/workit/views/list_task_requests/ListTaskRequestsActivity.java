@@ -2,9 +2,11 @@ package prot3ct.workit.views.list_task_requests;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import prot3ct.workit.R;
 import prot3ct.workit.views.list_task_requests.base.ListTaskRequestContract;
+import prot3ct.workit.views.navigation.DrawerUtil;
 
 public class ListTaskRequestsActivity extends AppCompatActivity {
     private ListTaskRequestContract.Presenter presenter;

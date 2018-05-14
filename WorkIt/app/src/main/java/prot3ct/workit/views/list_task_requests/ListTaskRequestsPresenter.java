@@ -22,7 +22,7 @@ public class ListTaskRequestsPresenter implements  ListTaskRequestContract.Prese
     }
 
     @Override
-    public void getTaskRequestsForTask(int taskId) {
+    public void getTaskRequests(int taskId) {
         taskRequestData.getAllTaskRequestsForTask(taskId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -30,19 +30,17 @@ public class ListTaskRequestsPresenter implements  ListTaskRequestContract.Prese
                 new Observer<List<TaskRequestListViewModel>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-//                        view.showDialogForLoading();
                     }
 
                     @Override
                     public void onNext(List<TaskRequestListViewModel> taskRequests) {
                         view.setupTaskRequestsAdapter(taskRequests);
-//                                view.notifySuccessful();
-//                                view.showListJobsActivity();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-//                                view.notifyError("Error ocurred when logining in. Please try again.");
+                        view.notifyError("Error loading task requests.");
+                        e.printStackTrace();
                     }
 
                     @Override

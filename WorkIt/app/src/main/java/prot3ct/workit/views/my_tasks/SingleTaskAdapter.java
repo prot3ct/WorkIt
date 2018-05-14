@@ -24,6 +24,7 @@ import prot3ct.workit.R;
 import prot3ct.workit.models.base.TaskContract;
 import prot3ct.workit.views.edit_task.EditTaskActivity;
 import prot3ct.workit.views.job_details.JobDetailsActivity;
+import prot3ct.workit.views.list_task_requests.ListTaskRequestsActivity;
 
 public class SingleTaskAdapter extends RecyclerView.Adapter<SingleTaskAdapter.TaskViewHolder> {
     List<? extends TaskContract> tasks;
@@ -81,6 +82,15 @@ public class SingleTaskAdapter extends RecyclerView.Adapter<SingleTaskAdapter.Ta
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, EditTaskActivity.class);
+                intent.putExtra("taskId", tasks.get(position).getId());
+                context.startActivity(intent);
+            }
+        });
+
+        holder.taskRequestersButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ListTaskRequestsActivity.class);
                 intent.putExtra("taskId", tasks.get(position).getId());
                 context.startActivity(intent);
             }

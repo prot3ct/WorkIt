@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,11 +15,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
 import prot3ct.workit.R;
 import prot3ct.workit.data.remote.result_models.TaskRequestListViewModel;
+import prot3ct.workit.models.base.TaskContract;
+import prot3ct.workit.views.list_jobs.RVAdapter;
+import prot3ct.workit.views.navigation.DrawerUtil;
 import prot3ct.workit.views.task_request_details.TaskRequestDetailsActivity;
 import prot3ct.workit.views.list_task_requests.base.ListTaskRequestContract;
 
@@ -24,11 +31,11 @@ import prot3ct.workit.views.list_task_requests.base.ListTaskRequestContract;
 public class ListTaskRequestsFragment extends Fragment implements ListTaskRequestContract.View {
     private ListTaskRequestContract.Presenter presenter;
     private Context context;
+    private RecyclerView recyclerTaskRequestView;
+    private Toolbar toolbar;
 
     private int taskId;
 
-    ArrayAdapter<TaskRequestListViewModel> taskRequestAdapter;
-    private ListView taskRequestListView;
 
     public ListTaskRequestsFragment() {
         // Required empty public constructor
@@ -47,10 +54,16 @@ public class ListTaskRequestsFragment extends Fragment implements ListTaskReques
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list_task_requests, container, false);
-        this.taskId = getActivity().getIntent().getIntExtra("TaskId", 0);
-        this.taskRequestListView = view.findViewById(R.id.id_task_requests_list_view);
+        this.toolbar = view.findViewById(R.id.id_drawer_toolbar);
+        this.taskId = getActivity().getIntent().getIntExtra("taskId", 0);
+        this.recyclerTaskRequestView = view.findViewById(R.id.id_list_task_requests_list_view);
+        LinearLayoutManager llm = new LinearLayoutManager(context);
+        recyclerTaskRequestView.setLayoutManager(llm);
 
-        presenter.getTaskRequestsForTask(taskId);
+        DrawerUtil drawer = new DrawerUtil(this.getActivity(), this.toolbar);
+        drawer.getDrawer();
+
+        presenter.getTaskRequests(taskId);
 
         return view;
     }
@@ -63,33 +76,18 @@ public class ListTaskRequestsFragment extends Fragment implements ListTaskReques
     }
 
     @Override
-    public void setupTaskRequestsAdapter(final List<? extends TaskRequestListViewModel> taskRequests) {
-        this.taskRequestAdapter = new ArrayAdapter<TaskRequestListViewModel>(this.getContext(), -1, (List<TaskRequestListViewModel>) taskRequests) {
-            @NonNull
-            @Override
-            public View getView(final int position, View convertView, ViewGroup parent) {
-                View view = convertView;
-                if (view == null) {
-                    LayoutInflater inflater = LayoutInflater.from(this.getContext());
-                    view = inflater.inflate(R.layout.single_task_request, parent, false);
-                }
-
-                TextView name = view.findViewById(R.id.id_single_user_request_username_text_view);
-
-                name.setText(taskRequests.get(position).getName());
-                name.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(context, TaskRequestDetailsActivity.class);
-                        intent.putExtra("taskRequestId", taskRequests.get(position).getTaskRequestId());
-                        startActivity(intent);
-                    }
-                });
-                return view;
-            }
-        };
-
-        this.taskRequestListView.setAdapter(taskRequestAdapter);
+    public void notifySuccessful(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void notifyError(String errorMessage) {
+        Toast.makeText(getContext(), errorMessage, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void setupTaskRequestsAdapter(List<TaskRequestListViewModel> users) {
+        SingleTaskRequestAdapter adapter = new SingleTaskRequestAdapter(users, context);
+        recyclerTaskRequestView.setAdapter(adapter);
+    }
 }

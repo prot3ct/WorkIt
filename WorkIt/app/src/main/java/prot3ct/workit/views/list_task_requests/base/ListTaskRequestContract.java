@@ -4,13 +4,18 @@ import java.util.List;
 
 import prot3ct.workit.base.BaseView;
 import prot3ct.workit.data.remote.result_models.TaskRequestListViewModel;
+import prot3ct.workit.models.base.TaskContract;
 
 public interface ListTaskRequestContract {
     interface View extends BaseView<Presenter> {
-        void setupTaskRequestsAdapter(final List<? extends TaskRequestListViewModel> taskRequests);
+        void setupTaskRequestsAdapter(List<TaskRequestListViewModel> users);
+
+        void notifySuccessful(String message);
+
+        void notifyError(String errorMessage);
     }
 
     interface Presenter {
-        void getTaskRequestsForTask(int taskId);
+        void getTaskRequests(int taskId);
     }
 }
