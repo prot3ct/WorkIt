@@ -1,9 +1,7 @@
 package prot3ct.workit.views.list_task_requests;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,19 +10,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
 
 import prot3ct.workit.R;
 import prot3ct.workit.data.remote.result_models.TaskRequestListViewModel;
-import prot3ct.workit.models.base.TaskContract;
-import prot3ct.workit.views.list_jobs.RVAdapter;
 import prot3ct.workit.views.navigation.DrawerUtil;
-import prot3ct.workit.views.task_request_details.TaskRequestDetailsActivity;
 import prot3ct.workit.views.list_task_requests.base.ListTaskRequestContract;
 
 
@@ -87,7 +79,7 @@ public class ListTaskRequestsFragment extends Fragment implements ListTaskReques
 
     @Override
     public void setupTaskRequestsAdapter(List<TaskRequestListViewModel> users) {
-        SingleTaskRequestAdapter adapter = new SingleTaskRequestAdapter(users, context);
+        SingleTaskRequestAdapter adapter = new SingleTaskRequestAdapter(users, context, presenter);
         recyclerTaskRequestView.setAdapter(adapter);
     }
 }

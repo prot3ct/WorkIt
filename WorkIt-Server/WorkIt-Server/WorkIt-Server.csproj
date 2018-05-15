@@ -146,9 +146,12 @@
     <Compile Include="Migrations\201805141733021_UpdateTAsk.Designer.cs">
       <DependentUpon>201805141733021_UpdateTAsk.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805150711471_RemoveComments.cs" />
+    <Compile Include="Migrations\201805150711471_RemoveComments.Designer.cs">
+      <DependentUpon>201805150711471_RemoveComments.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Context\WorkItDbContext.cs" />
-    <Compile Include="Models\DTO\CommentDTO.cs" />
     <Compile Include="Models\DTO\RaitingDTO.cs" />
     <Compile Include="Models\DTO\TaskDTO.cs" />
     <Compile Include="Models\DTO\TaskRequestDTO.cs" />
@@ -161,12 +164,9 @@
     <Compile Include="Models\TaskReport.cs" />
     <Compile Include="Models\TaskRequest.cs" />
     <Compile Include="Models\Raiting.cs" />
-    <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="Models\TaskComments.cs" />
     <Compile Include="Models\UserReport.cs" />
     <Compile Include="Models\UserRole.cs" />
-    <Compile Include="Models\ViewModels\TaskRequestDetailsViewModel.cs" />
     <Compile Include="Models\ViewModels\TaskRequestListViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -207,6 +207,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805141733021_UpdateTAsk.resx">
       <DependentUpon>201805141733021_UpdateTAsk.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805150711471_RemoveComments.resx">
+      <DependentUpon>201805150711471_RemoveComments.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

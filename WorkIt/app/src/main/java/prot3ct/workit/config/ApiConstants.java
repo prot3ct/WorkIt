@@ -47,21 +47,16 @@ public class ApiConstants implements ApiConstantsContract {
     public String createTaskRequestUrl() { return API_URL + "/requests"; }
 
     @Override
+    public String updateTaskRequestUrl(int requestId) {
+        return API_URL + "/requests/" + requestId + "/update";
+    }
+
+    @Override
     public String getTaskRequestsForCurrentUserUrl(int userId) { return API_URL + "/users/" + userId + "/requests"; }
 
     @Override
     public String getTaskRequestByIdUrl(int requestId) {
         return API_URL + "/requests/" + requestId;
-    }
-
-    @Override
-    public String createTaskRequestCommentUrl(int taskRequestId) {
-        return API_URL + "/requests/" + taskRequestId + "/comments";
-    }
-
-    @Override
-    public String getTaskRequestComments(int taskRequestId) {
-        return API_URL + "/requests/" + taskRequestId + "/comments";
     }
 
     @Override
@@ -83,9 +78,6 @@ public class ApiConstants implements ApiConstantsContract {
     public String createRatingUrl(int userId) {
         return API_URL + "/users/" + userId + "/raitings";
     }
-
-    @Override
-    public String updateTaskRequestUrl() { return API_URL + "/requests/update"; }
 
     @Override
     public int responseSuccessCode() {

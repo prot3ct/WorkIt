@@ -29,32 +29,18 @@ namespace WorkIt_Server.BLL
             }
         }
 
-        public TaskRequestDetailsViewModel GetTaskRequestById(int requestId)
-        {
-            var taskRequest = db.TaskRequests.FirstOrDefault(tr => tr.TaskRequestId == requestId);
-            var user = taskRequest.User;
-
-            return new TaskRequestDetailsViewModel
-            {
-                TaskRequestId = taskRequest.TaskRequestId,
-                TaskTitle = taskRequest.Task.Title,
-                Status = taskRequest.RequestStatus.Name,
-                Name = user.FullName
-            };
-        }
-
         public void UpdateTaskRequest(TaskRequestDTO taskRequest)
         {
             var updatedTaskRequest = db.TaskRequests.FirstOrDefault(tr => tr.TaskRequestId == taskRequest.TaskRequestId);
             updatedTaskRequest.RequestStatusId = taskRequest.RequestStatusId;
 
-            if (updatedTaskRequest.RequestStatusId == 3)
+            if (updatedTaskRequest.RequestStatusId == 27)
             {
                 var updatedTask = updatedTaskRequest.Task;
                 updatedTask.AssignedUserId = updatedTaskRequest.User.UserId;
 
-                var taskRequestsForTheSameTask = db.TaskRequests.Where(tr => tr.TaskId == updatedTaskRequest.TaskId).ToList();
-                taskRequestsForTheSameTask.ForEach(tr => tr.RequestStatusId = 2);
+                var taskRequestsForTheSameTask = db.TaskRequests.Where(tr => tr.TaskId == updatedTaskRequest.TaskId && tr.TaskRequestId != updatedTaskRequest.TaskRequestId).ToList();
+                taskRequestsForTheSameTask.ForEach(tr => tr.RequestStatusId = 26);
             }
 
             db.SaveChanges();
@@ -66,7 +52,7 @@ namespace WorkIt_Server.BLL
             {
                 TaskId = taskRequest.TaskId,
                 UserId = taskRequest.UserId,
-                RequestStatusId = 1
+                RequestStatusId = 25
             };
 
             Db.TaskRequests.Add(taskRequestToBeInserted);
@@ -76,50 +62,11 @@ namespace WorkIt_Server.BLL
         public IEnumerable<TaskRequestListViewModel> GetRequestsForTask(int taskId)
         {
             return Db.TaskRequests
-                .Where(tr => tr.TaskId == taskId)
+                .Where(tr => tr.TaskId == taskId && tr.RequestStatus.Name == "Pending")
                 .Select(tr => new TaskRequestListViewModel
                 {
                     TaskRequestId = tr.TaskRequestId,
                     Name = tr.User.FullName,
-                    Status = tr.RequestStatus.Name
-                })
-                .ToList();
-        }
-
-        public void CreateTaskRequestComment(CommentDTO comment)
-        {
-            var commentToBeInserted = new Comment
-            {
-                Body = comment.Body,
-                UserId = comment.UserId
-            };
-
-            db.Comments.Add(commentToBeInserted);
-            db.SaveChanges();
-
-            var commentRelation = new TaskComments
-            {
-                CommentId = commentToBeInserted.CommentId,
-                TaskRequestId = comment.TargetId
-            };
-
-            db.TasksComments.Add(commentRelation);
-            db.SaveChanges();
-        }
-
-        public List<CommentDTO> GetTaskRequestComments(int taskRequestId)
-        {
-            var commentIds = db.TasksComments
-                .Where(tc => tc.TaskRequestId == taskRequestId)
-                .Select(tc => tc.CommentId)
-                .ToList();
-
-            return db.Comments
-                .Where(c => commentIds.Contains(c.CommentId))
-                .Select(c => new CommentDTO
-                {
-                    Body = c.Body,
-                    Name = c.User.FullName
                 })
                 .ToList();
         }

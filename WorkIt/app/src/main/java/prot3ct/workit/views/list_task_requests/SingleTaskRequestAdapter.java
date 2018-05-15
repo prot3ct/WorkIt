@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,14 +26,17 @@ import prot3ct.workit.R;
 import prot3ct.workit.data.remote.result_models.TaskRequestListViewModel;
 import prot3ct.workit.models.base.TaskContract;
 import prot3ct.workit.views.job_details.JobDetailsActivity;
+import prot3ct.workit.views.list_task_requests.base.ListTaskRequestContract;
 
 public class SingleTaskRequestAdapter extends RecyclerView.Adapter<SingleTaskRequestAdapter.TaskViewHolder> {
-    private List<TaskRequestListViewModel> users;
+    private ListTaskRequestContract.Presenter presenter;
+    private List<TaskRequestListViewModel> requests;
     private Context context;
 
-    SingleTaskRequestAdapter(List<TaskRequestListViewModel> users, Context context){
-        this.users = users;
+    SingleTaskRequestAdapter(List<TaskRequestListViewModel> requests, Context context, ListTaskRequestContract.Presenter presenter){
+        this.requests = requests;
         this.context = context;
+        this.presenter = presenter;
     }
 
     @Override
@@ -44,12 +48,27 @@ public class SingleTaskRequestAdapter extends RecyclerView.Adapter<SingleTaskReq
 
     @Override
     public void onBindViewHolder(TaskViewHolder holder, final int position) {
-        holder.fullName.setText(users.get(position).getName());
+        holder.fullName.setText(requests.get(position).getName());
+
+        Log.d("A123Sd", requests.get(position).getTaskRequestId() +"");
+        holder.acceptButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.updateTaskRequest(requests.get(position).getTaskRequestId(), 27);
+            }
+        });
+
+        holder.declineButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.updateTaskRequest(requests.get(position).getTaskRequestId(), 26);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return users.size();
+        return requests.size();
     }
 
     public static class TaskViewHolder extends RecyclerView.ViewHolder {

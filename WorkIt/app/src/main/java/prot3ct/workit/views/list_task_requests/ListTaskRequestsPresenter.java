@@ -24,28 +24,56 @@ public class ListTaskRequestsPresenter implements  ListTaskRequestContract.Prese
     @Override
     public void getTaskRequests(int taskId) {
         taskRequestData.getAllTaskRequestsForTask(taskId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                new Observer<List<TaskRequestListViewModel>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                    }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        new Observer<List<TaskRequestListViewModel>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                            }
 
-                    @Override
-                    public void onNext(List<TaskRequestListViewModel> taskRequests) {
-                        view.setupTaskRequestsAdapter(taskRequests);
-                    }
+                            @Override
+                            public void onNext(List<TaskRequestListViewModel> taskRequests) {
+                                view.setupTaskRequestsAdapter(taskRequests);
+                            }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        view.notifyError("Error loading task requests.");
-                        e.printStackTrace();
-                    }
+                            @Override
+                            public void onError(Throwable e) {
+                                view.notifyError("Error loading task requests.");
+                                e.printStackTrace();
+                            }
 
-                    @Override
-                    public void onComplete() {
-                    }
-                });
+                            @Override
+                            public void onComplete() {
+                            }
+                        });
     }
+
+        @Override
+        public void updateTaskRequest(int taskRequestId, int taskRequestStatusId) {
+            taskRequestData.updateTaskRequest(taskRequestId, taskRequestStatusId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    new Observer<Boolean>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+                        }
+
+                        @Override
+                        public void onNext(Boolean taskRequests) {
+                            view.notifySuccessful("User assigned successfully.");
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            view.notifyError("Error assigning user.");
+                            e.printStackTrace();
+                        }
+
+                        @Override
+                        public void onComplete() {
+                        }
+                    });
+        }
 }

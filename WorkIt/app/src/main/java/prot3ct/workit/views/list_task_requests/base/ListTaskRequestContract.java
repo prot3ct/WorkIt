@@ -17,5 +17,7 @@ public interface ListTaskRequestContract {
 
     interface Presenter {
         void getTaskRequests(int taskId);
+
+        void updateTaskRequest(int taskRequestId, int taskRequestStatusId);
     }
 }

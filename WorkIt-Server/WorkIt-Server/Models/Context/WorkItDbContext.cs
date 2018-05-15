@@ -12,8 +12,6 @@ namespace WorkIt_Server.Models.Context
 
         public DbSet<User> Users { get; set; }
         public DbSet<Task> Tasks { get; set; }
-        public DbSet<Comment> Comments { get; set; }
-        public DbSet<TaskComments> TasksComments { get; set; }
         public DbSet<UserReport> UserReports { get; set; }
         public DbSet<TaskReport> TasksReports { get; set; }
         public DbSet<TaskRequest> TaskRequests { get; set; }
@@ -32,17 +30,6 @@ namespace WorkIt_Server.Models.Context
             //    .HasRequired(u => u.Tasks)
             //    .WithMany()
             //    .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<TaskComments>()
-                .HasRequired(jc => jc.Comment)
-                .WithMany()
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<TaskComments>()
-                .HasRequired(jc => jc.Task)
-                .WithMany()
-                .WillCascadeOnDelete(false);
-
 
             base.OnModelCreating(modelBuilder);
         }

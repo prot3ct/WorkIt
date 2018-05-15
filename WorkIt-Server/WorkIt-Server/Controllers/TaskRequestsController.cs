@@ -10,20 +10,6 @@ namespace WorkIt_Server.Controllers
     {
         private BaseService service = new BaseService();
 
-        [Route("requests/{requestId}")]
-        [HttpGet]
-        public IHttpActionResult GetTaskRequestById(int requestId)
-        {
-            try
-            {
-                return Ok(service.GetTaskRequestById(requestId));
-            }
-            catch (Exception)
-            {
-                return InternalServerError();
-            }
-        }
-
         [Route("tasks/{taskId}/requests")]
         [HttpGet]
         public IHttpActionResult GetRequestsForTask(int taskId)
@@ -53,7 +39,7 @@ namespace WorkIt_Server.Controllers
             }
         }
 
-        [Route("requests/update")]
+        [Route("requests/{requestId}/update")]
         [HttpPost]
         public IHttpActionResult UpdateTaskRequest(TaskRequestDTO taskRequest)
         {
@@ -62,45 +48,14 @@ namespace WorkIt_Server.Controllers
                 service.UpdateTaskRequest(taskRequest);
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
-
-        [Route("requests/{requestId}/comments")]
-        [HttpPost]
-        public IHttpActionResult CreateTaskRequestComment(CommentDTO comment)
-        {
-            try
-            {
-                service.CreateTaskRequestComment(comment);
-                return Ok();
-            }
-            catch (Exception)
-            {
-                return InternalServerError();
-            }
-        }   
-
-        [Route("requests/{requestId}/comments")]
-        [HttpGet]
-        public IHttpActionResult GetCommentsByTaskRequestId(int requestId)
-        {
-            try
-            {
-                return Ok(service.GetCommentsByTaskRequestId(requestId));
-            }
-            catch (Exception)
-            {
-                return InternalServerError();
-            }
-        }
-
-
 
         // TO DO
-        [Route("requests/{requestId}/update")]
+        [Route("requests/{requestId}/delete")]
         [HttpPost]
         public IHttpActionResult DeleteTaskRequestById(int requestId)
         {

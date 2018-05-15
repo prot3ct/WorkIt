@@ -19,15 +19,11 @@ public interface ApiConstantsContract {
 
     String createTaskRequestUrl();
 
+    String updateTaskRequestUrl(int requestId);
+
     String getTaskRequestByIdUrl(int requestId);
 
-    String createTaskRequestCommentUrl(int taskRequestId);
-
-    String getTaskRequestComments(int taskRequestId);
-
     String getRequestsForTaskUrl(int taskId);
-
-    String updateTaskRequestUrl();
 
     String getMyCompletedTasksUrl(int userId);
 

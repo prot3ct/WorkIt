@@ -123,20 +123,5 @@ namespace WorkIt_Server.BLL
         {
             return this.RaitingLogic.GetAllRaitingByUserId(userId);
         }
-
-        public TaskRequestDetailsViewModel GetTaskRequestById(int requestId)
-        {
-            return this.TaskRequestLogic.GetTaskRequestById(requestId);
-        }
-
-        public void CreateTaskRequestComment(CommentDTO comment)
-        {
-            this.TaskRequestLogic.CreateTaskRequestComment(comment);
-        }
-
-        public List<CommentDTO> GetCommentsByTaskRequestId(int taskRequestId)
-        {
-            return this.TaskRequestLogic.GetTaskRequestComments(taskRequestId);
-        }
     }
 }
