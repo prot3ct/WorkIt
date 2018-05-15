@@ -5,29 +5,31 @@ public interface ApiConstantsContract {
 
     String registerUrl();
 
-    String getAllJobsUrl();
-
-    String getAllTasksUrl(int userId);
-
     String createTaskUrl();
 
     String updateTaskUrl(int taskId);
 
-    String getTaskByIdUrl(int taskId);
+    String getTaskDetailsUrl(int taskId);
 
-    String getTaskRequestsForCurrentUserUrl(int userId);
+    String deleteTaskUrl(int taskId);
+
+    String getAvailableTasks(int userId);
+
+    String getAssignedTasksUrl(int userId);
+
+    String getCompletedTasksUrl(int userId);
+
+    String getMyTasks(int userId);
 
     String createTaskRequestUrl();
 
     String updateTaskRequestUrl(int requestId);
 
-    String getTaskRequestByIdUrl(int requestId);
-
     String getRequestsForTaskUrl(int taskId);
 
-    String getMyCompletedTasksUrl(int userId);
+    String deleteTaskRequestUrl(int taskRequestId);
 
-    String createRatingUrl(int userId);
+    String createRaitingUrl();
 
     String getLocationLatLngUrl(String location);
 

@@ -10,38 +10,24 @@ namespace WorkIt_Server.Controllers
     {
         private BaseService service = new BaseService();
 
-        [Route("tasks/{taskId}/requests")]
-        [HttpGet]
-        public IHttpActionResult GetRequestsForTask(int taskId)
-        {
-            try
-            {
-                return Ok(service.GetRequestsForTask(taskId));
-            }
-            catch (Exception)
-            {
-                return InternalServerError();
-            }
-        }
-
         [Route("requests")]
         [HttpPost]
-        public IHttpActionResult CreateTaskRequest(TaskRequestDTO taskRequest)
+        public IHttpActionResult CreateTaskRequest(CreateTaskRequestDTO taskRequest)
         {
             try
             {
                 service.CreateTaskRequest(taskRequest);
                 return Ok();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
 
         [Route("requests/{requestId}/update")]
         [HttpPost]
-        public IHttpActionResult UpdateTaskRequest(TaskRequestDTO taskRequest)
+        public IHttpActionResult UpdateTaskRequest(UpdateTaskRequestDTO taskRequest)
         {
             try
             {
@@ -63,6 +49,20 @@ namespace WorkIt_Server.Controllers
             {
                 service.DeleteTaskRequestById(requestId);
                 return Ok();
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
+        }
+
+        [Route("tasks/{taskId}/requests")]
+        [HttpGet]
+        public IHttpActionResult GetRequestsForTask(int taskId)
+        {
+            try
+            {
+                return Ok(service.GetRequestsForTask(taskId));
             }
             catch (Exception)
             {

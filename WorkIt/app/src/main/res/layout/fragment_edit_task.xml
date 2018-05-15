@@ -141,46 +141,20 @@
 
             </LinearLayout>
 
-
-            <LinearLayout
-                android:layout_width="fill_parent"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_reward"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="1">
+                android:textColorHint="@color/md_black_1000">
 
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/input_layout_reward"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/id_reward_edit_text"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:textColorHint="@color/md_black_1000">
+                    android:textAlignment="center"
+                    android:hint="Reward per hour(BGN)"/>
 
-                    <EditText
-                        android:id="@+id/id_reward_edit_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAlignment="center"
-                        android:hint="Reward per hour(BGN)"/>
-
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/input_layout_raiting"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:textColorHint="@color/md_black_1000">
-
-                    <EditText
-                        android:id="@+id/id_minimal_raiting_to_join_edit_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAlignment="center"
-                        android:hint="Minimal raiting"/>
-                </android.support.design.widget.TextInputLayout>
-            </LinearLayout>
-
+            </android.support.design.widget.TextInputLayout>
         </LinearLayout>
-
     </LinearLayout>
 </ScrollView>

@@ -12,7 +12,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_jobs);
+        setContentView(R.layout.activity_list_tasks);
 
         LoginFragment loginFragment =
                 (LoginFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);

@@ -15,9 +15,8 @@ import android.widget.Toast;
 import java.util.List;
 
 import prot3ct.workit.R;
-import prot3ct.workit.models.base.TaskContract;
-import prot3ct.workit.views.create_job.CreateJobActivity;
-import prot3ct.workit.views.login.LoginActivity;
+import prot3ct.workit.view_models.MyTasksListViewModel;
+import prot3ct.workit.views.create_task.CreateTaskActivity;
 import prot3ct.workit.views.my_tasks.base.MyTasksContract;
 
 public class MyTasksFragment extends Fragment implements MyTasksContract.View {
@@ -72,7 +71,7 @@ public class MyTasksFragment extends Fragment implements MyTasksContract.View {
 
     @Override
     public void showCreateJobActivity() {
-        Intent intent = new Intent(this.context, CreateJobActivity.class);
+        Intent intent = new Intent(this.context, CreateTaskActivity.class);
         startActivity(intent);
     }
 
@@ -82,8 +81,13 @@ public class MyTasksFragment extends Fragment implements MyTasksContract.View {
     }
 
     @Override
-    public void setupTasksAdapter(final List<? extends TaskContract> tasks) {
-        SingleTaskAdapter adapter = new SingleTaskAdapter(tasks, context);
+    public void notifyError(String errorMessage) {
+        Toast.makeText(getContext(), errorMessage, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void setupTasksAdapter(final List<MyTasksListViewModel> tasks) {
+        MyTasksAdapter adapter = new MyTasksAdapter(tasks, context);
         recyclerTaskView.setAdapter(adapter);
     }
 }

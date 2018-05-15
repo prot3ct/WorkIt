@@ -14,8 +14,9 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 import prot3ct.workit.R;
+import prot3ct.workit.views.assigned_tasks.AssignedTasksActivity;
 import prot3ct.workit.views.completed_tasks.CompletedTasksActivity;
-import prot3ct.workit.views.list_jobs.ListJobsActivity;
+import prot3ct.workit.views.list_jobs.ListTasksActivity;
 import prot3ct.workit.views.login.LoginActivity;
 import prot3ct.workit.views.my_tasks.MyTasksActivity;
 
@@ -67,7 +68,7 @@ public class DrawerUtil {
             .withOnDrawerItemClickListener(new com.mikepenz.materialdrawer.Drawer.OnDrawerItemClickListener() {
                 @Override
                 public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                Intent intent = new Intent(activity.getBaseContext(), ListJobsActivity.class);
+                Intent intent = new Intent(activity.getBaseContext(), ListTasksActivity.class);
                     activity.startActivity(intent);
                 return true;
                 }
@@ -109,7 +110,7 @@ public class DrawerUtil {
             .withOnDrawerItemClickListener(new com.mikepenz.materialdrawer.Drawer.OnDrawerItemClickListener() {
                 @Override
                 public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                Intent intent = new Intent(activity.getBaseContext(), LoginActivity.class);
+                Intent intent = new Intent(activity.getBaseContext(), AssignedTasksActivity.class);
                     activity.startActivity(intent);
                 return true;
             }

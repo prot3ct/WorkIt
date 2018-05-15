@@ -10,6 +10,8 @@ namespace WorkIt_Server.Models
         [Key]
         public int RaitingId { get; set; }
 
+        public string Description { get; set; }
+
         [Required]
         [ForeignKey("ReceiverUser")]
         public int ReceiverUserId { get; set; }

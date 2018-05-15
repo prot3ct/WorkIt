@@ -8,11 +8,11 @@ using WorkIt_Server.Models.ViewModels;
 
 namespace WorkIt_Server.BLL
 {
-    public class JobRequestBussinessLogic
+    public class TaskRequestBussinessLogic
     {
         private WorkItDbContext db;
 
-        public JobRequestBussinessLogic(WorkItDbContext db)
+        public TaskRequestBussinessLogic(WorkItDbContext db)
         {
             this.Db = db;
         }
@@ -29,51 +29,51 @@ namespace WorkIt_Server.BLL
             }
         }
 
-        public void UpdateTaskRequest(TaskRequestDTO taskRequest)
-        {
-            var updatedTaskRequest = db.TaskRequests.FirstOrDefault(tr => tr.TaskRequestId == taskRequest.TaskRequestId);
-            updatedTaskRequest.RequestStatusId = taskRequest.RequestStatusId;
-
-            if (updatedTaskRequest.RequestStatusId == 27)
-            {
-                var updatedTask = updatedTaskRequest.Task;
-                updatedTask.AssignedUserId = updatedTaskRequest.User.UserId;
-
-                var taskRequestsForTheSameTask = db.TaskRequests.Where(tr => tr.TaskId == updatedTaskRequest.TaskId && tr.TaskRequestId != updatedTaskRequest.TaskRequestId).ToList();
-                taskRequestsForTheSameTask.ForEach(tr => tr.RequestStatusId = 26);
-            }
-
-            db.SaveChanges();
-        }
-
-        public void CreateTaskRequest(TaskRequestDTO taskRequest)
+        public void CreateTaskRequest(CreateTaskRequestDTO taskRequest)
         {
             var taskRequestToBeInserted = new TaskRequest
             {
                 TaskId = taskRequest.TaskId,
                 UserId = taskRequest.UserId,
-                RequestStatusId = 25
+                RequestStatusId = 1
             };
 
             Db.TaskRequests.Add(taskRequestToBeInserted);
             Db.SaveChanges();
         }
 
-        public IEnumerable<TaskRequestListViewModel> GetRequestsForTask(int taskId)
+        public void UpdateTaskRequest(UpdateTaskRequestDTO taskRequest)
+        {
+            var updatedTaskRequest = db.TaskRequests.FirstOrDefault(tr => tr.TaskRequestId == taskRequest.TaskRequestId);
+            updatedTaskRequest.RequestStatusId = taskRequest.RequestStatusId;
+
+            if (updatedTaskRequest.RequestStatusId == 3)
+            {
+                var updatedTask = updatedTaskRequest.Task;
+                updatedTask.AssignedUserId = updatedTaskRequest.User.UserId;
+
+                var taskRequestsForTheSameTask = db.TaskRequests.Where(tr => tr.TaskId == updatedTaskRequest.TaskId && tr.TaskRequestId != updatedTaskRequest.TaskRequestId).ToList();
+                taskRequestsForTheSameTask.ForEach(tr => tr.RequestStatusId = 2);
+            }
+
+            db.SaveChanges();
+        }
+
+        public IEnumerable<TaskRequestsListViewModel> GetRequestsForTask(int taskId)
         {
             return Db.TaskRequests
                 .Where(tr => tr.TaskId == taskId && tr.RequestStatus.Name == "Pending")
-                .Select(tr => new TaskRequestListViewModel
+                .Select(tr => new TaskRequestsListViewModel
                 {
                     TaskRequestId = tr.TaskRequestId,
-                    Name = tr.User.FullName,
+                    FullName = tr.User.FullName,
                 })
                 .ToList();
         }
 
-        public void DeleteTaskRequest(int taskId)
+        public void DeleteTaskRequest(int taskRequestId)
         {
-            var jobRequest = Db.TaskRequests.Where(jr => jr.TaskRequestId == taskId).FirstOrDefault();
+            var jobRequest = Db.TaskRequests.FirstOrDefault(tr => tr.TaskRequestId == taskRequestId);
 
             Db.TaskRequests.Remove(jobRequest);
             Db.SaveChanges();

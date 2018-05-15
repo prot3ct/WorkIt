@@ -30,9 +30,6 @@ namespace WorkIt_Server.Models
         [Required]
         public int Length { get; set; }
 
-        [Required]
-        public double MinRaiting { get; set; }
-
         public bool IsCompleted { get; set; }
 
         public bool HasCreatorGivenRating { get; set; }

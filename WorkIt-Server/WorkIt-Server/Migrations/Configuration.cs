@@ -22,8 +22,8 @@ namespace WorkIt_Server.Migrations
             );
 
             context.UserRoles.AddOrUpdate(
-                new UserRole { Name = "Employee" },
-                new UserRole { Name = "Employer" }
+                new UserRole { Name = "Tasker" },
+                new UserRole { Name = "Supervisor" }
             );
 
             context.SaveChanges();

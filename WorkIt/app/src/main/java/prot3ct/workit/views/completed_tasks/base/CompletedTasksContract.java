@@ -1,11 +1,9 @@
 package prot3ct.workit.views.completed_tasks.base;
 
-import android.widget.Toast;
-
 import java.util.List;
 
 import prot3ct.workit.base.BaseView;
-import prot3ct.workit.models.base.TaskContract;
+import prot3ct.workit.view_models.CompletedTasksListViewModel;
 
 public interface CompletedTasksContract {
     interface View extends BaseView<Presenter> {
@@ -13,16 +11,24 @@ public interface CompletedTasksContract {
 
         void dismissDialog();
 
-        void setupTasksAdapter(final List<? extends TaskContract> tasks);
+        void setupTasksAdapter(final List<CompletedTasksListViewModel> tasks);
 
         void notifyError(String msg);
 
         void notifySuccessful(String msg);
+
+        void showDialog();
+
+        void postRaiting(int value, String descrption);
+
+        void updateSelectedInfo(int taskId, int supervisorId, int taskerId);
     }
 
     interface Presenter {
-        void getMyCompletedTasks();
+        void getCompletedTasks();
 
-        void createRating(int receiverUserId, int taskId, int receiverUserRoleId, String value);
+        void createRating(int value, String description, int receiverUserId, int taskId, int receiverUserRoleId);
+
+        int getLoggedInUserId();
     }
 }

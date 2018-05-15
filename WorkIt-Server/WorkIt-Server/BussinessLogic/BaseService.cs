@@ -11,32 +11,31 @@ namespace WorkIt_Server.BLL
         public BaseService()
         {
             this.WorkItDbContext = new WorkItDbContext();
-            this.TaskLogic = new JobBussinessLogic(this.WorkItDbContext);
+            this.TaskLogic = new TaskBussinessLogic(this.WorkItDbContext);
             this.UserLogic = new UserBussinessLogic(this.WorkItDbContext);
             this.TaskReportLogic = new JobReportBussinessLogic(this.WorkItDbContext);
-            this.TaskRequestLogic = new JobRequestBussinessLogic(this.WorkItDbContext);
+            this.TaskRequestLogic = new TaskRequestBussinessLogic(this.WorkItDbContext);
             this.UserReportLogic = new UserReportBussinessLogic(this.WorkItDbContext);
             this.RaitingLogic = new RaitingBussinessLogic(this.WorkItDbContext);
         }
 
         public WorkItDbContext WorkItDbContext { get; private set; }
 
-        public JobBussinessLogic TaskLogic { get; private set; }
-        
+        public TaskBussinessLogic TaskLogic { get; private set; }
 
         public UserBussinessLogic UserLogic { get; private set; }
 
         public JobReportBussinessLogic TaskReportLogic { get; private set; }
 
-        public JobRequestBussinessLogic TaskRequestLogic { get; private set; }
+        public TaskRequestBussinessLogic TaskRequestLogic { get; private set; }
 
         public UserReportBussinessLogic UserReportLogic { get; private set; }
 
         public RaitingBussinessLogic RaitingLogic { get; private set; }
 
-        public int GetUserIdByEmail(string email)
+        public LoginViewModel getUserInfo(string email)
         {
-            return UserLogic.GetUserIdByEmail(email);
+            return UserLogic.getUserInfo(email);
         }
 
         public bool LoginUser(LoginDTO credentials)
@@ -49,29 +48,39 @@ namespace WorkIt_Server.BLL
             return UserLogic.RegisterUser(credentials);
         }
 
-        public void CreateTask(TaskDTO taskInformation)
+        public void CreateTask(CreateTaskDTO task)
         {
-            TaskLogic.CreateTask(taskInformation);
+            TaskLogic.CreateTask(task);
         }
 
-        public void UpdateTask(TaskDTO task)
+        public void UpdateTask(EditTaskDTO task)
         {
             TaskLogic.UpdateTask(task);
         }
 
-        public IEnumerable<TaskDTO> GetAllAvailableTasks()
+        public IEnumerable<AvailableTasksViewModel> GetAllAvailableTasks()
         {
             return TaskLogic.GetAllAvailableTasks();
         }
 
-        public IEnumerable<TaskDTO> GetTasksByUser(int userId)
+        public IEnumerable<GetMyTasksListViewModel> GetMyTasks(int userId)
         {
-            return TaskLogic.GetTasksByUser(userId);
+            return TaskLogic.GetMyTasks(userId);
         }
 
-        public IEnumerable<TaskDTO> GetCompletedTasksByUser(int userId)
+        public IEnumerable<AssignedTasksListViewModel> GetAssignedTasks(int userId)
+        {
+            return TaskLogic.GetAssignedTasks(userId);
+        }
+
+        public IEnumerable<CompletedTasksListViewModel> GetCompletedTasksByUser(int userId)
         {
             return TaskLogic.GetCompletedTasksByUser(userId);
+        }
+
+        public TaskDetailsViewModel GetTaskDetails(int taskId)
+        {
+            return TaskLogic.GetTaskDetails(taskId);
         }
 
         public void DeleteTaskById(int taskId)
@@ -79,19 +88,19 @@ namespace WorkIt_Server.BLL
             TaskLogic.DeleteTaskById(taskId);
         }
 
-        public TaskDTO GetTaskById(int taskId)
-        {
-            return TaskLogic.GetTaskById(taskId);
-        }
-
-        public void CreateTaskRequest(TaskRequestDTO jobRequest)
+        public void CreateTaskRequest(CreateTaskRequestDTO jobRequest)
         {
             TaskRequestLogic.CreateTaskRequest(jobRequest);
         }
 
-        public void UpdateTaskRequest(TaskRequestDTO taskRequest)
+        public void UpdateTaskRequest(UpdateTaskRequestDTO taskRequest)
         {
             TaskRequestLogic.UpdateTaskRequest(taskRequest);
+        }
+
+        public IEnumerable<TaskRequestsListViewModel> GetRequestsForTask(int taskId)
+        {
+            return TaskRequestLogic.GetRequestsForTask(taskId);
         }
 
         public void DeleteTaskRequestById(int taskId)
@@ -99,29 +108,24 @@ namespace WorkIt_Server.BLL
             TaskRequestLogic.DeleteTaskRequest(taskId);
         }
 
-        public  IEnumerable<TaskRequestListViewModel> GetRequestsForTask(int taskId)
-        {
-            return TaskRequestLogic.GetRequestsForTask(taskId);
-        }
-
-        public void CreateTaskReport(TaskReportDTO jobReport)
-        {
-            TaskReportLogic.CreateTaskReport(jobReport);
-        }
-
-        public void CreateUserReport(UserReportDTO userReport)
-        {
-            UserReportLogic.CreateUserReport(userReport);
-        }
-
-        public void CreateRaiting(RaitingDTO raiting)
+        public void CreateRaiting(CreateRaitingDTO raiting)
         {
             this.RaitingLogic.CreateRatiing(raiting);
         }
 
-        public IEnumerable<RaitingDTO> GetAllRaitingsByUserId(int userId)
-        {
-            return this.RaitingLogic.GetAllRaitingByUserId(userId);
-        }
+        //public void CreateTaskReport(TaskReportDTO jobReport)
+        //{
+        //    TaskReportLogic.CreateTaskReport(jobReport);
+        //}
+
+        //public void CreateUserReport(UserReportDTO userReport)
+        //{
+        //    UserReportLogic.CreateUserReport(userReport);
+        //}
+
+        //public IEnumerable<RaitingDTO> GetAllRaitingsByUserId(int userId)
+        //{
+        //    return this.RaitingLogic.GetAllRaitingByUserId(userId);
+        //}
     }
 }

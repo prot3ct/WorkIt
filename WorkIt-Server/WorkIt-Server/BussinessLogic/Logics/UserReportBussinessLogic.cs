@@ -25,17 +25,17 @@ namespace WorkIt_Server.BLL
             }
         }
 
-        public void CreateUserReport(UserReportDTO userReport)
-        {
-            var userReportTobeInserted = new UserReport
-            {
-                Description = userReport.Description,
-                AuthorUserId = userReport.AuthorUserId,
-                TargetUserId = userReport.TargetUserId
-            };
+        //public void CreateUserReport(UserReportDTO userReport)
+        //{
+        //    var userReportTobeInserted = new UserReport
+        //    {
+        //        Description = userReport.Description,
+        //        AuthorUserId = userReport.AuthorUserId,
+        //        TargetUserId = userReport.TargetUserId
+        //    };
 
-            db.UserReports.Add(userReportTobeInserted);
-            db.SaveChanges();
-        }
+        //    db.UserReports.Add(userReportTobeInserted);
+        //    db.SaveChanges();
+        //}
     }
 }

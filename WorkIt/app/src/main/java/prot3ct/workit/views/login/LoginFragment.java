@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import prot3ct.workit.R;
 import prot3ct.workit.utils.WorkItProgressDialog;
-import prot3ct.workit.views.list_jobs.ListJobsActivity;
+import prot3ct.workit.views.list_jobs.ListTasksActivity;
 import prot3ct.workit.views.login.base.LoginContract;
 import prot3ct.workit.views.register.RegisterActivity;
 
@@ -78,7 +78,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
 
     @Override
     public void showListJobsActivity() {
-        Intent intent = new Intent(this.context, ListJobsActivity.class);
+        Intent intent = new Intent(this.context, ListTasksActivity.class);
         startActivity(intent);
     }
 

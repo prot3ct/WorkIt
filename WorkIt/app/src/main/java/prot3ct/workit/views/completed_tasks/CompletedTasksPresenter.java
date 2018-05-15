@@ -8,36 +8,39 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import prot3ct.workit.data.remote.JobData;
+import prot3ct.workit.data.remote.RaitingData;
+import prot3ct.workit.data.remote.TaskData;
 import prot3ct.workit.data.remote.UserData;
-import prot3ct.workit.models.Task;
+import prot3ct.workit.view_models.CompletedTasksListViewModel;
 import prot3ct.workit.views.completed_tasks.base.CompletedTasksContract;
 
 public class CompletedTasksPresenter implements CompletedTasksContract.Presenter {
     private CompletedTasksContract.View view;
-    private JobData jobData;
+    private TaskData taskData;
     private UserData userData;
+    private RaitingData raitingData;
 
     public CompletedTasksPresenter(CompletedTasksContract.View view, Context context) {
         this.view = view;
-        this.jobData = new JobData(context);
+        this.taskData = new TaskData(context);
         this.userData = new UserData(context);
+        this.raitingData = new RaitingData(context);
     }
 
     @Override
-    public void getMyCompletedTasks() {
-        jobData.getMyCompletedTasks()
+    public void getCompletedTasks() {
+        taskData.getCompletedTasks()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                new Observer<List<Task>>() {
+                new Observer<List<CompletedTasksListViewModel>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         view.showDialogForLoading();
                     }
 
                     @Override
-                    public void onNext(List<Task> tasks) {
+                    public void onNext(List<CompletedTasksListViewModel> tasks) {
                         view.setupTasksAdapter(tasks);
                         view.dismissDialog();
                     }
@@ -54,8 +57,13 @@ public class CompletedTasksPresenter implements CompletedTasksContract.Presenter
     }
 
     @Override
-    public void createRating(int receiverUserId, int taskId, int receiverUserRoleId, String value) {
-        userData.createRaiting(receiverUserId, taskId, receiverUserRoleId, value)
+    public int getLoggedInUserId() {
+        return this.userData.getLoggedInUserId();
+    }
+
+    @Override
+    public void createRating(int value, String description, int receiverUserId, int taskId, int receiverUserRoleId) {
+        raitingData.createRaiting(value, description, receiverUserId, taskId, receiverUserRoleId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -68,13 +76,13 @@ public class CompletedTasksPresenter implements CompletedTasksContract.Presenter
                             @Override
                             public void onNext(Boolean result) {
                                 view.dismissDialog();
-                                view.notifySuccessful("Result submitted successfully.");
+                                view.notifySuccessful("Raiting submitted successfully.");
                             }
 
                             @Override
                             public void onError(Throwable e) {
                                 view.dismissDialog();
-                                view.notifyError("Error ocurred when submitting result. Please try again.");
+                                view.notifyError("Error ocurred when submitting raiting.");
                             }
 
                             @Override

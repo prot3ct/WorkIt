@@ -15,7 +15,7 @@ import io.reactivex.functions.Function;
 import prot3ct.workit.config.ApiConstants;
 import prot3ct.workit.data.local.UserSession;
 import prot3ct.workit.data.remote.base.TaskRequestDataContract;
-import prot3ct.workit.data.remote.result_models.TaskRequestListViewModel;
+import prot3ct.workit.view_models.TaskRequestListViewModel;
 import prot3ct.workit.models.base.HttpResponseContract;
 import prot3ct.workit.utils.GsonParser;
 import prot3ct.workit.utils.OkHttpRequester;
@@ -47,49 +47,10 @@ public class TaskRequestData implements TaskRequestDataContract {
                     if (iHttpResponse.getCode() == apiConstants.responseErrorCode() || iHttpResponse.getCode() == apiConstants.reponseServerErrorCode()) {
                         throw new Error(iHttpResponse.getMessage());
                     }
-
                     return true;
                 }
             });
     }
-
-    @Override
-    public Observable<List<TaskRequestListViewModel>> getAllTaskRequestsForUser() {
-        return httpRequester
-            .get(apiConstants.getTaskRequestsForCurrentUserUrl(userSession.getId()))
-            .map(new Function<HttpResponseContract, List<TaskRequestListViewModel>>() {
-                @Override
-                public List<TaskRequestListViewModel> apply(HttpResponseContract iHttpResponse) throws Exception {
-                    if (iHttpResponse.getCode() == apiConstants.responseErrorCode()) {
-                        throw new Error(iHttpResponse.getMessage());
-                    }
-
-                    String responseBody = iHttpResponse.getBody();
-                    List<TaskRequestListViewModel> taskRequests = jsonParser.fromJson(responseBody, new TypeToken<List<TaskRequestListViewModel>>(){}.getType());
-                    return taskRequests;
-                }
-            });
-    }
-
-    @Override
-    public Observable<List<TaskRequestListViewModel>> getAllTaskRequestsForTask(int taskId) {
-        return httpRequester
-                .get(apiConstants.getRequestsForTaskUrl(taskId))
-                .map(new Function<HttpResponseContract, List<TaskRequestListViewModel>>() {
-                    @Override
-                    public List<TaskRequestListViewModel> apply(HttpResponseContract iHttpResponse) throws Exception {
-                        if (iHttpResponse.getCode() == apiConstants.responseErrorCode()) {
-                            throw new Error(iHttpResponse.getMessage());
-                        }
-
-                        String responseBody = iHttpResponse.getBody();
-                        List<TaskRequestListViewModel> taskRequests = jsonParser.fromJson(responseBody, new TypeToken<List<TaskRequestListViewModel>>(){}.getType());
-                        return taskRequests;
-                    }
-                });
-    }
-
-
 
     @Override
     public Observable<Boolean> updateTaskRequest(int taskRequestId, int status) {
@@ -107,6 +68,24 @@ public class TaskRequestData implements TaskRequestDataContract {
                         }
 
                         return true;
+                    }
+                });
+    }
+
+    @Override
+    public Observable<List<TaskRequestListViewModel>> getAllTaskRequestsForTask(int taskId) {
+        return httpRequester
+                .get(apiConstants.getRequestsForTaskUrl(taskId))
+                .map(new Function<HttpResponseContract, List<TaskRequestListViewModel>>() {
+                    @Override
+                    public List<TaskRequestListViewModel> apply(HttpResponseContract iHttpResponse) throws Exception {
+                        if (iHttpResponse.getCode() == apiConstants.responseErrorCode()) {
+                            throw new Error(iHttpResponse.getMessage());
+                        }
+
+                        String responseBody = iHttpResponse.getBody();
+                        List<TaskRequestListViewModel> taskRequests = jsonParser.fromJson(responseBody, new TypeToken<List<TaskRequestListViewModel>>(){}.getType());
+                        return taskRequests;
                     }
                 });
     }

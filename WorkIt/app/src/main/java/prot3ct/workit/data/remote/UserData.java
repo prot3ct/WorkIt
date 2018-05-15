@@ -3,7 +3,6 @@ package prot3ct.workit.data.remote;
 import android.content.Context;
 import android.util.Log;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,8 +11,7 @@ import io.reactivex.functions.Function;
 import prot3ct.workit.config.ApiConstants;
 import prot3ct.workit.data.local.UserSession;
 import prot3ct.workit.data.remote.base.UserDataContract;
-import prot3ct.workit.data.remote.result_models.LoginViewModel;
-import prot3ct.workit.models.User;
+import prot3ct.workit.view_models.LoginViewModel;
 import prot3ct.workit.models.base.HttpResponseContract;
 import prot3ct.workit.utils.GsonParser;
 import prot3ct.workit.utils.HashProvider;
@@ -25,7 +23,6 @@ public class UserData implements UserDataContract {
     private final ApiConstants apiConstants;
     private final GsonParser jsonParser;
     private final UserSession userSession;
-    private final Type userModelType;
 
     public UserData(Context context) {
         this.jsonParser = new GsonParser();
@@ -33,7 +30,6 @@ public class UserData implements UserDataContract {
         this.httpRequester = new OkHttpRequester();
         this.apiConstants = new ApiConstants();
         this.userSession = new UserSession(context);
-        this.userModelType = User.class;
     }
 
     @Override
@@ -49,13 +45,13 @@ public class UserData implements UserDataContract {
                 @Override
                 public Boolean apply(HttpResponseContract iHttpResponse) throws Exception {
                     if (iHttpResponse.getCode() == apiConstants.responseErrorCode()) {
-                        Log.d("CEKO", iHttpResponse.getMessage());
                         throw new Error(iHttpResponse.getMessage());
                     }
                     String responseBody = iHttpResponse.getBody();
                     LoginViewModel result = jsonParser.fromJson(responseBody, LoginViewModel.class);
+                    userSession.setId(result.getUserId());
                     userSession.setEmail(result.getEmail());
-                    userSession.setId(result.getId());
+                    userSession.setFullName(result.getFullName());
                     return true;
                 }
             });
@@ -84,25 +80,8 @@ public class UserData implements UserDataContract {
     }
 
     @Override
-    public Observable<Boolean> createRaiting(int receiverUserId, int taskId, int receiverUserRoleId, String value) {
-        Map<String, String> raiting = new HashMap<>();
-        raiting.put("receiverUserId", Integer.toString(receiverUserId));
-        raiting.put("taskId", Integer.toString(taskId));
-        raiting.put("receiverUserRoleId", Integer.toString(receiverUserRoleId));
-        raiting.put("value", value);
-
-        return httpRequester
-            .post(apiConstants.createRatingUrl(receiverUserId), raiting)
-            .map(new Function<HttpResponseContract, Boolean>() {
-                @Override
-                public Boolean apply(HttpResponseContract iHttpResponse) throws Exception {
-                    if (iHttpResponse.getCode() == apiConstants.responseErrorCode()) {
-                        throw new Error(iHttpResponse.getMessage());
-                    }
-
-                    return true;
-                }
-            });
+    public int getLoggedInUserId() {
+        return this.userSession.getId();
     }
 
     @Override

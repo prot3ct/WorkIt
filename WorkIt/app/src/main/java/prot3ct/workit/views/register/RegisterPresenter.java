@@ -8,7 +8,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import prot3ct.workit.data.remote.UserData;
-import prot3ct.workit.models.base.UserContract;
 import prot3ct.workit.views.register.base.RegisterContract;
 
 public class RegisterPresenter implements RegisterContract.Presenter {

@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +21,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import prot3ct.workit.R;
-import prot3ct.workit.data.remote.result_models.EditTaskViewModel;
+import prot3ct.workit.view_models.TaskDetailViewModel;
 import prot3ct.workit.utils.WorkItProgressDialog;
 import prot3ct.workit.views.edit_task.base.EditTaskContract;
-import prot3ct.workit.views.list_jobs.ListJobsActivity;
+import prot3ct.workit.views.list_jobs.ListTasksActivity;
 import prot3ct.workit.views.navigation.DrawerUtil;
 
 public class EditTaskFragment extends Fragment implements EditTaskContract.View {
@@ -41,7 +40,6 @@ public class EditTaskFragment extends Fragment implements EditTaskContract.View 
     private TextView cityTextView;
     private TextView addressTextView;
     private TextView rewardTextView;
-    private TextView minimalRatingTextView;
     private Toolbar toolbar;
     private Button saveTaskButton;
 
@@ -83,13 +81,12 @@ public class EditTaskFragment extends Fragment implements EditTaskContract.View 
         this.cityTextView = (TextView) view.findViewById(R.id.id_city_edit_text);
         this.addressTextView = (TextView) view.findViewById(R.id.id_address_edit_text);
         this.rewardTextView = (TextView) view.findViewById(R.id.id_reward_edit_text);
-        this.minimalRatingTextView = (TextView) view.findViewById(R.id.id_minimal_raiting_to_join_edit_text);
         this.saveTaskButton = (Button) view.findViewById(R.id.id_create_task_btn);
         DrawerUtil drawer = new DrawerUtil(this.getActivity(), this.toolbar);
         drawer.getDrawer();
 
         this.taskId = getActivity().getIntent().getIntExtra("taskId", 0);
-        presenter.getTaskById(taskId);
+        presenter.getTaskDetails(taskId);
 
         this.startDateTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,8 +106,7 @@ public class EditTaskFragment extends Fragment implements EditTaskContract.View 
                     descriptionTextView.getText().toString(),
                     cityTextView.getText().toString(),
                     addressTextView.getText().toString(),
-                    rewardTextView.getText().toString(),
-                    minimalRatingTextView.getText().toString()
+                    rewardTextView.getText().toString()
                 );
             }
         });
@@ -120,12 +116,12 @@ public class EditTaskFragment extends Fragment implements EditTaskContract.View 
 
     @Override
     public void showListJobsActivity() {
-        Intent intent = new Intent(this.context, ListJobsActivity.class);
+        Intent intent = new Intent(this.context, ListTasksActivity.class);
         startActivity(intent);
     }
 
     @Override
-    public void updateTask(EditTaskViewModel task) {
+    public void updateTask(TaskDetailViewModel task) {
         this.titleTextView.setText(task.getTitle());
         this.startDateTextView.setText(task.getStartDate());
         this.lengthEditText.setText(String.valueOf(task.getLength()));
@@ -133,7 +129,6 @@ public class EditTaskFragment extends Fragment implements EditTaskContract.View 
         this.cityTextView.setText(task.getCity());
         this.addressTextView.setText(task.getAddress());
         this.rewardTextView.setText(String.valueOf(task.getReward()));
-        this.minimalRatingTextView.setText(String.valueOf(task.getMinRaiting()));
     }
 
     @Override

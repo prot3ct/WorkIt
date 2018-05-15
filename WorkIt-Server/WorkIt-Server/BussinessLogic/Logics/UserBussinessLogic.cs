@@ -2,6 +2,7 @@
 using WorkIt_Server.Models;
 using WorkIt_Server.Models.Context;
 using WorkIt_Server.Models.DTO;
+using WorkIt_Server.Models.ViewModels;
 
 namespace WorkIt_Server.BLL
 {
@@ -28,9 +29,16 @@ namespace WorkIt_Server.BLL
 
         public UserBussinessLogic() { }
 
-        public int GetUserIdByEmail(string email)
+        public LoginViewModel getUserInfo(string email)
         {
-            return db.Users.FirstOrDefault(u => u.Email == email).UserId;
+            var user = db.Users.FirstOrDefault(u => u.Email == email);
+
+            return new LoginViewModel
+            {
+                Email = user.Email,
+                FullName = user.FullName,
+                UserId = user.UserId
+            };
         }
 
         public bool LoginUser(LoginDTO credentials)

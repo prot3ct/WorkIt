@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import prot3ct.workit.R;
-import prot3ct.workit.data.remote.result_models.TaskRequestListViewModel;
+import prot3ct.workit.view_models.TaskRequestListViewModel;
 import prot3ct.workit.views.navigation.DrawerUtil;
 import prot3ct.workit.views.list_task_requests.base.ListTaskRequestContract;
 
@@ -79,7 +78,7 @@ public class ListTaskRequestsFragment extends Fragment implements ListTaskReques
 
     @Override
     public void setupTaskRequestsAdapter(List<TaskRequestListViewModel> users) {
-        SingleTaskRequestAdapter adapter = new SingleTaskRequestAdapter(users, context, presenter);
+        ListTaskRequestAdapter adapter = new ListTaskRequestAdapter(users, context, presenter);
         recyclerTaskRequestView.setAdapter(adapter);
     }
 }

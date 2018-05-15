@@ -11,50 +11,8 @@ namespace WorkIt_Server.Controllers
         private BaseService service = new BaseService();
 
         [Route("tasks")]
-        [HttpGet]
-        public IHttpActionResult GetAllAvailableTasks()
-        {
-            try
-            {
-                return Ok(service.GetAllAvailableTasks());
-            }
-            catch (Exception)
-            {
-                return InternalServerError();
-            }
-        }
-
-        [Route("users/{userId}/tasks")]
-        [HttpGet]
-        public IHttpActionResult GetTasksByUser(int userId)
-        {
-            try
-            {
-                return Ok(service.GetTasksByUser(userId));
-            }
-            catch (Exception)
-            {
-                return InternalServerError();
-            }
-        }
-
-        [Route("users/{userId}/completed-tasks")]
-        [HttpGet]
-        public IHttpActionResult GetCompletedTasksByUser(int userId)
-        {
-            try
-            {
-                return Ok(service.GetCompletedTasksByUser(userId));
-            }
-            catch (Exception)
-            {
-                return InternalServerError();
-            }
-        }
-
-        [Route("tasks")]
         [HttpPost]
-        public IHttpActionResult CreateTask(TaskDTO jobInformation)
+        public IHttpActionResult CreateTask(CreateTaskDTO jobInformation)
         {
             try
             {
@@ -69,14 +27,14 @@ namespace WorkIt_Server.Controllers
 
         [Route("tasks/{taskId}/update")]
         [HttpPost]
-        public IHttpActionResult UpdateTask(TaskDTO jobInformation)
+        public IHttpActionResult UpdateTask(EditTaskDTO task)
         {
             try
             {
-                service.UpdateTask(jobInformation);
+                service.UpdateTask(task);
                 return Ok();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return InternalServerError(e);
             }
@@ -84,11 +42,11 @@ namespace WorkIt_Server.Controllers
 
         [Route("tasks/{taskId}")]
         [HttpGet]
-        public IHttpActionResult GetTaskById(int taskId)
+        public IHttpActionResult GetTaskDetails(int taskId)
         {
             try
             {
-                return Ok(service.GetTaskById(taskId));
+                return Ok(service.GetTaskDetails(taskId));
             }
             catch
             {
@@ -108,6 +66,62 @@ namespace WorkIt_Server.Controllers
             catch
             {
                 return InternalServerError();
+            }
+        }
+
+        [Route("users/{userId}/available-tasks")]
+        [HttpGet]
+        public IHttpActionResult GetAllAvailableTasks()
+        {
+            try
+            {
+                return Ok(service.GetAllAvailableTasks());
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
+        }
+
+        [Route("users/{userId}/my-tasks")]
+        [HttpGet]
+        public IHttpActionResult GetMyTasks(int userId)
+        {
+            try
+            {
+                return Ok(service.GetMyTasks(userId));
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
+        }
+
+        [Route("users/{userId}/assigned-tasks")]
+        [HttpGet]
+        public IHttpActionResult GetAssignedTasks(int userId)
+        {
+            try
+            {
+                return Ok(service.GetAssignedTasks(userId));
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
+        }
+
+        [Route("users/{userId}/completed-tasks")]
+        [HttpGet]
+        public IHttpActionResult GetCompletedTasksByUser(int userId)
+        {
+            try
+            {
+                return Ok(service.GetCompletedTasksByUser(userId));
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
             }
         }
     }

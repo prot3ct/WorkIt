@@ -1,5 +1,6 @@
 package prot3ct.workit.data.local;
 
+import android.app.backup.FullBackupDataOutput;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -14,8 +15,13 @@ public class UserSession implements UserSessionContract{
     }
 
     @Override
+    public String getFullName() {
+        return sharedPreferences.getString("fullName", null);
+    }
+
+    @Override
     public String getEmail() {
-        return sharedPreferences.getString("username", null);
+        return sharedPreferences.getString("email", null);
     }
 
     @Override
@@ -24,8 +30,13 @@ public class UserSession implements UserSessionContract{
     }
 
     @Override
-    public void setEmail(String username) {
-        sharedPreferences.edit().putString("username", username).apply();
+    public void setEmail(String email) {
+        sharedPreferences.edit().putString("email", email).apply();
+    }
+
+    @Override
+    public void setFullName(String fullName) {
+        sharedPreferences.edit().putString("fullName", fullName).apply();
     }
 
     @Override

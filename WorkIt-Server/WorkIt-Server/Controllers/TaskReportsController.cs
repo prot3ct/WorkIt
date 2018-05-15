@@ -10,19 +10,19 @@ namespace WorkIt_Server.Controllers
     {
         private BaseService service = new BaseService();
 
-        [Route("tasks/reports/create")]
-        [HttpPost]
-        public IHttpActionResult CreateTaskReport(TaskReportDTO taskReport)
-        {
-            try
-            {
-                service.CreateTaskReport(taskReport);
-                return Ok();
-            }
-            catch (Exception)
-            {
-                return InternalServerError();
-            }
-        }
+        //[Route("tasks/reports/create")]
+        //[HttpPost]
+        //public IHttpActionResult CreateTaskReport(TaskReportDTO taskReport)
+        //{
+        //    try
+        //    {
+        //        service.CreateTaskReport(taskReport);
+        //        return Ok();
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return InternalServerError();
+        //    }
+        //}
     }
 }

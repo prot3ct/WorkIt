@@ -11,18 +11,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.stepstone.apprating.AppRatingDialog;
+
+import java.util.Arrays;
 import java.util.List;
 
 import prot3ct.workit.R;
-import prot3ct.workit.models.base.TaskContract;
 import prot3ct.workit.utils.WorkItProgressDialog;
+import prot3ct.workit.view_models.CompletedTasksListViewModel;
 import prot3ct.workit.views.completed_tasks.base.CompletedTasksContract;
 
 public class CompletedTasksFragment extends Fragment implements CompletedTasksContract.View {
     private CompletedTasksContract.Presenter presenter;
     private Context context;
 
-    private RateTaskDialog rateTaskDialog;
+    private int loggedInUserId;
+    private int selectedTaskId;
+    private int userToBeRatedId;
+    private int receiverUserRoleId;
+
     private FloatingActionButton createTaskButton;
     private WorkItProgressDialog dialog;
 
@@ -44,15 +51,14 @@ public class CompletedTasksFragment extends Fragment implements CompletedTasksCo
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_list_jobs, container, false);
+        View view = inflater.inflate(R.layout.fragment_completed_tasks, container, false);
 
         this.dialog = new WorkItProgressDialog(context);
-        this.rateTaskDialog = new RateTaskDialog();
-        this.rateTaskDialog.setPresenter(this.presenter);
         this.recyclerTaskView = view.findViewById(R.id.id_list_tasks_list_view);
         LinearLayoutManager llm = new LinearLayoutManager(context);
         recyclerTaskView.setLayoutManager(llm);
-        presenter.getMyCompletedTasks();
+        loggedInUserId = presenter.getLoggedInUserId();
+        presenter.getCompletedTasks();
 
         return view;
     }
@@ -62,6 +68,24 @@ public class CompletedTasksFragment extends Fragment implements CompletedTasksCo
         super.onAttach(context);
 
         this.context = context;
+    }
+
+    @Override
+    public void updateSelectedInfo(int taskId, int supervisorId, int taskerId) {
+        selectedTaskId = taskId;
+        if (loggedInUserId == supervisorId) {
+            userToBeRatedId = taskerId;
+            receiverUserRoleId = 3;
+        }
+        else {
+            userToBeRatedId = supervisorId;
+            receiverUserRoleId = 4;
+        }
+    }
+
+    @Override
+    public void postRaiting(int value, String descrption) {
+        presenter.createRating(value, descrption, userToBeRatedId, selectedTaskId, receiverUserRoleId);
     }
 
     @Override
@@ -85,8 +109,25 @@ public class CompletedTasksFragment extends Fragment implements CompletedTasksCo
     }
 
     @Override
-    public void setupTasksAdapter(final List<? extends TaskContract> tasks) {
-        CompletedTaskAdapter adapter = new CompletedTaskAdapter(tasks, context);
+    public void setupTasksAdapter(final List<CompletedTasksListViewModel> tasks) {
+        CompletedTasksAdapter adapter = new CompletedTasksAdapter(tasks, context, this);
         recyclerTaskView.setAdapter(adapter);
+    }
+
+    @Override
+    public void showDialog() {
+        new AppRatingDialog.Builder()
+                .setPositiveButtonText("Submit")
+                .setDefaultRating(3)
+                .setTitle("Rate user performance")
+                .setStarColor(R.color.bg_login)
+                .setTitleTextColor(R.color.md_black_1000)
+                .setNumberOfStars(5)
+                .setCommentBackgroundColor(R.color.md_blue_grey_50)
+                .setHint("Please write short review")
+                .setHintTextColor(R.color.md_black_1000)
+                //.setWindowAnimation(R.style.MyDialogFadeAnimation)
+                .create(getActivity())
+                .show();
     }
 }

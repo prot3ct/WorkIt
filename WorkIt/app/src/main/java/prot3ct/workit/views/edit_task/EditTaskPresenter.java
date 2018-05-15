@@ -6,25 +6,23 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import prot3ct.workit.data.remote.JobData;
-import prot3ct.workit.data.remote.result_models.EditTaskViewModel;
+import prot3ct.workit.data.remote.TaskData;
+import prot3ct.workit.view_models.TaskDetailViewModel;
 import prot3ct.workit.views.edit_task.base.EditTaskContract;
 
 public class EditTaskPresenter implements EditTaskContract.Presenter {
     private EditTaskContract.View view;
-    private JobData jobData;
+    private TaskData taskData;
 
     public EditTaskPresenter(EditTaskContract.View view, Context context) {
         this.view = view;
-        this.jobData = new JobData(context);
+        this.taskData = new TaskData(context);
     }
 
     @Override
     public void updateTask(int taskId, String title, String startDate, String length,
-                           String description, String city, String address,
-                           String reward, String minimalRating) {
-        jobData.updateTask(taskId, title, startDate, length, description,
-            city, address, reward, minimalRating)
+                           String description, String city, String address, String reward) {
+        taskData.updateTask(taskId, title, startDate, length, description, city, address, reward)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -55,18 +53,18 @@ public class EditTaskPresenter implements EditTaskContract.Presenter {
     }
 
     @Override
-    public void getTaskById(int taskId) {
-        jobData.getTaskById(taskId)
+    public void getTaskDetails(int taskId) {
+        taskData.getTaskDetails(taskId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                new Observer<EditTaskViewModel>() {
+                new Observer<TaskDetailViewModel>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                     }
 
                     @Override
-                    public void onNext(EditTaskViewModel task) {
+                    public void onNext(TaskDetailViewModel task) {
                         view.updateTask(task);
                     }
 

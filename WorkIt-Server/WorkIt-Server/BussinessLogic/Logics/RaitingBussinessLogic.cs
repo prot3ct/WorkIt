@@ -27,11 +27,12 @@ namespace WorkIt_Server.BussinessLogic.Logics
             }
         }
 
-        public void CreateRatiing(RaitingDTO raiting)
+        public void CreateRatiing(CreateRaitingDTO raiting)
         {
             var raitingToBeInserted = new Raiting
             {
                 Value = raiting.Value,
+                Description = raiting.Description,
                 ReceiverUserId = raiting.ReceiverUserId,
                 TaskId = raiting.TaskId,
                 ReceiverUserRoleId = raiting.ReceiverUserRoleId
@@ -41,11 +42,11 @@ namespace WorkIt_Server.BussinessLogic.Logics
             db.SaveChanges();
         }
 
-        public IEnumerable<RaitingDTO> GetAllRaitingByUserId(int userId)
+        public IEnumerable<CreateRaitingDTO> GetAllRaitingByUserId(int userId)
         {
             var raitings = Db.Raitings
                 .Where(r => r.ReceiverUserId == userId)
-                .Select(r => new RaitingDTO
+                .Select(r => new CreateRaitingDTO
                 {
                     Value = r.Value,
                     ReceiverUserId = r.ReceiverUserId,

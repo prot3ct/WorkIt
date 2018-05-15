@@ -7,14 +7,15 @@ using System.Linq;
 using WorkIt_Server.Models;
 using WorkIt_Server.Models.Context;
 using WorkIt_Server.Models.DTO;
+using WorkIt_Server.Models.ViewModels;
 
 namespace WorkIt_Server.BLL
 {
-    public class JobBussinessLogic
+    public class TaskBussinessLogic
     {
         private WorkItDbContext db;
 
-        public JobBussinessLogic(WorkItDbContext db)
+        public TaskBussinessLogic(WorkItDbContext db)
         {
             this.Db = db;
         }
@@ -31,20 +32,19 @@ namespace WorkIt_Server.BLL
             }
         }
 
-        public void CreateTask(TaskDTO jobInformation)
+        public void CreateTask(CreateTaskDTO taskInfo)
         {
-            var creator = Db.Users.Where(u => u.Email == jobInformation.CreatorEmail).FirstOrDefault();
+            var creator = Db.Users.Where(u => u.Email == taskInfo.CreatorEmail).FirstOrDefault();
             var jobToBeInserted = new Task
             {
-                MinRaiting = jobInformation.MinRaiting,
-                Reward = jobInformation.Reward,
+                Reward = taskInfo.Reward,
                 CreatorId = creator.UserId,
-                Description = jobInformation.Description,
-                StartDate = jobInformation.StartDate,
-                Length = jobInformation.Length,
-                Title = jobInformation.Title,
-                Address = jobInformation.Address,
-                City = jobInformation.City,
+                Description = taskInfo.Description,
+                StartDate = taskInfo.StartDate,
+                Length = taskInfo.Length,
+                Title = taskInfo.Title,
+                Address = taskInfo.Address,
+                City = taskInfo.City,
                 IsCompleted = false,
                 HasCreatorGivenRating = false,
                 HasTaskerGivenRating = false,
@@ -55,84 +55,36 @@ namespace WorkIt_Server.BLL
             Db.SaveChanges();
         }
 
-        public void UpdateTask(TaskDTO jobInformation)
+        public void UpdateTask(EditTaskDTO taskInfo)
         {
-            var creator = Db.Users.Where(u => u.Email == jobInformation.CreatorEmail).FirstOrDefault();
-            var updatedTask = db.Tasks.FirstOrDefault(t => t.TaskId == jobInformation.Id);
+            var updatedTask = db.Tasks.FirstOrDefault(t => t.TaskId == taskInfo.Id);
 
-            updatedTask.Title = jobInformation.Title;
-            updatedTask.StartDate = jobInformation.StartDate;
-            updatedTask.Reward = jobInformation.Reward;
-            updatedTask.MinRaiting = jobInformation.MinRaiting;
-            updatedTask.Length = jobInformation.Length;
-            updatedTask.Description = jobInformation.Description;
-            updatedTask.City = jobInformation.City;
-            updatedTask.Address = jobInformation.Address;
+            updatedTask.Title = taskInfo.Title;
+            updatedTask.StartDate = taskInfo.StartDate;
+            updatedTask.Reward = taskInfo.Reward;
+            updatedTask.Length = taskInfo.Length;
+            updatedTask.Description = taskInfo.Description;
+            updatedTask.City = taskInfo.City;
+            updatedTask.Address = taskInfo.Address;
 
             Db.SaveChanges();
         }
 
-        public IEnumerable<TaskDTO> GetCompletedTasksByUser(int userId)
+        public TaskDetailsViewModel GetTaskDetails(int taskId)
         {
-            return Db.Tasks
-                .Where(t => t.AssignedUserId == userId || t.CreatorId == userId)
-                //.Where(t => EntityFunctions.CreateDateTime(t.EndDate.Year, t.EndDate.Month, t.EndDate.Day, t.EndDate.Hour, t.EndDate.Minute, 0) <= DateTime.Now)
-                .Where(t => t.AssignedUserId == userId || t.CreatorId == userId)
-                .Select(t => new TaskDTO
-                {
-                    Id = t.TaskId,
-                    CreatorEmail = t.Creator.Email,
-                    Address = t.Address,
-                    City = t.City,
-                    Description = t.Description,
-                    StartDate = t.StartDate,
-                    MinRaiting = t.MinRaiting,
-                    Reward = t.Reward,
-                    Title = t.Title,
-                })
-                .ToList();
-        }
+            var task = Db.Tasks.FirstOrDefault(t => t.TaskId == taskId);
 
-        public IEnumerable<TaskDTO> GetAllAvailableTasks()
-        {
-            return Db.Tasks
-                .Where(t => t.StartDate > DateTime.Now)
-                .OrderBy(t => t.StartDate)
-                .Select(j => new TaskDTO
-                {
-                    Id = j.TaskId,
-                    CreatorEmail = j.Creator.Email,
-                    Address = j.Address,
-                    City = j.City,
-                    Description = j.Description,
-                    StartDate = j.StartDate,
-                    MinRaiting = j.MinRaiting,
-                    Reward = j.Reward,
-                    Title = j.Title
-                })
-                .ToList();
-        }
-
-
-        public IEnumerable<TaskDTO> GetTasksByUser(int userId)
-        {
-            return Db.Tasks
-                .Where(t => t.Creator.UserId == userId)
-                .Where(t => t.StartDate > DateTime.Now)
-                .OrderBy(t => t.StartDate)
-                .Select(j => new TaskDTO
-                {
-                    Id = j.TaskId,
-                    CreatorEmail = j.Creator.Email,
-                    Address = j.Address,
-                    City = j.City,
-                    Description = j.Description,
-                    StartDate = j.StartDate,
-                    MinRaiting = j.MinRaiting,
-                    Reward = j.Reward,
-                    Title = j.Title
-                })
-                .ToList();
+            return new TaskDetailsViewModel
+            {
+                TaskId = task.TaskId,
+                Address = task.Address,
+                City = task.City,
+                Title = task.Title,
+                Description = task.Description,
+                Length = task.Length,
+                StartDate = task.StartDate,
+                Reward = task.Reward
+            };
         }
 
         public void DeleteTaskById(int taskId)
@@ -142,21 +94,67 @@ namespace WorkIt_Server.BLL
             Db.SaveChanges();
         }
 
-        public TaskDTO GetTaskById(int taskId)
+        public IEnumerable<AvailableTasksViewModel> GetAllAvailableTasks()
         {
-            var task = Db.Tasks.FirstOrDefault(t => t.TaskId == taskId);
+            return Db.Tasks
+                .Where(t => t.StartDate > DateTime.Now)
+                .OrderBy(t => t.StartDate)
+                .Select(j => new AvailableTasksViewModel
+                {
+                    TaskId = j.TaskId,
+                    Title = j.Title,
+                    StartDate = j.StartDate,
+                    FullName = j.Creator.FullName
+                })
+                .ToList();
+        }
 
-            return new TaskDTO
-            {
-                Address = task.Address,
-                City = task.City,
-                Title = task.Title,
-                Description = task.Description,
-                Length = task.Length,
-                StartDate = task.StartDate,
-                MinRaiting = task.MinRaiting,
-                Reward = task.Reward
-            };
+        public IEnumerable<AssignedTasksListViewModel> GetAssignedTasks(int userId)
+        {
+            return Db.Tasks
+                .Where(t => t.AssignedUserId == userId)
+                .Select(t => new AssignedTasksListViewModel
+                {
+                    TaskId = t.TaskId,
+                    Title = t.Title,
+                    StartDate = t.StartDate,
+                    FullName = t.Creator.FullName
+                })
+                .ToList();
+        }
+
+        public IEnumerable<CompletedTasksListViewModel> GetCompletedTasksByUser(int userId)
+        {
+            return Db.Tasks
+                .Where(t => (t.AssignedUserId == userId || t.CreatorId == userId) && t.AssignedUserId != null)
+                .Where(t => t.StartDate < DateTime.Now)
+                .OrderBy(t => t.StartDate)
+                .Select(t => new CompletedTasksListViewModel
+                {
+                    TaskId = t.TaskId,
+                    Title = t.Title,
+                    StartDate = t.StartDate,
+                    SupervisorFullName = t.Creator.FullName,
+                    SupervisorId = t.Creator.UserId,
+                    TaskerFullName = t.AssignedUser.FullName,
+                    TaskerId = t.AssignedUser.UserId
+                })
+                .ToList();
+        }
+
+        public IEnumerable<GetMyTasksListViewModel> GetMyTasks(int userId)
+        {
+            return Db.Tasks
+                .Where(t => t.Creator.UserId == userId)
+                .Where(t => t.StartDate > DateTime.Now)
+                .OrderBy(t => t.StartDate)
+                .Select(t => new GetMyTasksListViewModel
+                {
+                    TaskId = t.TaskId,
+                    Title = t.Title,
+                    StartDate = t.StartDate
+                })
+                .ToList();
         }
     }
 }

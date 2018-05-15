@@ -9,7 +9,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import prot3ct.workit.data.remote.TaskRequestData;
-import prot3ct.workit.data.remote.result_models.TaskRequestListViewModel;
+import prot3ct.workit.view_models.TaskRequestListViewModel;
 import prot3ct.workit.views.list_task_requests.base.ListTaskRequestContract;
 
 public class ListTaskRequestsPresenter implements  ListTaskRequestContract.Presenter {
