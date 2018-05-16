@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 using WorkIt_Server.BLL;
-using WorkIt_Server.Models.DTO;
 
 namespace WorkIt_Server.Controllers
 {
@@ -10,36 +13,13 @@ namespace WorkIt_Server.Controllers
     {
         private BaseService service = new BaseService();
 
-        [Route("auth/login")]
-        [HttpPost]
-        public IHttpActionResult Login(LoginDTO credentials)
+        [Route("users/{userId}")]
+        [HttpGet]
+        public IHttpActionResult GetProfileDetails(int userId)
         {
             try
             {
-                if (service.LoginUser(credentials))
-                {
-                    return Ok(service.getUserInfo(credentials.Email));
-                    //return Ok(new { Id = service.GetUserIdByEmail(credentials.Email), credentials.Email });
-                }
-                return NotFound();
-            }
-            catch (Exception)
-            {
-                return InternalServerError();
-            }
-        }
-
-        [Route("auth/register")]
-        [HttpPost]
-        public IHttpActionResult Register(RegisterDTO credentials)
-        {
-            try
-            {
-                if (service.RegisterUser(credentials))
-                {
-                    return Ok();
-                }
-                return NotFound();
+                return Ok(service.getProfileDetails(userId));
             }
             catch (Exception)
             {

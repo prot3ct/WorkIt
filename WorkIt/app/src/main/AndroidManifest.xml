@@ -41,6 +41,7 @@
         <activity android:name=".views.my_tasks.MyTasksActivity" />
         <activity android:name=".views.edit_task.EditTaskActivity" />
         <activity android:name=".views.assigned_tasks.AssignedTasksActivity" />
+        <activity android:name=".views.profile.ProfileActivity"/>
 
         <uses-library android:name="com.google.android.maps"/>
 

@@ -1,27 +1,26 @@
 package prot3ct.workit.views.login;
 
 import android.content.Context;
-import android.util.Log;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import prot3ct.workit.data.remote.UserData;
+import prot3ct.workit.data.remote.AuthData;
 import prot3ct.workit.views.login.base.LoginContract;
 
 public class LoginPresenter implements LoginContract.Presenter {
     private LoginContract.View view;
-    private UserData userData;
+    private AuthData authData;
 
     public LoginPresenter(LoginContract.View view, Context context) {
         this.view = view;
-        userData = new UserData(context);
+        authData = new AuthData(context);
     }
 
     @Override
     public void loginUser(String email, String password) {
-        userData.login(email, password)
+        authData.login(email, password)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(

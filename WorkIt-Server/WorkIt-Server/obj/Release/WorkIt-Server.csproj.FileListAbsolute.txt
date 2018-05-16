@@ -84,3 +84,4 @@ C:\Users\prot3\Desktop\diplomna\WorkIt\WorkIt-Server\WorkIt-Server\obj\Release\W
 C:\Users\prot3\Desktop\diplomna\WorkIt\WorkIt-Server\WorkIt-Server\obj\Release\WorkIt_Server.Migrations.RemoveComments.resources
 C:\Users\prot3\Desktop\diplomna\WorkIt\WorkIt-Server\WorkIt-Server\obj\Release\WorkIt_Server.Migrations.BigRefactoring.resources
 C:\Users\prot3\Desktop\diplomna\WorkIt\WorkIt-Server\WorkIt-Server\obj\Release\WorkIt_Server.Migrations.ModifyRaiting.resources
+C:\Users\prot3\Desktop\diplomna\WorkIt\WorkIt-Server\WorkIt-Server\obj\Release\WorkIt_Server.Migrations.ModifyProfile.resources

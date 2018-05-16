@@ -83,6 +83,11 @@ public class ApiConstants implements ApiConstantsContract {
     }
 
     @Override
+    public String getProfileDetailsUrl(int userId) {
+        return API_URL + "/users/" + userId;
+    }
+
+    @Override
     public String getLocationLatLngUrl(String location) {
         return "https://maps.googleapis.com/maps/api/geocode/json?address=" + location + "&key=AIzaSyA4t0Wp6n0os2wVPs3JRoSnDDJf49JVgFM";
     }

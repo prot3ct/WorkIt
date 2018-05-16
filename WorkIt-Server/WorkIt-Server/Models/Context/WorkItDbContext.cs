@@ -21,15 +21,7 @@ namespace WorkIt_Server.Models.Context
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<Task>()
-            //    .HasRequired(t => t.Creator)
-            //    .WithMany()
-            //    .WillCascadeOnDelete(false);
-
-            //modelBuilder.Entity<User>()
-            //    .HasRequired(u => u.Tasks)
-            //    .WithMany()
-            //    .WillCascadeOnDelete(false);
+            modelBuilder.Entity<User>().Property(m => m.Picture).IsOptional();
 
             base.OnModelCreating(modelBuilder);
         }

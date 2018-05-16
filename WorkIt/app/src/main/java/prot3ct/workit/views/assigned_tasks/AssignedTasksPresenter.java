@@ -9,18 +9,18 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import prot3ct.workit.data.remote.TaskData;
-import prot3ct.workit.data.remote.UserData;
+import prot3ct.workit.data.remote.AuthData;
 import prot3ct.workit.view_models.AssignedTasksListViewModel;
 import prot3ct.workit.views.assigned_tasks.base.AssignedTasksContract;
 
 public class AssignedTasksPresenter implements AssignedTasksContract.Presenter {
     private AssignedTasksContract.View view;
-    private UserData userData;
+    private AuthData authData;
     private TaskData taskData;
 
     public AssignedTasksPresenter(AssignedTasksContract.View view, Context context) {
         this.view = view;
-        this.userData = new UserData(context);
+        this.authData = new AuthData(context);
         this.taskData = new TaskData(context);
     }
 

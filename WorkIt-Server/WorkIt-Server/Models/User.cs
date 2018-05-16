@@ -17,10 +17,16 @@ namespace WorkIt_Server.Models
         [Required]
         public string FullName { get; set; }
 
-        public double RaitingAsEmployee { get; set; }
+        public string Phone { get; set; }
 
-        public double RaitingAsCreator { get; set; }
+        public byte[] Picture { get; set; }
 
-        public int TaskCompleted { get; set; }
+        public double RaitingAsTasker { get; set; }
+
+        public double RaitingAsSupervisor { get; set; }
+
+        public int ReviewsAsTasker { get; set; }
+
+        public int ReviewsAsSupervisor { get; set; }
     }
 }

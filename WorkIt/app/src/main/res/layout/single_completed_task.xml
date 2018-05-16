@@ -58,7 +58,7 @@
                 android:layout_width="50sp"
                 android:layout_height="50sp"
                 android:layout_gravity="center"
-                android:background="@drawable/ic_give_raiting"/>
+                android:background="@drawable/ic_give_rate"/>
         </LinearLayout>
 
     </android.support.v7.widget.CardView>

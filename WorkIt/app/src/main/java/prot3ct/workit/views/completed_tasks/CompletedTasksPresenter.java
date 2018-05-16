@@ -10,20 +10,20 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import prot3ct.workit.data.remote.RaitingData;
 import prot3ct.workit.data.remote.TaskData;
-import prot3ct.workit.data.remote.UserData;
+import prot3ct.workit.data.remote.AuthData;
 import prot3ct.workit.view_models.CompletedTasksListViewModel;
 import prot3ct.workit.views.completed_tasks.base.CompletedTasksContract;
 
 public class CompletedTasksPresenter implements CompletedTasksContract.Presenter {
     private CompletedTasksContract.View view;
     private TaskData taskData;
-    private UserData userData;
+    private AuthData authData;
     private RaitingData raitingData;
 
     public CompletedTasksPresenter(CompletedTasksContract.View view, Context context) {
         this.view = view;
         this.taskData = new TaskData(context);
-        this.userData = new UserData(context);
+        this.authData = new AuthData(context);
         this.raitingData = new RaitingData(context);
     }
 
@@ -58,7 +58,7 @@ public class CompletedTasksPresenter implements CompletedTasksContract.Presenter
 
     @Override
     public int getLoggedInUserId() {
-        return this.userData.getLoggedInUserId();
+        return this.authData.getLoggedInUserId();
     }
 
     @Override

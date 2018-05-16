@@ -1,10 +1,11 @@
-﻿using System.Linq;
-using WorkIt_Server.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using WorkIt_Server.Models.Context;
-using WorkIt_Server.Models.DTO;
 using WorkIt_Server.Models.ViewModels;
 
-namespace WorkIt_Server.BLL
+namespace WorkIt_Server.BussinessLogic.Logics
 {
     public class UserBussinessLogic
     {
@@ -27,47 +28,23 @@ namespace WorkIt_Server.BLL
             }
         }
 
-        public UserBussinessLogic() { }
-
-        public LoginViewModel getUserInfo(string email)
+        public ProfileDetailsViewModel getProfileDetails(int userId)
         {
-            var user = db.Users.FirstOrDefault(u => u.Email == email);
+            var user = db.Users.FirstOrDefault(u => u.UserId == userId);
+            var picture = "asdf";
 
-            return new LoginViewModel
+            return new ProfileDetailsViewModel
             {
+                UserId = user.UserId,
                 Email = user.Email,
                 FullName = user.FullName,
-                UserId = user.UserId
+                Phone = user.Phone,
+                NumberOfReviewsAsSupervisor = user.ReviewsAsSupervisor,
+                NumberOfReviewsAsTasker = user.ReviewsAsTasker,
+                RatingAsSupervisor = user.RaitingAsSupervisor,
+                RatingAsTasker = user.RaitingAsTasker,
+                PictureAsString = picture
             };
-        }
-
-        public bool LoginUser(LoginDTO credentials)
-        {
-            var user = db.Users.FirstOrDefault(u => u.Email == credentials.Email && u.PassHash == credentials.PassHash);
-            if (user != null)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public bool RegisterUser(RegisterDTO credentials)
-        {
-            if (db.Users.Select(u => u.Email).Contains(credentials.Email))
-            {
-                return false;
-            }
-
-            var userToBeInserted = new User
-            {
-                Email = credentials.Email,
-                PassHash = credentials.PassHash,
-                FullName = credentials.FullName
-            };
-
-            db.Users.Add(userToBeInserted);
-            db.SaveChanges();
-            return true;
         }
     }
 }

@@ -12,6 +12,7 @@ namespace WorkIt_Server.BLL
         {
             this.WorkItDbContext = new WorkItDbContext();
             this.TaskLogic = new TaskBussinessLogic(this.WorkItDbContext);
+            this.AuthLogic = new AuthBussinessLogic(this.WorkItDbContext);
             this.UserLogic = new UserBussinessLogic(this.WorkItDbContext);
             this.TaskReportLogic = new JobReportBussinessLogic(this.WorkItDbContext);
             this.TaskRequestLogic = new TaskRequestBussinessLogic(this.WorkItDbContext);
@@ -22,6 +23,8 @@ namespace WorkIt_Server.BLL
         public WorkItDbContext WorkItDbContext { get; private set; }
 
         public TaskBussinessLogic TaskLogic { get; private set; }
+
+        public AuthBussinessLogic AuthLogic { get; private set; }
 
         public UserBussinessLogic UserLogic { get; private set; }
 
@@ -35,17 +38,17 @@ namespace WorkIt_Server.BLL
 
         public LoginViewModel getUserInfo(string email)
         {
-            return UserLogic.getUserInfo(email);
+            return AuthLogic.getUserInfo(email);
         }
 
         public bool LoginUser(LoginDTO credentials)
         {
-            return UserLogic.LoginUser(credentials);
+            return AuthLogic.LoginUser(credentials);
         }
 
         public bool RegisterUser(RegisterDTO credentials)
         {
-            return UserLogic.RegisterUser(credentials);
+            return AuthLogic.RegisterUser(credentials);
         }
 
         public void CreateTask(CreateTaskDTO task)
@@ -111,6 +114,11 @@ namespace WorkIt_Server.BLL
         public void CreateRaiting(CreateRaitingDTO raiting)
         {
             this.RaitingLogic.CreateRatiing(raiting);
+        }
+
+        public ProfileDetailsViewModel getProfileDetails(int userId)
+        {
+            return this.UserLogic.getProfileDetails(userId);
         }
 
         //public void CreateTaskReport(TaskReportDTO jobReport)

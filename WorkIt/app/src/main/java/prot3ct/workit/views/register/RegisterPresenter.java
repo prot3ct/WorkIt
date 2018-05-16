@@ -7,21 +7,21 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import prot3ct.workit.data.remote.UserData;
+import prot3ct.workit.data.remote.AuthData;
 import prot3ct.workit.views.register.base.RegisterContract;
 
 public class RegisterPresenter implements RegisterContract.Presenter {
     private RegisterContract.View view;
-    private UserData userData;
+    private AuthData authData;
 
     public RegisterPresenter(RegisterContract.View view, Context context) {
         this.view = view;
-        userData = new UserData(context);
+        authData = new AuthData(context);
     }
 
     @Override
     public void registerUser(String email, String fullName, String password) {
-        userData.register(email, fullName, password)
+        authData.register(email, fullName, password)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(

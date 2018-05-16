@@ -11,11 +11,26 @@
                   <entry key="vectorAssetStep">
                     <value>
                       <PersistentState>
+                        <option name="children">
+                          <map>
+                            <entry key="clipartAsset">
+                              <value>
+                                <PersistentState>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="url" value="jar:file:/E:/Other%20files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/maps/ic_rate_review_black_24dp.xml" />
+                                    </map>
+                                  </option>
+                                </PersistentState>
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                         <option name="values">
                           <map>
-                            <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_checked" />
-                            <entry key="sourceFile" value="C:\Users\prot3\Downloads\checked.svg" />
+                            <entry key="color" value="26ae90" />
+                            <entry key="outputName" value="ic_give_rate" />
+                            <entry key="sourceFile" value="C:\Users\prot3\Downloads\rating.svg" />
                           </map>
                         </option>
                       </PersistentState>

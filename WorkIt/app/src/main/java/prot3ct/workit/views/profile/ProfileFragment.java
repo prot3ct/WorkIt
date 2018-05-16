@@ -1,0 +1,100 @@
+package prot3ct.workit.views.profile;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import prot3ct.workit.R;
+import prot3ct.workit.utils.WorkItProgressDialog;
+import prot3ct.workit.view_models.ProfileDetailsViewModel;
+import prot3ct.workit.views.profile.base.ProfileContract;
+import prot3ct.workit.views.navigation.DrawerUtil;
+
+public class ProfileFragment extends Fragment implements ProfileContract.View {
+    private ProfileContract.Presenter presenter;
+    private Context context;
+    private Toolbar toolbar;
+
+    private TextView fullNameTextView;
+    private TextView emailTextView;
+    private TextView phoneTextView;
+    private TextView ratingAsTaskerTextView;
+    private TextView ratingAsSupervisorTextView;
+    private TextView numberOfReviewsAsTaskerTextView;
+    private TextView numberOfReviewsAsSupervisorTextView;
+
+    private WorkItProgressDialog dialog;
+
+    public ProfileFragment() {
+    }
+
+    public static ProfileFragment newInstance() {
+        return new ProfileFragment();
+    }
+
+    @Override
+    public void setPresenter(ProfileContract.Presenter presenter) {
+        this.presenter = presenter;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        this.fullNameTextView = view.findViewById(R.id.id_profile_name_text_view);
+        this.emailTextView = view.findViewById(R.id.id_profile_email_text_view);
+        this.phoneTextView = view.findViewById(R.id.id_profile_phone_text_view);
+        this.ratingAsTaskerTextView = view.findViewById(R.id.id_profile_raiting_as_tasker_text_view);
+        this.ratingAsSupervisorTextView = view.findViewById(R.id.id_profile_rating_as_supervisor_text_view);
+        this.numberOfReviewsAsTaskerTextView = view.findViewById(R.id.id_profile_number_of_reviews_as_tasker_text_view);
+        this.numberOfReviewsAsSupervisorTextView = view.findViewById(R.id.id_profile_number_of_reviews_as_supervisor_text_view);
+        this.toolbar = view.findViewById(R.id.id_drawer_toolbar);
+        DrawerUtil drawer = new DrawerUtil(this.getActivity(), this.toolbar);
+        drawer.getDrawer();
+        this.dialog = new WorkItProgressDialog(context);
+
+        presenter.getProfileDetails();
+
+        return view;
+    }
+
+    @Override
+    public void updateProfile(ProfileDetailsViewModel profileDetails) {
+        this.fullNameTextView.setText(profileDetails.getFullName());
+        this.emailTextView.setText(profileDetails.getEmail());
+        this.phoneTextView.setText(profileDetails.getPhone());
+        this.ratingAsTaskerTextView.setText(profileDetails.getRatingAsTasker() + " out of 5.0");
+        this.numberOfReviewsAsTaskerTextView.setText(profileDetails.getNumberOfReviewsAsTasker() + " reviews");
+        this.ratingAsSupervisorTextView.setText(profileDetails.getRatingAsSupervisor() + " out of 5.0");
+        this.numberOfReviewsAsSupervisorTextView.setText(profileDetails.getGetNumberOfReviewsAsSupervisor() + " reviews");
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        this.context = context;
+    }
+
+    @Override
+    public void notifyError(String errorMessage) {
+        Toast.makeText(getContext(), errorMessage, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showDialogforLoading() {
+        this.dialog.showProgress("Logging in...");
+    }
+
+    @Override
+    public void dismissDialog() {
+        this.dialog.dismissProgress();
+    }
+}
