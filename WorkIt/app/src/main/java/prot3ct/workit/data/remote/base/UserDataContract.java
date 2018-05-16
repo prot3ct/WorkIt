@@ -5,4 +5,6 @@ import prot3ct.workit.view_models.ProfileDetailsViewModel;
 
 public interface UserDataContract {
     Observable<ProfileDetailsViewModel> getProfileDetails();
+
+    Observable<Boolean> updateProfile(String fullName, String phone, String profilePictureAsString);
 }

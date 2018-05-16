@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/E:/Other%20files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/maps/ic_rate_review_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/E:/Other%20files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_edit_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,8 +28,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="26ae90" />
-                            <entry key="outputName" value="ic_give_rate" />
+                            <entry key="outputName" value="ic_edit_profile" />
                             <entry key="sourceFile" value="C:\Users\prot3\Downloads\rating.svg" />
                           </map>
                         </option>

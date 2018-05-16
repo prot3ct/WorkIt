@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace WorkIt_Server.Models
 {
     public class User
@@ -19,7 +21,8 @@ namespace WorkIt_Server.Models
 
         public string Phone { get; set; }
 
-        public byte[] Picture { get; set; }
+        [Column(TypeName = "varchar(MAX)")]
+        public string Picture { get; set; }
 
         public double RaitingAsTasker { get; set; }
 

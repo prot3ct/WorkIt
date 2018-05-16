@@ -2,6 +2,10 @@ package prot3ct.workit.data.remote;
 
 import android.content.Context;
 import android.provider.ContactsContract;
+import android.util.Log;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
@@ -44,5 +48,27 @@ public class UserData implements UserDataContract {
                     return jsonParser.fromJson(responseBody, ProfileDetailsViewModel.class);
                 }
             });
+    }
+
+    @Override
+    public Observable<Boolean> updateProfile(String fullName, String phone, String profilePictureAsString) {
+        Map<String, String> profileDetails = new HashMap<>();
+        profileDetails.put("userId", userSession.getId()+"");
+        profileDetails.put("fullName", fullName);
+        profileDetails.put("phone", phone);
+        profileDetails.put("profilePictureAsString", profilePictureAsString);
+
+        return httpRequester
+                .post(apiConstants.updateProfile(userSession.getId()), profileDetails)
+                .map(new Function<HttpResponseContract, Boolean>() {
+                    @Override
+                    public Boolean apply(HttpResponseContract iHttpResponse) throws Exception {
+                        if (iHttpResponse.getCode() == apiConstants.responseErrorCode()) {
+                            throw new Error(iHttpResponse.getMessage());
+                        }
+
+                        return true;
+                    }
+                });
     }
 }

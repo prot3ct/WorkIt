@@ -31,6 +31,8 @@ public interface ApiConstantsContract {
 
     String createRaitingUrl();
 
+    String updateProfile(int userId);
+
     String getProfileDetailsUrl(int userId);
 
     String getLocationLatLngUrl(String location);

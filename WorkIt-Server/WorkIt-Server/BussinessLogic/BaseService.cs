@@ -116,9 +116,14 @@ namespace WorkIt_Server.BLL
             this.RaitingLogic.CreateRatiing(raiting);
         }
 
-        public ProfileDetailsViewModel getProfileDetails(int userId)
+        public void UpdateProfile(UpdateProfileDTO updatedProfile)
         {
-            return this.UserLogic.getProfileDetails(userId);
+            this.UserLogic.UpdateProfile(updatedProfile);
+        }
+
+        public ProfileDetailsViewModel GetProfileDetails(int userId)
+        {
+            return this.UserLogic.GetProfileDetails(userId);
         }
 
         //public void CreateTaskReport(TaskReportDTO jobReport)

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using WorkIt_Server.Models.Context;
+using WorkIt_Server.Models.DTO;
 using WorkIt_Server.Models.ViewModels;
 
 namespace WorkIt_Server.BussinessLogic.Logics
@@ -28,10 +30,9 @@ namespace WorkIt_Server.BussinessLogic.Logics
             }
         }
 
-        public ProfileDetailsViewModel getProfileDetails(int userId)
+        public ProfileDetailsViewModel GetProfileDetails(int userId)
         {
             var user = db.Users.FirstOrDefault(u => u.UserId == userId);
-            var picture = "asdf";
 
             return new ProfileDetailsViewModel
             {
@@ -43,8 +44,19 @@ namespace WorkIt_Server.BussinessLogic.Logics
                 NumberOfReviewsAsTasker = user.ReviewsAsTasker,
                 RatingAsSupervisor = user.RaitingAsSupervisor,
                 RatingAsTasker = user.RaitingAsTasker,
-                PictureAsString = picture
+                PictureAsString = user.Picture
             };
+        }
+
+        public void UpdateProfile(UpdateProfileDTO updatedProfile)
+        {
+            var updatedUser = db.Users.FirstOrDefault(u => u.UserId == updatedProfile.UserId);
+
+            updatedUser.Phone = updatedProfile.Phone;
+            updatedUser.FullName = updatedProfile.FullName;
+            updatedUser.Picture = updatedProfile.ProfilePictureAsString;
+
+            Db.SaveChanges();
         }
     }
 }

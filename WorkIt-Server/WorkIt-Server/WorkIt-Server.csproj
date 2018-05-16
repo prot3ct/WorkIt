@@ -164,8 +164,13 @@
     <Compile Include="Migrations\201805160936428_ModifyProfile.Designer.cs">
       <DependentUpon>201805160936428_ModifyProfile.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805162217350_ChangeUserPictureType.cs" />
+    <Compile Include="Migrations\201805162217350_ChangeUserPictureType.Designer.cs">
+      <DependentUpon>201805162217350_ChangeUserPictureType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Context\WorkItDbContext.cs" />
+    <Compile Include="Models\DTO\UpdateProfileDTO.cs" />
     <Compile Include="Models\DTO\UpdateTaskRequestDTO.cs" />
     <Compile Include="Models\DTO\EditTaskDTO.cs" />
     <Compile Include="Models\DTO\CreateRaitingDTO.cs" />
@@ -242,6 +247,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805160936428_ModifyProfile.resx">
       <DependentUpon>201805160936428_ModifyProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805162217350_ChangeUserPictureType.resx">
+      <DependentUpon>201805162217350_ChangeUserPictureType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

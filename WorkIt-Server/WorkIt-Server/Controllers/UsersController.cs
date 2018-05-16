@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using WorkIt_Server.BLL;
+using WorkIt_Server.Models.DTO;
 
 namespace WorkIt_Server.Controllers
 {
@@ -19,11 +20,26 @@ namespace WorkIt_Server.Controllers
         {
             try
             {
-                return Ok(service.getProfileDetails(userId));
+                return Ok(service.GetProfileDetails(userId));
             }
             catch (Exception)
             {
                 return InternalServerError();
+            }
+        }
+
+        [Route("users/{userId}/update")]
+        [HttpPost]
+        public IHttpActionResult UpdateProfile(UpdateProfileDTO updatedProfile)
+        {
+            try
+            {
+                service.UpdateProfile(updatedProfile);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
             }
         }
     }

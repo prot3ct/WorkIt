@@ -1,5 +1,7 @@
 package prot3ct.workit.config;
 
+import com.google.android.gms.common.api.Api;
+
 import prot3ct.workit.config.base.ApiConstantsContract;
 
 public class ApiConstants implements ApiConstantsContract {
@@ -80,6 +82,11 @@ public class ApiConstants implements ApiConstantsContract {
     @Override
     public String createRaitingUrl() {
         return API_URL + "/raitings";
+    }
+
+    @Override
+    public String updateProfile(int userId) {
+        return API_URL + "/users/" + userId + "/update";
     }
 
     @Override
