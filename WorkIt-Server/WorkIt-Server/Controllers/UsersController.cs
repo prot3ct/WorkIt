@@ -28,8 +28,8 @@ namespace WorkIt_Server.Controllers
             }
         }
 
-        [Route("users/{userId}/update")]
-        [HttpPost]
+        [Route("users/{userId}")]
+        [HttpPut]
         public IHttpActionResult UpdateProfile(UpdateProfileDTO updatedProfile)
         {
             try

@@ -91,6 +91,39 @@ public class TaskData implements TaskDataContract {
     }
 
     @Override
+    public Observable<TaskDetailViewModel> getTaskDetails(int taskId) {
+        return httpRequester
+                .get(apiConstants.getTaskDetailsUrl(taskId))
+                .map(new Function<HttpResponseContract, TaskDetailViewModel>() {
+                    @Override
+                    public TaskDetailViewModel apply(HttpResponseContract iHttpResponse) throws Exception {
+                        if (iHttpResponse.getCode() == apiConstants.responseErrorCode()) {
+                            throw new Error(iHttpResponse.getMessage());
+                        }
+
+                        String responseBody = iHttpResponse.getBody();
+                        return jsonParser.fromJson(responseBody, TaskDetailViewModel.class);
+                    }
+                });
+    }
+
+    @Override
+    public Observable<Boolean> deleteTask(int taskId) {
+        return httpRequester
+                .delete(apiConstants.deleteTaskUrl(taskId))
+                .map(new Function<HttpResponseContract, Boolean>() {
+                    @Override
+                    public Boolean apply(HttpResponseContract iHttpResponse) throws Exception {
+                        if (iHttpResponse.getCode() == apiConstants.responseErrorCode()) {
+                            throw new Error(iHttpResponse.getMessage());
+                        }
+
+                        return true;
+                    }
+                });
+    }
+
+    @Override
     public Observable<List<AvailableTasksListViewModel>> getAvailableTasks() {
         return httpRequester
             .get(apiConstants.getAvailableTasks(userSession.getId()))
@@ -121,23 +154,6 @@ public class TaskData implements TaskDataContract {
 
                         String responseBody = iHttpResponse.getBody();
                         return jsonParser.fromJson(responseBody, new TypeToken<List<AssignedTasksListViewModel>>(){}.getType());
-                    }
-                });
-    }
-
-    @Override
-    public Observable<TaskDetailViewModel> getTaskDetails(int taskId) {
-        return httpRequester
-                .get(apiConstants.getTaskDetailsUrl(taskId))
-                .map(new Function<HttpResponseContract, TaskDetailViewModel>() {
-                    @Override
-                    public TaskDetailViewModel apply(HttpResponseContract iHttpResponse) throws Exception {
-                        if (iHttpResponse.getCode() == apiConstants.responseErrorCode()) {
-                            throw new Error(iHttpResponse.getMessage());
-                        }
-
-                        String responseBody = iHttpResponse.getBody();
-                        return jsonParser.fromJson(responseBody, TaskDetailViewModel.class);
                     }
                 });
     }

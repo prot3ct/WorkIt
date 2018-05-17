@@ -2,7 +2,9 @@ package prot3ct.workit.views.my_tasks;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,14 +26,17 @@ import prot3ct.workit.R;
 import prot3ct.workit.view_models.MyTasksListViewModel;
 import prot3ct.workit.views.edit_task.EditTaskActivity;
 import prot3ct.workit.views.list_task_requests.ListTaskRequestsActivity;
+import prot3ct.workit.views.my_tasks.base.MyTasksContract;
 
 public class MyTasksAdapter extends RecyclerView.Adapter<MyTasksAdapter.TaskViewHolder> {
+    MyTasksContract.Presenter presenter;
     List<MyTasksListViewModel> tasks;
     private Context context;
 
-    MyTasksAdapter(List<MyTasksListViewModel> tasks, Context context){
+    MyTasksAdapter(List<MyTasksListViewModel> tasks, Context context, MyTasksContract.Presenter presenter) {
         this.tasks = tasks;
         this.context = context;
+        this.presenter = presenter;
     }
 
     @Override
@@ -42,7 +47,7 @@ public class MyTasksAdapter extends RecyclerView.Adapter<MyTasksAdapter.TaskView
     }
 
     @Override
-    public void onBindViewHolder(TaskViewHolder holder, final int position) {
+    public void onBindViewHolder(final TaskViewHolder holder, final int position) {
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.ENGLISH);
         Date date = null;
         try {
@@ -94,6 +99,29 @@ public class MyTasksAdapter extends RecyclerView.Adapter<MyTasksAdapter.TaskView
                 context.startActivity(intent);
             }
         });
+
+        holder.deleteTaskButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+                                presenter.deleteTask(tasks.get(position).getTaskId());
+                                tasks.remove(position);
+                                notifyDataSetChanged();
+                                break;
+                        }
+                    }
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setMessage("Are you sure you want to delete this task?").setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener).show();
+            }
+        });
+
     }
 
     @Override
@@ -131,6 +159,7 @@ public class MyTasksAdapter extends RecyclerView.Adapter<MyTasksAdapter.TaskView
         TextView taskCreator;
         Button editTaskButton;
         Button taskRequestersButton;
+        Button deleteTaskButton;
 
         TaskViewHolder(View itemView) {
             super(itemView);
@@ -141,6 +170,7 @@ public class MyTasksAdapter extends RecyclerView.Adapter<MyTasksAdapter.TaskView
             taskCreator = itemView.findViewById(R.id.id_task_creator);
             editTaskButton = itemView.findViewById(R.id.id_edit_task_button);
             taskRequestersButton = itemView.findViewById(R.id.id_task_requests_button);
+            deleteTaskButton = itemView.findViewById(R.id.id_delete_task_button);
         }
     }
 }

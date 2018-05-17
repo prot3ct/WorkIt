@@ -51,4 +51,31 @@ public class MyTasksPresenter implements MyTasksContract.Presenter {
                     }
                 });
     }
+
+    @Override
+    public void deleteTask(int taskId) {
+        taskData.deleteTask(taskId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        new Observer<Boolean>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                            }
+
+                            @Override
+                            public void onNext(Boolean result) {
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                view.notifyError("Error ocurred deleting task.");
+                                e.printStackTrace();
+                            }
+
+                            @Override
+                            public void onComplete() {
+                            }
+                        });
+    }
 }

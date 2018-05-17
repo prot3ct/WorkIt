@@ -38,7 +38,7 @@ public class ApiConstants implements ApiConstantsContract {
 
     @Override
     public String deleteTaskUrl(int taskId) {
-        return API_URL + "/tasks/" + taskId + "/delete";
+        return API_URL + "/tasks/" + taskId;
     }
 
     @Override

@@ -25,8 +25,8 @@ namespace WorkIt_Server.Controllers
             }
         }
 
-        [Route("tasks/{taskId}/update")]
-        [HttpPost]
+        [Route("tasks/{taskId}")]
+        [HttpPut]
         public IHttpActionResult UpdateTask(EditTaskDTO task)
         {
             try
@@ -54,8 +54,8 @@ namespace WorkIt_Server.Controllers
             }
         }
 
-        [Route("tasks/{taskId}/delete")]
-        [HttpPost]
+        [Route("tasks/{taskId}")]
+        [HttpDelete]
         public IHttpActionResult DeleteTaskById(int taskId)
         {
             try

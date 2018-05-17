@@ -87,7 +87,7 @@ public class MyTasksFragment extends Fragment implements MyTasksContract.View {
 
     @Override
     public void setupTasksAdapter(final List<MyTasksListViewModel> tasks) {
-        MyTasksAdapter adapter = new MyTasksAdapter(tasks, context);
+        MyTasksAdapter adapter = new MyTasksAdapter(tasks, context, presenter);
         recyclerTaskView.setAdapter(adapter);
     }
 }

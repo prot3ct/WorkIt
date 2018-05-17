@@ -18,5 +18,7 @@ public interface MyTasksContract {
 
     interface Presenter {
         void getMyTasks();
+
+        void deleteTask(int taskId);
     }
 }

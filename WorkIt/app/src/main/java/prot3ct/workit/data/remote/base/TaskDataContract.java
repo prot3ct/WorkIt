@@ -18,6 +18,8 @@ public interface TaskDataContract {
 
     Observable<TaskDetailViewModel> getTaskDetails(int taskId);
 
+    Observable<Boolean> deleteTask(int taskId);
+
     Observable<List<AssignedTasksListViewModel>> getAssignedTasks();
 
     Observable<List<AvailableTasksListViewModel>> getAvailableTasks();

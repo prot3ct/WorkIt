@@ -94,6 +94,36 @@ public class OkHttpRequester implements OkHttpRequesterContract {
         });
     }
 
+    public Observable<HttpResponseContract> put(final String url, final Map<String, String> body) {
+        return Observable.defer(new Callable<ObservableSource<? extends HttpResponseContract>>() {
+            @Override
+            public ObservableSource<? extends HttpResponseContract> call() throws Exception {
+                RequestBody requestBody = createRequestBody(body);
+
+                Request request = new Request.Builder()
+                        .url(url)
+                        .put(requestBody)
+                        .build();
+
+                return createResponse(request);
+            }
+        });
+    }
+
+    public Observable<HttpResponseContract> delete(final String url) {
+        return Observable.defer(new Callable<ObservableSource<? extends HttpResponseContract>>() {
+            @Override
+            public ObservableSource<? extends HttpResponseContract> call() throws Exception {
+                Request request = new Request.Builder()
+                        .url(url)
+                        .delete()
+                        .build();
+
+                return createResponse(request);
+            }
+        });
+    }
+
     private RequestBody createRequestBody(Map<String, String> bodyMap) {
         FormBody.Builder bodyBuilder = new FormBody.Builder();
 
