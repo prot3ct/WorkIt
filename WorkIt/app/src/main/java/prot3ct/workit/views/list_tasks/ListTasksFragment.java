@@ -1,4 +1,4 @@
-package prot3ct.workit.views.list_jobs;
+package prot3ct.workit.views.list_tasks;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,7 +7,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -17,13 +22,14 @@ import java.util.List;
 import prot3ct.workit.R;
 import prot3ct.workit.view_models.AvailableTasksListViewModel;
 import prot3ct.workit.views.create_task.CreateTaskActivity;
-import prot3ct.workit.views.list_jobs.base.ListTasksContract;
+import prot3ct.workit.views.list_tasks.base.ListTasksContract;
 import prot3ct.workit.views.login.LoginActivity;
 
 public class ListTasksFragment extends Fragment implements ListTasksContract.View {
     private ListTasksContract.Presenter presenter;
     private Context context;
 
+    private ListTasksAdapter adapter;
     private FloatingActionButton createTaskButton;
     private RecyclerView recyclerTaskView;
 
@@ -88,7 +94,12 @@ public class ListTasksFragment extends Fragment implements ListTasksContract.Vie
 
     @Override
     public void setupTasksAdapter(final List<AvailableTasksListViewModel> tasks) {
-        ListTasksAdapter adapter = new ListTasksAdapter(tasks, context);
+        adapter = new ListTasksAdapter(tasks, context);
         recyclerTaskView.setAdapter(adapter);
+    }
+
+    @Override
+    public void filterTask(String query) {
+        adapter.filter(query);
     }
 }

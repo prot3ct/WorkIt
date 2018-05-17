@@ -23,7 +23,7 @@ import java.util.Calendar;
 import prot3ct.workit.R;
 import prot3ct.workit.utils.WorkItProgressDialog;
 import prot3ct.workit.views.create_task.base.CreateTaskContract;
-import prot3ct.workit.views.list_jobs.ListTasksActivity;
+import prot3ct.workit.views.list_tasks.ListTasksActivity;
 import prot3ct.workit.views.navigation.DrawerUtil;
 
 public class CreateTaskFragment extends Fragment implements CreateTaskContract.View {

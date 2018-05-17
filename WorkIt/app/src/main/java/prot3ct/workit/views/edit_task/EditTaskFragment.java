@@ -24,7 +24,7 @@ import prot3ct.workit.R;
 import prot3ct.workit.view_models.TaskDetailViewModel;
 import prot3ct.workit.utils.WorkItProgressDialog;
 import prot3ct.workit.views.edit_task.base.EditTaskContract;
-import prot3ct.workit.views.list_jobs.ListTasksActivity;
+import prot3ct.workit.views.list_tasks.ListTasksActivity;
 import prot3ct.workit.views.navigation.DrawerUtil;
 
 public class EditTaskFragment extends Fragment implements EditTaskContract.View {

@@ -16,7 +16,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import prot3ct.workit.R;
 import prot3ct.workit.views.assigned_tasks.AssignedTasksActivity;
 import prot3ct.workit.views.completed_tasks.CompletedTasksActivity;
-import prot3ct.workit.views.list_jobs.ListTasksActivity;
+import prot3ct.workit.views.list_tasks.ListTasksActivity;
 import prot3ct.workit.views.login.LoginActivity;
 import prot3ct.workit.views.profile.ProfileActivity;
 import prot3ct.workit.views.my_tasks.MyTasksActivity;

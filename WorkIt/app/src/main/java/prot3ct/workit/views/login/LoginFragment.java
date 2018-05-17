@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import prot3ct.workit.R;
 import prot3ct.workit.utils.WorkItProgressDialog;
-import prot3ct.workit.views.list_jobs.ListTasksActivity;
+import prot3ct.workit.views.list_tasks.ListTasksActivity;
 import prot3ct.workit.views.login.base.LoginContract;
 import prot3ct.workit.views.register.RegisterActivity;
 

@@ -1,4 +1,4 @@
-package prot3ct.workit.views.list_jobs.base;
+package prot3ct.workit.views.list_tasks.base;
 
 import java.util.List;
 
@@ -12,6 +12,8 @@ public interface ListTasksContract {
         void showLoginActivity();
 
         void notifySuccessful(String message);
+
+        void filterTask(String query);
 
         void setupTasksAdapter(final List<AvailableTasksListViewModel> tasks);
     }

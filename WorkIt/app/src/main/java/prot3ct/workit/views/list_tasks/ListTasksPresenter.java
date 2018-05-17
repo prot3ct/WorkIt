@@ -1,4 +1,4 @@
-package prot3ct.workit.views.list_jobs;
+package prot3ct.workit.views.list_tasks;
 
 import android.content.Context;
 
@@ -11,7 +11,7 @@ import io.reactivex.schedulers.Schedulers;
 import prot3ct.workit.data.remote.TaskData;
 import prot3ct.workit.data.remote.AuthData;
 import prot3ct.workit.view_models.AvailableTasksListViewModel;
-import prot3ct.workit.views.list_jobs.base.ListTasksContract;
+import prot3ct.workit.views.list_tasks.base.ListTasksContract;
 
 public class ListTasksPresenter implements ListTasksContract.Presenter {
     private ListTasksContract.View view;

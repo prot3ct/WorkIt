@@ -1,10 +1,11 @@
-package prot3ct.workit.views.list_jobs;
+package prot3ct.workit.views.list_tasks;
 
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -25,10 +27,12 @@ import prot3ct.workit.views.task_details.TaskDetailsActivity;
 
 public class ListTasksAdapter extends RecyclerView.Adapter<ListTasksAdapter.TaskViewHolder> {
     List<AvailableTasksListViewModel> tasks;
+    List<AvailableTasksListViewModel> allTasks = new ArrayList<AvailableTasksListViewModel>();
     private Context context;
 
     ListTasksAdapter(List<AvailableTasksListViewModel> tasks, Context context){
         this.tasks = tasks;
+        this.allTasks.addAll(tasks);
         this.context = context;
     }
 
@@ -126,5 +130,23 @@ public class ListTasksAdapter extends RecyclerView.Adapter<ListTasksAdapter.Task
             default:
                 return i + sufixes[i % 10];
         }
+    }
+
+    public void filter(String text) {
+        tasks.clear();
+        if(text.isEmpty()) {
+            tasks.addAll(allTasks);
+        }
+        else {
+            text = text.toLowerCase();
+            for (AvailableTasksListViewModel task : allTasks) {
+                if (task.getTitle().toLowerCase().contains(text)) {
+                    tasks.add(task);
+                }
+            }
+        }
+        Log.d("CEOK1", tasks.size()+"");
+        Log.d("CEOK12", allTasks.size()+"");
+        notifyDataSetChanged();
     }
 }
