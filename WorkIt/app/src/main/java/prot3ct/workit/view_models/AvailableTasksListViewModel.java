@@ -5,6 +5,7 @@ public class AvailableTasksListViewModel {
     private String title;
     private String startDate;
     private String fullName;
+    private String supervisorRating;
 
     public int getTaskId() {
         return taskId;
@@ -36,5 +37,13 @@ public class AvailableTasksListViewModel {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public String getSupervisorRating() {
+        return supervisorRating;
+    }
+
+    public void setSupervisorRating(String supervisorRating) {
+        this.supervisorRating = supervisorRating;
     }
 }

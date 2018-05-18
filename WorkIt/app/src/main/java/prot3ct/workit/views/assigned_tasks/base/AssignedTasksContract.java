@@ -11,6 +11,8 @@ public interface AssignedTasksContract {
 
         void notifyError(String errorMessage);
 
+        void filterTask(String query);
+
         void setupTasksAdapter(final List<AssignedTasksListViewModel> tasks);
     }
 

@@ -17,6 +17,8 @@ public interface CompletedTasksContract {
 
         void notifySuccessful(String msg);
 
+        void filterTask(String query);
+
         void showDialog();
 
         void postRaiting(int value, String descrption);

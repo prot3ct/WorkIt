@@ -10,20 +10,6 @@ namespace WorkIt_Server.Controllers
     {
         private BaseService service = new BaseService();
 
-        //[Route("users/{userId}/raitings")]
-        //[HttpGet]
-        //public IHttpActionResult GetRaitingByUserId(int userId)
-        //{
-        //    try
-        //    {
-        //        return Ok(service.GetAllRaitingsByUserId(userId));
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return InternalServerError();
-        //    }
-        //}
-
         [Route("raitings")]
         [HttpPost]
         public IHttpActionResult CreateRaiting(CreateRaitingDTO raiting)

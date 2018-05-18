@@ -41,14 +41,17 @@ public class ListTaskRequestAdapter extends RecyclerView.Adapter<ListTaskRequest
         holder.acceptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.updateTaskRequest(requests.get(position).getTaskRequestId(), 3);
+                presenter.acceptTaskRequest(requests.get(position).getTaskRequestId(), 3);
+
             }
         });
 
         holder.declineButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.updateTaskRequest(requests.get(position).getTaskRequestId(), 2);
+                presenter.declineTaskRequest(requests.get(position).getTaskRequestId(), 2);
+                requests.remove(position);
+                notifyDataSetChanged();
             }
         });
     }

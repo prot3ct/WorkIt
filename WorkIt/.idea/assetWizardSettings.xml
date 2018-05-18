@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/E:/Other%20files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_delete_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/E:/Other%20files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/toggle/ic_star_border_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,8 +28,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="ae000a" />
-                            <entry key="outputName" value="ic_delete_task" />
+                            <entry key="opacityPercent" value="60" />
+                            <entry key="outputName" value="ic_rate_grey" />
                             <entry key="sourceFile" value="C:\Users\prot3\Downloads\rating.svg" />
                           </map>
                         </option>

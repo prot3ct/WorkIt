@@ -39,12 +39,27 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="30sp" />
-
-                <TextView
-                    android:textColor="@color/md_grey_500"
-                    android:id="@+id/id_task_creator"
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:textColor="@color/md_grey_500"
+                        android:id="@+id/id_task_creator"
+                        android:text="SAMPLE"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/id_task_supervisor_rating_text_view"
+                        android:layout_marginLeft="10sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:layout_width="15sp"
+                        android:layout_height="15sp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_rate_grey"/>
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 

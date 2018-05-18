@@ -19,6 +19,7 @@ import prot3ct.workit.views.assigned_tasks.base.AssignedTasksContract;
 public class AssignedTasksFragment extends Fragment implements AssignedTasksContract.View {
     private AssignedTasksContract.Presenter presenter;
     private Context context;
+    private AssignedTasksAdapter adapter;
 
     private RecyclerView recyclerTaskView;
 
@@ -50,6 +51,11 @@ public class AssignedTasksFragment extends Fragment implements AssignedTasksCont
     }
 
     @Override
+    public void filterTask(String query) {
+        adapter.filter(query);
+    }
+
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
@@ -69,7 +75,7 @@ public class AssignedTasksFragment extends Fragment implements AssignedTasksCont
 
     @Override
     public void setupTasksAdapter(final List<AssignedTasksListViewModel> tasks) {
-        AssignedTasksAdapter adapter = new AssignedTasksAdapter(tasks, context);
+        adapter = new AssignedTasksAdapter(tasks, context);
         recyclerTaskView.setAdapter(adapter);
     }
 }

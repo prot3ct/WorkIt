@@ -11,5 +11,6 @@ namespace WorkIt_Server.Models.ViewModels
         public string Title { get; set; }
         public DateTime StartDate { get; set; }
         public string FullName { get; set; }
+        public double SupervisorRating { get; set; }
     }
 }

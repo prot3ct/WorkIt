@@ -22,6 +22,7 @@ import prot3ct.workit.views.my_tasks.base.MyTasksContract;
 public class MyTasksFragment extends Fragment implements MyTasksContract.View {
     private MyTasksContract.Presenter presenter;
     private Context context;
+    private MyTasksAdapter adapter;
 
     private FloatingActionButton createTaskButton;
 //    private Button logoutButton;
@@ -81,13 +82,18 @@ public class MyTasksFragment extends Fragment implements MyTasksContract.View {
     }
 
     @Override
+    public void filterTask(String query) {
+        adapter.filter(query);
+    };
+
+    @Override
     public void notifyError(String errorMessage) {
         Toast.makeText(getContext(), errorMessage, Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void setupTasksAdapter(final List<MyTasksListViewModel> tasks) {
-        MyTasksAdapter adapter = new MyTasksAdapter(tasks, context, presenter);
+        adapter = new MyTasksAdapter(tasks, context, presenter);
         recyclerTaskView.setAdapter(adapter);
     }
 }

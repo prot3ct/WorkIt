@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,24 +18,28 @@ import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 import prot3ct.workit.R;
+import prot3ct.workit.view_models.AvailableTasksListViewModel;
 import prot3ct.workit.view_models.MyTasksListViewModel;
 import prot3ct.workit.views.edit_task.EditTaskActivity;
 import prot3ct.workit.views.list_task_requests.ListTaskRequestsActivity;
 import prot3ct.workit.views.my_tasks.base.MyTasksContract;
 
 public class MyTasksAdapter extends RecyclerView.Adapter<MyTasksAdapter.TaskViewHolder> {
-    MyTasksContract.Presenter presenter;
-    List<MyTasksListViewModel> tasks;
+    private MyTasksContract.Presenter presenter;
+    private List<MyTasksListViewModel> tasks;
+    private List<MyTasksListViewModel> allTasks = new ArrayList<MyTasksListViewModel>();
     private Context context;
 
     MyTasksAdapter(List<MyTasksListViewModel> tasks, Context context, MyTasksContract.Presenter presenter) {
         this.tasks = tasks;
+        this.allTasks.addAll(tasks);
         this.context = context;
         this.presenter = presenter;
     }
@@ -48,6 +53,11 @@ public class MyTasksAdapter extends RecyclerView.Adapter<MyTasksAdapter.TaskView
 
     @Override
     public void onBindViewHolder(final TaskViewHolder holder, final int position) {
+        Log.d("ASDASD", tasks.get(position).hasPendingRequest()+"");
+        if (!tasks.get(position).hasPendingRequest()) {
+            holder.taskRequestersButton.setVisibility(View.GONE);
+        }
+
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.ENGLISH);
         Date date = null;
         try {
@@ -150,6 +160,23 @@ public class MyTasksAdapter extends RecyclerView.Adapter<MyTasksAdapter.TaskView
                 return i + sufixes[i % 10];
         }
     }
+
+    public void filter(String text) {
+        tasks.clear();
+        if(text.isEmpty()) {
+            tasks.addAll(allTasks);
+        }
+        else {
+            text = text.toLowerCase();
+            for (MyTasksListViewModel task : allTasks) {
+                if (task.getTitle().toLowerCase().contains(text)) {
+                    tasks.add(task);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
 
     public static class TaskViewHolder extends RecyclerView.ViewHolder {
         CardView cv;

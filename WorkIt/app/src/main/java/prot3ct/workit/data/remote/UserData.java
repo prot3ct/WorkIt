@@ -59,7 +59,7 @@ public class UserData implements UserDataContract {
         profileDetails.put("profilePictureAsString", profilePictureAsString);
 
         return httpRequester
-                .post(apiConstants.updateProfile(userSession.getId()), profileDetails)
+                .put(apiConstants.updateProfile(userSession.getId()), profileDetails)
                 .map(new Function<HttpResponseContract, Boolean>() {
                     @Override
                     public Boolean apply(HttpResponseContract iHttpResponse) throws Exception {

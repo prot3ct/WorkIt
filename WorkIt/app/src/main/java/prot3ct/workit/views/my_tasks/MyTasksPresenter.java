@@ -65,6 +65,7 @@ public class MyTasksPresenter implements MyTasksContract.Presenter {
 
                             @Override
                             public void onNext(Boolean result) {
+                                view.notifyError("Task deleted successfully.");
                             }
 
                             @Override

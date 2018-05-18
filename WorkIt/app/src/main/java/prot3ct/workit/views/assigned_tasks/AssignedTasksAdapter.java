@@ -14,6 +14,7 @@ import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -21,14 +22,17 @@ import java.util.Locale;
 
 import prot3ct.workit.R;
 import prot3ct.workit.view_models.AssignedTasksListViewModel;
+import prot3ct.workit.view_models.AvailableTasksListViewModel;
 import prot3ct.workit.views.task_details.TaskDetailsActivity;
 
 public class AssignedTasksAdapter extends RecyclerView.Adapter<AssignedTasksAdapter.TaskViewHolder> {
     List<AssignedTasksListViewModel> tasks;
+    List<AssignedTasksListViewModel> allTasks = new ArrayList<AssignedTasksListViewModel>();
     private Context context;
 
     AssignedTasksAdapter(List<AssignedTasksListViewModel> tasks, Context context){
         this.tasks = tasks;
+        allTasks.addAll(tasks);
         this.context = context;
     }
 
@@ -82,6 +86,22 @@ public class AssignedTasksAdapter extends RecyclerView.Adapter<AssignedTasksAdap
                 context.startActivity(intent);
             }
         });
+    }
+
+    public void filter(String text) {
+        tasks.clear();
+        if(text.isEmpty()) {
+            tasks.addAll(allTasks);
+        }
+        else {
+            text = text.toLowerCase();
+            for (AssignedTasksListViewModel task : allTasks) {
+                if (task.getTitle().toLowerCase().contains(text)) {
+                    tasks.add(task);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 
     @Override

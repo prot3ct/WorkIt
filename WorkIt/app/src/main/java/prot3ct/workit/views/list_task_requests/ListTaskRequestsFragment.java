@@ -1,6 +1,7 @@
 package prot3ct.workit.views.list_task_requests;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +16,7 @@ import java.util.List;
 
 import prot3ct.workit.R;
 import prot3ct.workit.view_models.TaskRequestListViewModel;
+import prot3ct.workit.views.my_tasks.MyTasksActivity;
 import prot3ct.workit.views.navigation.DrawerUtil;
 import prot3ct.workit.views.list_task_requests.base.ListTaskRequestContract;
 
@@ -69,6 +71,12 @@ public class ListTaskRequestsFragment extends Fragment implements ListTaskReques
     @Override
     public void notifySuccessful(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showMyTasksActivty() {
+        Intent intent = new Intent(this.context, MyTasksActivity.class);
+        startActivity(intent);
     }
 
     @Override

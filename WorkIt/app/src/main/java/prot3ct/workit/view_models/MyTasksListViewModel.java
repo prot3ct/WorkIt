@@ -4,6 +4,7 @@ public class MyTasksListViewModel {
     private int taskId;
     private String title;
     private String startDate;
+    private boolean hasPendingRequests;
 
     public int getTaskId() {
         return taskId;
@@ -27,5 +28,13 @@ public class MyTasksListViewModel {
 
     public void setStartDate(String startDate) {
         this.startDate = startDate;
+    }
+
+    public boolean hasPendingRequest() {
+        return hasPendingRequests;
+    }
+
+    public void setHasPendingRequest(boolean hasPendingRequest) {
+        this.hasPendingRequests = hasPendingRequest;
     }
 }

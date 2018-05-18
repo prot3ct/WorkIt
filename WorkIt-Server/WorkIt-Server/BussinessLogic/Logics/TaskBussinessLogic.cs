@@ -104,7 +104,8 @@ namespace WorkIt_Server.BLL
                     TaskId = j.TaskId,
                     Title = j.Title,
                     StartDate = j.StartDate,
-                    FullName = j.Creator.FullName
+                    FullName = j.Creator.FullName,
+                    SupervisorRating = j.Creator.RaitingAsSupervisor
                 })
                 .ToList();
         }
@@ -152,7 +153,8 @@ namespace WorkIt_Server.BLL
                 {
                     TaskId = t.TaskId,
                     Title = t.Title,
-                    StartDate = t.StartDate
+                    StartDate = t.StartDate,
+                    HasPendingRequests = db.TaskRequests.Any(tr => tr.TaskId == t.TaskId && tr.RequestStatus.Name == "Pending")
                 })
                 .ToList();
         }

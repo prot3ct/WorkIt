@@ -21,6 +21,7 @@ import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -28,6 +29,7 @@ import java.util.Locale;
 
 import prot3ct.workit.R;
 import prot3ct.workit.view_models.AssignedTasksListViewModel;
+import prot3ct.workit.view_models.AvailableTasksListViewModel;
 import prot3ct.workit.view_models.CompletedTasksListViewModel;
 import prot3ct.workit.views.assigned_tasks.AssignedTasksAdapter;
 import prot3ct.workit.views.completed_tasks.base.CompletedTasksContract;
@@ -35,11 +37,13 @@ import prot3ct.workit.views.task_details.TaskDetailsActivity;
 
 public class CompletedTasksAdapter extends RecyclerView.Adapter<CompletedTasksAdapter.TaskViewHolder> {
     private List<CompletedTasksListViewModel> tasks;
+    private List<CompletedTasksListViewModel> allTasks = new ArrayList<CompletedTasksListViewModel>();
     private Context context;
     private CompletedTasksContract.View view;
 
     CompletedTasksAdapter(List<CompletedTasksListViewModel> tasks, Context context, CompletedTasksContract.View view){
         this.tasks = tasks;
+        this.allTasks.addAll(this.tasks);
         this.context = context;
         this.view = view;
     }
@@ -106,6 +110,22 @@ public class CompletedTasksAdapter extends RecyclerView.Adapter<CompletedTasksAd
             taskTasker = itemView.findViewById(R.id.id_task_tasker);
             rateButton = itemView.findViewById(R.id.id_rate_button);
         }
+    }
+
+    public void filter(String text) {
+        tasks.clear();
+        if(text.isEmpty()) {
+            tasks.addAll(allTasks);
+        }
+        else {
+            text = text.toLowerCase();
+            for (CompletedTasksListViewModel task : allTasks) {
+                if (task.getTitle().toLowerCase().contains(text)) {
+                    tasks.add(task);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 
     private String getMonthForInt(int num) {

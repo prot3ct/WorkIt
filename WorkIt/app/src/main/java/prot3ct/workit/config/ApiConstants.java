@@ -28,7 +28,7 @@ public class ApiConstants implements ApiConstantsContract {
 
     @Override
     public String updateTaskUrl(int taskId) {
-        return API_URL + "/tasks/" + taskId +"/update";
+        return API_URL + "/tasks/" + taskId;
     }
 
     @Override
@@ -66,7 +66,7 @@ public class ApiConstants implements ApiConstantsContract {
 
     @Override
     public String updateTaskRequestUrl(int requestId) {
-        return API_URL + "/requests/" + requestId + "/update";
+        return API_URL + "/requests/" + requestId;
     }
 
     @Override

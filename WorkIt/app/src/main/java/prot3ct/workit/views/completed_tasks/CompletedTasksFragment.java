@@ -24,6 +24,7 @@ import prot3ct.workit.views.completed_tasks.base.CompletedTasksContract;
 public class CompletedTasksFragment extends Fragment implements CompletedTasksContract.View {
     private CompletedTasksContract.Presenter presenter;
     private Context context;
+    private CompletedTasksAdapter adapter;
 
     private int loggedInUserId;
     private int selectedTaskId;
@@ -71,6 +72,11 @@ public class CompletedTasksFragment extends Fragment implements CompletedTasksCo
     }
 
     @Override
+    public void filterTask(String query) {
+        adapter.filter(query);
+    }
+
+    @Override
     public void updateSelectedInfo(int taskId, int supervisorId, int taskerId) {
         selectedTaskId = taskId;
         if (loggedInUserId == supervisorId) {
@@ -110,7 +116,7 @@ public class CompletedTasksFragment extends Fragment implements CompletedTasksCo
 
     @Override
     public void setupTasksAdapter(final List<CompletedTasksListViewModel> tasks) {
-        CompletedTasksAdapter adapter = new CompletedTasksAdapter(tasks, context, this);
+        adapter = new CompletedTasksAdapter(tasks, context, this);
         recyclerTaskView.setAdapter(adapter);
     }
 

@@ -11,6 +11,8 @@ public interface MyTasksContract {
 
         void notifySuccessful(String message);
 
+        void filterTask(String query);
+
         void notifyError(String errorMessage);
 
         void setupTasksAdapter(final List<MyTasksListViewModel> tasks);

@@ -78,6 +78,7 @@ public class ListTasksAdapter extends RecyclerView.Adapter<ListTasksAdapter.Task
         }
         holder.taskTitle.setText(tasks.get(position).getTitle());
         holder.taskCreator.setText("for " + tasks.get(position).getFullName());
+        holder.supervisorRating.setText(tasks.get(position).getSupervisorRating()+"");
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,6 +100,7 @@ public class ListTasksAdapter extends RecyclerView.Adapter<ListTasksAdapter.Task
         TextView timeLeft;
         TextView taskTitle;
         TextView taskCreator;
+        TextView supervisorRating;
 
         TaskViewHolder(View itemView) {
             super(itemView);
@@ -107,6 +109,7 @@ public class ListTasksAdapter extends RecyclerView.Adapter<ListTasksAdapter.Task
             timeLeft = itemView.findViewById(R.id.id_task_time_left);
             taskTitle = itemView.findViewById(R.id.id_task_title);
             taskCreator = itemView.findViewById(R.id.id_task_creator);
+            supervisorRating = itemView.findViewById(R.id.id_task_supervisor_rating_text_view);
         }
     }
 
@@ -145,8 +148,6 @@ public class ListTasksAdapter extends RecyclerView.Adapter<ListTasksAdapter.Task
                 }
             }
         }
-        Log.d("CEOK1", tasks.size()+"");
-        Log.d("CEOK12", allTasks.size()+"");
         notifyDataSetChanged();
     }
 }

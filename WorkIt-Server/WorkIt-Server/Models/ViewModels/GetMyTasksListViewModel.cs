@@ -10,5 +10,6 @@ namespace WorkIt_Server.Models.ViewModels
         public int TaskId { get; set; }
         public string Title { get; set; }
         public DateTime StartDate { get; set; }
+        public bool HasPendingRequests { get; set; }
     }
 }

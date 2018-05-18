@@ -77,7 +77,7 @@ public class TaskData implements TaskDataContract {
         taskDetails.put("reward", reward);
 
         return httpRequester
-                .post(apiConstants.updateTaskUrl(taskId), taskDetails)
+                .put(apiConstants.updateTaskUrl(taskId), taskDetails)
                 .map(new Function<HttpResponseContract, Boolean>() {
                     @Override
                     public Boolean apply(HttpResponseContract iHttpResponse) throws Exception {

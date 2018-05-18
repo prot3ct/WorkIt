@@ -9,6 +9,8 @@ public interface ListTaskRequestContract {
     interface View extends BaseView<Presenter> {
         void setupTaskRequestsAdapter(List<TaskRequestListViewModel> users);
 
+        void showMyTasksActivty();
+
         void notifySuccessful(String message);
 
         void notifyError(String errorMessage);
@@ -17,6 +19,8 @@ public interface ListTaskRequestContract {
     interface Presenter {
         void getTaskRequests(int taskId);
 
-        void updateTaskRequest(int taskRequestId, int taskRequestStatusId);
+        void acceptTaskRequest(int taskRequestId, int taskRequestStatusId);
+
+        void declineTaskRequest(int taskRequestId, int taskRequestStatusId);
     }
 }
