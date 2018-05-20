@@ -17,6 +17,7 @@ import prot3ct.workit.data.remote.base.TaskDataContract;
 import prot3ct.workit.view_models.AssignedTasksListViewModel;
 import prot3ct.workit.view_models.AvailableTasksListViewModel;
 import prot3ct.workit.view_models.CompletedTasksListViewModel;
+import prot3ct.workit.view_models.IsUserAssignableToTaskViewModel;
 import prot3ct.workit.view_models.MyTasksListViewModel;
 import prot3ct.workit.view_models.TaskDetailViewModel;
 import prot3ct.workit.models.base.HttpResponseContract;
@@ -188,6 +189,46 @@ public class TaskData implements TaskDataContract {
 
                         String responseBody = iHttpResponse.getBody();
                         return jsonParser.fromJson(responseBody, new TypeToken<List<CompletedTasksListViewModel>>(){}.getType());
+                    }
+                });
+    }
+
+    @Override
+    public Observable<IsUserAssignableToTaskViewModel> canAssignToTask(int taskId) {
+        Map<String, String> taskDetails = new HashMap<>();
+        taskDetails.put("taskId", taskId + "");
+        taskDetails.put("userId", userSession.getId() + "");
+
+        return httpRequester
+                .post(apiConstants.getIsUserAssignableToTask(), taskDetails)
+                .map(new Function<HttpResponseContract, IsUserAssignableToTaskViewModel>() {
+                    @Override
+                    public IsUserAssignableToTaskViewModel apply(HttpResponseContract iHttpResponse) throws Exception {
+                        if (iHttpResponse.getCode() == apiConstants.responseErrorCode()) {
+                            throw new Error(iHttpResponse.getMessage());
+                        }
+
+                        String responseBody = iHttpResponse.getBody();
+                        return jsonParser.fromJson(responseBody, IsUserAssignableToTaskViewModel.class);
+                    }
+                });
+    }
+
+    @Override
+    public Observable<Boolean> removeAssignedUser(int taskId) {
+        Map<String, String> taskDetails = new HashMap<>();
+        taskDetails.put("taskId", taskId + "");
+
+        return httpRequester
+                .put(apiConstants.updateAssignedUser(taskId), taskDetails)
+                .map(new Function<HttpResponseContract, Boolean>() {
+                    @Override
+                    public Boolean apply(HttpResponseContract iHttpResponse) throws Exception {
+                        if (iHttpResponse.getCode() == apiConstants.responseErrorCode()) {
+                            throw new Error(iHttpResponse.getMessage());
+                        }
+
+                        return true;
                     }
                 });
     }

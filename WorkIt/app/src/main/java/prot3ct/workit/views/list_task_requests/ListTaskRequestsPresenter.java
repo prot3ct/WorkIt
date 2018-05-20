@@ -49,59 +49,59 @@ public class ListTaskRequestsPresenter implements  ListTaskRequestContract.Prese
                         });
     }
 
-        @Override
-        public void acceptTaskRequest(int taskRequestId, int taskRequestStatusId) {
-            taskRequestData.updateTaskRequest(taskRequestId, taskRequestStatusId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    new Observer<Boolean>() {
-                        @Override
-                        public void onSubscribe(Disposable d) {
-                        }
+    @Override
+    public void acceptTaskRequest(int taskRequestId, int taskRequestStatusId) {
+        taskRequestData.updateTaskRequest(taskRequestId, taskRequestStatusId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                new Observer<Boolean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
 
-                        @Override
-                        public void onNext(Boolean taskRequests) {
-                            view.notifySuccessful("User assigned successfully");
-                            view.showMyTasksActivty();
-                        }
+                    @Override
+                    public void onNext(Boolean taskRequests) {
+                        view.notifySuccessful("User assigned successfully");
+                        view.showMyTasksActivty();
+                    }
 
-                        @Override
-                        public void onError(Throwable e) {
-                            view.notifyError("Error submiting request.");
-                            e.printStackTrace();
-                        }
+                    @Override
+                    public void onError(Throwable e) {
+                        view.notifyError("Error submiting request.");
+                        e.printStackTrace();
+                    }
 
-                        @Override
-                        public void onComplete() {
-                        }
-                    });
-        }
+                    @Override
+                    public void onComplete() {
+                    }
+                });
+    }
 
     @Override
     public void declineTaskRequest(int taskRequestId, int taskRequestStatusId) {
         taskRequestData.updateTaskRequest(taskRequestId, taskRequestStatusId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        new Observer<Boolean>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                            }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                new Observer<Boolean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
 
-                            @Override
-                            public void onNext(Boolean taskRequests) {
-                            }
+                    @Override
+                    public void onNext(Boolean taskRequests) {
+                    }
 
-                            @Override
-                            public void onError(Throwable e) {
-                                view.notifyError("Error declining request.");
-                                e.printStackTrace();
-                            }
+                    @Override
+                    public void onError(Throwable e) {
+                        view.notifyError("Error declining request.");
+                        e.printStackTrace();
+                    }
 
-                            @Override
-                            public void onComplete() {
-                            }
-                        });
+                    @Override
+                    public void onComplete() {
+                    }
+                });
     }
 }

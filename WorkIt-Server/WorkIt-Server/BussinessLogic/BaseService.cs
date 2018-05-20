@@ -126,6 +126,16 @@ namespace WorkIt_Server.BLL
             return this.UserLogic.GetProfileDetails(userId);
         }
 
+        public IsUserAssignableToTaskViewModel IsUserAssignable(CanAssignToTaskDTO canAssignToTask)
+        {
+            return TaskLogic.IsUserAssignable(canAssignToTask);
+        }
+
+        public void UpdateAssignedUser(UpdateAssignedUserDTO updateAssignedUserDTO)
+        {
+            TaskLogic.UpdateAssignedUser(updateAssignedUserDTO);
+        }
+
         //public void CreateTaskReport(TaskReportDTO jobReport)
         //{
         //    TaskReportLogic.CreateTaskReport(jobReport);
@@ -134,11 +144,6 @@ namespace WorkIt_Server.BLL
         //public void CreateUserReport(UserReportDTO userReport)
         //{
         //    UserReportLogic.CreateUserReport(userReport);
-        //}
-
-        //public IEnumerable<RaitingDTO> GetAllRaitingsByUserId(int userId)
-        //{
-        //    return this.RaitingLogic.GetAllRaitingByUserId(userId);
         //}
     }
 }

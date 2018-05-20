@@ -35,6 +35,10 @@ public interface ApiConstantsContract {
 
     String getProfileDetailsUrl(int userId);
 
+    String getIsUserAssignableToTask();
+
+    String updateAssignedUser(int taskId);
+
     String getLocationLatLngUrl(String location);
 
     int responseSuccessCode();

@@ -58,21 +58,5 @@ namespace WorkIt_Server.BussinessLogic.Logics
             db.Raitings.Add(raitingToBeInserted);
             db.SaveChanges();
         }
-
-        public IEnumerable<CreateRaitingDTO> GetAllRaitingByUserId(int userId)
-        {
-            var raitings = Db.Raitings
-                .Where(r => r.ReceiverUserId == userId)
-                .Select(r => new CreateRaitingDTO
-                {
-                    Value = r.Value,
-                    ReceiverUserId = r.ReceiverUserId,
-                    ReceiverUserRoleId = r.ReceiverUserRoleId,
-                    TaskId = r.TaskId
-                })
-                .ToList();
-
-            return raitings;
-        }
     }
 }

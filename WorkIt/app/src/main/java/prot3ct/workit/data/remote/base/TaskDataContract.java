@@ -6,6 +6,7 @@ import io.reactivex.Observable;
 import prot3ct.workit.view_models.AssignedTasksListViewModel;
 import prot3ct.workit.view_models.AvailableTasksListViewModel;
 import prot3ct.workit.view_models.CompletedTasksListViewModel;
+import prot3ct.workit.view_models.IsUserAssignableToTaskViewModel;
 import prot3ct.workit.view_models.MyTasksListViewModel;
 import prot3ct.workit.view_models.TaskDetailViewModel;
 
@@ -20,6 +21,8 @@ public interface TaskDataContract {
 
     Observable<Boolean> deleteTask(int taskId);
 
+    Observable<IsUserAssignableToTaskViewModel> canAssignToTask(int taskId);
+
     Observable<List<AssignedTasksListViewModel>> getAssignedTasks();
 
     Observable<List<AvailableTasksListViewModel>> getAvailableTasks();
@@ -27,4 +30,6 @@ public interface TaskDataContract {
     Observable<List<MyTasksListViewModel>> getMyTasks();
 
     Observable<List<CompletedTasksListViewModel>> getCompletedTasks();
+
+    Observable<Boolean> removeAssignedUser(int taskId);
 }

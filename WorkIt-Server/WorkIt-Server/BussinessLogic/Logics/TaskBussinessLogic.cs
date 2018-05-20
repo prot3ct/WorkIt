@@ -158,5 +158,42 @@ namespace WorkIt_Server.BLL
                 })
                 .ToList();
         }
+
+        public IsUserAssignableToTaskViewModel IsUserAssignable(CanAssignToTaskDTO canAssignToTask)
+        {
+            var pendingRequest = Db.TaskRequests
+                .FirstOrDefault(tr => tr.TaskId == canAssignToTask.TaskId &&
+                tr.UserId == canAssignToTask.UserId &&
+                tr.RequestStatus.Name == "Pending");
+
+            var assignedUser = Db.Tasks.Any(t => t.AssignedUserId == canAssignToTask.UserId);
+
+            var result = new IsUserAssignableToTaskViewModel();
+
+            if (pendingRequest != null)
+            {
+                result.PendingRequestId = pendingRequest.TaskRequestId;
+                result.IsUserAssignableToTaskMessage = "Cancel pending request";
+            }
+            else if (assignedUser)
+            {
+                result.IsUserAssignableToTaskMessage = "I can't do this task anymore";
+            }
+            else
+            {
+                result.IsUserAssignableToTaskMessage = "No requests";
+            }
+
+            return result;
+        }
+
+        public void UpdateAssignedUser(UpdateAssignedUserDTO updateAssignedUserDTO)
+        {
+            var taskToBeUpdated = Db.Tasks.FirstOrDefault(t => t.TaskId == updateAssignedUserDTO.TaskId);
+
+            taskToBeUpdated.AssignedUserId = null;
+
+            db.SaveChanges();
+        }
     }
 }

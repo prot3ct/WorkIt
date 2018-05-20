@@ -28,6 +28,7 @@ import java.util.Locale;
 
 import prot3ct.workit.R;
 import prot3ct.workit.utils.WorkItProgressDialog;
+import prot3ct.workit.view_models.IsUserAssignableToTaskViewModel;
 import prot3ct.workit.view_models.TaskDetailViewModel;
 import prot3ct.workit.views.task_details.base.TaskDetailsContract;
 import prot3ct.workit.views.navigation.DrawerUtil;
@@ -118,14 +119,6 @@ public class TaskDetailsFragment extends Fragment implements TaskDetailsContract
         this.reward.setText("BGN " + taskDetails.getReward() +"/hr");
         this.city.setText(taskDetails.getCity() + ", " + taskDetails.getAddress());// for
 
-        this.applyForTask.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.createTaskRequest(taskDetails.getTaskId());
-                getActivity().finish();
-            }
-        });
-
         presenter.getLatLng(taskDetails.getCity() + ", " + taskDetails.getAddress());
     }
 
@@ -174,7 +167,9 @@ public class TaskDetailsFragment extends Fragment implements TaskDetailsContract
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        presenter.getTaskDetails(getActivity().getIntent().getIntExtra("taskId", 0));
+        int taskId = getActivity().getIntent().getIntExtra("taskId", 0);
+        presenter.getTaskDetails(taskId);
+        presenter.getCanAssignToTask(taskId);
     }
 
     @Override
@@ -182,5 +177,47 @@ public class TaskDetailsFragment extends Fragment implements TaskDetailsContract
         LatLng location = new LatLng(lat, lng);
         mMap.addMarker(new MarkerOptions().position(location));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 17.0f));
+    }
+
+    @Override
+    public void updateButton(final IsUserAssignableToTaskViewModel canAssignToTask) {
+        if (canAssignToTask.getIsUserAssignableToTaskMessage().equals("Cancel pending request"))
+        {
+            this.applyForTask.setText(canAssignToTask.getIsUserAssignableToTaskMessage());
+            this.applyForTask.setTextColor(getResources().getColor(R.color.md_white_1000));
+            this.applyForTask.setBackgroundColor(getResources().getColor(R.color.md_red_900));
+
+            this.applyForTask.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    presenter.declineTaskRequest(canAssignToTask.getPendingRequestId(), 2);
+                    getActivity().finish();
+                }
+            });
+        }
+        else if (canAssignToTask.getIsUserAssignableToTaskMessage().equals("I can't do this task anymore"))
+        {
+            this.applyForTask.setText(canAssignToTask.getIsUserAssignableToTaskMessage());
+            this.applyForTask.setTextColor(getResources().getColor(R.color.md_white_1000));
+            this.applyForTask.setBackgroundColor(getResources().getColor(R.color.md_red_900));
+
+            this.applyForTask.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    presenter.removeAssignedUser(taskDetails.getTaskId());
+                    getActivity().finish();
+                }
+            });
+        }
+        else
+        {
+            this.applyForTask.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    presenter.createTaskRequest(taskDetails.getTaskId());
+                    getActivity().finish();
+                }
+            });
+        }
     }
 }

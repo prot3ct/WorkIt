@@ -124,5 +124,34 @@ namespace WorkIt_Server.Controllers
                 return InternalServerError(e);
             }
         }
+
+        [Route("tasks/can-assign")]
+        [HttpPost]
+        public IHttpActionResult PostCanAssignToTask(CanAssignToTaskDTO canAssignToTask)
+        {
+            try
+            {
+                return Ok(service.IsUserAssignable(canAssignToTask));
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+
+        [Route("tasks/{taskId}/assigned-user")]
+        [HttpPut]
+        public IHttpActionResult UpdateAssignedUser(UpdateAssignedUserDTO updateAssignedUserDTO)
+        {
+            try
+            {
+                service.UpdateAssignedUser(updateAssignedUserDTO);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
     }
 }

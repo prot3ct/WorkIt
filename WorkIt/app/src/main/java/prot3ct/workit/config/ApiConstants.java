@@ -95,8 +95,18 @@ public class ApiConstants implements ApiConstantsContract {
     }
 
     @Override
+    public String getIsUserAssignableToTask() {
+        return API_URL + "/tasks/can-assign";
+    }
+
+    @Override
     public String getLocationLatLngUrl(String location) {
         return "https://maps.googleapis.com/maps/api/geocode/json?address=" + location + "&key=AIzaSyA4t0Wp6n0os2wVPs3JRoSnDDJf49JVgFM";
+    }
+
+    @Override
+    public String updateAssignedUser(int taskId) {
+        return API_URL + "/tasks/" + taskId + "/assigned-user";
     }
 
     @Override

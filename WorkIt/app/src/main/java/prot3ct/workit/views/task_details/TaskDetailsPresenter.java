@@ -11,6 +11,7 @@ import prot3ct.workit.data.remote.TaskData;
 import prot3ct.workit.data.remote.LocationData;
 import prot3ct.workit.data.remote.TaskRequestData;
 import prot3ct.workit.models.base.LocationContract;
+import prot3ct.workit.view_models.IsUserAssignableToTaskViewModel;
 import prot3ct.workit.view_models.TaskDetailViewModel;
 import prot3ct.workit.views.task_details.base.TaskDetailsContract;
 
@@ -46,6 +47,33 @@ public class TaskDetailsPresenter implements TaskDetailsContract.Presenter {
                             @Override
                             public void onError(Throwable e) {
                                 view.notifyError("Error loading task.");
+                            }
+
+                            @Override
+                            public void onComplete() {
+                            }
+                        });
+    }
+
+    @Override
+    public void getCanAssignToTask(int taskId) {
+        taskData.canAssignToTask(taskId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        new Observer<IsUserAssignableToTaskViewModel>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                            }
+
+                            @Override
+                            public void onNext(IsUserAssignableToTaskViewModel canAssignToTask) {
+                                view.updateButton(canAssignToTask);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                view.notifyError("Error getting if possible to assign.");
                             }
 
                             @Override
@@ -111,5 +139,59 @@ public class TaskDetailsPresenter implements TaskDetailsContract.Presenter {
                     public void onComplete() {
                     }
                 });
+    }
+
+    @Override
+    public void declineTaskRequest(int taskRequestId, int taskRequestStatusId) {
+        taskRequestData.updateTaskRequest(taskRequestId, taskRequestStatusId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        new Observer<Boolean>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                            }
+
+                            @Override
+                            public void onNext(Boolean taskRequests) {
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                view.notifyError("Error declining request.");
+                                e.printStackTrace();
+                            }
+
+                            @Override
+                            public void onComplete() {
+                            }
+                        });
+    }
+
+    @Override
+    public void removeAssignedUser(int taskId) {
+        taskData.removeAssignedUser(taskId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        new Observer<Boolean>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                            }
+
+                            @Override
+                            public void onNext(Boolean taskRequests) {
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                view.notifyError("Error submiting request.");
+                                e.printStackTrace();
+                            }
+
+                            @Override
+                            public void onComplete() {
+                            }
+                        });
     }
 }
