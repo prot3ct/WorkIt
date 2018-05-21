@@ -83,7 +83,9 @@ namespace WorkIt_Server.BLL
                 Description = task.Description,
                 Length = task.Length,
                 StartDate = task.StartDate,
-                Reward = task.Reward
+                Reward = task.Reward,
+                SupervisorName = task.Creator.FullName,
+                SupervisorRating = task.Creator.RaitingAsSupervisor
             };
         }
 
@@ -166,7 +168,9 @@ namespace WorkIt_Server.BLL
                 tr.UserId == canAssignToTask.UserId &&
                 tr.RequestStatus.Name == "Pending");
 
-            var assignedUser = Db.Tasks.Any(t => t.AssignedUserId == canAssignToTask.UserId);
+            var assignedUser = Db.Tasks
+                .Where(t => t.TaskId == canAssignToTask.TaskId)
+                .Any(t => t.AssignedUserId == canAssignToTask.UserId);
 
             var result = new IsUserAssignableToTaskViewModel();
 

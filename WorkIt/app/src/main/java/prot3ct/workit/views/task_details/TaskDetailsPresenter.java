@@ -91,20 +91,17 @@ public class TaskDetailsPresenter implements TaskDetailsContract.Presenter {
                 new Observer<Boolean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        view.showDialogforLoading();
                     }
 
                     @Override
                     public void onNext(Boolean result) {
                         view.notifySuccessful("Request has been sent successfully");
-                        view.dismissDialog();
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         view.notifyError("Error ocurred when sending request. Please try again.");
                         e.printStackTrace();
-                        view.dismissDialog();
                     }
 
                     @Override
@@ -181,6 +178,7 @@ public class TaskDetailsPresenter implements TaskDetailsContract.Presenter {
 
                             @Override
                             public void onNext(Boolean taskRequests) {
+                                view.notifySuccessful("Removed task successfully");
                             }
 
                             @Override

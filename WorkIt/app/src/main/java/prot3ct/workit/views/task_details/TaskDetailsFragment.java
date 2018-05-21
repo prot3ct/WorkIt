@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,14 +39,16 @@ public class TaskDetailsFragment extends Fragment implements TaskDetailsContract
     private Context context;
 
     private TaskDetailViewModel taskDetails;
+    private int flag;
 
     private GoogleMap mMap;
-
     private TextView taskTitle;
     private TextView taskDescription;
     private TextView taskStartDate;
     private TextView reward;
     private TextView city;
+    private TextView supervisorName;
+    private TextView supervisorRating;
     private Toolbar toolbar;
     private Button applyForTask;
     private WorkItProgressDialog dialog;
@@ -80,6 +83,8 @@ public class TaskDetailsFragment extends Fragment implements TaskDetailsContract
         this.taskDescription = view.findViewById(R.id.id_description_details_edit_text);
         this.taskStartDate = view.findViewById(R.id.id_date_details_text_view);
         this.city = view.findViewById(R.id.id_city_details_text_view);
+        this.supervisorName = view.findViewById(R.id.id_supervisor_text_view);
+        this.supervisorRating = view.findViewById(R.id.id_task_supervisor_rating_text_view);
 
         DrawerUtil drawer = new DrawerUtil(this.getActivity(), this.toolbar);
         drawer.getDrawer();
@@ -118,6 +123,8 @@ public class TaskDetailsFragment extends Fragment implements TaskDetailsContract
                 " for " + taskDetails.getLength() + " hours");
         this.reward.setText("BGN " + taskDetails.getReward() +"/hr");
         this.city.setText(taskDetails.getCity() + ", " + taskDetails.getAddress());// for
+        this.supervisorRating.setText(task.getSupervisorRating());
+        this.supervisorName.setText("For " + task.getSupervisorName());
 
         presenter.getLatLng(taskDetails.getCity() + ", " + taskDetails.getAddress());
     }
@@ -181,19 +188,38 @@ public class TaskDetailsFragment extends Fragment implements TaskDetailsContract
 
     @Override
     public void updateButton(final IsUserAssignableToTaskViewModel canAssignToTask) {
+        this.applyForTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (flag == 0) {
+                    presenter.declineTaskRequest(canAssignToTask.getPendingRequestId(), 2);
+                    applyForTask.setText("I'll do it");
+                    applyForTask.setTextColor(getResources().getColor(R.color.md_black_1000));
+                    applyForTask.setBackgroundColor(getResources().getColor(R.color.bg_login));
+                    flag = 2;
+                }
+                else if (flag == 1) {
+                    presenter.removeAssignedUser(taskDetails.getTaskId());
+                    getActivity().finish();
+                }
+                else {
+                    presenter.createTaskRequest(taskDetails.getTaskId());
+                    applyForTask.setText("Cancel pending request");
+                    applyForTask.setTextColor(getResources().getColor(R.color.md_white_1000));
+                    applyForTask.setBackgroundColor(getResources().getColor(R.color.md_red_900));
+                    flag = 0;
+                }
+            }
+        });
+
+
         if (canAssignToTask.getIsUserAssignableToTaskMessage().equals("Cancel pending request"))
         {
             this.applyForTask.setText(canAssignToTask.getIsUserAssignableToTaskMessage());
             this.applyForTask.setTextColor(getResources().getColor(R.color.md_white_1000));
             this.applyForTask.setBackgroundColor(getResources().getColor(R.color.md_red_900));
 
-            this.applyForTask.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    presenter.declineTaskRequest(canAssignToTask.getPendingRequestId(), 2);
-                    getActivity().finish();
-                }
-            });
+            flag = 0;
         }
         else if (canAssignToTask.getIsUserAssignableToTaskMessage().equals("I can't do this task anymore"))
         {
@@ -201,23 +227,11 @@ public class TaskDetailsFragment extends Fragment implements TaskDetailsContract
             this.applyForTask.setTextColor(getResources().getColor(R.color.md_white_1000));
             this.applyForTask.setBackgroundColor(getResources().getColor(R.color.md_red_900));
 
-            this.applyForTask.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    presenter.removeAssignedUser(taskDetails.getTaskId());
-                    getActivity().finish();
-                }
-            });
+            flag = 1;
         }
         else
         {
-            this.applyForTask.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    presenter.createTaskRequest(taskDetails.getTaskId());
-                    getActivity().finish();
-                }
-            });
+            flag = 2;
         }
     }
 }

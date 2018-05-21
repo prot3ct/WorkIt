@@ -73,13 +73,40 @@
                 android:layout_height="1dp"
                 android:background="@android:color/darker_gray"/>
 
-            <TextView
-                android:id="@+id/id_reward_details_edit_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="50px"
-                android:textColor="@color/md_black_1000"
-                android:text="BGN 20/hr"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/id_reward_details_edit_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="50px"
+                    android:textColor="@color/md_black_1000"
+                    android:text="BGN 20/hr"/>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="end|center_vertical" >
+                    <TextView
+                        android:id="@+id/id_supervisor_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16dp"
+                        android:text="For Georgi karaboichev"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_rate_grey"
+                        android:layout_gravity="center"/>
+                    <TextView
+                        android:id="@+id/id_supervisor_rating_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16dp"
+                        android:text="5.0" />
+                </LinearLayout>
+            </LinearLayout>
 
             <Button
                 android:id="@+id/id_apply_for_task_button"

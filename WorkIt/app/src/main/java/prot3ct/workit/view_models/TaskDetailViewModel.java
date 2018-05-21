@@ -10,6 +10,8 @@ public class TaskDetailViewModel {
     private String address;
     private double reward;
     private double minRaiting;
+    private String supervisorName;
+    private String supervisorRating;
 
     public int getTaskId() {
         return taskId;
@@ -81,5 +83,21 @@ public class TaskDetailViewModel {
 
     public void setMinRaiting(double minRaiting) {
         this.minRaiting = minRaiting;
+    }
+
+    public String getSupervisorName() {
+        return supervisorName;
+    }
+
+    public void setSupervisorName(String supervisorName) {
+        this.supervisorName = supervisorName;
+    }
+
+    public String getSupervisorRating() {
+        return supervisorRating;
+    }
+
+    public void setSupervisorRating(String supervisorRating) {
+        this.supervisorRating = supervisorRating;
     }
 }
