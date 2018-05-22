@@ -47,4 +47,9 @@ public class LoginPresenter implements LoginContract.Presenter {
                     }
                 });
     }
+
+    @Override
+    public boolean isUserLoggedIn() {
+        return this.authData.isLoggedIn();
+    }
 }

@@ -201,6 +201,7 @@ public class DrawerUtil {
                 public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                 Intent intent = new Intent(activity.getBaseContext(), LoginActivity.class);
                 activity.startActivity(intent);
+                authData.logoutUser();
                 return true;
                 }
             });

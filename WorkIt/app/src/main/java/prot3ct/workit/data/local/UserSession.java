@@ -46,12 +46,12 @@ public class UserSession implements UserSessionContract{
 
     @Override
     public boolean isUserLoggedIn() {
-        String username = getEmail();
-        return username != null;
+        return getEmail() != null;
     }
 
     @Override
     public void clearSession() {
+        setFullName(null);
         setEmail(null);
     }
 }

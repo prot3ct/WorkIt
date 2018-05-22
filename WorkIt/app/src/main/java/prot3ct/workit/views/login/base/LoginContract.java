@@ -17,5 +17,7 @@ public interface LoginContract {
 
     interface Presenter {
         void loginUser(String email, String password);
+
+        boolean isUserLoggedIn();
     }
 }

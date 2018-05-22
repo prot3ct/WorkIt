@@ -45,12 +45,15 @@ public class LoginFragment extends Fragment implements LoginContract.View {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
-
         this.dialog = new WorkItProgressDialog(context);
         this.emailEditText = view.findViewById(R.id.id_email_edit_text);
         this.passwordEditText = view.findViewById(R.id.id_password_edit_text);
         this.loginButton = view.findViewById(R.id.id_login_button);
         this.registerButton = view.findViewById(R.id.id_register_button);
+
+        if (presenter.isUserLoggedIn()) {
+            showListJobsActivity();
+        }
 
         this.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
