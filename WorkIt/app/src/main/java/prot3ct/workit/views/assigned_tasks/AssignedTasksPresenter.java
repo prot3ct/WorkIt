@@ -55,4 +55,32 @@ public class AssignedTasksPresenter implements AssignedTasksContract.Presenter {
                 });
     }
 
+    @Override
+    public void removeAssignedUser(int taskId) {
+        taskData.removeAssignedUser(taskId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        new Observer<Boolean>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                            }
+
+                            @Override
+                            public void onNext(Boolean taskRequests) {
+                                view.notifySuccessful("Removed task successfully");
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                view.notifyError("Error submiting request.");
+                                e.printStackTrace();
+                            }
+
+                            @Override
+                            public void onComplete() {
+                            }
+                        });
+    }
+
 }

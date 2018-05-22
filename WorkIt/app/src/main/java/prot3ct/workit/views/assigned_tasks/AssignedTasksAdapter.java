@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.text.DateFormat;
@@ -23,17 +24,20 @@ import java.util.Locale;
 import prot3ct.workit.R;
 import prot3ct.workit.view_models.AssignedTasksListViewModel;
 import prot3ct.workit.view_models.AvailableTasksListViewModel;
+import prot3ct.workit.views.assigned_tasks.base.AssignedTasksContract;
 import prot3ct.workit.views.task_details.TaskDetailsActivity;
 
 public class AssignedTasksAdapter extends RecyclerView.Adapter<AssignedTasksAdapter.TaskViewHolder> {
+    private AssignedTasksContract.Presenter presenter;
     List<AssignedTasksListViewModel> tasks;
     List<AssignedTasksListViewModel> allTasks = new ArrayList<AssignedTasksListViewModel>();
     private Context context;
 
-    AssignedTasksAdapter(List<AssignedTasksListViewModel> tasks, Context context){
+    AssignedTasksAdapter(List<AssignedTasksListViewModel> tasks, Context context, AssignedTasksContract.Presenter presenter){
         this.tasks = tasks;
         allTasks.addAll(tasks);
         this.context = context;
+        this.presenter = presenter;
     }
 
     @Override
@@ -86,6 +90,15 @@ public class AssignedTasksAdapter extends RecyclerView.Adapter<AssignedTasksAdap
                 context.startActivity(intent);
             }
         });
+
+        holder.cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.removeAssignedUser(tasks.get(position).getTaskId());
+                tasks.remove(position);
+                notifyDataSetChanged();
+            }
+        });
     }
 
     public void filter(String text) {
@@ -115,6 +128,7 @@ public class AssignedTasksAdapter extends RecyclerView.Adapter<AssignedTasksAdap
         TextView timeLeft;
         TextView taskTitle;
         TextView taskCreator;
+        Button cancelButton;
 
         TaskViewHolder(View itemView) {
             super(itemView);
@@ -123,6 +137,7 @@ public class AssignedTasksAdapter extends RecyclerView.Adapter<AssignedTasksAdap
             taskTitle = itemView.findViewById(R.id.id_task_title);
             taskCreator = itemView.findViewById(R.id.id_task_creator);
             timeLeft = itemView.findViewById(R.id.id_task_time_left);
+            cancelButton = itemView.findViewById(R.id.id_cancel_task_assignment_button);
         }
     }
 

@@ -46,7 +46,6 @@ public class ListTaskRequestAdapter extends RecyclerView.Adapter<ListTaskRequest
             @Override
             public void onClick(View v) {
                 presenter.acceptTaskRequest(requests.get(position).getTaskRequestId(), 3);
-
             }
         });
 

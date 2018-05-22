@@ -30,6 +30,7 @@ namespace WorkIt_Server.BussinessLogic.Logics
         public void CreateRatiing(CreateRaitingDTO raiting)
         {
             var user = db.Users.FirstOrDefault(u => u.UserId == raiting.ReceiverUserId);
+            var task = db.Tasks.FirstOrDefault(t => t.TaskId == raiting.TaskId);
 
             var raitingToBeInserted = new Raiting
             {
@@ -46,6 +47,7 @@ namespace WorkIt_Server.BussinessLogic.Logics
                 currentRait += raiting.Value;
                 currentRait /= (user.ReviewsAsTasker + 1);
                 user.RaitingAsTasker = currentRait;
+                task.HasCreatorGivenRating = true;
             }
             else if (raiting.ReceiverUserRoleId == 4)
             {
@@ -53,6 +55,7 @@ namespace WorkIt_Server.BussinessLogic.Logics
                 currentRait += raiting.Value;
                 currentRait /= (user.ReviewsAsSupervisor + 1);
                 user.RaitingAsSupervisor = currentRait;
+                task.HasTaskerGivenRating = true;
             }
 
             db.Raitings.Add(raitingToBeInserted);

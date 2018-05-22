@@ -90,8 +90,8 @@ public class CompletedTasksFragment extends Fragment implements CompletedTasksCo
     }
 
     @Override
-    public void postRaiting(int value, String descrption) {
-        presenter.createRating(value, descrption, userToBeRatedId, selectedTaskId, receiverUserRoleId);
+    public void postRaiting(int value, String description) {
+        presenter.createRating(value, description, userToBeRatedId, selectedTaskId, receiverUserRoleId);
     }
 
     @Override
@@ -134,5 +134,10 @@ public class CompletedTasksFragment extends Fragment implements CompletedTasksCo
                 //.setWindowAnimation(R.style.MyDialogFadeAnimation)
                 .create(getActivity())
                 .show();
+    }
+
+    @Override
+    public int getLoggedInUserId() {
+        return this.loggedInUserId;
     }
 }

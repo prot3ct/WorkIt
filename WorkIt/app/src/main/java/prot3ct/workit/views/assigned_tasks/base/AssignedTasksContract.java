@@ -18,5 +18,7 @@ public interface AssignedTasksContract {
 
     interface Presenter {
         void getAssignedTasks();
+
+        void removeAssignedUser(int taskId);
     }
 }

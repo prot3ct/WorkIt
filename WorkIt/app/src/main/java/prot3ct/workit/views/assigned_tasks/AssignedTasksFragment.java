@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.List;
@@ -72,10 +73,9 @@ public class AssignedTasksFragment extends Fragment implements AssignedTasksCont
         Toast.makeText(getContext(), errorMessage, Toast.LENGTH_LONG).show();
     }
 
-
     @Override
     public void setupTasksAdapter(final List<AssignedTasksListViewModel> tasks) {
-        adapter = new AssignedTasksAdapter(tasks, context);
+        adapter = new AssignedTasksAdapter(tasks, context, presenter);
         recyclerTaskView.setAdapter(adapter);
     }
 }

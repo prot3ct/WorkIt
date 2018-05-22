@@ -24,6 +24,8 @@ public interface CompletedTasksContract {
         void postRaiting(int value, String descrption);
 
         void updateSelectedInfo(int taskId, int supervisorId, int taskerId);
+
+        int getLoggedInUserId();
     }
 
     interface Presenter {

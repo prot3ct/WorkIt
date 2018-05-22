@@ -140,7 +140,9 @@ namespace WorkIt_Server.BLL
                     SupervisorFullName = t.Creator.FullName,
                     SupervisorId = t.Creator.UserId,
                     TaskerFullName = t.AssignedUser.FullName,
-                    TaskerId = t.AssignedUser.UserId
+                    TaskerId = t.AssignedUser.UserId,
+                    HasSupervisorGivenRating = t.HasCreatorGivenRating,
+                    HasTaskerGivenrating = t.HasTaskerGivenRating
                 })
                 .ToList();
         }

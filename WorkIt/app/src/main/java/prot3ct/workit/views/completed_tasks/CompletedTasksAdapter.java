@@ -40,12 +40,14 @@ public class CompletedTasksAdapter extends RecyclerView.Adapter<CompletedTasksAd
     private List<CompletedTasksListViewModel> allTasks = new ArrayList<CompletedTasksListViewModel>();
     private Context context;
     private CompletedTasksContract.View view;
+    private int loggedInUserId;
 
     CompletedTasksAdapter(List<CompletedTasksListViewModel> tasks, Context context, CompletedTasksContract.View view){
         this.tasks = tasks;
         this.allTasks.addAll(this.tasks);
         this.context = context;
         this.view = view;
+        this.loggedInUserId = view.getLoggedInUserId();
     }
 
     @Override
@@ -56,7 +58,7 @@ public class CompletedTasksAdapter extends RecyclerView.Adapter<CompletedTasksAd
     }
 
     @Override
-    public void onBindViewHolder(CompletedTasksAdapter.TaskViewHolder holder, final int position) {
+    public void onBindViewHolder(final CompletedTasksAdapter.TaskViewHolder holder, final int position) {
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.ENGLISH);
         Date date = null;
         try {
@@ -81,18 +83,40 @@ public class CompletedTasksAdapter extends RecyclerView.Adapter<CompletedTasksAd
         holder.taskCreator.setText("Created by: " + tasks.get(position).getSupervisorFullName());
         holder.taskTasker.setText("Assigned to: " + tasks.get(position).getTaskerFullName());
 
-        holder.rateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                view.updateSelectedInfo(tasks.get(position).getTaskId(), tasks.get(position).getSupervisorId(), tasks.get(position).getTaskerId());
-                view.showDialog();
-            }
-        });
+        if(tasks.get(position).getTaskerId() == loggedInUserId && tasks.get(position).getHasTaskerGivenrating()) {
+            holder.rateButton.setVisibility(View.GONE);
+            holder.ratingResult.setText("You have already rated " + tasks.get(position).getSupervisorFullName());
+        }
+
+        else if(tasks.get(position).getSupervisorId() == loggedInUserId && tasks.get(position).getHasSupervisorGivenRating()) {
+            holder.rateButton.setVisibility(View.GONE);
+            holder.ratingResult.setText("You have already rated " + tasks.get(position).getTaskerFullName());
+        }
+        else {
+            holder.rateButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    view.updateSelectedInfo(tasks.get(position).getTaskId(), tasks.get(position).getSupervisorId(), tasks.get(position).getTaskerId());
+                    view.showDialog();
+                    holder.rateButton.setVisibility(View.GONE);
+                    if(tasks.get(position).getTaskerId() == loggedInUserId) {
+                        holder.ratingResult.setText("You have already rated " + tasks.get(position).getSupervisorFullName());
+                    }
+                    else {
+                        holder.ratingResult.setText("You have already rated " + tasks.get(position).getTaskerFullName());
+                    }
+                }
+            });
+        }
     }
 
     @Override
     public int getItemCount() {
         return tasks.size();
+    }
+
+    public void hideButton(int start) {
+
     }
 
     public static class TaskViewHolder extends RecyclerView.ViewHolder {
@@ -101,6 +125,7 @@ public class CompletedTasksAdapter extends RecyclerView.Adapter<CompletedTasksAd
         TextView taskCreator;
         TextView taskTasker;
         Button rateButton;
+        TextView ratingResult;
 
         TaskViewHolder(View itemView) {
             super(itemView);
@@ -109,6 +134,7 @@ public class CompletedTasksAdapter extends RecyclerView.Adapter<CompletedTasksAd
             taskCreator = itemView.findViewById(R.id.id_task_supervisor);
             taskTasker = itemView.findViewById(R.id.id_task_tasker);
             rateButton = itemView.findViewById(R.id.id_rate_button);
+            ratingResult = itemView.findViewById(R.id.id_rating_result_text_view);
         }
     }
 

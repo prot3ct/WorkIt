@@ -13,6 +13,8 @@ namespace WorkIt_Server.Models.ViewModels
         public int SupervisorId { get; set; }
         public string SupervisorFullName { get; set; }
         public string TaskerFullName { get; set; }
+        public bool HasSupervisorGivenRating { get; set; }
+        public bool HasTaskerGivenrating { get; set; }
         public int TaskerId { get; set; }
     }
 }

@@ -8,6 +8,8 @@ public class CompletedTasksListViewModel {
     private int supervisorId;
     private int taskerId;
     private String taskerFullName;
+    private boolean hasSupervisorGivenRating;
+    private boolean hasTaskerGivenRating;
 
     public int getTaskId() {
         return taskId;
@@ -63,5 +65,21 @@ public class CompletedTasksListViewModel {
 
     public void setTaskerFullName(String taskerFullName) {
         this.taskerFullName = taskerFullName;
+    }
+
+    public boolean getHasSupervisorGivenRating() {
+        return hasSupervisorGivenRating;
+    }
+
+    public void setHasSupervisorGivenRating(boolean hasSupervisorGivenRating) {
+        this.hasSupervisorGivenRating = hasSupervisorGivenRating;
+    }
+
+    public boolean getHasTaskerGivenrating() {
+        return hasTaskerGivenRating;
+    }
+
+    public void setHasTaskerGivenrating(boolean hasTaskerGivenrating) {
+        this.hasTaskerGivenRating = hasTaskerGivenrating;
     }
 }
