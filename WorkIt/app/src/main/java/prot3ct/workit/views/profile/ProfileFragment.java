@@ -68,9 +68,10 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         this.numberOfReviewsAsTaskerTextView = view.findViewById(R.id.id_profile_number_of_reviews_as_tasker_text_view);
         this.numberOfReviewsAsSupervisorTextView = view.findViewById(R.id.id_profile_number_of_reviews_as_supervisor_text_view);
         this.toolbar = view.findViewById(R.id.id_drawer_toolbar);
+        this.dialog = new WorkItProgressDialog(context);
+
         DrawerUtil drawer = new DrawerUtil(this.getActivity(), this.toolbar);
         drawer.getDrawer();
-        this.dialog = new WorkItProgressDialog(context);
 
         this.editProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override

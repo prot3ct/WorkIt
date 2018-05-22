@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -39,6 +40,7 @@ public class CreateTaskFragment extends Fragment implements CreateTaskContract.V
     private TextView rewardTextView;
     private Toolbar toolbar;
     private Button saveTaskButton;
+    private String startDateString;
 
     private Calendar date;
 
@@ -85,14 +87,7 @@ public class CreateTaskFragment extends Fragment implements CreateTaskContract.V
         this.startDateTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDateTimePicker(1);
-            }
-        });
-
-        this.lengthEditText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDateTimePicker(2);
+                showDateTimePicker();
             }
         });
 
@@ -101,7 +96,7 @@ public class CreateTaskFragment extends Fragment implements CreateTaskContract.V
             public void onClick(View v) {
                 presenter.createTask(
                     titleTextView.getText().toString(),
-                    startDateTextView.getText().toString(),
+                    startDateString,
                     lengthEditText.getText().toString(),
                     descriptionTextView.getText().toString(),
                     cityTextView.getText().toString(),
@@ -140,7 +135,7 @@ public class CreateTaskFragment extends Fragment implements CreateTaskContract.V
         this.dialog.dismissProgress();
     }
 
-    public void showDateTimePicker(final int temp) {
+    public void showDateTimePicker() {
         final Calendar currentDate = Calendar.getInstance();
         this.date = Calendar.getInstance();
         new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
@@ -158,12 +153,10 @@ public class CreateTaskFragment extends Fragment implements CreateTaskContract.V
                             date.set(Calendar.MINUTE, minute);
                             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd,HH:mm");
 
-                            if (temp == 1) {
-                                startDateTextView.setText(dateFormat.format(date.getTime()));
-                            }
-                            else if (temp == 2) {
-                                lengthEditText.setText(dateFormat.format(date.getTime()));
-                            }
+                            startDateTextView.setText(getOrdinal(date.get(Calendar.DAY_OF_MONTH)) + " " +
+                                    getMonthForInt(date.get(Calendar.MONTH)) + " at " +
+                                    String.format("%02d:%02d", date.get(Calendar.HOUR_OF_DAY), date.get(Calendar.MINUTE)));
+                            startDateString = dateFormat.format(date.getTime());
                             first = false;
                         }
                     }, currentDate.get(Calendar.HOUR_OF_DAY), currentDate.get(Calendar.MINUTE), true).show();
@@ -172,5 +165,27 @@ public class CreateTaskFragment extends Fragment implements CreateTaskContract.V
                 }
             }
         }, currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DATE)).show();
+    }
+
+    private String getMonthForInt(int num) {
+        String month = "wrong";
+        DateFormatSymbols dfs = new DateFormatSymbols();
+        String[] months = dfs.getMonths();
+        if (num >= 0 && num <= 11 ) {
+            month = months[num];
+        }
+        return month;
+    }
+
+    private String getOrdinal(int i) {
+        String[] sufixes = new String[] { "th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th" };
+        switch (i % 100) {
+            case 11:
+            case 12:
+            case 13:
+                return i + "th";
+            default:
+                return i + sufixes[i % 10];
+        }
     }
 }

@@ -24,7 +24,7 @@ public class CompletedTasksActivity extends AppCompatActivity implements RatingD
         setContentView(R.layout.activity_completed_tasks);
         Toolbar toolbar = this.findViewById(R.id.id_drawer_toolbar);
         setSupportActionBar(toolbar);
-        setTitle("Browse Tasks");
+        setTitle("Completed Tasks");
         DrawerUtil drawer = new DrawerUtil(this, toolbar);
         drawer.getDrawer();
 

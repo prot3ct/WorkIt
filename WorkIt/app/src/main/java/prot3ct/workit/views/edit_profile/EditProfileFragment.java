@@ -99,6 +99,7 @@ public class EditProfileFragment extends Fragment implements EditProfileContract
         this.phoneEditText.setText(profileDetails.getPhone());
 
         if (profileDetails.getPictureAsString() != null) {
+            profilePictureAsString = profileDetails.getPictureAsString();
             byte[] decodedString = Base64.decode(profileDetails.getPictureAsString(), Base64.DEFAULT);
             Bitmap bmp = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             this.profilePicture.setImageBitmap(bmp);
@@ -154,7 +155,7 @@ public class EditProfileFragment extends Fragment implements EditProfileContract
 
     @Override
     public void showDialogforLoading() {
-        this.dialog.showProgress("Logging in...");
+        this.dialog.showProgress("Loading...");
     }
 
     @Override

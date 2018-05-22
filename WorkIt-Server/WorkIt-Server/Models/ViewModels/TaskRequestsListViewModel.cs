@@ -9,5 +9,6 @@ namespace WorkIt_Server.Models.ViewModels
     {
         public int TaskRequestId { get; set; }
         public string FullName { get; set; }
+        public string ProfilePictureAsString { get; set; }
     }
 }

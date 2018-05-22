@@ -15,6 +15,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import prot3ct.workit.R;
+import prot3ct.workit.view_models.ProfileDetailsViewModel;
 import prot3ct.workit.view_models.TaskRequestListViewModel;
 import prot3ct.workit.views.my_tasks.MyTasksActivity;
 import prot3ct.workit.views.navigation.DrawerUtil;
@@ -53,9 +54,6 @@ public class ListTaskRequestsFragment extends Fragment implements ListTaskReques
         LinearLayoutManager llm = new LinearLayoutManager(context);
         recyclerTaskRequestView.setLayoutManager(llm);
 
-        DrawerUtil drawer = new DrawerUtil(this.getActivity(), this.toolbar);
-        drawer.getDrawer();
-
         presenter.getTaskRequests(taskId);
 
         return view;
@@ -66,6 +64,12 @@ public class ListTaskRequestsFragment extends Fragment implements ListTaskReques
         super.onAttach(context);
 
         this.context = context;
+    }
+
+    @Override
+    public void updateDrawer(ProfileDetailsViewModel profile) {
+        DrawerUtil drawer = new DrawerUtil(this.getActivity(), this.toolbar);
+        drawer.getDrawer();
     }
 
     @Override

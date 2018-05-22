@@ -36,13 +36,11 @@ public class CompletedTasksPresenter implements CompletedTasksContract.Presenter
                 new Observer<List<CompletedTasksListViewModel>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        view.showDialogForLoading();
                     }
 
                     @Override
                     public void onNext(List<CompletedTasksListViewModel> tasks) {
                         view.setupTasksAdapter(tasks);
-                        view.dismissDialog();
                     }
 
                     @Override

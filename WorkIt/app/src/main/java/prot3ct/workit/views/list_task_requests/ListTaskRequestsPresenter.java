@@ -9,16 +9,20 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import prot3ct.workit.data.remote.TaskRequestData;
+import prot3ct.workit.data.remote.UserData;
+import prot3ct.workit.view_models.ProfileDetailsViewModel;
 import prot3ct.workit.view_models.TaskRequestListViewModel;
 import prot3ct.workit.views.list_task_requests.base.ListTaskRequestContract;
 
 public class ListTaskRequestsPresenter implements  ListTaskRequestContract.Presenter {
     private ListTaskRequestContract.View view;
     private TaskRequestData taskRequestData;
+    private UserData userData;
 
     public ListTaskRequestsPresenter(ListTaskRequestContract.View view, Context context) {
         this.view = view;
         this.taskRequestData = new TaskRequestData(context);
+        this.userData = new UserData(context);
     }
 
     @Override
@@ -103,5 +107,33 @@ public class ListTaskRequestsPresenter implements  ListTaskRequestContract.Prese
                     public void onComplete() {
                     }
                 });
+    }
+
+    @Override
+    public void getProfileDetails() {
+        userData.getProfileDetails()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        new Observer<ProfileDetailsViewModel>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                            }
+
+                            @Override
+                            public void onNext(ProfileDetailsViewModel profile) {
+                                view.updateDrawer(profile);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                e.printStackTrace();
+                                view.notifyError("Error loading profile.");
+                            }
+
+                            @Override
+                            public void onComplete() {
+                            }
+                        });
     }
 }

@@ -16,9 +16,7 @@
             android:padding="10dp">
 
             <ImageView
-                android:id="@+id/id_task_start_time"
-                android:textColor="@color/md_green_900"
-                android:textStyle="bold"
+                android:id="@+id/id_task_requester_profile_picture_image_view"
                 android:layout_width="115px"
                 android:layout_height="match_parent"
                 android:gravity="center"

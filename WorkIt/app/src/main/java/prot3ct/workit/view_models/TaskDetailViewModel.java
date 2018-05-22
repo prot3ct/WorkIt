@@ -11,7 +11,7 @@ public class TaskDetailViewModel {
     private double reward;
     private double minRaiting;
     private String supervisorName;
-    private String supervisorRating;
+    private double supervisorRating;
 
     public int getTaskId() {
         return taskId;
@@ -93,11 +93,11 @@ public class TaskDetailViewModel {
         this.supervisorName = supervisorName;
     }
 
-    public String getSupervisorRating() {
+    public double getSupervisorRating() {
         return supervisorRating;
     }
 
-    public void setSupervisorRating(String supervisorRating) {
+    public void setSupervisorRating(double supervisorRating) {
         this.supervisorRating = supervisorRating;
     }
 }

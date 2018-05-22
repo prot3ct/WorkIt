@@ -57,6 +57,10 @@ public class UserData implements UserDataContract {
         profileDetails.put("fullName", fullName);
         profileDetails.put("phone", phone);
         profileDetails.put("profilePictureAsString", profilePictureAsString);
+        Log.d("CEKOO", userSession.getId()+"");
+        Log.d("CEKOO", fullName);
+        Log.d("CEKOO", phone);
+        Log.d("CEKOO", profilePictureAsString+"123");
 
         return httpRequester
                 .put(apiConstants.updateProfile(userSession.getId()), profileDetails)
@@ -64,6 +68,8 @@ public class UserData implements UserDataContract {
                     @Override
                     public Boolean apply(HttpResponseContract iHttpResponse) throws Exception {
                         if (iHttpResponse.getCode() == apiConstants.responseErrorCode()) {
+                            Log.d("CEKOO1", iHttpResponse.getBody());
+                            Log.d("CEKOO1", iHttpResponse.getMessage());
                             throw new Error(iHttpResponse.getMessage());
                         }
 

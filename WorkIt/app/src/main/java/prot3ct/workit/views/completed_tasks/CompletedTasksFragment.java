@@ -104,7 +104,6 @@ public class CompletedTasksFragment extends Fragment implements CompletedTasksCo
         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
-    @Override
     public void showDialogForLoading() {
         this.dialog.showProgress("Loading...");
     }

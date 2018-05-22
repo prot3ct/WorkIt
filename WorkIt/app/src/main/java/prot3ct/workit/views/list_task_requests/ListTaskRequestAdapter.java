@@ -2,12 +2,16 @@ package prot3ct.workit.views.list_task_requests;
 
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -54,6 +58,10 @@ public class ListTaskRequestAdapter extends RecyclerView.Adapter<ListTaskRequest
                 notifyDataSetChanged();
             }
         });
+
+        byte[] decodedString = Base64.decode(requests.get(position).getProfilePictureAsString(), Base64.DEFAULT);
+        Bitmap bmp = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        holder.profilePicture.setImageBitmap(bmp);
     }
 
     @Override
@@ -65,9 +73,11 @@ public class ListTaskRequestAdapter extends RecyclerView.Adapter<ListTaskRequest
         TextView fullName;
         Button acceptButton;
         Button declineButton;
+        ImageView profilePicture;
 
         TaskViewHolder(View itemView) {
             super(itemView);
+            profilePicture = itemView.findViewById(R.id.id_task_requester_profile_picture_image_view);
             fullName = itemView.findViewById(R.id.id_full_name_text_view);
             acceptButton = itemView.findViewById(R.id.id_accept_task_request_button);
             declineButton = itemView.findViewById(R.id.id_decline_task_request_button);

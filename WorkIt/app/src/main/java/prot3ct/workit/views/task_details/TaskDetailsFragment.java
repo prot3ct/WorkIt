@@ -84,7 +84,7 @@ public class TaskDetailsFragment extends Fragment implements TaskDetailsContract
         this.taskStartDate = view.findViewById(R.id.id_date_details_text_view);
         this.city = view.findViewById(R.id.id_city_details_text_view);
         this.supervisorName = view.findViewById(R.id.id_supervisor_text_view);
-        this.supervisorRating = view.findViewById(R.id.id_task_supervisor_rating_text_view);
+        this.supervisorRating = view.findViewById(R.id.id_supervisor_rating_text_view);
 
         DrawerUtil drawer = new DrawerUtil(this.getActivity(), this.toolbar);
         drawer.getDrawer();
@@ -123,8 +123,8 @@ public class TaskDetailsFragment extends Fragment implements TaskDetailsContract
                 " for " + taskDetails.getLength() + " hours");
         this.reward.setText("BGN " + taskDetails.getReward() +"/hr");
         this.city.setText(taskDetails.getCity() + ", " + taskDetails.getAddress());// for
-        this.supervisorRating.setText(task.getSupervisorRating());
         this.supervisorName.setText("For " + task.getSupervisorName());
+        this.supervisorRating.setText(task.getSupervisorRating() + "");
 
         presenter.getLatLng(taskDetails.getCity() + ", " + taskDetails.getAddress());
     }

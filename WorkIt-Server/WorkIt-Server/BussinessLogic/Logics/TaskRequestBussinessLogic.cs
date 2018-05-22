@@ -67,6 +67,7 @@ namespace WorkIt_Server.BLL
                 {
                     TaskRequestId = tr.TaskRequestId,
                     FullName = tr.User.FullName,
+                    ProfilePictureAsString = tr.User.Picture
                 })
                 .ToList();
         }

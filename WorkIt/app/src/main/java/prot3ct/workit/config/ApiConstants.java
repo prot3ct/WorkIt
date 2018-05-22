@@ -86,7 +86,7 @@ public class ApiConstants implements ApiConstantsContract {
 
     @Override
     public String updateProfile(int userId) {
-        return API_URL + "/users/" + userId + "/update";
+        return API_URL + "/users/" + userId;
     }
 
     @Override
