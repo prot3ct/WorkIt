@@ -18,5 +18,6 @@ namespace WorkIt_Server.Models.ViewModels
         public string FullName { get; set; }
         public string SupervisorName { get; set; }
         public double SupervisorRating { get; set; }
+        public int SupervisorId { get; set; }
     }
 }

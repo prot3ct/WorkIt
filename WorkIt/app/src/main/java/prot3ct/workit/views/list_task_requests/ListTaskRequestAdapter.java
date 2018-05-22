@@ -2,8 +2,10 @@ package prot3ct.workit.views.list_task_requests;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.util.Log;
@@ -19,6 +21,7 @@ import java.util.List;
 import prot3ct.workit.R;
 import prot3ct.workit.view_models.TaskRequestListViewModel;
 import prot3ct.workit.views.list_task_requests.base.ListTaskRequestContract;
+import prot3ct.workit.views.profile.ProfileActivity;
 
 public class ListTaskRequestAdapter extends RecyclerView.Adapter<ListTaskRequestAdapter.TaskViewHolder> {
     private ListTaskRequestContract.Presenter presenter;
@@ -58,9 +61,20 @@ public class ListTaskRequestAdapter extends RecyclerView.Adapter<ListTaskRequest
             }
         });
 
-        byte[] decodedString = Base64.decode(requests.get(position).getProfilePictureAsString(), Base64.DEFAULT);
-        Bitmap bmp = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-        holder.profilePicture.setImageBitmap(bmp);
+        holder.cv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ProfileActivity.class);
+                intent.putExtra("userId", requests.get(position).getRequesterId());
+                context.startActivity(intent);
+            }
+        });
+
+        if (requests.get(position).getProfilePictureAsString() != null) {
+            byte[] decodedString = Base64.decode(requests.get(position).getProfilePictureAsString(), Base64.DEFAULT);
+            Bitmap bmp = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            holder.profilePicture.setImageBitmap(bmp);
+        }
     }
 
     @Override
@@ -69,6 +83,7 @@ public class ListTaskRequestAdapter extends RecyclerView.Adapter<ListTaskRequest
     }
 
     public static class TaskViewHolder extends RecyclerView.ViewHolder {
+        CardView cv;
         TextView fullName;
         Button acceptButton;
         Button declineButton;
@@ -76,6 +91,8 @@ public class ListTaskRequestAdapter extends RecyclerView.Adapter<ListTaskRequest
 
         TaskViewHolder(View itemView) {
             super(itemView);
+
+            cv = itemView.findViewById(R.id.id_single_task_request_holder);
             profilePicture = itemView.findViewById(R.id.id_task_requester_profile_picture_image_view);
             fullName = itemView.findViewById(R.id.id_full_name_text_view);
             acceptButton = itemView.findViewById(R.id.id_accept_task_request_button);

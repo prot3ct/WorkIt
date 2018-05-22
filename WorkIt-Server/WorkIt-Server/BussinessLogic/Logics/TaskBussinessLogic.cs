@@ -85,7 +85,8 @@ namespace WorkIt_Server.BLL
                 StartDate = task.StartDate,
                 Reward = task.Reward,
                 SupervisorName = task.Creator.FullName,
-                SupervisorRating = task.Creator.RaitingAsSupervisor
+                SupervisorRating = task.Creator.RaitingAsSupervisor,
+                SupervisorId = task.CreatorId
             };
         }
 
@@ -96,10 +97,10 @@ namespace WorkIt_Server.BLL
             Db.SaveChanges();
         }
 
-        public IEnumerable<AvailableTasksViewModel> GetAllAvailableTasks()
+        public IEnumerable<AvailableTasksViewModel> GetAllAvailableTasks(int userId)
         {
             return Db.Tasks
-                .Where(t => t.StartDate > DateTime.Now)
+                .Where(t => t.StartDate > DateTime.Now && t.CreatorId != userId)
                 .OrderBy(t => t.StartDate)
                 .Select(j => new AvailableTasksViewModel
                 {
@@ -131,7 +132,7 @@ namespace WorkIt_Server.BLL
             return Db.Tasks
                 .Where(t => (t.AssignedUserId == userId || t.CreatorId == userId) && t.AssignedUserId != null)
                 .Where(t => t.StartDate < DateTime.Now)
-                .OrderBy(t => t.StartDate)
+                .OrderByDescending(t => t.StartDate)
                 .Select(t => new CompletedTasksListViewModel
                 {
                     TaskId = t.TaskId,

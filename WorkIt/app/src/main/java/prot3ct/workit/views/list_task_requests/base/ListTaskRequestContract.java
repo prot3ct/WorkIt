@@ -15,8 +15,6 @@ public interface ListTaskRequestContract {
         void notifySuccessful(String message);
 
         void notifyError(String errorMessage);
-
-        void updateDrawer(ProfileDetailsViewModel profile);
     }
 
     interface Presenter {
@@ -25,7 +23,5 @@ public interface ListTaskRequestContract {
         void acceptTaskRequest(int taskRequestId, int taskRequestStatusId);
 
         void declineTaskRequest(int taskRequestId, int taskRequestStatusId);
-
-        void getProfileDetails();
     }
 }

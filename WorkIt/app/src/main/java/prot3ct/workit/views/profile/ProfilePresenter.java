@@ -20,8 +20,8 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     }
 
     @Override
-    public void getProfileDetails() {
-        userData.getProfileDetails()
+    public void getProfileDetails(int userId) {
+        userData.getProfileDetails(userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

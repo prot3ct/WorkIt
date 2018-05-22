@@ -63,8 +63,8 @@ namespace WorkIt_Server.BLL
                 Email = credentials.Email,
                 PassHash = credentials.PassHash,
                 FullName = credentials.FullName,
-                RaitingAsSupervisor = 5.00,
-                RaitingAsTasker = 5.00,
+                RaitingAsSupervisor = 3.00,
+                RaitingAsTasker = 3.00,
                 ReviewsAsSupervisor = 1,
                 ReviewsAsTasker = 1
             };

@@ -53,7 +53,6 @@ public class MyTasksAdapter extends RecyclerView.Adapter<MyTasksAdapter.TaskView
 
     @Override
     public void onBindViewHolder(final TaskViewHolder holder, final int position) {
-        Log.d("ASDASD", tasks.get(position).hasPendingRequest()+"");
         if (!tasks.get(position).hasPendingRequest()) {
             holder.taskRequestersButton.setVisibility(View.GONE);
         }

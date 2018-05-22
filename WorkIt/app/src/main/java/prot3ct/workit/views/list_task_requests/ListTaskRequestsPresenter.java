@@ -108,32 +108,4 @@ public class ListTaskRequestsPresenter implements  ListTaskRequestContract.Prese
                     }
                 });
     }
-
-    @Override
-    public void getProfileDetails() {
-        userData.getProfileDetails()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        new Observer<ProfileDetailsViewModel>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                            }
-
-                            @Override
-                            public void onNext(ProfileDetailsViewModel profile) {
-                                view.updateDrawer(profile);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                e.printStackTrace();
-                                view.notifyError("Error loading profile.");
-                            }
-
-                            @Override
-                            public void onComplete() {
-                            }
-                        });
-    }
 }

@@ -22,9 +22,9 @@ namespace WorkIt_Server.Controllers
             {
                 return Ok(service.GetProfileDetails(userId));
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
 

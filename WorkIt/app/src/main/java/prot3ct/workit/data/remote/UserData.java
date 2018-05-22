@@ -34,9 +34,9 @@ public class UserData implements UserDataContract {
         }
 
     @Override
-    public Observable<ProfileDetailsViewModel> getProfileDetails() {
+    public Observable<ProfileDetailsViewModel> getProfileDetails(int userId) {
         return httpRequester
-            .get(apiConstants.getProfileDetailsUrl(userSession.getId()))
+            .get(apiConstants.getProfileDetailsUrl(userId))
             .map(new Function<HttpResponseContract, ProfileDetailsViewModel>() {
                 @Override
                 public ProfileDetailsViewModel apply(HttpResponseContract iHttpResponse) throws Exception {

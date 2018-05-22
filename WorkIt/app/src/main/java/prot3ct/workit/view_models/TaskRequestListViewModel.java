@@ -4,6 +4,7 @@ public class TaskRequestListViewModel {
     private int taskRequestId;
     private String fullName;
     private String profilePictureAsString;
+    private int requesterId;
 
     public String getFullName() {
         return fullName;
@@ -27,5 +28,13 @@ public class TaskRequestListViewModel {
 
     public void setProfilePictureAsString(String profilePictureAsString) {
         this.profilePictureAsString = profilePictureAsString;
+    }
+
+    public int getRequesterId() {
+        return requesterId;
+    }
+
+    public void setRequesterId(int requesterId) {
+        this.requesterId = requesterId;
     }
 }

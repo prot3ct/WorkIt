@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.support.v7.widget.Toolbar;
 
@@ -22,6 +25,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import prot3ct.workit.R;
+import prot3ct.workit.data.remote.AuthData;
 import prot3ct.workit.data.remote.UserData;
 import prot3ct.workit.view_models.ProfileDetailsViewModel;
 import prot3ct.workit.views.assigned_tasks.AssignedTasksActivity;
@@ -37,15 +41,19 @@ public class DrawerUtil {
     private Drawer drawer = null;
     private Bitmap picture;
     private UserData userData;
+    private AuthData authData;
+    private int loggedInUserId;
 
     public DrawerUtil(Activity activity, Toolbar toolbar) {
         this.activity = activity;
         this.toolbar = toolbar;
         userData = new UserData(activity.getBaseContext());
+        authData = new AuthData(activity.getBaseContext());
+        loggedInUserId = authData.getLoggedInUserId();
     }
 
     public void getDrawer() {
-        userData.getProfileDetails()
+        userData.getProfileDetails(loggedInUserId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -71,15 +79,22 @@ public class DrawerUtil {
     }
 
     private void setupDrawer(ProfileDetailsViewModel profile) {
-        byte[] decodedString = Base64.decode(profile.getPictureAsString(), Base64.DEFAULT);
-        picture = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        Drawable icon;
+        if(profile.getPictureAsString() != null) {
+            byte[] decodedString = Base64.decode(profile.getPictureAsString(), Base64.DEFAULT);
+            picture = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            icon = new BitmapDrawable(activity.getResources(), picture);
+        }
+        else {
+            icon = activity.getResources().getDrawable(R.drawable.blank_profile_picture);
+        }
 
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(activity)
                 .withHeaderBackground(R.drawable.navigation_background)
                 .withTextColor(activity.getResources().getColor(R.color.md_black_1000))
                 .addProfiles(
-                        new ProfileDrawerItem().withName(profile.getFullName()).withEmail(profile.getEmail()).withIcon(picture)
+                        new ProfileDrawerItem().withName(profile.getFullName()).withEmail(profile.getEmail()).withIcon(icon)
                 )
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override
@@ -99,7 +114,6 @@ public class DrawerUtil {
                         createMyCompletedTasksDrawerItem(),
                         createAssignedTasksDrawerItem(),
                         createProfileDrawerItem(),
-                        createSettingsDrawerItem(),
                         createLogoutDrawerItem()
                 )
                 .build();
@@ -169,21 +183,9 @@ public class DrawerUtil {
                 @Override
                 public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                 Intent intent = new Intent(activity.getBaseContext(), ProfileActivity.class);
-                    activity.startActivity(intent);
-                return true;
-                }
-            });
-    }
-
-    private PrimaryDrawerItem createSettingsDrawerItem() {
-        return new PrimaryDrawerItem()
-            .withIdentifier(5)
-            .withName("Settings")
-            .withOnDrawerItemClickListener(new com.mikepenz.materialdrawer.Drawer.OnDrawerItemClickListener() {
-                @Override
-                public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                Intent intent = new Intent(activity.getBaseContext(), LoginActivity.class);
-                    activity.startActivity(intent);
+                intent.putExtra("userId", loggedInUserId);
+                intent.putExtra("myProfile", true);
+                activity.startActivity(intent);
                 return true;
                 }
             });
@@ -191,15 +193,15 @@ public class DrawerUtil {
 
     private PrimaryDrawerItem createLogoutDrawerItem() {
         return new PrimaryDrawerItem()
-            .withIdentifier(6)
+            .withIdentifier(5)
             .withName("Logout Me")
             .withTextColor(activity.getResources().getColor(R.color.md_red_900))
             .withOnDrawerItemClickListener(new com.mikepenz.materialdrawer.Drawer.OnDrawerItemClickListener() {
                 @Override
                 public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                    Intent intent = new Intent(activity.getBaseContext(), LoginActivity.class);
-                    activity.startActivity(intent);
-                    return true;
+                Intent intent = new Intent(activity.getBaseContext(), LoginActivity.class);
+                activity.startActivity(intent);
+                return true;
                 }
             });
     }

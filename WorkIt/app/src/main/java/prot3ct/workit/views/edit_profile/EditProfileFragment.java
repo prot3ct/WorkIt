@@ -87,7 +87,7 @@ public class EditProfileFragment extends Fragment implements EditProfileContract
             }
         });
 
-        presenter.getProfileDetails();
+        presenter.getProfileDetails(getActivity().getIntent().getIntExtra("userId", 0));
 
         return view;
     }

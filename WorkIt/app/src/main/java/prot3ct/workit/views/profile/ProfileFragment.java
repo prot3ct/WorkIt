@@ -36,6 +36,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
     private TextView ratingAsSupervisorTextView;
     private TextView numberOfReviewsAsTaskerTextView;
     private TextView numberOfReviewsAsSupervisorTextView;
+    private TextView profileTitleTextView;
     private FloatingActionButton editProfileButton;
     private ImageView profilePicture;
 
@@ -67,20 +68,28 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         this.ratingAsSupervisorTextView = view.findViewById(R.id.id_profile_rating_as_supervisor_text_view);
         this.numberOfReviewsAsTaskerTextView = view.findViewById(R.id.id_profile_number_of_reviews_as_tasker_text_view);
         this.numberOfReviewsAsSupervisorTextView = view.findViewById(R.id.id_profile_number_of_reviews_as_supervisor_text_view);
+        this.profileTitleTextView = view.findViewById(R.id.id_profile_title_text_view);
         this.toolbar = view.findViewById(R.id.id_drawer_toolbar);
         this.dialog = new WorkItProgressDialog(context);
 
         DrawerUtil drawer = new DrawerUtil(this.getActivity(), this.toolbar);
         drawer.getDrawer();
 
-        this.editProfileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showEditProfileActivity();
-            }
-        });
+        boolean isMyProfile = getActivity().getIntent().getBooleanExtra("myProfile", false);
 
-        presenter.getProfileDetails();
+        if (isMyProfile) {
+            profileTitleTextView.setText("My profile");
+            this.editProfileButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showEditProfileActivity();
+                }
+            });
+        }
+        else {
+            editProfileButton.setVisibility(View.GONE);
+        }
+        presenter.getProfileDetails(getActivity().getIntent().getIntExtra("userId", 0));
 
         return view;
     }

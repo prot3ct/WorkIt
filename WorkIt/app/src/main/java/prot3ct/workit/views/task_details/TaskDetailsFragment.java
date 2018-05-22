@@ -1,6 +1,7 @@
 package prot3ct.workit.views.task_details;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
@@ -31,6 +32,7 @@ import prot3ct.workit.R;
 import prot3ct.workit.utils.WorkItProgressDialog;
 import prot3ct.workit.view_models.IsUserAssignableToTaskViewModel;
 import prot3ct.workit.view_models.TaskDetailViewModel;
+import prot3ct.workit.views.profile.ProfileActivity;
 import prot3ct.workit.views.task_details.base.TaskDetailsContract;
 import prot3ct.workit.views.navigation.DrawerUtil;
 
@@ -126,6 +128,15 @@ public class TaskDetailsFragment extends Fragment implements TaskDetailsContract
         this.supervisorName.setText("For " + task.getSupervisorName());
         this.supervisorRating.setText(task.getSupervisorRating() + "");
 
+        this.supervisorName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ProfileActivity.class);
+                intent.putExtra("userId", task.getSupervisorId());
+                context.startActivity(intent);
+            }
+        });
+
         presenter.getLatLng(taskDetails.getCity() + ", " + taskDetails.getAddress());
     }
 
@@ -206,7 +217,7 @@ public class TaskDetailsFragment extends Fragment implements TaskDetailsContract
                     presenter.createTaskRequest(taskDetails.getTaskId());
                     applyForTask.setText("Cancel pending request");
                     applyForTask.setTextColor(getResources().getColor(R.color.md_white_1000));
-                    applyForTask.setBackgroundColor(getResources().getColor(R.color.md_red_900));
+                    applyForTask.setBackgroundColor(getResources().getColor(R.color.md_red_400));
                     flag = 0;
                 }
             }
@@ -217,7 +228,7 @@ public class TaskDetailsFragment extends Fragment implements TaskDetailsContract
         {
             this.applyForTask.setText(canAssignToTask.getIsUserAssignableToTaskMessage());
             this.applyForTask.setTextColor(getResources().getColor(R.color.md_white_1000));
-            this.applyForTask.setBackgroundColor(getResources().getColor(R.color.md_red_900));
+            this.applyForTask.setBackgroundColor(getResources().getColor(R.color.md_red_400));
 
             flag = 0;
         }

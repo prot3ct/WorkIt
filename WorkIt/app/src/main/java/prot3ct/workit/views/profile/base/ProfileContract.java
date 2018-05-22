@@ -17,6 +17,6 @@ public interface ProfileContract {
     }
 
     interface Presenter {
-        void getProfileDetails();
+        void getProfileDetails(int userId);
     }
 }

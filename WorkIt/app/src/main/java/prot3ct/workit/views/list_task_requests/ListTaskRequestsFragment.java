@@ -54,6 +54,9 @@ public class ListTaskRequestsFragment extends Fragment implements ListTaskReques
         LinearLayoutManager llm = new LinearLayoutManager(context);
         recyclerTaskRequestView.setLayoutManager(llm);
 
+        DrawerUtil drawer = new DrawerUtil(this.getActivity(), this.toolbar);
+        drawer.getDrawer();
+
         presenter.getTaskRequests(taskId);
 
         return view;
@@ -64,12 +67,6 @@ public class ListTaskRequestsFragment extends Fragment implements ListTaskReques
         super.onAttach(context);
 
         this.context = context;
-    }
-
-    @Override
-    public void updateDrawer(ProfileDetailsViewModel profile) {
-        DrawerUtil drawer = new DrawerUtil(this.getActivity(), this.toolbar);
-        drawer.getDrawer();
     }
 
     @Override

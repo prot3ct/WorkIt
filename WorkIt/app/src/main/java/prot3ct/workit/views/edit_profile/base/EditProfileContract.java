@@ -21,6 +21,6 @@ public interface EditProfileContract {
     interface Presenter {
         void updateProfile(String fullName, String phone, String profilePictureAsString);
 
-        void getProfileDetails();
+        void getProfileDetails(int userId);
     }
 }

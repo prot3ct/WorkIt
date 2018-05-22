@@ -40,8 +40,8 @@ namespace WorkIt_Server.BussinessLogic.Logics
                 Email = user.Email,
                 FullName = user.FullName,
                 Phone = user.Phone,
-                NumberOfReviewsAsSupervisor = user.ReviewsAsSupervisor,
-                NumberOfReviewsAsTasker = user.ReviewsAsTasker,
+                NumberOfReviewsAsSupervisor = user.ReviewsAsSupervisor - 1,
+                NumberOfReviewsAsTasker = user.ReviewsAsTasker - 1,
                 RatingAsSupervisor = user.RaitingAsSupervisor,
                 RatingAsTasker = user.RaitingAsTasker,
                 PictureAsString = user.Picture

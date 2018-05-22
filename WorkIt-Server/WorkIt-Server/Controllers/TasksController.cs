@@ -71,11 +71,11 @@ namespace WorkIt_Server.Controllers
 
         [Route("users/{userId}/available-tasks")]
         [HttpGet]
-        public IHttpActionResult GetAllAvailableTasks()
+        public IHttpActionResult GetAllAvailableTasks(int userId)
         {
             try
             {
-                return Ok(service.GetAllAvailableTasks());
+                return Ok(service.GetAllAvailableTasks(userId));
             }
             catch (Exception)
             {
