@@ -42,8 +42,8 @@ public class ApiConstants implements ApiConstantsContract {
     }
 
     @Override
-    public String getAvailableTasks(int userId) {
-        return API_URL + "/users/" + userId + "/available-tasks";
+    public String getAvailableTasks(int userId, int page) {
+        return API_URL + "/users/" + userId + "/available-tasks/page/" + page;
     }
 
     @Override

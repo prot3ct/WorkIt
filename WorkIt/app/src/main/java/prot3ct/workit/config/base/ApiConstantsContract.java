@@ -13,7 +13,7 @@ public interface ApiConstantsContract {
 
     String deleteTaskUrl(int taskId);
 
-    String getAvailableTasks(int userId);
+    String getAvailableTasks(int userId, int page);
 
     String getAssignedTasksUrl(int userId);
 

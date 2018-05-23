@@ -25,7 +25,7 @@ public interface TaskDataContract {
 
     Observable<List<AssignedTasksListViewModel>> getAssignedTasks();
 
-    Observable<List<AvailableTasksListViewModel>> getAvailableTasks();
+    Observable<List<AvailableTasksListViewModel>> getAvailableTasks(int page, String search);
 
     Observable<List<MyTasksListViewModel>> getMyTasks();
 

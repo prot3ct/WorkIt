@@ -69,13 +69,13 @@ namespace WorkIt_Server.Controllers
             }
         }
 
-        [Route("users/{userId}/available-tasks")]
+        [Route("users/{userId}/available-tasks/page/{page}")]
         [HttpGet]
-        public IHttpActionResult GetAllAvailableTasks(int userId)
+        public IHttpActionResult GetAllAvailableTasks(int userId, int page, [FromUri] string search)
         {
             try
             {
-                return Ok(service.GetAllAvailableTasks(userId));
+                return Ok(service.GetAllAvailableTasks(userId, page, search));
             }
             catch (Exception)
             {

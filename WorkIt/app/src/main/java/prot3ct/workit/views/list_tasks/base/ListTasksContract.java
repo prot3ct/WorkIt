@@ -1,5 +1,7 @@
 package prot3ct.workit.views.list_tasks.base;
 
+import android.view.View;
+
 import java.util.List;
 
 import prot3ct.workit.base.BaseView;
@@ -15,10 +17,18 @@ public interface ListTasksContract {
 
         void filterTask(String query);
 
-        void setupTasksAdapter(final List<AvailableTasksListViewModel> tasks);
+        void updateTasks(final List<AvailableTasksListViewModel> tasks);
+
+        void notifyError(String msg);
+
+        void showEndProgressBar();
+
+        void hideEndProgressBar();
     }
 
     interface Presenter {
-        void getAllTasks();
+        void getAllTasks(int page);
+
+        void getSearchedAvailableTasks(int page, String search);
     }
 }

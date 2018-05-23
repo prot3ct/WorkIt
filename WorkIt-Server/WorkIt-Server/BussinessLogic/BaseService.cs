@@ -61,9 +61,9 @@ namespace WorkIt_Server.BLL
             TaskLogic.UpdateTask(task);
         }
 
-        public IEnumerable<AvailableTasksViewModel> GetAllAvailableTasks(int userId)
+        public IEnumerable<AvailableTasksViewModel> GetAllAvailableTasks(int userId, int page, string search)
         {
-            return TaskLogic.GetAllAvailableTasks(userId);
+            return TaskLogic.GetAllAvailableTasks(userId, page, search);
         }
 
         public IEnumerable<GetMyTasksListViewModel> GetMyTasks(int userId)

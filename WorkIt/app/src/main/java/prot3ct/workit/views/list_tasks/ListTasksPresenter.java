@@ -1,6 +1,7 @@
 package prot3ct.workit.views.list_tasks;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.List;
 
@@ -25,27 +26,24 @@ public class ListTasksPresenter implements ListTasksContract.Presenter {
     }
 
     @Override
-    public void getAllTasks() {
-        taskData.getAvailableTasks()
+    public void getAllTasks(int page) {
+        taskData.getAvailableTasks(page, "")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 new Observer<List<AvailableTasksListViewModel>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-//                        view.showDialogForLoading();
                     }
 
                     @Override
                     public void onNext(List<AvailableTasksListViewModel> tasks) {
-                        view.setupTasksAdapter(tasks);
-//                                view.notifySuccessful();
-//                                view.showListJobsActivity();
+                        view.updateTasks(tasks);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-//                                view.notifyError("Error ocurred when logining in. Please try again.");
+                        view.notifyError("Error ocurred retrieving data.");
                     }
 
                     @Override
@@ -54,4 +52,31 @@ public class ListTasksPresenter implements ListTasksContract.Presenter {
                 });
     }
 
+    @Override
+    public void getSearchedAvailableTasks(int page, String search) {
+        taskData.getAvailableTasks(page, search)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        new Observer<List<AvailableTasksListViewModel>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                            }
+
+                            @Override
+                            public void onNext(List<AvailableTasksListViewModel> tasks) {
+                                Log.d("TASKS1", tasks.size()+"");
+                                view.updateTasks(tasks);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                view.notifyError("Error ocurred retrieving data.");
+                            }
+
+                            @Override
+                            public void onComplete() {
+                            }
+                        });
+    }
 }

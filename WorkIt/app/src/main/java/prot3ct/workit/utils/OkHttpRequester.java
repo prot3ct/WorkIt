@@ -1,5 +1,7 @@
 package prot3ct.workit.utils;
 
+import android.util.Log;
+
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.Callable;
@@ -7,6 +9,7 @@ import java.util.concurrent.Callable;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import okhttp3.FormBody;
+import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -32,6 +35,22 @@ public class OkHttpRequester implements OkHttpRequesterContract {
             public ObservableSource<? extends HttpResponseContract> call() throws Exception {
                 Request request = new Request.Builder()
                         .url(url)
+                        .build();
+
+                return createResponse(request);
+            }
+        });
+    }
+
+    public Observable<HttpResponseContract> get(final String url, final String searchQuery) {
+        return Observable.defer(new Callable<ObservableSource<? extends HttpResponseContract>>() {
+            @Override
+            public ObservableSource<? extends HttpResponseContract> call() throws Exception {
+                HttpUrl newUrl = HttpUrl.parse(url);
+                newUrl = newUrl.newBuilder().setQueryParameter("search", searchQuery).build();
+
+                Request request = new Request.Builder()
+                        .url(newUrl)
                         .build();
 
                 return createResponse(request);

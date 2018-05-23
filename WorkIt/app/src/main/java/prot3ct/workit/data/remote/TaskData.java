@@ -125,9 +125,9 @@ public class TaskData implements TaskDataContract {
     }
 
     @Override
-    public Observable<List<AvailableTasksListViewModel>> getAvailableTasks() {
+    public Observable<List<AvailableTasksListViewModel>> getAvailableTasks(int page, String search) {
         return httpRequester
-            .get(apiConstants.getAvailableTasks(userSession.getId()))
+            .get(apiConstants.getAvailableTasks(userSession.getId(), page), search)
             .map(new Function<HttpResponseContract, List<AvailableTasksListViewModel>>() {
                 @Override
                 public List<AvailableTasksListViewModel> apply(HttpResponseContract iHttpResponse) throws Exception {

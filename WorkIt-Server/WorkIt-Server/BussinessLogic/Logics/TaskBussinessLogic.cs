@@ -97,10 +97,16 @@ namespace WorkIt_Server.BLL
             Db.SaveChanges();
         }
 
-        public IEnumerable<AvailableTasksViewModel> GetAllAvailableTasks(int userId)
+        public IEnumerable<AvailableTasksViewModel> GetAllAvailableTasks(int userId, int page, string search)
         {
+            if (search == null)
+            {
+                search = "";
+            }
+
             return Db.Tasks
                 .Where(t => t.StartDate > DateTime.Now && t.CreatorId != userId)
+                .Where(t => t.Title.Contains(search))
                 .OrderBy(t => t.StartDate)
                 .Select(j => new AvailableTasksViewModel
                 {
@@ -110,6 +116,8 @@ namespace WorkIt_Server.BLL
                     FullName = j.Creator.FullName,
                     SupervisorRating = j.Creator.RaitingAsSupervisor
                 })
+                .Skip((page - 1) * 6)
+                .Take(6)
                 .ToList();
         }
 
