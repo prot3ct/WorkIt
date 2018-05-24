@@ -125,6 +125,8 @@ namespace WorkIt_Server.BLL
         {
             return Db.Tasks
                 .Where(t => t.AssignedUserId == userId)
+                .Where(t => t.StartDate > DateTime.Now)
+                .OrderBy(t => t.StartDate)
                 .Select(t => new AssignedTasksListViewModel
                 {
                     TaskId = t.TaskId,

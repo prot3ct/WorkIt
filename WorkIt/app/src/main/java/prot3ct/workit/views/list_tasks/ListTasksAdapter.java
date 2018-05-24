@@ -134,20 +134,4 @@ public class ListTasksAdapter extends RecyclerView.Adapter<ListTasksAdapter.Task
                 return i + sufixes[i % 10];
         }
     }
-
-    public void filter(String text) {
-        tasks.clear();
-        if(text.isEmpty()) {
-            tasks.addAll(allTasks);
-        }
-        else {
-            text = text.toLowerCase();
-            for (AvailableTasksListViewModel task : allTasks) {
-                if (task.getTitle().toLowerCase().contains(text)) {
-                    tasks.add(task);
-                }
-            }
-        }
-        notifyDataSetChanged();
-    }
 }

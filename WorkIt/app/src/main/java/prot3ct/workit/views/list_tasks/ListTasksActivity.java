@@ -69,17 +69,4 @@ public class ListTasksActivity extends AppCompatActivity {
         });
         return true;
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_start_date:
-                Log.d("CEok", "asd");
-                break;
-            case R.id.action_title:
-                Log.d("CEok1", "asd");
-                break;
-        }
-        return false;
-    }
 }
