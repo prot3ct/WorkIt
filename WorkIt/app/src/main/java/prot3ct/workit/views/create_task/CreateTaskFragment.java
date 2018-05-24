@@ -138,7 +138,7 @@ public class CreateTaskFragment extends Fragment implements CreateTaskContract.V
     public void showDateTimePicker() {
         final Calendar currentDate = Calendar.getInstance();
         this.date = Calendar.getInstance();
-        new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog pickerDialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
             boolean first = true;
 
             @Override
@@ -164,7 +164,15 @@ public class CreateTaskFragment extends Fragment implements CreateTaskContract.V
                     first = false;
                 }
             }
-        }, currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DATE)).show();
+        }, currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DATE));
+
+        Calendar minDate = Calendar.getInstance();
+        minDate.add(Calendar.DAY_OF_MONTH, 1);
+        Calendar maxDate = Calendar.getInstance();
+        maxDate.add(Calendar.DAY_OF_MONTH, 8);
+        pickerDialog.getDatePicker().setMinDate(minDate.getTime().getTime());
+        pickerDialog.getDatePicker().setMaxDate(maxDate.getTime().getTime());
+        pickerDialog.show();
     }
 
     private String getMonthForInt(int num) {
