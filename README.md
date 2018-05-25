@@ -1,2 +1,2 @@
 # WorkIt
-Social environment where people can put tasks
+Documentation: https://docs.google.com/document/d/1KmdWi1cVCRjljy6JQR8zBSqtUfw_Kif5FdRH9RvMMbE/edit?usp=sharing
