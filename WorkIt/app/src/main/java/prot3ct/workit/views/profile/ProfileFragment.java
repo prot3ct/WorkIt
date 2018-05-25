@@ -121,6 +121,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
     @Override
     public void showEditProfileActivity() {
         Intent intent = new Intent(this.context, EditProfileActivity.class);
+        intent.putExtra("userId", getActivity().getIntent().getIntExtra("userId", 0));
         startActivity(intent);
     }
 

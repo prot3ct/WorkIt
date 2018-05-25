@@ -6,15 +6,19 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.support.v7.widget.Toolbar;
 
+import com.mikepenz.iconics.typeface.IIcon;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.holder.ImageHolder;
+import com.mikepenz.materialdrawer.holder.StringHolder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
@@ -43,6 +47,8 @@ public class DrawerUtil {
     private UserData userData;
     private AuthData authData;
     private int loggedInUserId;
+    AccountHeader headerResult;
+    ProfileDrawerItem profileDrawer;
 
     public DrawerUtil(Activity activity, Toolbar toolbar) {
         this.activity = activity;
@@ -53,6 +59,7 @@ public class DrawerUtil {
     }
 
     public void getDrawer() {
+        setupDrawer();
         userData.getProfileDetails(loggedInUserId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -64,7 +71,7 @@ public class DrawerUtil {
 
                     @Override
                     public void onNext(ProfileDetailsViewModel profile) {
-                        setupDrawer(profile);
+                        updateDrawer(profile);
                     }
 
                     @Override
@@ -78,23 +85,25 @@ public class DrawerUtil {
                 });
     }
 
-    private void setupDrawer(ProfileDetailsViewModel profile) {
-        Drawable icon;
+    private void updateDrawer(final ProfileDetailsViewModel profile) {
+        profileDrawer.withName(profile.getFullName());
+        profileDrawer.withEmail(profile.getEmail());
         if(profile.getPictureAsString() != null) {
             byte[] decodedString = Base64.decode(profile.getPictureAsString(), Base64.DEFAULT);
             picture = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            icon = new BitmapDrawable(activity.getResources(), picture);
+            profileDrawer.withIcon(picture);
         }
-        else {
-            icon = activity.getResources().getDrawable(R.drawable.blank_profile_picture);
-        }
+        headerResult.updateProfile(profileDrawer);
+    }
 
-        AccountHeader headerResult = new AccountHeaderBuilder()
+    private void setupDrawer() {
+        profileDrawer = new ProfileDrawerItem().withName("").withEmail("").withIcon(activity.getResources().getDrawable(R.drawable.blank_profile_picture));
+        headerResult = new AccountHeaderBuilder()
                 .withActivity(activity)
                 .withHeaderBackground(R.drawable.navigation_background)
                 .withTextColor(activity.getResources().getColor(R.color.md_black_1000))
                 .addProfiles(
-                        new ProfileDrawerItem().withName(profile.getFullName()).withEmail(profile.getEmail()).withIcon(icon)
+                        profileDrawer
                 )
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override

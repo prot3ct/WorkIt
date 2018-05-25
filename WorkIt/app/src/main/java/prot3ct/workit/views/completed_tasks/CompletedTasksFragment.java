@@ -58,8 +58,8 @@ public class CompletedTasksFragment extends Fragment implements CompletedTasksCo
         this.recyclerTaskView = view.findViewById(R.id.id_list_tasks_list_view);
         LinearLayoutManager llm = new LinearLayoutManager(context);
         recyclerTaskView.setLayoutManager(llm);
-        loggedInUserId = presenter.getLoggedInUserId();
         presenter.getCompletedTasks();
+        loggedInUserId = presenter.getLoggedInUserId();
 
         return view;
     }

@@ -57,10 +57,7 @@ public class UserData implements UserDataContract {
         profileDetails.put("fullName", fullName);
         profileDetails.put("phone", phone);
         profileDetails.put("profilePictureAsString", profilePictureAsString);
-        Log.d("CEKOO", userSession.getId()+"");
-        Log.d("CEKOO", fullName);
-        Log.d("CEKOO", phone);
-        Log.d("CEKOO", profilePictureAsString+"123");
+
 
         return httpRequester
                 .put(apiConstants.updateProfile(userSession.getId()), profileDetails)
