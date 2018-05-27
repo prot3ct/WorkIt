@@ -83,6 +83,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     public void showListJobsActivity() {
         Intent intent = new Intent(this.context, ListTasksActivity.class);
         startActivity(intent);
+        getActivity().finish();
     }
 
     @Override
