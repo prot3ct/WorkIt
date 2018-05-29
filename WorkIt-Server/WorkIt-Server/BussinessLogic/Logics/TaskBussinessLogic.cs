@@ -104,8 +104,9 @@ namespace WorkIt_Server.BLL
                 search = "";
             }
 
+            var today = DateTime.Now;
             return Db.Tasks
-                .Where(t => t.StartDate > DateTime.Now && t.CreatorId != userId)
+                .Where(t => t.StartDate > today && t.CreatorId != userId)
                 .Where(t => t.Title.Contains(search))
                 .OrderBy(t => t.StartDate)
                 .Select(j => new AvailableTasksViewModel

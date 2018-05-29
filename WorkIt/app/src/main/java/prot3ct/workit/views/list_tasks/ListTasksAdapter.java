@@ -15,11 +15,13 @@ import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import prot3ct.workit.R;
 import prot3ct.workit.view_models.AvailableTasksListViewModel;
@@ -59,18 +61,17 @@ public class ListTasksAdapter extends RecyclerView.Adapter<ListTasksAdapter.Task
         Calendar currentCalendar = Calendar.getInstance();
         currentCalendar.setTime(currentDate);
 
-        if (currentCalendar.get(Calendar.DAY_OF_MONTH) == calendar.get(Calendar.DAY_OF_MONTH)) {
+        long diffInMillies = Math.abs(currentDate.getTime() - date.getTime());
+        long diffHours = TimeUnit.HOURS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+        long diffMinutes = TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MILLISECONDS);
+
+        if (diffHours <= 24) {
             holder.startTime.setText("Today");
-            if (date.getHours() != currentDate.getHours()) {
-                if (calendar.get(Calendar.HOUR_OF_DAY) - currentCalendar.get(Calendar.HOUR_OF_DAY) <= 0) {
-                    holder.timeLeft.setText("Expired");
-                }
-                else {
-                    holder.timeLeft.setText(calendar.get(Calendar.HOUR_OF_DAY) - currentCalendar.get(Calendar.HOUR_OF_DAY) + " hours left to respond");
-                }
+            if (diffHours != 0) {
+                holder.timeLeft.setText(diffHours + " hours left to respond");
             }
             else {
-                holder.timeLeft.setText(calendar.get(Calendar.MINUTE) - currentCalendar.get(Calendar.MINUTE) + " minutes left to respond");
+                holder.timeLeft.setText(diffMinutes + " minutes left to respond");
             }
         }
         else {
