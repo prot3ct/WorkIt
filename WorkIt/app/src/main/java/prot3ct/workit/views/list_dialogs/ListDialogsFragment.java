@@ -4,25 +4,49 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.stfalcon.chatkit.commons.ImageLoader;
+import com.stfalcon.chatkit.dialogs.DialogsList;
+import com.stfalcon.chatkit.dialogs.DialogsListAdapter;
+
+import java.lang.reflect.Array;
+import java.security.SecureRandom;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.UUID;
 
 import prot3ct.workit.R;
+import prot3ct.workit.models.Dialog;
+import prot3ct.workit.models.Message;
+import prot3ct.workit.models.User;
 import prot3ct.workit.utils.WorkItProgressDialog;
+import prot3ct.workit.view_models.DialogsListViewModel;
 import prot3ct.workit.view_models.TaskDetailViewModel;
+import prot3ct.workit.views.chat.ChatActivity;
 import prot3ct.workit.views.list_dialogs.base.ListDialogsContract;
 import prot3ct.workit.views.list_tasks.ListTasksActivity;
 import prot3ct.workit.views.navigation.DrawerUtil;
@@ -31,25 +55,16 @@ public class ListDialogsFragment extends Fragment implements ListDialogsContract
     private ListDialogsContract.Presenter presenter;
     private Context context;
 
-    private int taskId;
-
-    private TextView titleTextView;
-    private TextView startDateTextView;
-    private EditText lengthEditText;
-    private TextView descriptionTextView;
-    private TextView cityTextView;
-    private TextView addressTextView;
-    private TextView rewardTextView;
-    private Toolbar toolbar;
-    private Button saveTaskButton;
-
-    private Calendar date;
-
     private WorkItProgressDialog dialog;
+    private Toolbar toolbar;
+    private DialogsList dialogsListView;
+    private ArrayList<Dialog> dialogsToBeAdded;
 
     public ListDialogsFragment() {
         // Required empty public constructor
     }
+
+    private ArrayList<Dialog> dialogs = new ArrayList<Dialog>();
 
     public static ListDialogsFragment newInstance() {
         return new ListDialogsFragment();
@@ -70,65 +85,19 @@ public class ListDialogsFragment extends Fragment implements ListDialogsContract
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_edit_task, container, false);
+        View view = inflater.inflate(R.layout.fragment_list_dialogs, container, false);
 
         this.toolbar = view.findViewById(R.id.id_drawer_toolbar);
         this.dialog = new WorkItProgressDialog(context);
-        this.titleTextView = (TextView) view.findViewById(R.id.id_title_edit_text);
-        this.startDateTextView = (TextView) view.findViewById(R.id.id_choose_start_date_text_view);
-        this.lengthEditText = (EditText) view.findViewById(R.id.id_length_edit_text);
-        this.descriptionTextView = (TextView) view.findViewById(R.id.id_description_edit_text);
-        this.cityTextView = (TextView) view.findViewById(R.id.id_city_edit_text);
-        this.addressTextView = (TextView) view.findViewById(R.id.id_address_edit_text);
-        this.rewardTextView = (TextView) view.findViewById(R.id.id_reward_edit_text);
-        this.saveTaskButton = (Button) view.findViewById(R.id.id_create_task_btn);
+        this.dialogsToBeAdded = new ArrayList<>();
+        this.dialogsListView = view.findViewById(R.id.dialogsList);
+
         DrawerUtil drawer = new DrawerUtil(this.getActivity(), this.toolbar);
         drawer.getDrawer();
 
-        this.taskId = getActivity().getIntent().getIntExtra("taskId", 0);
-        presenter.getTaskDetails(taskId);
-
-        this.startDateTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDateTimePicker();
-            }
-        });
-
-        this.saveTaskButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.updateTask(
-                    taskId,
-                    titleTextView.getText().toString(),
-                    startDateTextView.getText().toString(),
-                    lengthEditText.getText().toString(),
-                    descriptionTextView.getText().toString(),
-                    cityTextView.getText().toString(),
-                    addressTextView.getText().toString(),
-                    rewardTextView.getText().toString()
-                );
-            }
-        });
+        presenter.getDialogs();
 
         return view;
-    }
-
-    @Override
-    public void showListJobsActivity() {
-        Intent intent = new Intent(this.context, ListTasksActivity.class);
-        startActivity(intent);
-    }
-
-    @Override
-    public void updateTask(TaskDetailViewModel task) {
-        this.titleTextView.setText(task.getTitle());
-        this.startDateTextView.setText(task.getStartDate());
-        this.lengthEditText.setText(String.valueOf(task.getLength()));
-        this.descriptionTextView.setText(task.getDescription());
-        this.cityTextView.setText(task.getCity());
-        this.addressTextView.setText(task.getAddress());
-        this.rewardTextView.setText(String.valueOf(task.getReward()));
     }
 
     @Override
@@ -151,33 +120,70 @@ public class ListDialogsFragment extends Fragment implements ListDialogsContract
         this.dialog.dismissProgress();
     }
 
-    public void showDateTimePicker() {
-        final Calendar currentDate = Calendar.getInstance();
-        this.date = Calendar.getInstance();
-        new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
-            boolean first = true;
+    @Override
+    public void updateDialogs(List<DialogsListViewModel> dialogs) {
+        for (DialogsListViewModel dialog: dialogs) {
+            DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.ENGLISH);
+            Date lastMessageDate = null;
+            try {
+                lastMessageDate = format.parse(dialog.getLastMessageCreatedAt());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
+            User lastMessageUser = new User(1+"", "", null, false);
+            Message lastMessage = new Message(1+"", lastMessageUser, dialog.getLastMessageText(), lastMessageDate);
+
+            String dialogName;
+            String picture;
+            User userChattingWith;
+            if (presenter.getLoggedInUserId() == dialog.getUser1Id()) {
+                dialogName = dialog.getUser2Name();
+                picture = dialog.getUser2Picture();
+                userChattingWith = new User(dialog.getUser2Id()+"", dialog.getUser2Name(), null, false);
+            }
+            else {
+                dialogName = dialog.getUser1Name();
+                picture = dialog.getUser1Picture();
+                userChattingWith = new User(dialog.getUser1Id()+"", dialog.getUser1Name(), null, false);
+            }
+
+            ArrayList<User> users = new ArrayList<>();
+            users.add(userChattingWith);
+
+            Dialog dialogToBeAdded = new Dialog(dialog.getDialogId()+"", dialogName, picture, users, lastMessage, 0);
+            dialogsToBeAdded.add(dialogToBeAdded);
+        }
+
+        DialogsListAdapter dialogsListAdapter = new DialogsListAdapter<>(new ImageLoader() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                if (first) {
-                    date.set(year, monthOfYear, dayOfMonth);
-                    new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
-
-                        @Override
-                        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                            date.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                            date.set(Calendar.MINUTE, minute);
-                            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd,HH:mm");
-
-                            startDateTextView.setText(dateFormat.format(date.getTime()));
-
-                            first = false;
-                        }
-                    }, currentDate.get(Calendar.HOUR_OF_DAY), currentDate.get(Calendar.MINUTE), true).show();
-
-                    first = false;
+            public void loadImage(ImageView imageView, String url) {
+                if(url == null) {
+                    imageView.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.blank_profile_picture));
+                }
+                else {
+                    byte[] decodedString = Base64.decode(url, Base64.DEFAULT);
+                    Bitmap bmp = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                    imageView.setImageBitmap(bmp);
                 }
             }
-        }, currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DATE)).show();
+        });
+        dialogsListAdapter.setItems(dialogsToBeAdded);
+
+        dialogsListAdapter.setOnDialogClickListener(new DialogsListAdapter.OnDialogClickListener<Dialog>() {
+            @Override
+            public void onDialogClick(Dialog dialog) {
+                showChatActivity(Integer.parseInt(dialog.getId()));
+            }
+        });
+
+
+        dialogsListView.setAdapter(dialogsListAdapter);
+    }
+
+    public void showChatActivity(int dialogId) {
+        Intent intent = new Intent(this.context, ChatActivity.class);
+        intent.putExtra("dialogId", dialogId);
+        startActivity(intent);
     }
 }

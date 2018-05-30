@@ -14,10 +14,10 @@ namespace WorkIt_Server.BLL
             this.TaskLogic = new TaskBussinessLogic(this.WorkItDbContext);
             this.AuthLogic = new AuthBussinessLogic(this.WorkItDbContext);
             this.UserLogic = new UserBussinessLogic(this.WorkItDbContext);
-            this.TaskReportLogic = new JobReportBussinessLogic(this.WorkItDbContext);
             this.TaskRequestLogic = new TaskRequestBussinessLogic(this.WorkItDbContext);
-            this.UserReportLogic = new UserReportBussinessLogic(this.WorkItDbContext);
             this.RaitingLogic = new RaitingBussinessLogic(this.WorkItDbContext);
+            this.DialogLogic = new DialogBussinessLogic(this.WorkItDbContext);
+            this.MessagesLogic = new MessagesBussinessLogic(this.WorkItDbContext);
         }
 
         public WorkItDbContext WorkItDbContext { get; private set; }
@@ -28,13 +28,13 @@ namespace WorkIt_Server.BLL
 
         public UserBussinessLogic UserLogic { get; private set; }
 
-        public JobReportBussinessLogic TaskReportLogic { get; private set; }
-
         public TaskRequestBussinessLogic TaskRequestLogic { get; private set; }
 
-        public UserReportBussinessLogic UserReportLogic { get; private set; }
-
         public RaitingBussinessLogic RaitingLogic { get; private set; }
+
+        public DialogBussinessLogic DialogLogic { get; private set; }
+        
+        public MessagesBussinessLogic MessagesLogic { get; private set; }
 
         public LoginViewModel getUserInfo(string email)
         {
@@ -134,6 +134,26 @@ namespace WorkIt_Server.BLL
         public void UpdateAssignedUser(UpdateAssignedUserDTO updateAssignedUserDTO)
         {
             TaskLogic.UpdateAssignedUser(updateAssignedUserDTO);
+        }
+
+        public int CreateDialog(CreateDialogDTO createDialogDTO)
+        {
+            return DialogLogic.CreateDialog(createDialogDTO);
+        }
+
+        public IEnumerable<DialogsListViewModel> GetDialogsByUserId(int userId)
+        {
+            return DialogLogic.GetDialogsByUser(userId);
+        }
+
+        public void CreateMessage(CreateMessageDTO createMessageDTO)
+        {
+            MessagesLogic.CreateMessage(createMessageDTO);
+        }
+
+        public IEnumerable<ListMessagesViewModel> GetMessages(int dialogId)
+        {
+            return MessagesLogic.GetMessages(dialogId);
         }
 
         //public void CreateTaskReport(TaskReportDTO jobReport)

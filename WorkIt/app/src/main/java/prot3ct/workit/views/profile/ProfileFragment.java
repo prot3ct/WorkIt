@@ -20,6 +20,7 @@ import android.widget.Toast;
 import prot3ct.workit.R;
 import prot3ct.workit.utils.WorkItProgressDialog;
 import prot3ct.workit.view_models.ProfileDetailsViewModel;
+import prot3ct.workit.views.chat.ChatActivity;
 import prot3ct.workit.views.edit_profile.EditProfileActivity;
 import prot3ct.workit.views.profile.base.ProfileContract;
 import prot3ct.workit.views.navigation.DrawerUtil;
@@ -38,6 +39,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
     private TextView numberOfReviewsAsSupervisorTextView;
     private TextView profileTitleTextView;
     private FloatingActionButton editProfileButton;
+    private FloatingActionButton sendMessageButton;
     private ImageView profilePicture;
 
     private WorkItProgressDialog dialog;
@@ -60,6 +62,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         this.profilePicture = view.findViewById(R.id.id_profile_picture_image_view);
+        this.sendMessageButton = view.findViewById(R.id.id_send_message_button);
         this.editProfileButton = view.findViewById(R.id.id_edit_profile_button);
         this.fullNameTextView = view.findViewById(R.id.id_profile_name_text_view);
         this.emailTextView = view.findViewById(R.id.id_profile_email_text_view);
@@ -78,6 +81,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         boolean isMyProfile = getActivity().getIntent().getBooleanExtra("myProfile", false);
 
         if (isMyProfile) {
+            sendMessageButton.setVisibility(View.GONE);
             profileTitleTextView.setText("My profile");
             this.editProfileButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -87,6 +91,12 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
             });
         }
         else {
+            sendMessageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    presenter.createDialog(getActivity().getIntent().getIntExtra("userId", 0));
+                }
+            });
             editProfileButton.setVisibility(View.GONE);
         }
         presenter.getProfileDetails(getActivity().getIntent().getIntExtra("userId", 0));
@@ -122,6 +132,13 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
     public void showEditProfileActivity() {
         Intent intent = new Intent(this.context, EditProfileActivity.class);
         intent.putExtra("userId", getActivity().getIntent().getIntExtra("userId", 0));
+        startActivity(intent);
+    }
+
+    @Override
+    public void showChatActivity(int dialogId) {
+        Intent intent = new Intent(this.context, ChatActivity.class);
+        intent.putExtra("dialogId", dialogId);
         startActivity(intent);
     }
 

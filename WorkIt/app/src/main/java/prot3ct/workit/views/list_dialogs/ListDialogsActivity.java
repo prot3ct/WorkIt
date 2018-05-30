@@ -12,7 +12,7 @@ public class ListDialogsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_task);
+        setContentView(R.layout.activity_list_dialogs);
 
         ListDialogsFragment editTaskFragment =
                 (ListDialogsFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);

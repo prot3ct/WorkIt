@@ -9,6 +9,8 @@ public interface AuthDataContract {
 
     int getLoggedInUserId();
 
+    String getLoggedInUserName();
+
     void logoutUser();
 
     boolean isLoggedIn();

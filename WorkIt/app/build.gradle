@@ -42,4 +42,6 @@ dependencies {
     compile('com.mikepenz:materialdrawer:5.8.1@aar') {
         transitive = true
     }
+
+    compile 'com.github.stfalcon:chatkit:0.2.2'
 }

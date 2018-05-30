@@ -34,6 +34,7 @@ import prot3ct.workit.data.remote.UserData;
 import prot3ct.workit.view_models.ProfileDetailsViewModel;
 import prot3ct.workit.views.assigned_tasks.AssignedTasksActivity;
 import prot3ct.workit.views.completed_tasks.CompletedTasksActivity;
+import prot3ct.workit.views.list_dialogs.ListDialogsActivity;
 import prot3ct.workit.views.list_tasks.ListTasksActivity;
 import prot3ct.workit.views.login.LoginActivity;
 import prot3ct.workit.views.profile.ProfileActivity;
@@ -123,6 +124,7 @@ public class DrawerUtil {
                         createMyCompletedTasksDrawerItem(),
                         createAssignedTasksDrawerItem(),
                         createProfileDrawerItem(),
+                        createDialogDrawerItem(),
                         createLogoutDrawerItem()
                 )
                 .build();
@@ -186,18 +188,32 @@ public class DrawerUtil {
 
     private PrimaryDrawerItem createProfileDrawerItem() {
         return new PrimaryDrawerItem()
-            .withIdentifier(4)
-            .withName("My profile")
-            .withOnDrawerItemClickListener(new com.mikepenz.materialdrawer.Drawer.OnDrawerItemClickListener() {
-                @Override
-                public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                Intent intent = new Intent(activity.getBaseContext(), ProfileActivity.class);
-                intent.putExtra("userId", loggedInUserId);
-                intent.putExtra("myProfile", true);
-                activity.startActivity(intent);
-                return true;
-                }
-            });
+                .withIdentifier(4)
+                .withName("My profile")
+                .withOnDrawerItemClickListener(new com.mikepenz.materialdrawer.Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        Intent intent = new Intent(activity.getBaseContext(), ProfileActivity.class);
+                        intent.putExtra("userId", loggedInUserId);
+                        intent.putExtra("myProfile", true);
+                        activity.startActivity(intent);
+                        return true;
+                    }
+                });
+    }
+
+    private PrimaryDrawerItem createDialogDrawerItem() {
+        return new PrimaryDrawerItem()
+                .withIdentifier(4)
+                .withName("My Dialogs")
+                .withOnDrawerItemClickListener(new com.mikepenz.materialdrawer.Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        Intent intent = new Intent(activity.getBaseContext(), ListDialogsActivity.class);
+                        activity.startActivity(intent);
+                        return true;
+                    }
+                });
     }
 
     private PrimaryDrawerItem createLogoutDrawerItem() {

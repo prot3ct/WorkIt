@@ -13,10 +13,14 @@ public interface ProfileContract {
 
         void showDialogforLoading();
 
+        void showChatActivity(int dialogId);
+
         void dismissDialog();
     }
 
     interface Presenter {
         void getProfileDetails(int userId);
+
+        void createDialog(int userId);
     }
 }

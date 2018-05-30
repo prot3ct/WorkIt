@@ -1,17 +1,18 @@
 package prot3ct.workit.views.list_dialogs.base;
 
+import java.util.List;
+
 import prot3ct.workit.base.BaseView;
+import prot3ct.workit.view_models.DialogsListViewModel;
 import prot3ct.workit.view_models.TaskDetailViewModel;
 
 public interface ListDialogsContract {
     interface View extends BaseView<ListDialogsContract.Presenter> {
-        void showListJobsActivity();
-
-        void updateTask(TaskDetailViewModel task);
-
         void notifySuccessful();
 
         void showDialogforLoading();
+
+        void updateDialogs(List<DialogsListViewModel> dialogs);
 
         void dismissDialog();
 
@@ -19,9 +20,8 @@ public interface ListDialogsContract {
     }
 
     interface Presenter {
-        void updateTask(int taskId, String title, String startDate, String length,
-                        String description, String city, String address, String reward);
+        void getDialogs();
 
-        void getTaskDetails(int taskId);
+        int getLoggedInUserId();
     }
 }

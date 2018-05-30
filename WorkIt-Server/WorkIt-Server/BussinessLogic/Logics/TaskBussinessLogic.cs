@@ -105,6 +105,7 @@ namespace WorkIt_Server.BLL
             }
 
             var today = DateTime.Now;
+
             return Db.Tasks
                 .Where(t => t.StartDate > today && t.CreatorId != userId)
                 .Where(t => t.Title.Contains(search))

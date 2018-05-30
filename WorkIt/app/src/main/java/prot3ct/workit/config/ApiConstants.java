@@ -1,5 +1,7 @@
 package prot3ct.workit.config;
 
+import android.util.Log;
+
 import com.google.android.gms.common.api.Api;
 
 import prot3ct.workit.config.base.ApiConstantsContract;
@@ -107,6 +109,26 @@ public class ApiConstants implements ApiConstantsContract {
     @Override
     public String updateAssignedUser(int taskId) {
         return API_URL + "/tasks/" + taskId + "/assigned-user";
+    }
+
+    @Override
+    public String createDialog() {
+        return API_URL + "/dialogs/";
+    }
+
+    @Override
+    public String getDialogs(int userId) {
+        return API_URL + "/users/" + userId + "/dialogs";
+    }
+
+    @Override
+    public String createMessage(int dialogId) {
+        return API_URL + "/dialogs/" + dialogId + "/messages";
+    }
+
+    @Override
+    public String getMessages(int dialogId) {
+        return API_URL + "/dialogs/" + dialogId + "/messages";
     }
 
     @Override

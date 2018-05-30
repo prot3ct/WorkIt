@@ -84,6 +84,11 @@ public class AuthData implements AuthDataContract {
     }
 
     @Override
+    public String getLoggedInUserName() {
+        return this.userSession.getFullName();
+    }
+
+    @Override
     public void logoutUser() {
         this.userSession.clearSession();
     }

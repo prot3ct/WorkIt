@@ -39,6 +39,14 @@ public interface ApiConstantsContract {
 
     String updateAssignedUser(int taskId);
 
+    String createDialog();
+
+    String createMessage(int dialogId);
+
+    String getMessages(int dialogId);
+
+    String getDialogs(int userId);
+
     String getLocationLatLngUrl(String location);
 
     int responseSuccessCode();

@@ -49,6 +49,8 @@
         <activity android:name=".views.assigned_tasks.AssignedTasksActivity" />
         <activity android:name=".views.profile.ProfileActivity"/>
         <activity android:name=".views.edit_profile.EditProfileActivity"/>
+        <activity android:name=".views.list_dialogs.ListDialogsActivity"/>
+        <activity android:name=".views.chat.ChatActivity"/>
 
         <uses-library android:name="com.google.android.maps"/>
 

@@ -26,6 +26,7 @@ namespace WorkIt_Server.Migrations
                 new UserRole { Name = "Supervisor" }
             );
 
+
             context.SaveChanges();
         }
     }
