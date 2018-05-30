@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -31,6 +32,12 @@ public class CreateTaskFragment extends Fragment implements CreateTaskContract.V
     private CreateTaskContract.Presenter presenter;
     private Context context;
 
+    private TextInputLayout  titleLayout;
+    private TextInputLayout  lengthLayout;
+    private TextInputLayout  descriptionLayout;
+    private TextInputLayout  cityLayout;
+    private TextInputLayout  addressLayout;
+    private TextInputLayout  rewardLayout;
     private TextView titleTextView;
     private TextView startDateTextView;
     private EditText lengthEditText;
@@ -73,6 +80,13 @@ public class CreateTaskFragment extends Fragment implements CreateTaskContract.V
 
         this.toolbar = view.findViewById(R.id.id_drawer_toolbar);
         this.dialog = new WorkItProgressDialog(context);
+
+        this.titleLayout = view.findViewById(R.id.input_layout_title);
+        this.lengthLayout = view.findViewById(R.id.input_layout_length);
+        this.descriptionLayout = view.findViewById(R.id.input_layout_description);
+        this.cityLayout = view.findViewById(R.id.input_layout_city);
+        this.addressLayout = view.findViewById(R.id.input_layout_address);
+        this.rewardLayout = view.findViewById(R.id.input_layout_reward);
         this.titleTextView = (TextView) view.findViewById(R.id.id_title_edit_text);
         this.startDateTextView = (TextView) view.findViewById(R.id.id_choose_start_date_text_view);
         this.lengthEditText = (EditText) view.findViewById(R.id.id_length_edit_text);
@@ -94,15 +108,18 @@ public class CreateTaskFragment extends Fragment implements CreateTaskContract.V
         this.saveTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.createTask(
-                    titleTextView.getText().toString(),
-                    startDateString,
-                    lengthEditText.getText().toString(),
-                    descriptionTextView.getText().toString(),
-                    cityTextView.getText().toString(),
-                    addressTextView.getText().toString(),
-                    rewardTextView.getText().toString()
-                );
+                titleLayout.setError(null);
+                addressLayout.setError(null);
+                lengthLayout.setError(null);
+                cityLayout.setError(null);
+                rewardLayout.setError(null);
+
+                validateTask(titleTextView.getText().toString(),
+                        lengthEditText.getText().toString(),
+                        descriptionTextView.getText().toString(),
+                        cityTextView.getText().toString(),
+                        addressTextView.getText().toString(),
+                        rewardTextView.getText().toString());
             }
         });
 
@@ -118,6 +135,25 @@ public class CreateTaskFragment extends Fragment implements CreateTaskContract.V
     @Override
     public void notifyError(String errorMessage) {
         Toast.makeText(getContext(), errorMessage, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void createTask() {
+        presenter.createTask(
+                titleTextView.getText().toString(),
+                startDateString,
+                lengthEditText.getText().toString(),
+                descriptionTextView.getText().toString(),
+                cityTextView.getText().toString(),
+                addressTextView.getText().toString(),
+                rewardTextView.getText().toString()
+        );
+    }
+
+    @Override
+    public void notifyInvalidLocation() {
+        cityLayout.setError("Invalid location");
+        addressLayout.setError("Invalid location");
     }
 
     @Override
@@ -194,6 +230,45 @@ public class CreateTaskFragment extends Fragment implements CreateTaskContract.V
                 return i + "th";
             default:
                 return i + sufixes[i % 10];
+        }
+    }
+
+    private void validateTask(String title, String length, String description,
+                                 String city, String address, String reward ) {
+        if (title.length() < 5 || title.length() > 30) {
+            titleLayout.setError("Title must be bettwen 5 and 30 symbols long");
+            return;
+        }
+
+        if(!isInteger(length)) {
+            lengthLayout.setError("Invalid length number");
+            return;
+        }
+
+        int lengthInt = Integer.parseInt(length);
+        if (!(lengthInt == 1 || lengthInt == 2 || lengthInt == 3 || lengthInt == 4)) {
+            lengthLayout.setError("Invalid length number");
+            return;
+        }
+
+        if(!isInteger(reward)) {
+            rewardLayout.setError("Invalid reward number");
+            return;
+        }
+
+        presenter.checkIfLocationExists(city + ", " + address);
+    }
+
+    private boolean isInteger( String input )
+    {
+        try
+        {
+            Integer.parseInt( input );
+            return true;
+        }
+        catch( Exception e)
+        {
+            return false;
         }
     }
 }

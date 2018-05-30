@@ -1,5 +1,7 @@
 package prot3ct.workit.data.remote;
 
+import android.util.Log;
+
 import org.json.JSONObject;
 
 import io.reactivex.Observable;
@@ -39,5 +41,26 @@ public class LocationData {
                     return jsonParser.fromJson(locationJson.toString(), Location.class);
                 }
             });
+    }
+
+    public Observable<Boolean> checkIfLocationExists(final String location) {
+        return httpRequester
+                .get(apiConstants.getLocationLatLngUrl(location))
+                .map(new Function<HttpResponseContract, Boolean>() {
+                    @Override
+                    public Boolean apply(HttpResponseContract iHttpResponse) throws Exception {
+                        if (iHttpResponse.getCode() == apiConstants.responseErrorCode()) {
+                            throw new Error(iHttpResponse.getMessage());
+                        }
+
+                        String responseBody = iHttpResponse.getBody();
+
+                        Object jsonObj = new JSONObject(responseBody).get("status");
+                        if(jsonObj.toString().equals("ZERO_RESULTS")) {
+                            return false;
+                        }
+                        return true;
+                    }
+                });
     }
 }

@@ -12,11 +12,17 @@ public interface CreateTaskContract {
 
         void dismissDialog();
 
+        void createTask();
+
         void notifyError(String errorMessage);
+
+        void notifyInvalidLocation();
     }
 
     interface Presenter {
         void createTask(String title, String startDate, String length,
                         String description, String city, String address, String reward);
+
+        void checkIfLocationExists(String location);
     }
 }

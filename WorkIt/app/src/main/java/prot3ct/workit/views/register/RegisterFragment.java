@@ -24,6 +24,7 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
     private EditText emailEditText;
     private EditText fullnameEditText;
     private EditText passwordEditText;
+    private EditText confirmPasswordEditText;
     private Button registerButton;
     private Button returnToLoginButton;
 
@@ -51,6 +52,7 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
         this.emailEditText = view.findViewById(R.id.id_email_edit_text);
         this.fullnameEditText = view.findViewById(R.id.id_full_name_edit_text);
         this.passwordEditText = view.findViewById(R.id.id_password_edit_text);
+        this.confirmPasswordEditText = view.findViewById(R.id.id_confirm_password_edit_text);
         this.returnToLoginButton = view.findViewById(R.id.id_return_to_login_button);
 
         this.registerButton.setOnClickListener(new View.OnClickListener() {
@@ -59,8 +61,9 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
                 String email = emailEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
                 String fullName = fullnameEditText.getText().toString();
+                String confirmPassword = confirmPasswordEditText.getText().toString();
 
-                if (checkCredentials(email, password)) {
+                if (checkCredentials(email, password, confirmPassword, fullName)) {
                     presenter.registerUser(email, fullName, password);
                 }
             }
@@ -99,7 +102,7 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
         this.context = context;
     }
 
-    private boolean checkCredentials(String email, String password) {
+    private boolean checkCredentials(String email, String password, String confirmPassword, String fullName) {
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             notifyError("Invalid email address.");
             return false;
@@ -107,6 +110,16 @@ public class RegisterFragment extends Fragment implements RegisterContract.View 
 
         if (password.length() < 6) {
             notifyError("Password must be 6 or more symbols long.");
+            return false;
+        }
+
+        if (!password.equals(confirmPassword)) {
+            notifyError("Password and Confirm passowrd must the the same.");
+            return false;
+        }
+
+        if (fullName.length() < 3) {
+            notifyError("Full name must be atleast 3 symbols long.");
             return false;
         }
 
