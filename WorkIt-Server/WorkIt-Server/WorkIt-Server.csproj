@@ -116,6 +116,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Handlers\ApplicationAuthenticationHandler.cs" />
     <Compile Include="Migrations\201803062138082_Initial.cs" />
     <Compile Include="Migrations\201803062138082_Initial.Designer.cs">
       <DependentUpon>201803062138082_Initial.cs</DependentUpon>
@@ -191,6 +192,10 @@
     <Compile Include="Migrations\201805300821590_RemoveReportingModel.cs" />
     <Compile Include="Migrations\201805300821590_RemoveReportingModel.Designer.cs">
       <DependentUpon>201805300821590_RemoveReportingModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805312009284_AccessToken.cs" />
+    <Compile Include="Migrations\201805312009284_AccessToken.Designer.cs">
+      <DependentUpon>201805312009284_AccessToken.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Context\WorkItDbContext.cs" />
@@ -297,6 +302,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805300821590_RemoveReportingModel.resx">
       <DependentUpon>201805300821590_RemoveReportingModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805312009284_AccessToken.resx">
+      <DependentUpon>201805312009284_AccessToken.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

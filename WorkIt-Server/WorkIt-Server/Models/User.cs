@@ -31,5 +31,7 @@ namespace WorkIt_Server.Models
         public int ReviewsAsTasker { get; set; }
 
         public int ReviewsAsSupervisor { get; set; }
+
+        public string AccessToken { get; set; }
     }
 }

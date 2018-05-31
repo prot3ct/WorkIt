@@ -16,7 +16,6 @@ namespace WorkIt_Server.Controllers
         {
             try
             {
-             
                 return Ok(service.CreateDialog(createDialogDTO));
             }
             catch (Exception e)

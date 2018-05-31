@@ -15,6 +15,11 @@ public class UserSession implements UserSessionContract{
     }
 
     @Override
+    public String getAccessToken() {
+        return sharedPreferences.getString("accessToken", null);
+    }
+
+    @Override
     public String getFullName() {
         return sharedPreferences.getString("fullName", null);
     }
@@ -40,6 +45,11 @@ public class UserSession implements UserSessionContract{
     }
 
     @Override
+    public void setAccessToken(String accessToken) {
+        sharedPreferences.edit().putString("accessToken", accessToken).apply();
+    }
+
+    @Override
     public void setId(int id) {
         sharedPreferences.edit().putInt("id", id).apply();
     }
@@ -51,6 +61,7 @@ public class UserSession implements UserSessionContract{
 
     @Override
     public void clearSession() {
+        setId(0);
         setFullName(null);
         setEmail(null);
     }

@@ -4,6 +4,7 @@ public class LoginViewModel {
     private int userId;
     private String email;
     private String fullName;
+    private String accessToken;
 
     public String getEmail() {
         return email;
@@ -27,5 +28,13 @@ public class LoginViewModel {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 }

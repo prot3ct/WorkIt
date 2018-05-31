@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using WorkIt_Server.Models;
 using WorkIt_Server.Models.Context;
 using WorkIt_Server.Models.DTO;
@@ -31,19 +32,24 @@ namespace WorkIt_Server.BLL
 
         public LoginViewModel getUserInfo(string email)
         {
-            var user = db.Users.FirstOrDefault(u => u.Email == email);
+            var user = Db.Users.FirstOrDefault(u => u.Email == email);
+            string accessToken = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
+
+            user.AccessToken = accessToken;
+            Db.SaveChanges();
 
             return new LoginViewModel
             {
                 Email = user.Email,
                 FullName = user.FullName,
-                UserId = user.UserId
+                UserId = user.UserId,
+                AccessToken = accessToken
             };
         }
 
         public bool LoginUser(LoginDTO credentials)
         {
-            var user = db.Users.FirstOrDefault(u => u.Email == credentials.Email && u.PassHash == credentials.PassHash);
+            var user = Db.Users.FirstOrDefault(u => u.Email == credentials.Email && u.PassHash == credentials.PassHash);
             if (user != null)
             {
                 return true;
@@ -53,7 +59,7 @@ namespace WorkIt_Server.BLL
 
         public bool RegisterUser(RegisterDTO credentials)
         {
-            if (db.Users.Select(u => u.Email).Contains(credentials.Email))
+            if (Db.Users.Select(u => u.Email).Contains(credentials.Email))
             {
                 return false;
             }
@@ -69,8 +75,8 @@ namespace WorkIt_Server.BLL
                 ReviewsAsTasker = 1
             };
 
-            db.Users.Add(userToBeInserted);
-            db.SaveChanges();
+            Db.Users.Add(userToBeInserted);
+            Db.SaveChanges();
             return true;
         }
     }

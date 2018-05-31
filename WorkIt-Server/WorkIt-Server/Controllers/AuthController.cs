@@ -12,6 +12,7 @@ namespace WorkIt_Server.Controllers
 
         [Route("auth/login")]
         [HttpPost]
+        [Authorize]
         public IHttpActionResult Login(LoginDTO credentials)
         {
             try
@@ -19,7 +20,6 @@ namespace WorkIt_Server.Controllers
                 if (service.LoginUser(credentials))
                 {
                     return Ok(service.getUserInfo(credentials.Email));
-                    //return Ok(new { Id = service.GetUserIdByEmail(credentials.Email), credentials.Email });
                 }
                 return NotFound();
             }

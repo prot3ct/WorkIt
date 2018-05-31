@@ -58,6 +58,27 @@ public class OkHttpRequester implements OkHttpRequesterContract {
         });
     }
 
+    public Observable<HttpResponseContract> get(final String url, final String searchQuery, final Map<String, String> headers) {
+        return Observable.defer(new Callable<ObservableSource<? extends HttpResponseContract>>() {
+            @Override
+            public ObservableSource<? extends HttpResponseContract> call() throws Exception {
+                HttpUrl newUrl = HttpUrl.parse(url);
+                newUrl = newUrl.newBuilder().setQueryParameter("search", searchQuery).build();
+
+                Request.Builder requestBuilder = new Request.Builder()
+                        .url(newUrl);
+
+                for (Map.Entry<String, String> pair : headers.entrySet()) {
+                    requestBuilder.addHeader(pair.getKey(), pair.getValue());
+                }
+
+                Request request = requestBuilder.build();
+                return createResponse(request);
+            }
+        });
+    }
+
+
     public Observable<HttpResponseContract> get(final String url, final Map<String, String> headers) {
         return Observable.defer(new Callable<ObservableSource<? extends HttpResponseContract>>() {
             @Override

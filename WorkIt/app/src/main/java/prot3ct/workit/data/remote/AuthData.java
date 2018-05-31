@@ -51,6 +51,7 @@ public class AuthData implements AuthDataContract {
                     userSession.setId(result.getUserId());
                     userSession.setEmail(result.getEmail());
                     userSession.setFullName(result.getFullName());
+                    userSession.setAccessToken(result.getAccessToken());
                     return true;
                 }
             });

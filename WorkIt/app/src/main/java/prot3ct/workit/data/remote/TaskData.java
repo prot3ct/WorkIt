@@ -29,12 +29,15 @@ public class TaskData implements TaskDataContract {
     private final ApiConstants apiConstants;
     private final GsonParser jsonParser;
     private final UserSession userSession;
+    private Map<String, String> headers;
 
     public TaskData(Context context) {
         this.jsonParser = new GsonParser();
         this.httpRequester = new OkHttpRequester();
         this.apiConstants = new ApiConstants();
         this.userSession = new UserSession(context);
+        headers = new HashMap<>();
+        headers.put("authToken", userSession.getId() + ":" + userSession.getAccessToken());
     }
 
     @Override
@@ -51,7 +54,7 @@ public class TaskData implements TaskDataContract {
         taskDetails.put("creatorEmail", this.userSession.getEmail().replaceAll("\"", ""));
 
         return httpRequester
-                .post(apiConstants.createTaskUrl(), taskDetails)
+                .post(apiConstants.createTaskUrl(), taskDetails, headers)
                 .map(new Function<HttpResponseContract, Boolean>() {
                     @Override
                     public Boolean apply(HttpResponseContract iHttpResponse) throws Exception {
@@ -94,7 +97,7 @@ public class TaskData implements TaskDataContract {
     @Override
     public Observable<TaskDetailViewModel> getTaskDetails(int taskId) {
         return httpRequester
-                .get(apiConstants.getTaskDetailsUrl(taskId))
+                .get(apiConstants.getTaskDetailsUrl(taskId), headers)
                 .map(new Function<HttpResponseContract, TaskDetailViewModel>() {
                     @Override
                     public TaskDetailViewModel apply(HttpResponseContract iHttpResponse) throws Exception {
@@ -127,7 +130,7 @@ public class TaskData implements TaskDataContract {
     @Override
     public Observable<List<AvailableTasksListViewModel>> getAvailableTasks(int page, String search) {
         return httpRequester
-            .get(apiConstants.getAvailableTasks(userSession.getId(), page), search)
+            .get(apiConstants.getAvailableTasks(userSession.getId(), page), search, headers)
             .map(new Function<HttpResponseContract, List<AvailableTasksListViewModel>>() {
                 @Override
                 public List<AvailableTasksListViewModel> apply(HttpResponseContract iHttpResponse) throws Exception {
@@ -145,7 +148,7 @@ public class TaskData implements TaskDataContract {
     @Override
     public Observable<List<AssignedTasksListViewModel>> getAssignedTasks() {
         return httpRequester
-                .get(apiConstants.getAssignedTasksUrl(userSession.getId()))
+                .get(apiConstants.getAssignedTasksUrl(userSession.getId()), headers)
                 .map(new Function<HttpResponseContract, List<AssignedTasksListViewModel>>() {
                     @Override
                     public List<AssignedTasksListViewModel> apply(HttpResponseContract iHttpResponse) throws Exception {

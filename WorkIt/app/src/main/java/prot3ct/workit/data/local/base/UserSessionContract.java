@@ -5,9 +5,13 @@ public interface UserSessionContract {
 
     void setEmail(String email);
 
+    String getAccessToken();
+
     String getFullName();
 
     void setFullName(String fullName);
+
+    void setAccessToken(String accessToken);
 
     void setId(int id);
 
