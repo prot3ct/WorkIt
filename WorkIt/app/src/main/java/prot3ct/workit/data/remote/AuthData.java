@@ -80,6 +80,26 @@ public class AuthData implements AuthDataContract {
     }
 
     @Override
+    public Observable<Boolean> autoLogin() {
+        Map<String, String> body = new HashMap<>();
+        body.put("userId", userSession.getId()+"");
+        body.put("authToken", userSession.getAccessToken());
+
+        return httpRequester
+                .post(apiConstants.autoLoginUserUrl(), body)
+                .map(new Function<HttpResponseContract, Boolean>() {
+                    @Override
+                    public Boolean apply(HttpResponseContract iHttpResponse) throws Exception {
+                        if (iHttpResponse.getCode() == apiConstants.responseErrorCode()) {
+                            throw new Error(iHttpResponse.getMessage());
+                        }
+
+                        return Boolean.parseBoolean(iHttpResponse.getBody());
+                    }
+                });
+    }
+
+    @Override
     public int getLoggedInUserId() {
         return this.userSession.getId();
     }

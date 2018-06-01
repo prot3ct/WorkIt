@@ -1,11 +1,15 @@
 package prot3ct.workit.views.edit_profile;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
@@ -20,6 +24,7 @@ import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 
 import prot3ct.workit.R;
@@ -75,9 +80,9 @@ public class EditProfileFragment extends Fragment implements EditProfileContract
         this.profilePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/*");
-                startActivityForResult(intent, 1);
+                Intent pickPhoto = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(pickPhoto , 1);
             }
         });
 
@@ -139,20 +144,20 @@ public class EditProfileFragment extends Fragment implements EditProfileContract
             if (data == null) {
                 return;
             }
-            InputStream inputStream;
-            try {
-                inputStream = context.getContentResolver().openInputStream(data.getData());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                return;
-            }
 
-            Bitmap bmp = BitmapFactory.decodeStream(inputStream);
-            profilePicture.setImageBitmap(bmp);
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            byte[] byteArray = stream.toByteArray();
-            profilePictureAsString = Base64.encodeToString(byteArray, Base64.DEFAULT);
+            Uri selectedImage = data.getData();
+            profilePicture.setImageURI(selectedImage);
+
+//            Bitmap bitmap = null;
+//            try {
+//                bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), selectedImage);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+//            byte[] byteArray = stream.toByteArray();
+//            profilePictureAsString = Base64.encodeToString(byteArray, Base64.DEFAULT);
         }
     }
 

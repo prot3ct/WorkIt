@@ -200,6 +200,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Context\WorkItDbContext.cs" />
     <Compile Include="Models\Dialog.cs" />
+    <Compile Include="Models\DTO\AutoLoginDTO.cs" />
     <Compile Include="Models\DTO\CanAssignToTaskDTO.cs" />
     <Compile Include="Models\DTO\CreateDialogDTO.cs" />
     <Compile Include="Models\DTO\CreateMessageDTO.cs" />

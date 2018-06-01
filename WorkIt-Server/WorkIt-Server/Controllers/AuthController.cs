@@ -45,5 +45,19 @@ namespace WorkIt_Server.Controllers
                 return InternalServerError();
             }
         }
+
+        [Route("auth/autologin")]
+        [HttpPost]
+        public IHttpActionResult AutoLogin(AutoLoginDTO autoLoginDTO)
+        {
+            try
+            {
+                return Ok(service.AutoLogin(autoLoginDTO));
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
+        }
     }
 }

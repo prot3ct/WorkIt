@@ -51,6 +51,7 @@ namespace WorkIt_Server.BLL
                 AssignedUserId = null
             };
 
+
             Db.Tasks.Add(jobToBeInserted);
             Db.SaveChanges();
         }

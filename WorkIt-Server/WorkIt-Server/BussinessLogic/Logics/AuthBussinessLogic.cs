@@ -79,5 +79,19 @@ namespace WorkIt_Server.BLL
             Db.SaveChanges();
             return true;
         }
+
+        public bool AutoLogin(AutoLoginDTO autoLoginDTO)
+        {
+            var user = Db.Users.FirstOrDefault(u => u.UserId == autoLoginDTO.UserId);
+
+            if (user.AccessToken == autoLoginDTO.AuthToken)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

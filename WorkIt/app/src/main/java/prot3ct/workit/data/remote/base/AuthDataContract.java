@@ -7,6 +7,8 @@ public interface AuthDataContract {
 
     Observable<Boolean> register(String email, String fullName, String password);
 
+    Observable<Boolean> autoLogin();
+
     int getLoggedInUserId();
 
     String getLoggedInUserName();

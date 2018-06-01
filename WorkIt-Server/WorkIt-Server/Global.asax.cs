@@ -12,9 +12,9 @@ namespace WorkIt_Server
     {
         protected void Application_Start()
         {
-            GlobalConfiguration.Configure(WebApiConfig.Register);
             GlobalConfiguration.Configuration.MessageHandlers.Add(new
                 ApplicationAuthenticationHandler());
+            GlobalConfiguration.Configure(WebApiConfig.Register);
         }
     }
 }

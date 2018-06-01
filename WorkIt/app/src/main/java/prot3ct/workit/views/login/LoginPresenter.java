@@ -52,4 +52,33 @@ public class LoginPresenter implements LoginContract.Presenter {
     public boolean isUserLoggedIn() {
         return this.authData.isLoggedIn();
     }
+
+    @Override
+    public void autoLoginUser() {
+        authData.autoLogin()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        new Observer<Boolean>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                            }
+
+                            @Override
+                            public void onNext(Boolean value) {
+                                if (value) {
+                                    view.showListJobsActivity();
+                                }
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                view.notifyError("Error auto logining in.");
+                            }
+
+                            @Override
+                            public void onComplete() {
+                            }
+                        });
+    }
 }

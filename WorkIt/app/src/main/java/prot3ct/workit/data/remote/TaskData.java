@@ -135,9 +135,6 @@ public class TaskData implements TaskDataContract {
                 @Override
                 public List<AvailableTasksListViewModel> apply(HttpResponseContract iHttpResponse) throws Exception {
                     if (iHttpResponse.getCode() != apiConstants.responseSuccessCode()) {
-                        Log.d("CEKLASD", iHttpResponse.getBody());
-                        Log.d("CEKLASD", iHttpResponse.getMessage());
-                        Log.d("CEKLASD", headers.get("authToken"));
                         throw new Error(iHttpResponse.getMessage());
                     }
 

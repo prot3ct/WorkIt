@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using WorkIt_Server.Handlers;
 
 namespace WorkIt_Server
 {
@@ -14,6 +15,9 @@ namespace WorkIt_Server
 
             // Web API routes
             config.MapHttpAttributeRoutes();
+
+            config.MessageHandlers.Add(new
+                ApplicationAuthenticationHandler());
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

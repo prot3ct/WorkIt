@@ -123,16 +123,22 @@ public class ListDialogsFragment extends Fragment implements ListDialogsContract
     @Override
     public void updateDialogs(List<DialogsListViewModel> dialogs) {
         for (DialogsListViewModel dialog: dialogs) {
-            DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.ENGLISH);
-            Date lastMessageDate = null;
-            try {
-                lastMessageDate = format.parse(dialog.getLastMessageCreatedAt());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
             User lastMessageUser = new User(1+"", "", null, false);
-            Message lastMessage = new Message(1+"", lastMessageUser, dialog.getLastMessageText(), lastMessageDate);
+
+            Message lastMessage;
+            if (dialog.getLastMessageText() == null) {
+            lastMessage = new Message(1+"", lastMessageUser, "", new Date());
+            }
+            else {
+                DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.ENGLISH);
+                Date lastMessageDate = null;
+                try {
+                    lastMessageDate = format.parse(dialog.getLastMessageCreatedAt());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                lastMessage = new Message(1+"", lastMessageUser, dialog.getLastMessageText(), lastMessageDate);
+            }
 
             String dialogName;
             String picture;

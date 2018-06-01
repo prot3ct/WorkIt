@@ -52,7 +52,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         this.registerButton = view.findViewById(R.id.id_register_button);
 
         if (presenter.isUserLoggedIn()) {
-            showListJobsActivity();
+            presenter.autoLoginUser();
         }
 
         this.loginButton.setOnClickListener(new View.OnClickListener() {

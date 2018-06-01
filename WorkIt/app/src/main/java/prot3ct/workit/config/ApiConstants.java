@@ -24,6 +24,11 @@ public class ApiConstants implements ApiConstantsContract {
     }
 
     @Override
+    public String autoLoginUserUrl() {
+        return API_URL + "/auth/autologin";
+    }
+
+    @Override
     public String createTaskUrl() {
         return API_URL + "/tasks";
     }

@@ -5,6 +5,8 @@ public interface ApiConstantsContract {
 
     String registerUrl();
 
+    String autoLoginUserUrl();
+
     String createTaskUrl();
 
     String updateTaskUrl(int taskId);

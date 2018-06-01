@@ -12,7 +12,6 @@ namespace WorkIt_Server.Handlers
 {
     public class ApplicationAuthenticationHandler : DelegatingHandler
     {
-        private WorkItDbContext db = new WorkItDbContext();
         private const string InvalidToken = "Invalid Authorization-Token";
         private const string MissingToken = "Missing Authorization-Token";
 
@@ -37,10 +36,14 @@ namespace WorkIt_Server.Handlers
                         return requestCancel(request, cancellationToken, InvalidToken);
                     }
 
-
                     var accessToken = apiKeyHeaderValue[1];
 
-                    var realAccessToken = "B6OQJPeOAkC0HMbV/F/XgQ==";//db.Users.FirstOrDefault(u => u.UserId == userId).AccessToken;
+                    string realAccessToken;
+
+                    using (var db = new WorkItDbContext())
+                    {
+                        realAccessToken = db.Users.FirstOrDefault(u => u.UserId == userId).AccessToken;
+                    }
 
                     if (realAccessToken == accessToken)
                     {

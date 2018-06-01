@@ -46,6 +46,11 @@ namespace WorkIt_Server.BLL
             return AuthLogic.LoginUser(credentials);
         }
 
+        public bool AutoLogin(AutoLoginDTO autoLoginDTO)
+        {
+            return AuthLogic.AutoLogin(autoLoginDTO);
+        }
+
         public bool RegisterUser(RegisterDTO credentials)
         {
             return AuthLogic.RegisterUser(credentials);
