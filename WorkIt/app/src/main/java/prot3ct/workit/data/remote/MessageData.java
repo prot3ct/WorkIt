@@ -23,12 +23,15 @@ public class MessageData {
     private final ApiConstants apiConstants;
     private final GsonParser jsonParser;
     private final UserSession userSession;
+    private Map<String, String> headers;
 
     public MessageData(Context context) {
         this.jsonParser = new GsonParser();
         this.httpRequester = new OkHttpRequester();
         this.apiConstants = new ApiConstants();
         this.userSession = new UserSession(context);
+        headers = new HashMap<>();
+        headers.put("authToken", userSession.getId() + ":" + userSession.getAccessToken());
     }
 
     public Observable<Boolean> createMessage(String text, int authorId, int dialogId, String createdAt) {
@@ -39,7 +42,7 @@ public class MessageData {
         messageDetails.put("createdAt", createdAt);
 
         return httpRequester
-                .post(apiConstants.createMessage(dialogId), messageDetails)
+                .post(apiConstants.createMessage(dialogId), messageDetails, headers)
                 .map(new Function<HttpResponseContract, Boolean>() {
                     @Override
                     public Boolean apply(HttpResponseContract iHttpResponse) throws Exception {
@@ -54,7 +57,7 @@ public class MessageData {
 
     public Observable<List<ListMessagesViewModel>> getMessages(int dialogId) {
         return httpRequester
-                .get(apiConstants.getMessages(dialogId))
+                .get(apiConstants.getMessages(dialogId), headers)
                 .map(new Function<HttpResponseContract, List<ListMessagesViewModel>>() {
                     @Override
                     public List<ListMessagesViewModel> apply(HttpResponseContract iHttpResponse) throws Exception {

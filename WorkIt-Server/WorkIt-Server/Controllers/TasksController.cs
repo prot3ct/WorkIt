@@ -77,9 +77,9 @@ namespace WorkIt_Server.Controllers
             {
                 return Ok(service.GetAllAvailableTasks(userId, page, search));
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return InternalServerError();
+                return InternalServerError(e);
             }
         }
 

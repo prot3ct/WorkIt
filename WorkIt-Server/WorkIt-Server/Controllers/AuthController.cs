@@ -12,7 +12,6 @@ namespace WorkIt_Server.Controllers
 
         [Route("auth/login")]
         [HttpPost]
-        [Authorize]
         public IHttpActionResult Login(LoginDTO credentials)
         {
             try

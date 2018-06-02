@@ -23,12 +23,15 @@ public class DialogData {
     private final ApiConstants apiConstants;
     private final GsonParser jsonParser;
     private final UserSession userSession;
+    private Map<String, String> headers;
 
     public DialogData(Context context) {
         this.jsonParser = new GsonParser();
         this.httpRequester = new OkHttpRequester();
         this.apiConstants = new ApiConstants();
         this.userSession = new UserSession(context);
+        headers = new HashMap<>();
+        headers.put("authToken", userSession.getId() + ":" + userSession.getAccessToken());
     }
 
     public Observable<String> createDialog(int userId) {
@@ -37,14 +40,13 @@ public class DialogData {
         dialogDetails.put("user2Id", userId+"");
 
         return httpRequester
-                .post(apiConstants.createDialog(), dialogDetails)
+                .post(apiConstants.createDialog(), dialogDetails, headers)
                 .map(new Function<HttpResponseContract, String>() {
                     @Override
                     public String apply(HttpResponseContract iHttpResponse) throws Exception {
                         if (iHttpResponse.getCode() == apiConstants.responseErrorCode() || iHttpResponse.getCode() == apiConstants.reponseServerErrorCode()) {
                             throw new Error(iHttpResponse.getMessage());
                         }
-                        Log.d("CEKO123", iHttpResponse.getBody());
 
                         return iHttpResponse.getBody();
                     }
@@ -53,7 +55,7 @@ public class DialogData {
 
     public Observable<List<DialogsListViewModel>> getDialogs() {
         return httpRequester
-                .get(apiConstants.getDialogs(userSession.getId()))
+                .get(apiConstants.getDialogs(userSession.getId()), headers)
                 .map(new Function<HttpResponseContract, List<DialogsListViewModel>>() {
                     @Override
                     public List<DialogsListViewModel> apply(HttpResponseContract iHttpResponse) throws Exception {

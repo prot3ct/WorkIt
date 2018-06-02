@@ -64,5 +64,6 @@ public class UserSession implements UserSessionContract{
         setId(0);
         setFullName(null);
         setEmail(null);
+        setAccessToken(null);
     }
 }

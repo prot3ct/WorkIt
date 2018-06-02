@@ -25,12 +25,15 @@ public class TaskRequestData implements TaskRequestDataContract {
     private final ApiConstants apiConstants;
     private final GsonParser jsonParser;
     private final UserSession userSession;
+    private Map<String, String> headers;
 
     public TaskRequestData(Context context) {
         this.jsonParser = new GsonParser();
         this.httpRequester = new OkHttpRequester();
         this.apiConstants = new ApiConstants();
         this.userSession = new UserSession(context);
+        headers = new HashMap<>();
+        headers.put("authToken", userSession.getId() + ":" + userSession.getAccessToken());
     }
 
     @Override
@@ -40,7 +43,7 @@ public class TaskRequestData implements TaskRequestDataContract {
         taskRequest.put("userId", Integer.toString(userSession.getId()));
 
         return httpRequester
-            .post(apiConstants.createTaskRequestUrl(), taskRequest)
+            .post(apiConstants.createTaskRequestUrl(), taskRequest, headers)
             .map(new Function<HttpResponseContract, Boolean>() {
                 @Override
                 public Boolean apply(HttpResponseContract iHttpResponse) throws Exception {
@@ -59,7 +62,7 @@ public class TaskRequestData implements TaskRequestDataContract {
         body.put("requestStatusId", Integer.toString(status));
 
         return httpRequester
-                .put(apiConstants.updateTaskRequestUrl(taskRequestId), body)
+                .put(apiConstants.updateTaskRequestUrl(taskRequestId), body, headers)
                 .map(new Function<HttpResponseContract, Boolean>() {
                     @Override
                     public Boolean apply(HttpResponseContract iHttpResponse) throws Exception {
@@ -75,7 +78,7 @@ public class TaskRequestData implements TaskRequestDataContract {
     @Override
     public Observable<List<TaskRequestListViewModel>> getAllTaskRequestsForTask(int taskId) {
         return httpRequester
-                .get(apiConstants.getRequestsForTaskUrl(taskId))
+                .get(apiConstants.getRequestsForTaskUrl(taskId), headers)
                 .map(new Function<HttpResponseContract, List<TaskRequestListViewModel>>() {
                     @Override
                     public List<TaskRequestListViewModel> apply(HttpResponseContract iHttpResponse) throws Exception {

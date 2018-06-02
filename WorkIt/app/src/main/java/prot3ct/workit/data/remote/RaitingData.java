@@ -22,6 +22,7 @@ public class RaitingData implements RaitingDataContract {
     private final ApiConstants apiConstants;
     private final GsonParser jsonParser;
     private final UserSession userSession;
+    private Map<String, String> headers;
 
     public RaitingData(Context context) {
         this.jsonParser = new GsonParser();
@@ -29,6 +30,8 @@ public class RaitingData implements RaitingDataContract {
         this.httpRequester = new OkHttpRequester();
         this.apiConstants = new ApiConstants();
         this.userSession = new UserSession(context);
+        headers = new HashMap<>();
+        headers.put("authToken", userSession.getId() + ":" + userSession.getAccessToken());
     }
 
     @Override
@@ -41,7 +44,7 @@ public class RaitingData implements RaitingDataContract {
         raiting.put("value", value+"");
 
         return httpRequester
-            .post(apiConstants.createRaitingUrl(), raiting)
+            .post(apiConstants.createRaitingUrl(), raiting, headers)
             .map(new Function<HttpResponseContract, Boolean>() {
                 @Override
                 public Boolean apply(HttpResponseContract iHttpResponse) throws Exception {

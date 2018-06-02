@@ -150,6 +150,26 @@ public class OkHttpRequester implements OkHttpRequesterContract {
         });
     }
 
+    public Observable<HttpResponseContract> put(final String url, final Map<String, String> body, final Map<String, String> headers) {
+        return Observable.defer(new Callable<ObservableSource<? extends HttpResponseContract>>() {
+            @Override
+            public ObservableSource<? extends HttpResponseContract> call() throws Exception {
+                RequestBody requestBody = createRequestBody(body);
+
+                Request.Builder requestBuilder = new Request.Builder()
+                        .url(url)
+                        .put(requestBody);
+
+                for (Map.Entry<String, String> pair : headers.entrySet()) {
+                    requestBuilder.addHeader(pair.getKey(), pair.getValue());
+                }
+
+                Request request = requestBuilder.build();
+                return createResponse(request);
+            }
+        });
+    }
+
     public Observable<HttpResponseContract> delete(final String url) {
         return Observable.defer(new Callable<ObservableSource<? extends HttpResponseContract>>() {
             @Override
@@ -159,6 +179,25 @@ public class OkHttpRequester implements OkHttpRequesterContract {
                         .delete()
                         .build();
 
+                return createResponse(request);
+            }
+        });
+    }
+
+    public Observable<HttpResponseContract> delete(final String url, final Map<String, String> headers) {
+        return Observable.defer(new Callable<ObservableSource<? extends HttpResponseContract>>() {
+            @Override
+            public ObservableSource<? extends HttpResponseContract> call() throws Exception {
+                Request.Builder requestBuilder = new Request.Builder()
+                        .url(url)
+                        .delete();
+
+
+                for (Map.Entry<String, String> pair : headers.entrySet()) {
+                    requestBuilder.addHeader(pair.getKey(), pair.getValue());
+                }
+
+                Request request = requestBuilder.build();
                 return createResponse(request);
             }
         });

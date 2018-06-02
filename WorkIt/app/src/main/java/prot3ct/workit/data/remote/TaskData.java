@@ -81,7 +81,7 @@ public class TaskData implements TaskDataContract {
         taskDetails.put("reward", reward);
 
         return httpRequester
-                .put(apiConstants.updateTaskUrl(taskId), taskDetails)
+                .put(apiConstants.updateTaskUrl(taskId), taskDetails, headers)
                 .map(new Function<HttpResponseContract, Boolean>() {
                     @Override
                     public Boolean apply(HttpResponseContract iHttpResponse) throws Exception {
@@ -114,7 +114,7 @@ public class TaskData implements TaskDataContract {
     @Override
     public Observable<Boolean> deleteTask(int taskId) {
         return httpRequester
-                .delete(apiConstants.deleteTaskUrl(taskId))
+                .delete(apiConstants.deleteTaskUrl(taskId), headers)
                 .map(new Function<HttpResponseContract, Boolean>() {
                     @Override
                     public Boolean apply(HttpResponseContract iHttpResponse) throws Exception {
@@ -134,7 +134,10 @@ public class TaskData implements TaskDataContract {
             .map(new Function<HttpResponseContract, List<AvailableTasksListViewModel>>() {
                 @Override
                 public List<AvailableTasksListViewModel> apply(HttpResponseContract iHttpResponse) throws Exception {
-                    if (iHttpResponse.getCode() == apiConstants.responseErrorCode()) {
+                    if (iHttpResponse.getCode() != apiConstants.responseSuccessCode()) {
+                        Log.d("CEKLASD", iHttpResponse.getBody());
+                        Log.d("CEKLASD", iHttpResponse.getMessage());
+                        Log.d("CEKLASD", headers.get("authToken"));
                         throw new Error(iHttpResponse.getMessage());
                     }
 
@@ -165,7 +168,7 @@ public class TaskData implements TaskDataContract {
     @Override
     public Observable<List<MyTasksListViewModel>> getMyTasks() {
         return httpRequester
-            .get(apiConstants.getMyTasks(this.userSession.getId()))
+            .get(apiConstants.getMyTasks(this.userSession.getId()), headers)
             .map(new Function<HttpResponseContract, List<MyTasksListViewModel>>() {
                 @Override
                 public List<MyTasksListViewModel> apply(HttpResponseContract iHttpResponse) throws Exception {
@@ -182,7 +185,7 @@ public class TaskData implements TaskDataContract {
     @Override
     public Observable<List<CompletedTasksListViewModel>> getCompletedTasks() {
         return httpRequester
-                .get(apiConstants.getCompletedTasksUrl(this.userSession.getId()))
+                .get(apiConstants.getCompletedTasksUrl(this.userSession.getId()), headers)
                 .map(new Function<HttpResponseContract, List<CompletedTasksListViewModel>>() {
                     @Override
                     public List<CompletedTasksListViewModel> apply(HttpResponseContract iHttpResponse) throws Exception {
@@ -203,7 +206,7 @@ public class TaskData implements TaskDataContract {
         taskDetails.put("userId", userSession.getId() + "");
 
         return httpRequester
-                .post(apiConstants.getIsUserAssignableToTask(), taskDetails)
+                .post(apiConstants.getIsUserAssignableToTask(), taskDetails, headers)
                 .map(new Function<HttpResponseContract, IsUserAssignableToTaskViewModel>() {
                     @Override
                     public IsUserAssignableToTaskViewModel apply(HttpResponseContract iHttpResponse) throws Exception {
@@ -223,7 +226,7 @@ public class TaskData implements TaskDataContract {
         taskDetails.put("taskId", taskId + "");
 
         return httpRequester
-                .put(apiConstants.updateAssignedUser(taskId), taskDetails)
+                .put(apiConstants.updateAssignedUser(taskId), taskDetails, headers)
                 .map(new Function<HttpResponseContract, Boolean>() {
                     @Override
                     public Boolean apply(HttpResponseContract iHttpResponse) throws Exception {

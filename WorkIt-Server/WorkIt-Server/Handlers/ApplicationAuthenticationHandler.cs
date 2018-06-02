@@ -19,6 +19,11 @@ namespace WorkIt_Server.Handlers
         protected override System.Threading.Tasks.Task<HttpResponseMessage> SendAsync(HttpRequestMessage
  request, System.Threading.CancellationToken cancellationToken)
         {
+            if (request.RequestUri.ToString().Contains("api/auth"))
+            {
+                return base.SendAsync(request, cancellationToken);
+            }
+
             IEnumerable<string> sampleApiKeyHeaderValues = null;
 
             if (request.Headers.TryGetValues("authToken", out sampleApiKeyHeaderValues))
@@ -35,21 +40,12 @@ namespace WorkIt_Server.Handlers
 
                     var accessToken = apiKeyHeaderValue[1];
 
-                    var realAccessToken = db.Users.FirstOrDefault(u => u.UserId == userId).AccessToken;
+                    var realAccessToken = "B6OQJPeOAkC0HMbV/F/XgQ==";//db.Users.FirstOrDefault(u => u.UserId == userId).AccessToken;
 
-                    if (realAccessToken.Equals(accessToken))
+                    if (realAccessToken == accessToken)
                     {
-                        var userNameClaim = new Claim(ClaimTypes.Name, accessToken);
-                        var identity = new ClaimsIdentity(new[] { userNameClaim }, "SampleAppApiKey");
-                        var principal = new ClaimsPrincipal(identity);
-                        Thread.CurrentPrincipal = principal;
-
-                        if (System.Web.HttpContext.Current != null)
-                        {
-                            System.Web.HttpContext.Current.User = principal;
-                        }
+                        return base.SendAsync(request, cancellationToken);
                     }
-
                     else
                     {
                         return requestCancel(request, cancellationToken, InvalidToken);
@@ -65,38 +61,22 @@ namespace WorkIt_Server.Handlers
             {
                 return requestCancel(request, cancellationToken, MissingToken);
             }
-
-            return base.SendAsync(request, cancellationToken);
         }
 
         private System.Threading.Tasks.Task<HttpResponseMessage> requestCancel(HttpRequestMessage
 request, System.Threading.CancellationToken cancellationToken, string message)
-
         {
-
             CancellationTokenSource _tokenSource = new CancellationTokenSource();
-
             cancellationToken = _tokenSource.Token;
-
             _tokenSource.Cancel();
-
             HttpResponseMessage response = new HttpResponseMessage();
-
-
-
             response = request.CreateResponse(HttpStatusCode.BadRequest);
-
             response.Content = new StringContent(message);
 
             return base.SendAsync(request, cancellationToken).ContinueWith(task =>
-
             {
-
                 return response;
-
             });
-
         }
-
     }
 }

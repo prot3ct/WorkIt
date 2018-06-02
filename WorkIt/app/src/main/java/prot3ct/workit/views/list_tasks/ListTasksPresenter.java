@@ -43,7 +43,9 @@ public class ListTasksPresenter implements ListTasksContract.Presenter {
 
                     @Override
                     public void onError(Throwable e) {
+                        e.printStackTrace();
                         view.notifyError("Error ocurred retrieving data.");
+                        Log.d("CEKO13", "asdasd");
                     }
 
                     @Override

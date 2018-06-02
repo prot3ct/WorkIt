@@ -24,6 +24,7 @@ public class UserData implements UserDataContract {
         private final ApiConstants apiConstants;
         private final GsonParser jsonParser;
         private final UserSession userSession;
+    private Map<String, String> headers;
 
         public UserData(Context context) {
             this.jsonParser = new GsonParser();
@@ -31,16 +32,23 @@ public class UserData implements UserDataContract {
             this.httpRequester = new OkHttpRequester();
             this.apiConstants = new ApiConstants();
             this.userSession = new UserSession(context);
+            headers = new HashMap<>();
+            headers.put("authToken", userSession.getId() + ":" + userSession.getAccessToken());
+            Log.d("CEKOO", userSession.getId()+"");
+            Log.d("CEKOO", userSession.getAccessToken()+"");
         }
 
     @Override
     public Observable<ProfileDetailsViewModel> getProfileDetails(int userId) {
         return httpRequester
-            .get(apiConstants.getProfileDetailsUrl(userId))
+            .get(apiConstants.getProfileDetailsUrl(userId), headers)
             .map(new Function<HttpResponseContract, ProfileDetailsViewModel>() {
                 @Override
                 public ProfileDetailsViewModel apply(HttpResponseContract iHttpResponse) throws Exception {
-                    if (iHttpResponse.getCode() == apiConstants.responseErrorCode()) {
+                    if (iHttpResponse.getCode() != 200) {
+                        Log.d("CELKOP", iHttpResponse.getMessage());
+                        Log.d("CELKOP", iHttpResponse.getBody());
+                        Log.d("CELKOP", headers.get("authToken"));
                         throw new Error(iHttpResponse.getMessage());
                     }
 
@@ -60,13 +68,11 @@ public class UserData implements UserDataContract {
 
 
         return httpRequester
-                .put(apiConstants.updateProfile(userSession.getId()), profileDetails)
+                .put(apiConstants.updateProfile(userSession.getId()), profileDetails, headers)
                 .map(new Function<HttpResponseContract, Boolean>() {
                     @Override
                     public Boolean apply(HttpResponseContract iHttpResponse) throws Exception {
                         if (iHttpResponse.getCode() == apiConstants.responseErrorCode()) {
-                            Log.d("CEKOO1", iHttpResponse.getBody());
-                            Log.d("CEKOO1", iHttpResponse.getMessage());
                             throw new Error(iHttpResponse.getMessage());
                         }
 
